@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, ... }:
 
 {
   console = {
@@ -6,9 +6,13 @@
     earlySetup = true;
   };
 
-  security.apparmor.enable = lib.mkDefault true;
+  security = {
+    apparmor.enable = true;
+    rtkit.enable = true;
+    sudo.execWheelOnly = true;
+  };
 
-  security.rtkit.enable = lib.mkDefault true;
+  services.irqbalance.enable = true;
 
   services.dbus = {
     enable = true;
