@@ -23,15 +23,6 @@ final: prev: {
     };
   };
 
-  # FIXME: https://github.com/veracrypt/VeraCrypt/issues/952
-  # FIXME: 1.26.7
-  veracrypt = prev.veracrypt.overrideAttrs (_: prev: {
-    installPhase = builtins.replaceStrings
-      [ "Exec=$out/bin/veracrypt" ]
-      [ "Exec=env WXSUPPRESS_SIZER_FLAGS_CHECK=1 $out/bin/veracrypt" ]
-      prev.installPhase;
-  });
-
   vimPlugins = prev.vimPlugins // {
     hlchunk-nvim = final.vimUtils.buildVimPlugin {
       pname = "hlchunk-nvim";
