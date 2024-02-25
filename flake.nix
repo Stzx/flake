@@ -24,13 +24,18 @@
       inputs.systems.follows = "systems";
     };
 
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flake-secrets = {
       url = "git+file:./../flake-secrets";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, disko, flake-secrets, ... }:
+  outputs = { self, nixpkgs, home-manager, flake-utils, disko, nix-ld, flake-secrets, ... }:
     let
       stateVersion = "24.05";
 
@@ -99,6 +104,7 @@
             specialArgs = { inherit (lib) my; inherit (osSecrets) secrets; };
             modules = [
               disko.nixosModules.disko
+              nix-ld.nixosModules.nix-ld
 
               ./nixos
               ./modules/nixos
