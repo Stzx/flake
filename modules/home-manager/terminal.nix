@@ -59,8 +59,6 @@ in
         extraConfig = ''
           font_family Iosevka Nerd Font Mono
 
-          background_opacity 0.8
-
           cursor_shape underline
 
           tab_bar_align center
