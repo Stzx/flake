@@ -29,6 +29,8 @@ in
 
   config = lib.mkMerge [
     {
+      hardware.firmware = with pkgs; [ linux-firmware ];
+
       hardware.opengl = {
         enable = true;
         driSupport = true;
@@ -38,6 +40,7 @@ in
         systemPackages = with pkgs; [
           vulkan-tools
 
+          clinfo
           opencl-info
 
           libva-utils
