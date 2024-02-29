@@ -25,8 +25,6 @@
 
         veracrypt
         keepassxc
-
-        prismlauncher
       ];
     }
   ];
