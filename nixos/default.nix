@@ -32,6 +32,7 @@
   i18n = {
     defaultLocale = "en_US.UTF-8";
     supportedLocales = [
+      "C.UTF-8/UTF-8"
       "en_US.UTF-8/UTF-8"
       "zh_CN.UTF-8/UTF-8"
     ];
@@ -70,7 +71,7 @@
       p7zip
       neofetch
     ];
-    shellAliases = lib.mkForce {
+    shellAliases = {
       npdc = "nix profile diff-closures --profile /nix/var/nix/profiles/system";
 
       rb = ''time sudo nixos-rebuild boot --flake "$_FLAKE?submodules=1#$(hostname)"'';

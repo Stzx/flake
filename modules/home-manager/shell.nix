@@ -22,7 +22,7 @@ in
         plugins = [ "colored-man-pages" "command-not-found" "sudo" "rust" ];
       };
       envExtra = ''
-        export ZSH_COMPDUMP="/tmp/.zcompdump-$USER"
+        ZSH_COMPDUMP="/tmp/.zcompdump-$USER"
       '';
       initExtra = nixos.environment.interactiveShellInit;
       shellAliases = nixos.environment.shellAliases // {

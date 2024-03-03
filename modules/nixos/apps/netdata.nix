@@ -40,6 +40,9 @@ in
         "plugin:proc" = {
           "/sys/devices/system/node" = "no";
         };
+        "plugin:proc:diskspace" = {
+          "exclude space metrics on paths" = "/dev/mapper/* /proc/* /sys/* /var/run/user/* /run/user/* /snap/* /var/lib/docker/*";
+        };
       };
     };
 
