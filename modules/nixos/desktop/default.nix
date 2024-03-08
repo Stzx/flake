@@ -13,8 +13,6 @@
 
         nerdfonts
 
-        sarasa-gothic
-
         material-icons
       ];
       fontconfig = {

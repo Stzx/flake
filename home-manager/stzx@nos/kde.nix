@@ -1,134 +1,193 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.want;
-
-  command = "${pkgs.plasma5Packages.kconfig}/bin/kwriteconfig5";
+  kwriteConfig = "${pkgs.kdePackages.kconfig}/bin/kwriteconfig6";
 
   directory = "${config.home.homeDirectory}/.config";
 
-  mkCli = rc: args: lib.concatLines (lib.forEach args (arg:
-    "${command} --file ${directory}/${rc} ${arg}"
-  ));
+  mkCli = rc: cliFnList: lib.concatLines (lib.forEach cliFnList (cliFn: cliFn "${directory}/${rc}"));
 
-  mkArgs = { groups, kv, onlyKey ? false }: lib.forEach kv (item:
+  # SET/LOCK: [ GROUPS ] [ [ KEY VALUE ] ... ]
+  # DEL: [ GROUPS ] [ KEYS ]
+  mkArgs = { groups, kv, del ? false, lock ? false }: lib.forEach kv (item:
+    assert !(del && lock);
     let
-      key = if onlyKey then item else builtins.elemAt item 0;
-      value = if onlyKey then "--delete" else builtins.elemAt item 1;
+      _groups = lib.concatMapStringsSep " " (group: "--group '${group}'") groups;
+      _value = if del then "--delete" else "'${builtins.elemAt item 1}'";
     in
-    "${lib.concatMapStringsSep " " (g: "--group '${g}'") groups} --key ${key} '${value}'"
+    if lock then
+      (
+        let
+          key = builtins.elemAt item 0;
+          keyMark = "#_${key}_#";
+        in
+        [
+          (f: "${kwriteConfig} --file ${f} ${_groups} --key '${key}' --delete")
+          (f: "${kwriteConfig} --file ${f} ${_groups} --key '${keyMark}' ${_value}")
+          (f: "${pkgs.gnused}/bin/sed -i 's/${keyMark}/${key}[$i]/g' ${f}")
+        ]
+      ) else
+      (
+        let key = if del then item else builtins.elemAt item 0;
+        in [
+          (f: "${kwriteConfig} --file ${f} ${_groups} --key '${key}' ${_value}")
+        ]
+      )
   );
 
   set = groups: kv: mkArgs { inherit groups kv; };
 
-  del = groups: kv: mkArgs { inherit groups kv; onlyKey = true; };
+  del = groups: kv: mkArgs { inherit groups kv; del = true; };
 
-  settings = {
+  lock = groups: kv: mkArgs { inherit groups kv; lock = true; };
 
-    "kded5rc" = [
-      (set [ "Module-freespacenotifier" ] [ [ "autoload" "false" ] ])
-      (set [ "Module-networkstatus" ] [ [ "autoload" "false" ] ])
-      (set [ "Module-plasma_accentcolor_service" ] [ [ "autoload" "false" ] ])
-      (set [ "Module-proxyscout" ] [ [ "autoload" "false" ] ])
-      (set [ "Module-colorcorrectlocationupdater" ] [ [ "autoload" "false" ] ])
-      (set [ "Module-kded_touchpad" ] [ [ "autoload" "false" ] ])
-      (set [ "Module-ksysguard" ] [ [ "autoload" "false" ] ])
-    ];
-
-    "kwinrc" = [
-      (set [ "Input" ] [ [ "TabletMode" "off" ] ])
-      (set [ "Plugins" ] [
-        [ "zoomEnabled" "false" ]
-        [ "blurEnabled" "false" ]
-        [ "overviewEnabled" "false" ]
-        [ "tileseditorEnabled" "false" ]
-      ])
-      (set [ "Desktops" ] [
-        [ "Number" "2" ]
-        [ "Name_1" "Tom" ]
-        [ "Name_2" "Jerry" ]
-      ])
-    ];
-
-    "kdeglobals" =
-      let
-        default = "Noto Sans,10,-1,5,50,0,0,0,0,0";
-        mono = "Noto Sans Mono,10,-1,5,50,0,0,0,0,0";
-      in
-      [
-        (set [ "General" ] [
-          [ "fixed" mono ]
-          [ "font" default ]
-          [ "menuFont" default ]
-          [ "smallestReadableFont" default ]
-          [ "toolBarFont" default ]
-        ])
-        (set [ "WM" ] [ [ "activeFont" default ] ])
+  settings =
+    {
+      "kded5rc" = [
+        (lock [ "Module-colorcorrectlocationupdater" ] [ [ "autoload" "false" ] ])
+        (lock [ "Module-freespacenotifier" ] [ [ "autoload" "false" ] ])
+        (lock [ "Module-kded_touchpad" ] [ [ "autoload" "false" ] ])
+        (lock [ "Module-plasma_accentcolor_service" ] [ [ "autoload" "false" ] ])
       ];
 
-    "kdeglobalsrc" = [
-      (set [ "General" ] [ [ "UseSystemBell" "true" ] ])
-    ] ++ (lib.optional cfg.kitty (set [ "General" ] [
-      [ "TerminalApplication" "kitty" ]
-      [ "TerminalApplicationService" "kitty.desktop" ]
-    ])) ++ (lib.optional cfg.alacritty (set [ "General" ] [
-      [ "TerminalApplication" "alacritty" ]
-      [ "TerminalApplicationService" "Alacritty.desktop" ]
-    ]));
+      "kwinrc" = [
+        (set [ "Desktops" ] [
+          [ "Number" "2" ]
+          [ "Name_1" "Tom" ]
+          [ "Name_2" "Jerry" ]
+        ])
+        (lock [ "TabBox" ] [
+          [ "ShowTabBox" "false" ]
+          [ "SwitchingMode" "1" ]
+        ])
+        (lock [ "Plugins" ] [
+          [ "slidebackEnabled" "true" ]
+          [ "zoomEnabled" "false" ]
+          [ "tileseditorEnabled" "false" ]
+        ])
+        (lock [ "Input" ] [ [ "TabletMode" "off" ] ])
+      ];
 
-    "systemsettingsrc" = [
-      (set [ "systemsettings_sidebar_mode" ] [ [ "HighlightNonDefaultSettings" "true" ] ])
-    ];
+      "kdeglobals" =
+        let
+          default = "Source Han Sans,10,-1,5,50,0,0,0,0,0";
+          mono = "Source Han Sans Mono,10,-1,5,50,0,0,0,0,0";
+        in
+        [
+          (lock [ "General" ] [
+            [ "fixed" mono ]
+            [ "font" default ]
+            [ "menuFont" default ]
+            [ "smallestReadableFont" default ]
+            [ "toolBarFont" default ]
+          ])
+          (set [ "WM" ] [ [ "activeFont" default ] ])
+        ];
 
-    "powermanagementprofilesrc" = [
-      (del [ "AC" "SuspendSession" ] [ "idleTime" "suspendThenHibernate" "suspendType" ])
-    ];
+      "powerdevilrc" = [
+        (lock [ "AC" "SuspendAndShutdown" ] [ [ "AutoSuspendAction" "0" ] ])
+      ];
 
-    "ksplashrc" = [
-      (set [ "KSplash" ] [
-        [ "Engine" "None" ]
-        [ "Theme" "None" ]
-      ])
-    ];
+      "ksplashrc" = [
+        (lock [ "KSplash" ] [
+          [ "Engine" "None" ]
+          [ "Theme" "None" ]
+        ])
+      ];
 
-    "kactivitymanagerd-pluginsrc" = [
-      (set [ "Plugin-org.kde.ActivityManager.Resources.Scoring" ] [ [ "what-to-remember" "1" ] ])
-    ];
+      "kwalletrc" = [
+        (lock [ "Wallet" ] [ [ "Enabled" "false" ] ])
+      ];
 
-    "kactivitymanagerdrc" = [
-      (set [ "Plugins" ] [ [ "org.kde.ActivityManager.ResourceScoringEnabled" "false" ] ])
-    ];
+      "kcminputrc" = [
+        (lock [ "Keyboard" ] [
+          [ "NumLock" "0" ]
+          [ "RepeatDelay" "500" ]
+        ])
+      ];
 
-    "kwalletrc" = [
-      (set [ "Wallet" ] [ [ "Enabled" "false" ] ])
-    ];
+      # Theme
+      "breezerc" = [
+        (lock [ "Common" ] [
+          [ "OutlineCloseButton" "true" ]
+        ])
+      ];
 
-    "kcminputrc" = [
-      (set [ "Keyboard" ] [ [ "NumLock" "0" ] ])
-    ];
+      # Search & Index
+      "baloofilerc" = [
+        (lock [ "General" ] [
+          [ "only basic indexing" "true" ]
+        ])
+      ];
 
-    "breezerc" = [
-      (set [ "Common" ] [
-        [ "ShadowSize" "ShadowSmall" ]
-        [ "ShadowStrength" "128" ]
-      ])
-      (set [ "Style" ] [ [ "MenuOpacity" "75" ] ])
-    ];
+      "krunnerrc" = [
+        (lock [ "Plugins" ] [
+          [ "helprunnerEnabled" "false" ]
+          [ "krunner_appstreamEnabled" "false" ]
+          [ "krunner_bookmarksrunnerEnabled" "false" ]
+          [ "krunner_dictionaryEnabled" "false" ]
+          [ "krunner_katesessionsEnabled" "false" ]
+          [ "krunner_killEnabled" "false" ]
+          [ "krunner_konsoleprofilesEnabled" "false" ]
+          [ "krunner_placesrunnerEnabled" "false" ]
+          [ "krunner_powerdevilEnabled" "false" ]
+          [ "krunner_recentdocumentsEnabled" "false" ]
+          [ "krunner_spellcheckEnabled" "false" ]
+          [ "krunner_webshortcutsEnabled" "false" ]
+          [ "locationsEnabled" "false" ]
+          [ "org.kde.datetimeEnabled" "false" ]
+        ])
+      ];
 
-    "dolphinrc" = [
-      (set [ "PlacesPanel" ] [ [ "IconSize" "32" ] ])
-      (set [ "DetailsMode" ] [ [ "IconSize" "32" ] ])
-      (set [ "PreviewSettings" ] [ [ "Plugins" "svgthumbnail" ] ])
-    ];
-  };
+      # Lockscreen
+      "kscreenlockerrc" =
+        let
+          wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/IceCold/";
+        in
+        [
+          (set [ "Greeter" "Wallpaper" "org.kde.image" "General" ] [
+            [ "Image" wallpaper ]
+            [ "PreviewImage" wallpaper ]
+          ])
+        ];
 
-  commands = (lib.concatLines (lib.mapAttrsToList
-    (rc: args: mkCli rc (lib.flatten args))
-    settings
-  ));
+      # History
+      "kactivitymanagerd-pluginsrc" = [
+        (lock [ "Plugin-org.kde.ActivityManager.Resources.Scoring" ] [
+          [ "keep-history-for" "1" ]
+          [ "what-to-remember" "2" ]
+        ])
+      ];
+
+      # Application
+      "systemsettingsrc" = [
+        (lock [ "systemsettings_sidebar_mode" ] [ [ "HighlightNonDefaultSettings" "true" ] ])
+      ];
+
+      "dolphinrc" = [
+        (lock [ "General" ] [
+          [ "ModifiedStartupSettings" "false" ]
+          [ "OpenExternallyCalledFolderInNewTab" "true" ]
+          [ "ShowFullPath" "true" ]
+          [ "SplitView" "true" ]
+        ])
+        (lock [ "PlacesPanel" ] [ [ "IconSize" "32" ] ])
+        (lock [ "KFileDialog Settings" ] [ [ "IconSize" "32" ] ])
+        (lock [ "PreviewSettings" ] [ [ "Plugins" "appimagethumbnail,windowsimagethumbnail,windowsexethumbnail,svgthumbnail,cursorthumbnail" ] ])
+      ];
+
+      "kservicemenurc" = [
+        (lock [ "Show" ] [
+          [ "makefileactions" "true" ]
+          [ "wallpaperfileitemaction" "true" ]
+        ])
+      ];
+    };
+
+  ked-init-commands = pkgs.writeShellScriptBin "kde-init" (lib.concatLines (lib.mapAttrsToList (rc: cliFnList: mkCli rc (lib.flatten cliFnList)) settings));
 in
 {
-  home.activation.kdeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] commands;
+  home.packages = [ ked-init-commands ];
 
   programs.zsh.shellAliases.kwin-dbg = "qdbus org.kde.KWin /KWin org.kde.KWin.showDebugConsole";
 }

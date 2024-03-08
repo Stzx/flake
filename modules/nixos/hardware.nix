@@ -41,8 +41,9 @@ in
           vulkan-tools
 
           clinfo
-          opencl-info
+          glxinfo
 
+          wayland-utils
           libva-utils
         ];
         sessionVariables = {
@@ -70,7 +71,7 @@ in
         clr.icd
       ]);
 
-      environment.systemPackages = [ pkgs.amdgpu_top ];
+      environment.systemPackages = with pkgs; [ amdgpu_top ];
 
       services.xserver.videoDrivers = [ "modesetting" ];
     })

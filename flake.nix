@@ -55,6 +55,7 @@
 
         lib = nixpkgs.lib.extend (final: _: rec {
           my = import ./lib { config = nixos; lib = final; pkgs = nixpkgs; };
+          hm = home-manager.lib.hm;
 
           inherit (my) mkDesktopCfg;
         });

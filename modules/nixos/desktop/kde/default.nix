@@ -12,12 +12,9 @@ in
 
   config = lib.mkIf cfg.kde {
     services = {
-      xserver = {
+      desktopManager.plasma6 = {
         enable = true;
-        desktopManager.plasma5 = {
-          enable = true;
-          useQtScaling = true;
-        };
+        enableQt5Integration = false;
       };
       greetd = {
         enable = true;
@@ -35,27 +32,70 @@ in
       };
     };
 
-    # FIXME: https://github.com/NixOS/nixpkgs/issues/248443
-    systemd.user.services.plasma-run-with-systemd.wantedBy = lib.mkForce [ "graphical-session-pre.target" ];
+    environment.systemPackages = with pkgs; [
+      fcitx5-material-color
 
-    environment.systemPackages = [ pkgs.helvum ];
+      helvum
+    ];
 
-    environment.plasma5.excludePackages = with pkgs.plasma5Packages; [
+    environment.plasma6.excludePackages = with pkgs.kdePackages; [
       plasma-browser-integration
       konsole
       elisa
       gwenview
+      okular
+      kate
       khelpcenter
       print-manager
     ];
 
     i18n.inputMethod = {
       enabled = "fcitx5";
-      fcitx5.addons = [ pkgs.fcitx5-chinese-addons ];
+      fcitx5 = {
+        plasma6Support = true;
+        addons = [ pkgs.kdePackages.fcitx5-chinese-addons ];
+        settings = {
+          inputMethod = {
+            "Groups/0" = {
+              "Name" = "Default";
+              "Default Layout" = "us";
+              "DefaultIM" = "shuangpin";
+            };
+            "Groups/0/Items/0" = {
+              "Name" = "keyboard-us";
+            };
+            "Groups/0/Items/1" = {
+              "Name" = "shuangpin";
+            };
+            "GroupOrder" = {
+              "0" = "Default";
+            };
+          };
+          addons = {
+            classicui.globalSection = {
+              "Vertical Candidate List" = "False";
+              "WheelForPaging" = "True";
+              "Font" = "Noto Sans 10";
+              "MenuFont" = "Noto Sans 10";
+              "TrayFont" = "Noto Sans Bold 10";
+              "TrayOutlineColor" = "#000000";
+              "TrayTextColor" = "#ffffff";
+              "PreferTextIcon" = "False";
+              "ShowLayoutNameInIcon" = "True";
+              "UseInputMethodLanguageToDisplayText" = "True";
+              "Theme" = "Material-Color-deepPurple";
+              "DarkTheme" = "Material-Color-deepPurple";
+              "UseDarkTheme" = "False";
+              "UseAccentColor" = "True";
+              "PerScreenDPI" = "False";
+              "ForceWaylandDPI" = "0";
+              "EnableFractionalScale" = "True";
+            };
+          };
+        };
+      };
     };
 
     xdg.portal.xdgOpenUsePortal = true;
-
-    programs.dconf.enable = true;
   };
 }

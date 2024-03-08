@@ -4,6 +4,8 @@ final: prev: {
       "Iosevka"
       "JetBrainsMono"
       "LiberationMono"
+      "Ubuntu"
+      "UbuntuMono"
     ];
   };
 
