@@ -74,13 +74,13 @@
     shellAliases = {
       npdc = "nix profile diff-closures --profile /nix/var/nix/profiles/system";
 
-      rb = ''time sudo nixos-rebuild boot --flake "$_FLAKE?submodules=1#$(hostname)"'';
+      rb = ''sudo nixos-rebuild boot --flake "$_FLAKE?submodules=1#$(hostname)"'';
 
-      rs = ''time sudo nixos-rebuild switch --flake "$_FLAKE?submodules=1#$(hostname)"'';
+      rs = ''sudo nixos-rebuild switch --flake "$_FLAKE?submodules=1#$(hostname)"'';
 
-      rh = ''time home-manager switch --flake "$_FLAKE?submodules=1#$USER@$(hostname)"'';
+      rh = ''home-manager switch --flake "$_FLAKE?submodules=1#$USER@$(hostname)" -v'';
 
-      ih = ''time nix run home-manager -- switch --flake "$_FLAKE?submodules=1#$USER@$(hostname)"'';
+      ih = ''nix run home-manager -- switch --flake "$_FLAKE?submodules=1#$USER@$(hostname)"'';
     };
   };
 
