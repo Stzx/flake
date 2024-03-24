@@ -5,7 +5,7 @@ let
     kernel = pkgs.linuxManualConfig {
       inherit (prev.kernel) src version modDirVersion;
 
-      configfile = ./.defconfig;
+      configfile = ./defconfig;
       allowImportFromDerivation = true;
     };
   });
