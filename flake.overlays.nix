@@ -3,7 +3,6 @@ final: prev: {
     fonts = [
       "Iosevka"
       "JetBrainsMono"
-      "LiberationMono"
       "Ubuntu"
       "UbuntuMono"
     ];

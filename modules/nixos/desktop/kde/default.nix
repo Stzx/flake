@@ -75,9 +75,9 @@ in
             classicui.globalSection = {
               "Vertical Candidate List" = "False";
               "WheelForPaging" = "True";
-              "Font" = "Noto Sans 10";
-              "MenuFont" = "Noto Sans 10";
-              "TrayFont" = "Noto Sans Bold 10";
+              "Font" = "Source Han Sans 10";
+              "MenuFont" = "Source Han Sans 10";
+              "TrayFont" = "Source Han Sans Bold 10";
               "TrayOutlineColor" = "#000000";
               "TrayTextColor" = "#ffffff";
               "PreferTextIcon" = "False";

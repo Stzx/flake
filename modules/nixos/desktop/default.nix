@@ -6,10 +6,9 @@
   config = lib.mkIf my.haveAnyDE {
     fonts = {
       packages = with pkgs; [
-        noto-fonts
-        noto-fonts-cjk-serif
-        noto-fonts-cjk-sans
-        noto-fonts-color-emoji
+        source-han-sans
+        source-han-serif
+        source-han-mono
 
         nerdfonts
 
@@ -20,30 +19,27 @@
         subpixel.rgba = "rgb";
         defaultFonts = lib.mkForce {
           serif = [
-            "Noto Serif"
-            "Noto Serif CJK SC"
-            "Noto Serif CJK TC"
-            "Noto Serif CJK JP"
-            "Noto Serif CJK KR"
+            "Source Han Serif"
+            "Source Han Serif SC"
+            "Source Han Serif TC"
+            "Source Han Serif HC"
+            "Source Han Serif K"
           ];
           sansSerif = [
-            "Noto Sans"
-            "Noto Sans CJK SC"
-            "Noto Sans CJK TC"
-            "Noto Sans CJK JP"
-            "Noto Sans CJK KR"
+            "Source Han Sans"
+            "Source Han Sans SC"
+            "Source Han Sans TC"
+            "Source Han Sans HC"
+            "Source Han Sans K"
           ];
           monospace = [
-            "Noto Sans Mono"
-            "Noto Sans Mono CJK SC"
-            "Noto Sans Mono CJK TC"
-            "Noto Sans Mono CJK JP"
-            "Noto Sans Mono CJK KR"
+            "Source Han Mono"
+            "Source Han Mono SC"
+            "Source Han Mono TC"
+            "Source Han Mono HC"
+            "Source Han Mono K"
           ];
-          emoji = [
-            "Noto Color Emoji"
-            "Material Icons"
-          ];
+          emoji = [ "Material Icons" ];
         };
       };
     };
