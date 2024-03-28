@@ -50,5 +50,8 @@ in
     systemd.services.netdata.serviceConfig.ExecStartPost = lib.mkForce (pkgs.writeShellScript "wait-for-netdata-up" ''
       while [ ! -e "$NETDATA_PIPENAME" ] || [ "$(${pkg}/bin/netdatacli ping)" != "pong" ]; do sleep 0.5; done
     '');
+
+    systemd.services.netdata.after = [ "systemd-user-sessions.service" ];
+    systemd.services.netdata.requires = [ "systemd-user-sessions.service" ];
   };
 }
