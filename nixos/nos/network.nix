@@ -13,6 +13,7 @@ in
 
   networking = {
     useDHCP = lib.mkForce false;
+    nameservers = gateway;
     nftables.enable = true;
     firewall.enable = true;
   };
@@ -25,12 +26,10 @@ in
 
         name = "en*";
         address = [ "192.168.254.253/24" ];
-        dns = gateway;
         ntp = gateway;
         networkConfig = {
           DHCP = "ipv6";
           IPv6AcceptRA = true;
-          DNSSEC = "allow-downgrade";
         };
         ipv6AcceptRAConfig = {
           UseDNS = false;
