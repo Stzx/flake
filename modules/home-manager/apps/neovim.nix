@@ -10,36 +10,38 @@ let
   };
 
   nvim-twp = pkgs.vimPlugins.nvim-treesitter.withPlugins (parser: with parser; [
+    awk
+    bash
     comment
     diff
+    kconfig
     regex
     udev
+    vim
     vimdoc
-    latex
 
-    nix
-    bash
-    nasm
+    asm
     c
-    rust
-    kotlin
-    lua
-    python
     css
+    dart
+    html
+    lua
+    nasm
+    nix
 
-    qmljs
-    qmldir
-
-    make
     cmake
-
     csv
+    dockerfile
     ini
-    xml
-    toml
-    yaml
     json
+    make
     markdown
+    ninja
+    properties
+    proto
+    toml
+    xml
+    yaml
   ]);
 in
 {
@@ -72,6 +74,7 @@ in
         o.tabstop = 4
         o.relativenumber = true
         o.termguicolors = true
+        o.colorcolumn = '80'
 
         o.swapfile = false
         o.backup = false
