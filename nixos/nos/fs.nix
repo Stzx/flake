@@ -51,7 +51,10 @@ in
     };
   };
 
-  zramSwap.enable = true;
+  zramSwap = {
+    enable = true;
+    algorithm = "lzo-rle";
+  };
 
   virtualisation.docker.storageDriver = "btrfs";
 }

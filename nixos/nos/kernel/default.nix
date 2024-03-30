@@ -2,12 +2,22 @@
 
 let
   linuxPackages_xanmod = pkgs.linuxPackages_xanmod.extend (_: prev: {
-    kernel = pkgs.linuxManualConfig {
+    kernel = (pkgs.linuxManualConfig {
       inherit (prev.kernel) src version modDirVersion;
 
-      configfile = ./defconfig;
+      # see https://github.com/NixOS/nixpkgs/issues/142901
+      stdenv = with pkgs; overrideCC clangStdenv (clangStdenv.cc.override {
+        inherit (llvmPackages) bintools;
+        # LTO: override bintools sharedLibraryLoader = null;
+      });
+      # LTO: extraMakeFlags = [ "LLVM=1" ];
+
+      configfile = ./def;
       allowImportFromDerivation = true;
-    };
+      extraMeta = prev.kernel.meta;
+    }).overrideAttrs (_: attrPrev: {
+      hardeningDisable = attrPrev.hardeningDisable ++ [ "strictoverflow" ];
+    });
   });
 in
 {
@@ -15,10 +25,10 @@ in
     kernelPackages = linuxPackages_xanmod;
     initrd = {
       includeDefaultModules = false;
+      availableKernelModules = lib.mkForce [ "sha256_generic" ];
       kernelModules = lib.mkForce [ "amdgpu" ];
     };
-    kernelParams = [ ];
-    kernelModules = lib.mkForce [ ];
+    kernelParams = [ "libahci.ignore_sss=1" ];
     supportedFilesystems = [ "f2fs" "xfs" "exfat" ];
   };
 

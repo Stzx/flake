@@ -3,7 +3,11 @@
 let
   inherit (pkgs) mkShell;
 
-  llvmShell = mkShell.override { inherit (pkgs.llvmPackages) stdenv; };
+  llvmShell = mkShell.override {
+    stdenv = with pkgs; overrideCC clangStdenv (clangStdenv.cc.override {
+      inherit (llvmPackages) bintools;
+    });
+  };
 
   nvimPackages = with pkgs; [
     nil
@@ -42,11 +46,25 @@ in
     ];
   };
 
-  kernel = mkShell {
+  kernel = llvmShell {
     packages = with pkgs; [ flex bison ];
 
     nativeBuildInputs = with pkgs; [ pkg-config ];
 
     buildInputs = with pkgs; [ ncurses ];
+
+    shellHook = ''
+      _arch="$(uname --machine)"
+
+      echo
+
+      export LLVM=1 && \
+      export ARCH=$_arch && \
+      git fetch origin tag "$(uname --kernel-release)" --depth=1 && \
+      git checkout "tags/$(uname --kernel-release)" && \
+      make helpnewconfig | less -F
+
+      echo
+    '';
   };
 }
