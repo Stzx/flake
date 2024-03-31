@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   nix = {
@@ -71,17 +71,25 @@
       p7zip
       neofetch
     ];
-    shellAliases = {
-      npdc = "nix profile diff-closures --profile /nix/var/nix/profiles/system";
+    shellAliases =
+      let
+        _flake = name: "--flake \"$_FLAKE?submodules=1#${name}\"";
 
-      rb = ''sudo nixos-rebuild boot --flake "$_FLAKE?submodules=1#$(hostname)"'';
+        flake = _flake config.networking.hostName;
 
-      rs = ''sudo nixos-rebuild switch --flake "$_FLAKE?submodules=1#$(hostname)"'';
+        userFlake = _flake "$USER@${config.networking.hostName}";
+      in
+      {
+        npdc = "nix profile diff-closures --profile /nix/var/nix/profiles/system";
 
-      rh = ''home-manager switch --flake "$_FLAKE?submodules=1#$USER@$(hostname)" -v'';
+        rb = "sudo nixos-rebuild boot ${flake} -v";
 
-      ih = ''nix run home-manager -- switch --flake "$_FLAKE?submodules=1#$USER@$(hostname)"'';
-    };
+        rs = "sudo nixos-rebuild switch ${flake} -v";
+
+        rh = "home-manager switch ${userFlake} -v";
+
+        ih = "nix run home-manager -- switch ${userFlake}";
+      };
   };
 
   environment.etc."gai.conf".text = ''
