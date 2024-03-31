@@ -5,7 +5,7 @@
 
   config = lib.mkIf my.haveAnyDE {
     fonts = {
-      packages = with pkgs; [
+      packages = lib.mkForce (with pkgs; [
         source-han-sans
         source-han-serif
         source-han-mono
@@ -13,7 +13,7 @@
         nerdfonts
 
         material-icons
-      ];
+      ]);
       fontconfig = {
         enable = true;
         subpixel.rgba = "rgb";
