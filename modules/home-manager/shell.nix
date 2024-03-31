@@ -15,7 +15,7 @@ in
   config = lib.mkIf cfg.zsh {
     programs.zsh = {
       enable = true;
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       oh-my-zsh = {
         enable = true;
         theme = "simonoff";
