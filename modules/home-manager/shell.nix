@@ -13,13 +13,25 @@ in
   };
 
   config = lib.mkIf cfg.zsh {
+    programs.direnv.enableZshIntegration = true;
+
     programs.zsh = {
       enable = true;
       autosuggestion.enable = true;
       oh-my-zsh = {
         enable = true;
         theme = "simonoff";
-        plugins = [ "colored-man-pages" "command-not-found" "sudo" "rust" ];
+        plugins = [
+          "zsh-navigation-tools"
+          "colored-man-pages"
+          "command-not-found"
+          "sudo"
+          "cp"
+          "git"
+          "git-flow"
+          "rust"
+          "flutter"
+        ];
       };
       envExtra = ''
         ZSH_COMPDUMP="/tmp/.zcompdump-$USER"
