@@ -32,11 +32,7 @@ in
       };
     };
 
-    environment.systemPackages = with pkgs; [
-      fcitx5-material-color
-
-      helvum
-    ];
+    environment.systemPackages = with pkgs; [ fcitx5-material-color ];
 
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
       plasma-browser-integration

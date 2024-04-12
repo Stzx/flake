@@ -1,16 +1,5 @@
 {
-  nix.daemonCPUSchedPolicy = "idle";
-
-  services.pipewire.extraConfig.pipewire = {
-    "hw" = {
-      "context.properties" = {
-        "default.clock.rate" = 48000;
-        "default.clock.allowed-rates" = [ 44100 48000 96000 ];
-      };
-    };
-  };
-
-  # for steam
+  # for game
   services.flatpak.enable = true;
 
   services.boinc.enable = true;

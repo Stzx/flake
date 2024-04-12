@@ -5,6 +5,7 @@
     ./kernel
 
     ./fs.nix
+    ./audio.nix
     ./network.nix
     ./misc.nix
   ];
