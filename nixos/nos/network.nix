@@ -13,9 +13,10 @@ in
 
   networking = {
     useDHCP = lib.mkForce false;
-    nameservers = gateway;
     nftables.enable = true;
     firewall.enable = true;
+    nameservers = gateway;
+    timeServers = gateway;
   };
 
   systemd.network = {
@@ -36,9 +37,11 @@ in
         };
       };
     };
+    wait-online = {
+      anyInterface = true;
+      extraArgs = [ "-4" ];
+    };
   };
-
-  networking.timeServers = gateway;
 
   services = {
     resolved.enable = true;
