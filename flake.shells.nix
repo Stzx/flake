@@ -3,6 +3,7 @@
 let
   inherit (pkgs) mkShell;
 
+  # FIXME: https://github.com/NixOS/nixpkgs/issues/49894
   llvmShell = mkShell.override {
     stdenv = with pkgs; overrideCC clangStdenv (clangStdenv.cc.override {
       inherit (llvmPackages) bintools;

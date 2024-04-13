@@ -5,6 +5,7 @@ let
     kernel = (pkgs.linuxManualConfig {
       inherit (prev.kernel) src version modDirVersion;
 
+      # FIXME: https://github.com/NixOS/nixpkgs/issues/49894
       # see https://github.com/NixOS/nixpkgs/issues/142901
       stdenv = with pkgs; overrideCC clangStdenv (clangStdenv.cc.override {
         inherit (llvmPackages) bintools;
