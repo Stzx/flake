@@ -8,11 +8,6 @@ final: prev: {
     ];
   };
 
-  netdata = prev.netdata.override {
-    withIpmi = false;
-    withSsl = false;
-  };
-
   jetbrains = prev.jetbrains // {
     idea-community = prev.jetbrains.idea-community.override {
       vmopts = ''

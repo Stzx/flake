@@ -14,7 +14,6 @@
     cpu.amd = true;
     gpu.amd = true;
     desktop.kde = true;
-    netdata = true;
   };
 
   users.extraUsers = {
