@@ -44,7 +44,7 @@ in
   };
 
   services = {
-    resolved.enable = true;
     timesyncd.enable = true;
+    resolved.enable = lib.mkForce false;
   };
 }
