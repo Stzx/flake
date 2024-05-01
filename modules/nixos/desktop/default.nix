@@ -19,25 +19,25 @@
         subpixel.rgba = "rgb";
         defaultFonts = lib.mkForce {
           serif = [
-            "Source Han Serif"
             "Source Han Serif SC"
-            "Source Han Serif TC"
             "Source Han Serif HC"
+            "Source Han Serif TC"
             "Source Han Serif K"
+            "Source Han Serif"
           ];
           sansSerif = [
-            "Source Han Sans"
             "Source Han Sans SC"
-            "Source Han Sans TC"
             "Source Han Sans HC"
+            "Source Han Sans TC"
             "Source Han Sans K"
+            "Source Han Sans"
           ];
           monospace = [
-            "Source Han Mono"
             "Source Han Mono SC"
-            "Source Han Mono TC"
             "Source Han Mono HC"
+            "Source Han Mono TC"
             "Source Han Mono K"
+            "Source Han Mono"
           ];
           emoji = [ "Material Icons" ];
         };

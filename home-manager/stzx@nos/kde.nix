@@ -70,8 +70,8 @@ let
 
       "kdeglobals" =
         let
-          default = "Source Han Sans,10,-1,5,50,0,0,0,0,0";
-          mono = "Source Han Sans Mono,10,-1,5,50,0,0,0,0,0";
+          default = "Source Han Sans SC,10,-1,5,50,0,0,0,0,0";
+          mono = "Source Han Sans Mono SC,10,-1,5,50,0,0,0,0,0";
         in
         [
           (lock [ "General" ] [
@@ -81,7 +81,7 @@ let
             [ "smallestReadableFont" default ]
             [ "toolBarFont" default ]
           ])
-          (set [ "WM" ] [ [ "activeFont" default ] ])
+          (lock [ "WM" ] [ [ "activeFont" default ] ])
         ];
 
       "powerdevilrc" = [
