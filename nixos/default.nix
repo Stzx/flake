@@ -93,7 +93,7 @@
     precedence ::ffff:0:0/96 100
   '';
 
-  programs.nix-ld.dev.enable = true;
+  programs.nix-ld.enable = true;
 
   programs.git.enable = true;
 
