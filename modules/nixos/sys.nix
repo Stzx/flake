@@ -3,10 +3,7 @@
 }:
 
 {
-  console = {
-    font = "LatGrkCyr-8x16";
-    earlySetup = true;
-  };
+  console.font = "LatGrkCyr-8x16";
 
   security = {
     apparmor.enable = true;
