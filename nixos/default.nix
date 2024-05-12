@@ -2,10 +2,7 @@
 
 {
   nix = {
-    settings.substituters = [
-      "https://mirrors.ustc.edu.cn/nix-channels/store"
-      "https://mirror.sjtu.edu.cn/nix-channels/store"
-    ];
+    settings.substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" ];
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
