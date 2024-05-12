@@ -42,7 +42,11 @@
           allowAliases = false;
           allowUnfree = true;
         };
-        overlays = [ self.overlays.default ];
+        overlays = [
+          flake-secrets.overlays.default
+
+          self.overlays.default
+        ];
       };
 
       mkLib = hostName: rec {
