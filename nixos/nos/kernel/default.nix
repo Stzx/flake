@@ -29,10 +29,9 @@ in
     kernelPackages = linuxPackages_xanmod;
     initrd = {
       includeDefaultModules = false;
-      availableKernelModules = lib.mkForce [ "sha256_generic" ];
-      kernelModules = lib.mkForce [ "amdgpu" ];
+      availableKernelModules = lib.mkForce [ "amdgpu" ];
     };
-    kernelParams = [ "libahci.ignore_sss=1" ];
+    kernelParams = [ "libahci.ignore_sss=1" "fsck.mode=skip" ];
     supportedFilesystems = [ "f2fs" "xfs" "exfat" ];
   };
 
