@@ -14,8 +14,6 @@
     sudo.execWheelOnly = true;
   };
 
-  services.irqbalance.enable = true;
-
   services.dbus = {
     enable = true;
     apparmor = if config.security.apparmor.enable then "enabled" else "disabled";
