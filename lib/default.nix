@@ -1,4 +1,7 @@
-{ config, lib, pkgs }:
+{ pkgs
+, lib
+, config
+}:
 
 let
   utils = import "${pkgs}/nixos/lib/utils.nix" { inherit config lib pkgs; };
@@ -14,5 +17,5 @@ in
 
   inherit (fs) byUUID nvmeEui fstab timeOptions btrfsOptions f2fsOptions btrfsMountUnit f2fsMountUnit;
 
-  inherit (desktop) haveAnyDE isKDE mkDesktopCfg;
+  inherit (desktop) isKDE haveAnyDE attrNeedDE listNeedDE desktopAssert;
 }

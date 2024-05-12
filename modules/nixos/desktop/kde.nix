@@ -1,4 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ pkgs
+, lib
+, config
+, ...
+}:
 
 let
   cfg = config.features.desktop;
@@ -7,7 +11,6 @@ in
   options.features.desktop.kde = lib.mkOption {
     type = lib.types.bool;
     default = false;
-    description = "Install KDE Plasma 5 desktop environment";
   };
 
   config = lib.mkIf cfg.kde {
@@ -32,7 +35,7 @@ in
       };
     };
 
-    environment.systemPackages = with pkgs; [ fcitx5-material-color ];
+    environment.systemPackages = [ pkgs.fcitx5-material-color ];
 
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
       plasma-browser-integration
@@ -44,6 +47,8 @@ in
       khelpcenter
       print-manager
     ];
+
+    xdg.portal.xdgOpenUsePortal = true;
 
     i18n.inputMethod = {
       enabled = "fcitx5";
@@ -91,7 +96,5 @@ in
         };
       };
     };
-
-    xdg.portal.xdgOpenUsePortal = true;
   };
 }

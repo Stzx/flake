@@ -1,4 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ pkgs
+, lib
+, config
+, ...
+}:
 
 {
   nix = {
@@ -83,6 +87,8 @@
         rh = "home-manager switch ${userFlake} -v";
 
         ih = "nix run home-manager -- switch ${userFlake}";
+
+        less = "less -S";
       };
   };
 

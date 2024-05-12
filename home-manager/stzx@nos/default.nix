@@ -1,13 +1,15 @@
-{ lib, pkgs, ... }:
+{ pkgs
+, lib
+, ...
+}:
 
 {
   imports = [
-    ./misc.nix
+    ./user.nix
     ../.
   ] ++ lib.optionals lib.my.isKDE [
     ./kde.nix
-  ] ++ lib.optionals lib.my.haveAnyDE [
-    ./gtk.nix
+  ] ++ lib.listNeedDE [
     {
       home.packages = with pkgs; [
         calibre
@@ -26,10 +28,23 @@
         veracrypt
         keepassxc
       ];
+
+      programs = {
+        firefox.enable = true;
+        vscode.enable = true;
+      };
+
+      dconf.settings = {
+        "org/gnome/desktop/privacy" = {
+          remember-recent-files = false;
+        };
+      };
     }
   ];
 
-  want = {
+  programs = {
+    ssh.enable = true;
+
     adb = true;
     net-tools = true;
   };

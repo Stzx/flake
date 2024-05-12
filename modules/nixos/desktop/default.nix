@@ -1,9 +1,12 @@
-{ lib, pkgs, my, ... }:
+{ pkgs
+, lib
+, ...
+}:
 
 {
-  imports = [ ./kde ];
+  imports = [ ./kde.nix ];
 
-  config = lib.mkIf my.haveAnyDE {
+  config = lib.mkMerge [{
     fonts = {
       packages = lib.mkForce (with pkgs; [
         source-han-sans
@@ -43,5 +46,5 @@
         };
       };
     };
-  };
+  }];
 }

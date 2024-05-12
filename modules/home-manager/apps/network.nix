@@ -1,21 +1,27 @@
-{ config, lib, pkgs, ... }:
+{ pkgs
+, lib
+, config
+, ...
+}:
 
 {
-  options.want.net-tools = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    description = "Install NetTools";
+  options.programs = {
+    net-tools = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
   };
 
-  config = lib.mkIf config.want.net-tools {
-    home.packages = with pkgs; [
+  config = lib.mkIf config.programs.net-tools {
+    home.packages = with pkgs; ([
       nmap
+    ] ++ lib.listNeedDE [
       wireshark
-    ];
+    ]);
 
-    programs.zsh.shellAliases = {
-      nmap-geo = "sudo nmap -n -sn -Pn --traceroute --script traceroute-geolocation";
-      nmap-kml = "sudo nmap -n -sn -Pn --traceroute --script traceroute-geolocation --script-args traceroute-geolocation.kmlfile=/tmp/geo.kml";
+    programs.zsh.shellAliases = rec {
+      nm-geo = "sudo nmap -n -sn -Pn --traceroute --script traceroute-geolocation";
+      nm-kml = "${nm-geo} --script-args traceroute-geolocation.kmlfile=/tmp/geo.kml";
     };
   };
 }

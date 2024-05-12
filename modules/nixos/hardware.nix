@@ -1,35 +1,38 @@
-{ config, lib, pkgs, ... }:
+{ pkgs
+, lib
+, config
+, ...
+}:
 
 let
   cfg = config.features;
+
+  cpuCfg = cfg.cpu;
+  gpuCfg = cfg.gpu;
 in
 {
   options.features = {
     cpu.amd = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "AMD CPU support";
     };
     cpu.intel = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Intel CPU support";
     };
     gpu.amd = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "AMD GPU support";
     };
     gpu.nvidia = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "NVIDIA GPU support";
     };
   };
 
   config = lib.mkMerge [
     {
-      hardware.firmware = with pkgs; [ linux-firmware ];
+      hardware.firmware = [ pkgs.linux-firmware ];
 
       hardware.opengl = {
         enable = true;
@@ -43,8 +46,8 @@ in
           clinfo
           glxinfo
 
-          wayland-utils
           libva-utils
+          wayland-utils
         ];
         sessionVariables = {
           NIXOS_OZONE_WL = "1";
@@ -56,27 +59,27 @@ in
       };
     }
 
-    (lib.mkIf cfg.cpu.amd {
+    (lib.mkIf cpuCfg.amd {
       hardware.cpu.amd = {
         updateMicrocode = true;
         sev.enable = true;
       };
     })
 
-    (lib.mkIf cfg.gpu.amd {
-      hardware.opengl.extraPackages = with pkgs; [
-        amdvlk
+    (lib.mkIf gpuCfg.amd {
+      hardware.opengl.extraPackages = [
+        pkgs.amdvlk
       ] ++ (with pkgs.rocmPackages; [
         clr
         clr.icd
       ]);
 
-      environment.systemPackages = with pkgs; [ amdgpu_top ];
+      environment.systemPackages = [ pkgs.amdgpu_top ];
 
       services.xserver.videoDrivers = [ "modesetting" ];
     })
 
-    (lib.mkIf cfg.gpu.nvidia {
+    (lib.mkIf gpuCfg.nvidia {
       hardware.nvidia = {
         package = config.boot.kernelPackages.nvidiaPackages.production;
         nvidiaSettings = false;

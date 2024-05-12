@@ -52,7 +52,7 @@
           my = import ./lib { config = nixos; lib = final; pkgs = nixpkgs; };
           hm = home-manager.lib.hm;
 
-          inherit (my) mkDesktopCfg;
+          inherit (my) attrNeedDE listNeedDE;
         });
       };
 
@@ -97,7 +97,7 @@
         in
         {
           "${hostName}" = lib.nixosSystem {
-            specialArgs = { inherit (lib) my; inherit (osSecrets) secrets; };
+            specialArgs = { inherit (osSecrets) secrets; };
             modules = [
               disko.nixosModules.disko
 

@@ -1,4 +1,5 @@
-{ lib }:
+{ lib
+}:
 
 let
   args = with lib.kernel; {

@@ -1,12 +1,8 @@
-{ pkgs, ... }:
+{ pkgs
+, ...
+}:
 
 {
-  home.packages = with pkgs; [
-    croc
-
-    jetbrains.idea-community
-  ];
-
   programs.git.extraConfig = {
     init = {
       defaultBranch = "main";

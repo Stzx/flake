@@ -1,20 +1,20 @@
-{ config, lib }:
+{ lib
+, config
+}:
 
 rec {
-  haveAnyDE = isKDE;
-
   isKDE = config.features.desktop.kde;
 
-  mkDesktopAssert = {
-    assertions = [
-      {
-        assertion = haveAnyDE;
-        message = "Dstkop environment is not enabled";
-      }
-    ];
+  haveAnyDE = isKDE;
+
+  attrNeedDE = attr: if haveAnyDE then attr else { };
+
+  listNeedDE = list: if haveAnyDE then list else [ ];
+
+  mkIfAnyDE = attr: lib.mkIf haveAnyDE attr;
+
+  desktopAssert = {
+    assertion = haveAnyDE;
+    message = "Desktop environment is not enabled";
   };
-
-  mkDesktopMerge = configs: lib.mkMerge ([ (mkDesktopAssert) ] ++ configs);
-
-  mkDesktopCfg = cond: configs: lib.mkIf cond (mkDesktopMerge configs);
 }

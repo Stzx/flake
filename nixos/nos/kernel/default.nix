@@ -1,4 +1,7 @@
-{ lib, pkgs, ... }:
+{ pkgs
+, lib
+, ...
+}:
 
 let
   linuxPackages_xanmod = pkgs.linuxPackages_xanmod.extend (_: prev: {

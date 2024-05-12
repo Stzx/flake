@@ -1,25 +1,31 @@
-{ config, lib, pkgs, ... }:
+{ pkgs
+, lib
+, config
+, ...
+}:
 
 let
-  cfg = config.want;
+  cfg = config.programs;
 
-  tools = [ ]
-    ++ lib.optional cfg.adb pkgs.android-tools
-    ++ lib.optional cfg.scrcpy pkgs.scrcpy;
+  any = cfg.adb || cfg.scrcpy;
 in
 {
-  options.want = {
+  options.programs = {
     adb = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Install ADB";
     };
     scrcpy = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Install Scrcpy";
     };
   };
 
-  config = lib.mkIf (tools != [ ]) { home.packages = tools; };
+  config = lib.mkIf any {
+    programs.zsh.oh-my-zsh.plugins = [ "adb" ];
+
+    home.packages = [ ]
+      ++ lib.optional any pkgs.android-tools
+      ++ lib.optional cfg.scrcpy pkgs.scrcpy;
+  };
 }
