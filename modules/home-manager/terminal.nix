@@ -39,7 +39,7 @@ lib.mkMerge [
     programs.kitty = {
       theme = "Monokai";
       extraConfig = ''
-        font_family Iosevka Nerd Font Mono
+        font_family IosevkaTermSlab Nerd Font Mono
 
         cursor_shape underline
 

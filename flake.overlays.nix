@@ -1,10 +1,8 @@
 final: prev: {
   nerdfonts = prev.nerdfonts.override {
     fonts = [
-      "Iosevka"
-      "JetBrainsMono"
-      "Ubuntu"
-      "UbuntuMono"
+      "IosevkaTerm"
+      "IosevkaTermSlab"
     ];
   };
 

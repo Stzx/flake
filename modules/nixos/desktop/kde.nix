@@ -18,6 +18,7 @@ in
       desktopManager.plasma6 = {
         enable = true;
         enableQt5Integration = false;
+        notoPackage = pkgs.emptyDirectory;
       };
       greetd = {
         enable = true;

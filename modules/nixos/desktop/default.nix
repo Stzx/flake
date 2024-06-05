@@ -8,15 +8,15 @@
 
   config = lib.mkMerge [{
     fonts = {
-      packages = lib.mkForce (with pkgs; [
+      packages = with pkgs; [
+        nerdfonts
+
         source-han-sans
         source-han-serif
         source-han-mono
 
-        nerdfonts
-
-        material-icons
-      ]);
+        noto-fonts-color-emoji
+      ];
       fontconfig = {
         enable = true;
         subpixel.rgba = "rgb";
@@ -42,7 +42,9 @@
             "Source Han Mono K"
             "Source Han Mono"
           ];
-          emoji = [ "Material Icons" ];
+          emoji = [
+            "Noto Color Emoji"
+          ];
         };
       };
     };
