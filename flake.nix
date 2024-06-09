@@ -57,16 +57,22 @@
         ];
       };
 
-      mkLib = hostName: rec {
-        nixos = self.nixosConfigurations.${hostName}.config;
+      mkLib = hostName:
+        let
+          nixos = self.nixosConfigurations.${hostName}.config;
 
-        lib = nixpkgs.lib.extend (final: _: rec {
-          my = import ./lib { config = nixos; lib = final; pkgs = nixpkgs; };
-          hm = home-manager.lib.hm;
+          pkgs = nixos.nixpkgs;
+        in
+        rec {
+          inherit nixos;
 
-          inherit (my) attrNeedDE listNeedDE;
-        });
-      };
+          lib = nixpkgs.lib.extend (final: _: rec {
+            my = import ./lib { inherit pkgs; lib = final; config = nixos; };
+            hm = home-manager.lib.hm;
+
+            inherit (my) attrNeedDE listNeedDE;
+          });
+        };
 
       mkHomeManager = username: hostName:
         let
@@ -79,26 +85,31 @@
           hmSecrets = flake-secrets.lib.hmModule username hostName;
         in
         {
-          "${mark}" = home-manager.lib.homeManagerConfiguration {
-            inherit (nixos.nixpkgs) pkgs;
-            inherit lib;
+          "${mark}" = home-manager.lib.homeManagerConfiguration
+            {
+              inherit (nixos.nixpkgs) pkgs;
+              inherit lib;
 
-            extraSpecialArgs = { inherit (hmSecrets) secrets; inherit nixos; dotsPath = ./dots; };
-            modules = [
-              ./home-manager
-              ./modules/home-manager
+              extraSpecialArgs = {
+                inherit (hmSecrets) secrets;
+                inherit nixos;
+                dotsPath = ./dots;
+              };
+              modules = [
+                ./home-manager
+                ./modules/home-manager
 
-              {
-                home = {
-                  inherit stateVersion username;
+                {
+                  home = {
+                    inherit stateVersion username;
 
-                  homeDirectory = "/home/${username}";
-                };
-              }
-            ]
-            ++ lib.optional (builtins.pathExists user) user
-            ++ lib.optional (hmSecrets ? module) hmSecrets.module;
-          };
+                    homeDirectory = "/home/${username}";
+                  };
+                }
+              ]
+              ++ lib.optional (builtins.pathExists user) user
+              ++ lib.optional (hmSecrets ? module) hmSecrets.module;
+            };
         };
 
       mkSystem = system: hostName:
@@ -109,6 +120,8 @@
         in
         {
           "${hostName}" = lib.nixosSystem {
+            inherit lib;
+
             specialArgs = { inherit (osSecrets) secrets; };
             modules = [
               args.disko.nixosModules.disko
@@ -119,7 +132,7 @@
               (./. + "/nixos/${hostName}")
 
               {
-                nixpkgs = { pkgs = (mkPkgs system); };
+                nixpkgs = { pkgs = mkPkgs system; };
 
                 system = { inherit stateVersion; };
 

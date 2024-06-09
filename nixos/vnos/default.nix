@@ -1,7 +1,11 @@
-{ config, my, pkgs, ... }:
+{ pkgs
+, lib
+, config
+, ...
+}:
 
 let
-  inherit (my) btrfsOptions;
+  inherit (lib.my) btrfsOptions;
 in
 {
   features = {

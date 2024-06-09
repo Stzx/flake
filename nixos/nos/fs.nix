@@ -1,7 +1,11 @@
-{ config, my, secrets, ... }:
+{ lib
+, config
+, secrets
+, ...
+}:
 
 let
-  inherit (my) nvmeEui btrfsOptions;
+  inherit (lib.my) nvmeEui btrfsOptions;
 
   nvme = "${nvmeEui secrets.origin-eui}";
 in
