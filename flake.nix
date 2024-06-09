@@ -28,9 +28,17 @@
       url = "git+file:./../flake-secrets";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.3.0";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, disko, flake-secrets, ... }:
+  outputs = { self, nixpkgs, home-manager, flake-utils, flake-secrets, ... }@args:
     let
       stateVersion = "24.05";
 
@@ -103,7 +111,8 @@
           "${hostName}" = lib.nixosSystem {
             specialArgs = { inherit (osSecrets) secrets; };
             modules = [
-              disko.nixosModules.disko
+              args.disko.nixosModules.disko
+              args.lanzaboote.nixosModules.lanzaboote
 
               ./nixos
               ./modules/nixos

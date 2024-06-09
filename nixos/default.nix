@@ -22,10 +22,7 @@
     loader = {
       timeout = 1;
       efi.canTouchEfiVariables = true;
-      systemd-boot = {
-        enable = true;
-        consoleMode = "max";
-      };
+      systemd-boot.consoleMode = "max";
     };
     tmp.useTmpfs = true;
   };

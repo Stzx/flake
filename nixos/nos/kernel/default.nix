@@ -25,6 +25,10 @@ let
   });
 in
 {
+  environment.systemPackages = [
+    pkgs.sbctl
+  ];
+
   boot = {
     kernelPackages = linuxPackages_xanmod;
     initrd = {
@@ -33,6 +37,11 @@ in
     };
     kernelParams = [ "libahci.ignore_sss=1" "fsck.mode=skip" ];
     supportedFilesystems = [ "f2fs" "xfs" "exfat" ];
+    loader.systemd-boot.enable = lib.mkForce false;
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/etc/secureboot";
+    };
   };
 
   services.udev.extraRules = ''
