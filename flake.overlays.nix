@@ -1,9 +1,6 @@
 final: prev: {
   nerdfonts = prev.nerdfonts.override {
-    fonts = [
-      "IosevkaTerm"
-      "IosevkaTermSlab"
-    ];
+    fonts = [ "IosevkaTermSlab" ];
   };
 
   jetbrains = prev.jetbrains // {

@@ -9,11 +9,13 @@
   config = lib.mkMerge [{
     fonts = {
       packages = with pkgs; [
-        nerdfonts
-
-        source-han-sans
         source-han-serif
-        source-han-mono
+        # source-han-sans
+        # source-han-mono
+
+        sarasa-gothic
+
+        nerdfonts
 
         noto-fonts-color-emoji
       ];
@@ -23,24 +25,24 @@
         defaultFonts = lib.mkForce {
           serif = [
             "Source Han Serif SC"
-            "Source Han Serif HC"
             "Source Han Serif TC"
+            "Source Han Serif HC"
             "Source Han Serif K"
             "Source Han Serif"
           ];
           sansSerif = [
-            "Source Han Sans SC"
-            "Source Han Sans HC"
-            "Source Han Sans TC"
-            "Source Han Sans K"
-            "Source Han Sans"
+            "Sarasa UI SC"
+            "Sarasa UI TC"
+            "Sarasa UI HC"
+            "Sarasa UI J"
+            "Sarasa UI K"
           ];
           monospace = [
-            "Source Han Mono SC"
-            "Source Han Mono HC"
-            "Source Han Mono TC"
-            "Source Han Mono K"
-            "Source Han Mono"
+            "Sarasa Mono SC"
+            "Sarasa Mono TC"
+            "Sarasa Mono HC"
+            "Sarasa Mono J"
+            "Sarasa Mono K"
           ];
           emoji = [
             "Noto Color Emoji"

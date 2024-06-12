@@ -74,8 +74,8 @@ let
 
       "kdeglobals" =
         let
-          default = "Source Han Sans SC,10,-1,5,50,0,0,0,0,0";
-          mono = "Source Han Sans Mono SC,10,-1,5,50,0,0,0,0,0";
+          default = "Sarasa UI SC,10,-1,5,50,0,0,0,0,0";
+          mono = "Sarasa Mono SC,10,-1,5,50,0,0,0,0,0";
         in
         [
           (lock [ "General" ] [
