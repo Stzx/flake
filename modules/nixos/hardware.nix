@@ -34,10 +34,7 @@ in
     {
       hardware.firmware = [ pkgs.linux-firmware ];
 
-      hardware.opengl = {
-        enable = true;
-        driSupport = true;
-      };
+      hardware.graphics.enable = true;
 
       environment = {
         systemPackages = with pkgs; [
@@ -67,7 +64,7 @@ in
     })
 
     (lib.mkIf gpuCfg.amd {
-      hardware.opengl.extraPackages = [
+      hardware.graphics.extraPackages = [
         pkgs.amdvlk
       ] ++ (with pkgs.rocmPackages; [
         clr
@@ -88,7 +85,7 @@ in
         powerManagement.enable = true;
       };
 
-      hardware.opengl.extraPackages = [ pkgs.nvidia-vaapi-driver ];
+      hardware.graphics.extraPackages = [ pkgs.nvidia-vaapi-driver ];
 
       environment.sessionVariables = {
         __GLX_VENDOR_LIBRARY_NAME = "nvidia";
