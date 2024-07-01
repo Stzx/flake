@@ -1,6 +1,6 @@
 {
   imports = [
-    ./kernel
+    ./core
 
     ./fs.nix
     ./audio.nix

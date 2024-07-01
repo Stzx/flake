@@ -4,7 +4,7 @@
 }:
 
 let
-  linuxPackages_xanmod = pkgs.linuxPackages_xanmod.extend (_: prev: {
+  xanmod = pkgs.linuxPackages_xanmod.extend (_: prev: {
     kernel = (pkgs.linuxManualConfig {
       inherit (prev.kernel) src version modDirVersion;
 
@@ -16,7 +16,7 @@ let
       });
       # LTO: extraMakeFlags = [ "LLVM=1" ];
 
-      configfile = ./def;
+      configfile = ./kernel-configuration;
       allowImportFromDerivation = true;
       extraMeta = prev.kernel.meta;
     }).overrideAttrs (_: attrPrev: {
@@ -25,26 +25,13 @@ let
   });
 in
 {
-  environment.systemPackages = [
-    pkgs.sbctl
-  ];
-
   boot = {
-    kernelPackages = linuxPackages_xanmod;
+    kernelPackages = xanmod;
     initrd = {
       includeDefaultModules = false;
       availableKernelModules = lib.mkForce [ "amdgpu" ];
     };
     kernelParams = [ "libahci.ignore_sss=1" "fsck.mode=skip" ];
     supportedFilesystems = [ "f2fs" "xfs" "exfat" ];
-    loader.systemd-boot.enable = lib.mkForce false;
-    lanzaboote = {
-      enable = true;
-      pkiBundle = "/etc/secureboot";
-    };
   };
-
-  services.udev.extraRules = ''
-    ACTION=="add", KERNEL=="0000:08:00.0", SUBSYSTEM=="pci", RUN:="${pkgs.bash}/bin/bash -c 'echo 1 | tee /sys/bus/pci/devices/0000:08:00.0/remove'"
-  '';
 }
