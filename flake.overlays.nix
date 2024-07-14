@@ -1,7 +1,5 @@
 final: prev: {
-  nerdfonts = prev.nerdfonts.override {
-    fonts = [ "IosevkaTermSlab" ];
-  };
+  nerdfonts = prev.nerdfonts.override { fonts = [ "ComicShannsMono" "NerdFontsSymbolsOnly" ]; };
 
   jetbrains = prev.jetbrains // {
     idea-community = prev.jetbrains.idea-community.override {

@@ -9,7 +9,7 @@
   config = lib.mkMerge [{
     fonts = {
       packages = with pkgs; [
-        source-han-serif
+        # source-han-serif
         # source-han-sans
         # source-han-mono
 
@@ -24,18 +24,18 @@
         subpixel.rgba = "rgb";
         defaultFonts = lib.mkForce {
           serif = [
-            "Source Han Serif SC"
-            "Source Han Serif TC"
-            "Source Han Serif HC"
-            "Source Han Serif K"
-            "Source Han Serif"
+            "Sarasa Term Slab SC"
+            "Sarasa Term Slab TC"
+            "Sarasa Term Slab HC"
+            "Sarasa Term Slab J"
+            "Sarasa Term Slab K"
           ];
           sansSerif = [
-            "Sarasa UI SC"
-            "Sarasa UI TC"
-            "Sarasa UI HC"
-            "Sarasa UI J"
-            "Sarasa UI K"
+            "Sarasa Term SC"
+            "Sarasa Term TC"
+            "Sarasa Term HC"
+            "Sarasa Term J"
+            "Sarasa Term K"
           ];
           monospace = [
             "Sarasa Mono SC"
