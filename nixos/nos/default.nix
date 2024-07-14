@@ -1,3 +1,5 @@
+{ pkgs, ... }:
+
 {
   imports = [
     ./core
@@ -21,10 +23,18 @@
       description = "Silece Tai";
       extraGroups = [ "wheel" "audio" "video" ] ++ [
         "keys"
+        "libvirtd"
         "docker"
         "boinc"
         "wireshark"
       ];
     };
+  };
+
+  programs.nix-ld.enable = true;
+
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-curses;
   };
 }
