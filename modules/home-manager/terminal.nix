@@ -1,6 +1,6 @@
 { lib
 , config
-, dotsPath
+, dots
 , ...
 }:
 
@@ -12,7 +12,7 @@ let
 in
 lib.mkMerge [
   (lib.mkIf cfg.alacritty.enable {
-    xdg.configFile."alacritty/theme.yml".source = dotsPath + /alacritty/alacritty-theme/themes/monokai_charcoal.yaml;
+    xdg.configFile."alacritty/theme.yml".source = dots + /alacritty/alacritty-theme/themes/monokai_charcoal.yaml;
 
     programs.alacritty = {
       settings = {

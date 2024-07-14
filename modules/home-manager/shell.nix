@@ -1,37 +1,36 @@
 { lib
-, nixos
 , config
+, osConfig
 , ...
 }:
 
 let
   cfg = config.programs.zsh;
 
-  osEnv = nixos.environment;
+  osEnv = osConfig.environment;
 in
 lib.mkIf cfg.enable {
   programs.zsh = {
+    envExtra = ''
+      ZSH_COMPDUMP="/tmp/.zcompdump-$USER"
+    '';
+    initExtra = osEnv.interactiveShellInit;
+    shellAliases = osEnv.shellAliases;
+    history.ignoreAllDups = true;
     autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
       theme = "simonoff";
       plugins = [
-        "zsh-navigation-tools"
         "colored-man-pages"
-        "command-not-found"
         "sudo"
-        "cp"
         "git"
         "git-flow"
         "rust"
         "flutter"
       ];
     };
-    envExtra = ''
-      ZSH_COMPDUMP="/tmp/.zcompdump-$USER"
-    '';
-    initExtra = osEnv.interactiveShellInit;
-    shellAliases = osEnv.shellAliases;
   };
 
   programs.direnv.enableZshIntegration = true;

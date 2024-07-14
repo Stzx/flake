@@ -38,7 +38,7 @@
 
   time.timeZone = lib.mkDefault "Asia/Shanghai";
 
-  users.mutableUsers = lib.mkForce false;
+  users.mutableUsers = lib.mkDefault false;
 
   systemd.extraConfig = "DefaultTimeoutStopSec=60s";
 
@@ -61,10 +61,8 @@
       tree
       file
 
-      gptfdisk
-      graphviz
+      bat
       p7zip
-      neofetch
     ];
     shellAliases =
       let
@@ -93,18 +91,12 @@
     precedence ::ffff:0:0/96 100
   '';
 
-  programs.nix-ld.enable = true;
-
   programs.git.enable = true;
-
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryPackage = pkgs.pinentry-curses;
-  };
 
   programs.htop = {
     enable = true;
     settings = {
+      hide_userland_threads = true;
       show_thread_names = true;
       show_merged_command = true;
       shadow_other_users = true;

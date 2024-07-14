@@ -1,6 +1,6 @@
 { lib
-, nixos
 , config
+, osConfig
 , ...
 }:
 
@@ -9,7 +9,7 @@ let
 
   profile = "firefox.${config.home.username}";
 
-  useNvidia = nixos.features.gpu.nvidia;
+  useNvidia = osConfig.features.gpu.nvidia;
 in
 lib.mkIf cfg.enable {
   programs.firefox = {

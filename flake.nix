@@ -49,8 +49,6 @@
     let
       stateVersion = "24.05";
 
-      defaultSystem = "x86_64-linux";
-
       mkPkgs = system: import nixpkgs {
         localSystem = { inherit system; };
         config = {
@@ -66,15 +64,13 @@
 
       mkLib = hostName:
         let
-          nixos = self.nixosConfigurations.${hostName}.config;
-
-          pkgs = nixos.nixpkgs;
+          config = self.nixosConfigurations.${hostName}.config;
         in
         rec {
-          inherit nixos;
+          inherit config;
 
           lib = nixpkgs.lib.extend (final: _: rec {
-            my = import ./lib { inherit pkgs; lib = final; config = nixos; };
+            my = import ./lib { inherit config; lib = final; };
             hm = home-manager.lib.hm;
 
             inherit (my) attrNeedDE listNeedDE;
@@ -83,43 +79,43 @@
 
       mkHomeManager = username: hostName:
         let
-          inherit (mkLib hostName) nixos lib;
+          inherit (mkLib hostName) config lib;
 
           mark = "${username}@${hostName}";
 
-          user = ./. + "/home-manager/${mark}";
+          userModule = ./. + "/home-manager/${mark}";
 
           hmSecrets = flake-secrets.lib.hmModule username hostName;
         in
         {
-          "${mark}" = home-manager.lib.homeManagerConfiguration
-            {
-              inherit (nixos.nixpkgs) pkgs;
-              inherit lib;
+          "${mark}" = home-manager.lib.homeManagerConfiguration {
+            inherit (config.nixpkgs) pkgs;
+            inherit lib;
 
-              extraSpecialArgs = {
-                inherit (hmSecrets) secrets;
-                inherit nixos;
-                dotsPath = ./dots;
-              };
-              modules = [
-                ./home-manager
-                ./modules/home-manager
+            extraSpecialArgs = {
+              inherit (hmSecrets) secrets;
 
-                {
-                  home = {
-                    inherit stateVersion username;
-
-                    homeDirectory = "/home/${username}";
-                  };
-                }
-              ]
-              ++ lib.optional (builtins.pathExists user) user
-              ++ lib.optional (hmSecrets ? module) hmSecrets.module;
+              dots = ./dots;
+              osConfig = config;
             };
+            modules = [
+              ./home-manager
+              ./modules/home-manager
+
+              {
+                home = {
+                  inherit stateVersion username;
+
+                  homeDirectory = "/home/${username}";
+                };
+              }
+            ]
+            ++ lib.optional (builtins.pathExists userModule) userModule
+            ++ lib.optional (hmSecrets ? module) hmSecrets.module;
+          };
         };
 
-      mkSystem = system: hostName:
+      mkSystem = hostName: { system ? "x86_64-linux" }:
         let
           inherit (mkLib hostName) lib;
 
@@ -139,7 +135,7 @@
               (./. + "/nixos/${hostName}")
 
               {
-                nixpkgs = { pkgs = mkPkgs system; };
+                nixpkgs = { pkgs = (mkPkgs system); };
 
                 system = { inherit stateVersion; };
 
@@ -153,15 +149,15 @@
       overlays.default = import ./flake.overlays.nix;
 
       nixosConfigurations = { }
-      // mkSystem defaultSystem "nos"
-      // mkSystem defaultSystem "vnos";
+      // mkSystem "nos" { }
+      // mkSystem "vnos" { };
 
       homeConfigurations = { }
       // mkHomeManager "stzx" "nos"
       // mkHomeManager "drop" "vnos";
 
     } // flake-utils.lib.eachDefaultSystem (system: {
-      devShells = import ./flake.shells.nix { pkgs = mkPkgs system; };
+      devShells = import ./flake.shells.nix { pkgs = (mkPkgs system); };
 
       formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
     });

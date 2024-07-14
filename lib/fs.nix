@@ -1,6 +1,4 @@
-{ lib
-, utils
-}:
+{ lib }:
 
 let
   inherit (builtins) elemAt;

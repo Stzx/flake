@@ -32,7 +32,6 @@ lib.mkMerge [
       userName = "Stzx";
       userEmail = email;
     };
-
   }
 
   (lib.mkIf lib.my.haveAnyDE {

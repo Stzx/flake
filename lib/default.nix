@@ -1,14 +1,11 @@
-{ pkgs
-, lib
+{ lib
 , config
 }:
 
 let
-  utils = import "${pkgs}/nixos/lib/utils.nix" { inherit config lib pkgs; };
-
   kernel = import ./kernel.nix { inherit lib; };
 
-  fs = import ./fs.nix { inherit lib utils; };
+  fs = import ./fs.nix { inherit lib; };
 
   desktop = import ./desktop.nix { inherit config lib; };
 in
