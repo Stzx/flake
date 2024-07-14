@@ -15,8 +15,8 @@ lib.mkIf cfg.enable {
   programs.firefox = {
     profiles.${profile} = {
       search = {
-        default = "DuckDuckGo";
-        order = [ "DuckDuckGo" "Bing" "Google" ];
+        default = "Bing";
+        order = [ "Bing" "Google" "DuckDuckGo" ];
         force = true;
       };
       settings = {
@@ -83,10 +83,10 @@ lib.mkIf cfg.enable {
         "app.normandy.enabled" = false;
         "app.normandy.first_run" = false;
 
-        "pdfjs.defaultZoomValue" = "page-width";
-        "pdfjs.enabledCache.state" = true;
         "pdfjs.sidebarViewOnLoad" = 0;
-        "pdfjs.spreadModeOnLoad" = 1;
+        "pdfjs.spreadModeOnLoad" = 0;
+        "pdfjs.defaultZoomValue" = "page-fit";
+        "pdfjs.enabledCache.state" = true;
 
         "datareporting.policy.dataSubmissionEnabled" = false;
         "datareporting.healthreport.uploadEnabled" = false;
