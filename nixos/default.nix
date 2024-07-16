@@ -6,10 +6,10 @@
 
 {
   nix = {
-    settings.substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" ];
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
+    settings = {
+      substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" ];
+      experimental-features = [ "nix-command" "flakes" ];
+    };
     gc = {
       automatic = true;
       dates = "weekly";
@@ -86,10 +86,6 @@
         less = "less -S";
       };
   };
-
-  environment.etc."gai.conf".text = ''
-    precedence ::ffff:0:0/96 100
-  '';
 
   programs.git.enable = true;
 

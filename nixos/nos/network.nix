@@ -11,6 +11,10 @@ in
     "net.core.default_qdisc" = "cake";
   };
 
+  environment.etc."gai.conf".text = ''
+    precedence ::ffff:0:0/96 100
+  '';
+
   networking = {
     useDHCP = lib.mkForce false;
     nftables.enable = true;

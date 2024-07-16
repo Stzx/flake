@@ -20,7 +20,6 @@
         texstudio
 
         mpv
-        nomacs
         obs-studio
         qbittorrent
         telegram-desktop

@@ -9,10 +9,15 @@
 
   programs = {
     home-manager.enable = true;
+
     zsh.enable = true;
+
+    git.enable = true;
+
     neovim.enable = true;
   } // lib.attrNeedDE {
     kitty.enable = true;
+
     firefox.enable = true;
   };
 }

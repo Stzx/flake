@@ -1,7 +1,6 @@
 { lib, ... }:
 {
-  # for game
-  services.flatpak.enable = true;
+  services.flatpak.enable = true; # for game
 
   services.boinc.enable = true;
 
@@ -49,4 +48,6 @@
     onBoot = "ignore";
     qemu.swtpm.enable = true;
   };
+
+  users.extraUsers.stzx.extraGroups = [ "boinc" "docker" "libvirtd" ];
 }

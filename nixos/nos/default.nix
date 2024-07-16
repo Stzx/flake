@@ -22,10 +22,7 @@
       isNormalUser = true;
       description = "Silece Tai";
       extraGroups = [ "wheel" "audio" "video" ] ++ [
-        "keys"
-        "libvirtd"
-        "docker"
-        "boinc"
+        "keys" # adb-tools
         "wireshark"
       ];
     };

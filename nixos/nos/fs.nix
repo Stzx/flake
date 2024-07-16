@@ -5,9 +5,9 @@
 }:
 
 let
-  inherit (lib.my) nvmeEui btrfsOptions;
+  inherit (lib.my) byNVMeEui btrfsOptions;
 
-  nvme = "${nvmeEui secrets.origin-eui}";
+  nvme = "${byNVMeEui secrets.origin-eui}";
 in
 {
   disko.devices = {

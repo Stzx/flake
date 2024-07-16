@@ -1,9 +1,7 @@
 { pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
-    qpwgraph
-  ];
+  environment.systemPackages = [ pkgs.qpwgraph ];
 
   services.pipewire.extraConfig.pipewire = {
     "hw" = {

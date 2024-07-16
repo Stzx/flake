@@ -9,9 +9,11 @@ let
   };
 in
 rec {
-  byUUID = uuid: "/dev/disk/by-uuid/${uuid}";
+  byUuid = uuid: "/dev/disk/by-uuid/${uuid}";
 
-  nvmeEui = eui: "/dev/disk/by-id/nvme-eui.${eui}";
+  byId = id: "/dev/disk/by-id/${id}";
+
+  byNVMeEui = eui: byId "nvme-eui.${eui}";
 
   lineOptions = options: builtins.concatStringsSep "," options;
 
@@ -37,7 +39,7 @@ rec {
   # [ [ UUID MOUNT_POINT AUTO_MOUNT ] ]
   f2fsMountUnit = devices: lib.foldl mergeUnit { } (lib.forEach devices (i: {
     mounts = lib.singleton {
-      what = byUUID (elemAt i 0);
+      what = byUuid (elemAt i 0);
       where = elemAt i 1;
       type = "f2fs";
       options = lineOptions f2fsOptions;
@@ -53,7 +55,7 @@ rec {
     (lib.forEach devices (i:
       (lib.forEach (elemAt i 1) (ee: {
         mounts = lib.singleton {
-          what = byUUID (elemAt i 0);
+          what = byUuid (elemAt i 0);
           where = elemAt ee 1;
           type = "btrfs";
           options = lineOptions (subvolBtrfsOptions (elemAt ee 0));

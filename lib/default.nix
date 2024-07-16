@@ -12,7 +12,7 @@ in
 {
   inherit (kernel) mkPatch mkPatchs;
 
-  inherit (fs) byUUID nvmeEui fstab timeOptions btrfsOptions f2fsOptions btrfsMountUnit f2fsMountUnit;
+  inherit (fs) byUuid byId byNVMeEui fstab timeOptions btrfsOptions f2fsOptions btrfsMountUnit f2fsMountUnit;
 
   inherit (desktop) isKDE haveAnyDE attrNeedDE listNeedDE desktopAssert;
 }
