@@ -1,0 +1,19 @@
+export USTC_NIXOS='https://mirrors.ustc.edu.cn/nix-channels/nixos-unstable'
+export USTC_NIXPKGS='https://mirrors.ustc.edu.cn/nix-channels/nixpkgs-unstable'
+export USTC_NIXSTORE='https://mirrors.ustc.edu.cn/nix-channels/store'
+
+export USTC_OPT="--option substituters $USTC_NIXSTORE"
+
+alias nixos-install="nixos-install $USTC_OPT"
+alias nix="nix --extra-experimental-features 'nix-command flakes'"
+
+echo "http_proxy: '$http_proxy'"
+echo "no_proxy: '$no_proxy'"
+echo "NIX_CURL_FLAGS: '$NIX_CURL_FLAGS'"
+
+export no_proxy='127.0.0.1,localhost,cn'
+
+nix-channel -v --add https://mirrors.ustc.edu.cn/nix-channels/nixos-unstable nixos \
+&& nix-channel -v --add https://mirrors.ustc.edu.cn/nix-channels/nixpkgs-unstable nixpkgs \
+&& nix-channel -v --update \
+&& nix-shell -v --packages git $USTC_OPT
