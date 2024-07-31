@@ -15,7 +15,7 @@
   config = lib.mkIf config.programs.net-tools {
     home.packages = with pkgs; ([
       nmap
-    ] ++ lib.listNeedDE [
+    ] ++ lib.listNeedWM [
       wireshark
     ]);
 

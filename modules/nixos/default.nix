@@ -1,6 +1,6 @@
 {
   imports = [
-    ./desktop
+    ./wm
 
     ./hardware.nix
     ./sys.nix

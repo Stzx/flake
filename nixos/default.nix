@@ -87,7 +87,7 @@
       };
   };
 
-  programs.git.enable = true;
+  programs.dconf.enable = lib.mkDefault lib.my.haveAnyWM;
 
   programs.htop = {
     enable = true;

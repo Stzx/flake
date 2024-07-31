@@ -63,23 +63,22 @@
       };
 
       mkLib = hostName:
-        let
-          config = self.nixosConfigurations.${hostName}.config;
-        in
         rec {
-          inherit config;
+          os = self.nixosConfigurations.${hostName};
+
+          osConfig = os.config;
 
           lib = nixpkgs.lib.extend (final: _: rec {
-            my = import ./lib { inherit config; lib = final; };
+            my = import ./lib { config = osConfig; lib = final; };
             hm = home-manager.lib.hm;
 
-            inherit (my) attrNeedDE listNeedDE;
+            inherit (my) attrNeedWM listNeedWM;
           });
         };
 
       mkHomeManager = username: hostName:
         let
-          inherit (mkLib hostName) config lib;
+          inherit (mkLib hostName) os osConfig lib;
 
           mark = "${username}@${hostName}";
 
@@ -89,14 +88,14 @@
         in
         {
           "${mark}" = home-manager.lib.homeManagerConfiguration {
-            inherit (config.nixpkgs) pkgs;
+            inherit (os) pkgs;
             inherit lib;
 
             extraSpecialArgs = {
               inherit (hmSecrets) secrets;
+              inherit osConfig;
 
               dots = ./dots;
-              osConfig = config;
             };
             modules = [
               ./home-manager

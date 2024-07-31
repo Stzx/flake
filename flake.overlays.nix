@@ -1,6 +1,8 @@
 final: prev: {
   nerdfonts = prev.nerdfonts.override { fonts = [ "ComicShannsMono" "NerdFontsSymbolsOnly" ]; };
 
+  firefox = prev.firefox.override { cfg.speechSynthesisSupport = false; };
+
   jetbrains =
     let
       vmopts = ''

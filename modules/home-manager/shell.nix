@@ -11,10 +11,11 @@ let
 in
 lib.mkIf cfg.enable {
   programs.zsh = {
-    envExtra = ''
+    envExtra = osEnv.interactiveShellInit;
+    initExtraFirst = ''
       ZSH_COMPDUMP="/tmp/.zcompdump-$USER"
+      ZSH_AUTOSUGGEST_STRATEGY=(history completion)
     '';
-    initExtra = osEnv.interactiveShellInit;
     shellAliases = osEnv.shellAliases;
     history.ignoreAllDups = true;
     autosuggestion.enable = true;
