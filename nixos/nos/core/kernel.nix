@@ -31,7 +31,7 @@ in
       includeDefaultModules = false;
       availableKernelModules = lib.mkForce [ "amdgpu" ];
     };
-    kernelParams = [ "libahci.ignore_sss=1" "fsck.mode=skip" ];
+    kernelParams = [ "libahci.ignore_sss=1" ];
     supportedFilesystems = [ "f2fs" "xfs" "exfat" ];
   };
 }

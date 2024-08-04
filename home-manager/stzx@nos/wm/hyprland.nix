@@ -1,113 +1,102 @@
-{ pkgs, ... }:
+{ pkgs
+, config
+, ...
+}:
 
 {
-  home.packages = with pkgs.kdePackages; [
-    breeze
-    breeze-gtk
+  wayland.windowManager.hyprland.extraConfig = ''
+    env = QT_QPA_PLATFORMTHEME,qt6ct
 
-    qt6ct
-  ];
+    exec-once = fcitx5 -d
 
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      gtk-theme = "Breeze-Dark";
-      color-scheme = "prefer-dark";
-      icon-theme = "Papirus";
-      cursor-theme = "capitaine-cursors";
-    };
-  };
+    exec-once = [workspace 1 silent] firefox
+    exec-once = [workspace special:terminal silent] kitty
+    exec-once = [workspace special:chat silent] telegram-desktop
+    exec-once = [workspace special:chat silent] thunderbird
 
-  home.pointerCursor = {
-    package = pkgs.capitaine-cursors;
-    name = "capitaine-cursors";
-  };
+    general {
+      border_size = 2
+      gaps_in = 6
+      gaps_out = 12
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-    extraConfig = ''
-      env = QT_QPA_PLATFORMTHEME,qt6ct
+      col.active_border = rgb(884dff) rgb(4da6ff) 45deg
 
-      exec-once = waybar
-      exec-once = fcitx5 -d
+      resize_on_border = true
+    }
 
-      exec-once = [workspace 1 silent] firefox
-      exec-once = [workspace special:terminal silent] kitty
-      exec-once = [workspace special:chat silent] telegram-desktop
-      exec-once = [workspace special:chat silent] thunderbird
+    decoration {
+      drop_shadow = false
 
-      general {
-        border_size = 2
-        gaps_in = 6
-        gaps_out = 12
+      dim_inactive = false
+    }
 
-        col.active_border = rgb(884dff) rgb(4da6ff) 45deg
+    input {
+      numlock_by_default = true
+    }
 
-        resize_on_border = true
-      }
+    misc {
+      disable_hyprland_logo = true
+    }
 
-      decoration {
-        drop_shadow = false
+    # main mod
+    $mm = SUPER
 
-        dim_inactive = true
-      }
+    bind = $mm, Q, exec, tofi-drun | xargs hyprctl dispatch exec --
+    bind = $mm, T, exec, kitty
+    bind = $mm, C, exec, telegram-desktop
+    bind = $mm, B, exec, firefox
 
-      input {
-        numlock_by_default = true
-      }
+    bind = $mm, P, pseudo,
+    bind = $mm, S, togglesplit,
+    bind = $mm, X, killactive,
+    bind = $mm, V, togglefloating,
+    bind = $mm, Escape, exit
 
-      misc {
-        disable_hyprland_logo = true
-      }
+    bind = $mm, 1, workspace, 1
+    bind = $mm, 2, workspace, 2
+    bind = $mm, 3, workspace, 3
+    bind = $mm, 4, workspace, 4
+    bind = $mm, 7, togglespecialworkspace, terminal
+    bind = $mm, 8, togglespecialworkspace, music
+    bind = $mm, 9, togglespecialworkspace, chat
+    bind = $mm, 0, togglespecialworkspace, magic
 
-      # main mod
-      $mm = SUPER
+    bind = $mm SHIFT, 1, movetoworkspace, 1
+    bind = $mm SHIFT, 2, movetoworkspace, 2
+    bind = $mm SHIFT, 3, movetoworkspace, 3
+    bind = $mm SHIFT, 4, movetoworkspace, 4
+    bind = $mm SHIFT, 7, movetoworkspace, special:terminal
+    bind = $mm SHIFT, 8, movetoworkspace, special:music
+    bind = $mm SHIFT, 9, movetoworkspace, special:chat
+    bind = $mm SHIFT, 0, movetoworkspace, special:magic
 
-      bind = $mm, Q, exec, tofi-drun | xargs hyprctl dispatch exec --
-      bind = $mm, T, exec, kitty
-      bind = $mm, C, exec, telegram-desktop
-      bind = $mm, B, exec, firefox
+    bind = $mm, h, resizeactive, -10 0
+    bind = $mm, l, resizeactive, 10 0
+    bind = $mm, k, resizeactive, 0 -10
+    bind = $mm, j, resizeactive, 0 10
 
-      bind = $mm, P, pseudo,
-      bind = $mm, S, togglesplit,
-      bind = $mm, X, killactive,
-      bind = $mm, V, togglefloating,
-      bind = $mm, Escape, exit
+    bind = $mm SHIFT, h, movefocus, l
+    bind = $mm SHIFT, l, movefocus, r
+    bind = $mm SHIFT, k, movefocus, u
+    bind = $mm SHIFT, j, movefocus, d
 
-      bind = $mm, 1, workspace, 1
-      bind = $mm, 2, workspace, 2
-      bind = $mm, 3, workspace, 3
-      bind = $mm, 4, workspace, 4
-      bind = $mm, 7, togglespecialworkspace, terminal
-      bind = $mm, 8, togglespecialworkspace, music
-      bind = $mm, 9, togglespecialworkspace, chat
-      bind = $mm, 0, togglespecialworkspace, magic
+    bind = $mm CTRL, mounse_down, workspace, e+1
+    bind = $mm CTRL, mounse_up, workspace, e-1
 
-      bind = $mm SHIFT, 1, movetoworkspace, 1
-      bind = $mm SHIFT, 2, movetoworkspace, 2
-      bind = $mm SHIFT, 3, movetoworkspace, 3
-      bind = $mm SHIFT, 4, movetoworkspace, 4
-      bind = $mm SHIFT, 7, movetoworkspace, special:terminal
-      bind = $mm SHIFT, 8, movetoworkspace, special:music
-      bind = $mm SHIFT, 9, movetoworkspace, special:chat
-      bind = $mm SHIFT, 0, movetoworkspace, special:magic
+    bindl=, XF86AudioMute, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0
+    bindl=, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-
+    binde=, XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 1%+
 
-      bind = $mm, h, resizeactive, -10 0
-      bind = $mm, l, resizeactive, 10 0
-      bind = $mm, k, resizeactive, 0 -10
-      bind = $mm, j, resizeactive, 0 10
+    bindl=, XF86AudioPrev, exec, playerctl previous
+    bindl=, XF86AudioPlay, exec, playerctl play-pause
+    bindl=, XF86AudioNext, exec, playerctl next
 
-      bind = $mm SHIFT, h, movefocus, l
-      bind = $mm SHIFT, l, movefocus, r
-      bind = $mm SHIFT, k, movefocus, u
-      bind = $mm SHIFT, j, movefocus, d
-
-      bind = $mm CTRL, mounse_down, workspace, e+1
-      bind = $mm CTRL, mounse_up, workspace, e-1
-    '';
-  };
+    # XF86HomePage, XF86Explorer, XF86Calculator
+  '';
 
   programs.waybar = {
     enable = true;
+    systemd.enable = true;
     settings = {
       mainBar = {
         margin = "6px 12px 0 12px";
@@ -117,7 +106,6 @@
         modules-right = [ "tray" "load" "wireplumber" "group/power" ];
 
         "hyprland/workspaces" = {
-          all-outputs = true;
           format = "{icon}";
           format-icons = {
             active = "󰜎"; # nf-md-run
@@ -151,6 +139,11 @@
           reverse-direction = true;
         };
 
+        "load" = {
+          format = "󰑮 <sub>{}</sub>"; # nf-md-run_fast
+          tooltip = false;
+        };
+
         "keyboard-state" = {
           numlock = true;
           capslock = true;
@@ -162,7 +155,9 @@
         };
 
         "wireplumber" = {
-          format-muted = ""; # nf-fa-volume_xmark
+          format = "{icon} <sub>{volume}%</sub>";
+          format-icons = [ "󰕿" "󰖀" "󰕾" ]; # nf-md-volume low / medium / high
+          format-muted = "󰝟"; # nf-md-volume_mute
         };
 
         "custom/quit" = {
@@ -176,9 +171,9 @@
           on-click = "systemctl poweroff";
         };
         "custom/reboot" = {
-          format = "󰜉"; # nf-md-restart
+          format = "󱎝"; # nf-md-recycle_variant
           tooltip = false;
-          on-click = "reboot";
+          on-click = "systemctl reboot";
         };
         "group/power" = {
           orientation = "inherit";
@@ -204,27 +199,41 @@
         background: transparent;
       }
 
-      .modules-left button {
+      #workspaces button {
+        margin-right: 6px;
+
         border: 1px rgb(136,77,255) solid;
         border-radius: 0;
-        margin-right: 6px;
+
         padding: 6px 12px;
+      }
+
+      #workspaces button:hover {
+        background-color: rgba(136,77,255,0.2);
+      }
+
+      #workspaces button.active {
+        background-color: rgba(136,77,255,0.5);
       }
 
       .modules-right label {
-        border-top: 1px rgb(136,77,255) solid;
         margin-left: 6px;
-        padding: 6px 12px;
-      }
 
-      #workspaces .active {
-        background: rgba(136,77,255,0.5);
+        border-top: 1px rgb(136,77,255) solid;
+
+        padding: 6px;
       }
 
       #window {
         border-top: 1px rgb(136,77,255) solid;
 
+        padding: 0 12px;
+
         font-style: italic;
+      }
+
+      #clock {
+        font-family: "ComicShannsMono Nerd Font";
       }
 
       #power label.module {
@@ -235,12 +244,12 @@
         color: rgb(0,128,0);
       }
 
-      #custom-shutdown {
-        color: rgb(220,20,60);
+      #custom-reboot {
+        color: rgb(0,191,255);
       }
 
-      #custom-reboot {
-        color: rgb(135,206,250);
+      #custom-shutdown {
+        color: rgb(220,20,60);
       }
     '';
   };
@@ -248,7 +257,15 @@
   programs.tofi = {
     enable = true;
     settings = {
-      font = "Sarasa UI SC";
+      font = "Sarasa Gothic SC";
+      font-size = 12;
+
+      outline-width = 0;
+
+      border-width = 2;
+      border-color = "#884DFF";
+
+      history = false;
     };
   };
 }
