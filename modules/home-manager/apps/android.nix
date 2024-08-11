@@ -22,8 +22,6 @@ in
   };
 
   config = lib.mkIf any {
-    programs.zsh.oh-my-zsh.plugins = [ "adb" ];
-
     home.packages = [ ]
       ++ lib.optional any pkgs.android-tools
       ++ lib.optional cfg.scrcpy pkgs.scrcpy;

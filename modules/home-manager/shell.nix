@@ -22,7 +22,7 @@ lib.mkIf cfg.enable {
     syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
-      theme = "simonoff";
+      theme = "dieter";
       plugins = [
         "colored-man-pages"
         "sudo"
