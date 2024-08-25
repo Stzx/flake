@@ -4,7 +4,6 @@ final: prev: {
     jackSupport = false;
     mpdSupport = false;
     mprisSupport = false;
-    nlSupport = false;
     pulseSupport = false;
     rfkillSupport = false;
     sndioSupport = false;

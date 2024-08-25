@@ -5,10 +5,14 @@
 }:
 
 {
-
   imports = [ ]
     ++ lib.optionals lib.my.isHyprland [
     {
+      # NOTE: https://github.com/Alexays/Waybar/issues/2381
+      systemd.user.services.waybar.Unit = rec {
+        After = [ "wireplumber.service" ];
+        Wants = After;
+      };
 
       home.packages = with pkgs.kdePackages; [
         breeze

@@ -103,7 +103,7 @@
         spacing = 6;
         modules-left = [ "hyprland/workspaces" "hyprland/window" ];
         modules-center = [ "clock" ];
-        modules-right = [ "tray" "load" "wireplumber" "group/power" ];
+        modules-right = [ "tray" "load" "network" "wireplumber" "group/power" ];
 
         "hyprland/workspaces" = {
           format = "{icon}";
@@ -120,7 +120,7 @@
           icon = true;
         };
 
-        "clock" = {
+        clock = {
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           calendar = {
             mode = "year";
@@ -133,18 +133,26 @@
           };
         };
 
-        "tray" = {
+        tray = {
           icon-size = 24;
           spacing = 12;
           reverse-direction = true;
         };
 
-        "load" = {
+        load = {
           format = "󰑮 <sub>{}</sub>"; # nf-md-run_fast
           tooltip = false;
         };
 
-        "keyboard-state" = {
+        network = {
+          interval = 1;
+          format-ethernet = "󰇧 <sub>{bandwidthUpBits} / {bandwidthDownBits}</sub>"; # nf-md-earth
+          format-linked = "󱐅"; # nf-md-earth_remove
+          format-disconnected = "󰇨"; # nf-md-earth_off
+          tooltip = false;
+        };
+
+        keyboard-state = {
           numlock = true;
           capslock = true;
           scrolllock = true;
@@ -154,7 +162,7 @@
           };
         };
 
-        "wireplumber" = {
+        wireplumber = {
           format = "{icon} <sub>{volume}%</sub>";
           format-icons = [ "󰕿" "󰖀" "󰕾" ]; # nf-md-volume low / medium / high
           format-muted = "󰝟"; # nf-md-volume_mute
