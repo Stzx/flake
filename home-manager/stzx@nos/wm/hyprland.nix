@@ -1,13 +1,11 @@
-{ pkgs
-, config
-, ...
-}:
+{ ... }:
 
 {
   wayland.windowManager.hyprland.extraConfig = ''
     env = QT_QPA_PLATFORMTHEME,qt6ct
 
     exec-once = fcitx5 -d
+    exec-once = mako
 
     exec-once = [workspace 1 silent] firefox
     exec-once = [workspace special:terminal silent] kitty
@@ -260,6 +258,10 @@
         color: rgb(220,20,60);
       }
     '';
+  };
+
+  services.mako = {
+    enable = true;
   };
 
   programs.tofi = {
