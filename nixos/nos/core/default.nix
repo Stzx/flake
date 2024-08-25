@@ -17,6 +17,8 @@
   };
 
   services.udev.extraRules = ''
+    ${lib.optionalString config.features.gpu.amd ''SUBSYSTEM=="pci", DRIVER=="amdgpu", ATTR{power_dpm_force_performance_level}="manual", ATTR{pp_power_profile_mode}="2"''}
+
     ACTION=="add", KERNEL=="0000:08:00.0", SUBSYSTEM=="pci", RUN:="${pkgs.bash}/bin/bash -c 'echo 1 | tee /sys/bus/pci/devices/0000:08:00.0/remove'"
   '';
 
