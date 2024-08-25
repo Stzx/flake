@@ -267,10 +267,12 @@
   programs.tofi = {
     enable = true;
     settings = {
-      font = "Sarasa Gothic SC";
+      font = "Sarasa Mono Slab SC";
       font-size = 12;
 
       outline-width = 0;
+
+      background-color = "#1B1D1EBF";
 
       border-width = 2;
       border-color = "#884DFF";
