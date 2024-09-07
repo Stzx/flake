@@ -14,8 +14,8 @@
 
     general {
       border_size = 2
-      gaps_in = 6
-      gaps_out = 12
+      gaps_in = 3
+      gaps_out = 6
 
       col.active_border = rgb(884dff) rgb(4da6ff) 45deg
 
@@ -64,8 +64,8 @@
     bind = $mm SHIFT, 3, movetoworkspace, 3
     bind = $mm SHIFT, 4, movetoworkspace, 4
     bind = $mm SHIFT, 7, movetoworkspace, special:terminal
-    bind = $mm SHIFT, 8, movetoworkspace, special:music
-    bind = $mm SHIFT, 9, movetoworkspace, special:chat
+    bind = $mm SHIFT, 8, movetoworkspace, special:chat
+    bind = $mm SHIFT, 9, movetoworkspace, special:music
     bind = $mm SHIFT, 0, movetoworkspace, special:magic
 
     bind = $mm, h, resizeactive, -10 0
@@ -97,7 +97,8 @@
     systemd.enable = true;
     settings = {
       mainBar = {
-        margin = "6px 12px 0 12px";
+        output = "DP-1";
+        margin = "0px 6px";
         spacing = 6;
         modules-left = [ "hyprland/workspaces" "hyprland/window" ];
         modules-center = [ "clock" ];
@@ -143,7 +144,7 @@
         };
 
         network = {
-          interval = 1;
+          interval = 3;
           format-ethernet = "󰇧 <sub>{bandwidthUpBits} / {bandwidthDownBits}</sub>"; # nf-md-earth
           format-linked = "󱐅"; # nf-md-earth_remove
           format-disconnected = "󰇨"; # nf-md-earth_off
@@ -260,9 +261,7 @@
     '';
   };
 
-  services.mako = {
-    enable = true;
-  };
+  services.mako.enable = true;
 
   programs.tofi = {
     enable = true;
