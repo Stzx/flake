@@ -5,13 +5,11 @@
 }:
 
 let
-  cfg = config.programs.firefox;
-
   profile = "firefox.${config.home.username}";
 
   useNvidia = osConfig.features.gpu.nvidia;
 in
-lib.mkIf cfg.enable {
+{
   programs.firefox = {
     profiles.${profile} = {
       search = {

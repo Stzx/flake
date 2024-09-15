@@ -8,7 +8,6 @@
     ./audio.nix
     ./network.nix
     ./misc.nix
-
   ];
 
   nixpkgs.overlays = [ (import ./overlays.nix) ];
@@ -16,6 +15,7 @@
   features = {
     cpu.amd = true;
     gpu.amd = true;
+
     wm.hyprland = true;
   };
 

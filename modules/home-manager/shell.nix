@@ -1,15 +1,9 @@
-{ lib
-, config
-, osConfig
-, ...
-}:
+{ lib, config, osConfig, ... }:
 
 let
-  cfg = config.programs.zsh;
-
   osEnv = osConfig.environment;
 in
-lib.mkIf cfg.enable {
+lib.mkIf config.programs.zsh.enable {
   programs.zsh = {
     envExtra = osEnv.interactiveShellInit;
     initExtraFirst = ''

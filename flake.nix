@@ -41,6 +41,8 @@
   outputs =
     { self
     , nixpkgs
+    , lanzaboote
+    , disko
     , home-manager
     , flake-utils
     , flake-secrets
@@ -126,8 +128,8 @@
 
             specialArgs = { inherit (osSecrets) secrets; };
             modules = [
-              args.disko.nixosModules.disko
-              args.lanzaboote.nixosModules.lanzaboote
+              lanzaboote.nixosModules.lanzaboote
+              disko.nixosModules.disko
 
               ./nixos
               ./modules/nixos

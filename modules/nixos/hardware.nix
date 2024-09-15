@@ -31,8 +31,7 @@ in
   };
 
   config = lib.mkMerge [
-    {
-      hardware.firmware = [ pkgs.linux-firmware ];
+    { hardware.firmware = [ pkgs.linux-firmware ]; }
 
     (lib.mkIf lib.my.haveAnyWM {
       hardware.graphics.enable = true;
@@ -42,7 +41,6 @@ in
           vulkan-tools
 
           clinfo
-          glxinfo
 
           libva-utils
           wayland-utils
