@@ -36,19 +36,24 @@ rec {
         else builtins.abort "fsType: ${fsType} unsupported";
     };
   };
+
   # [ [ UUID MOUNT_POINT AUTO_MOUNT ] ]
-  f2fsMountUnit = devices: lib.foldl mergeUnit { } (lib.forEach devices (i: {
+  simpleMountUnit = devices: fs: options: lib.foldl mergeUnit { } (lib.forEach devices (i: {
     mounts = lib.singleton {
       what = byUuid (elemAt i 0);
       where = elemAt i 1;
-      type = "f2fs";
-      options = lineOptions f2fsOptions;
+      type = fs;
+      options = lineOptions options;
     };
     automounts = lib.optional (elemAt i 2) {
       where = elemAt i 1;
       wantedBy = [ "multi-user.target" ];
     };
   }));
+
+  exfatMountUnit = devices: simpleMountUnit devices "exfat" [ ];
+
+  f2fsMountUnit = devices: simpleMountUnit devices "f2fs" f2fsOptions;
 
   # [ [ UUID [ [ SUBVOL MOUNT_POINT AUTO_MOUNT ] ] ] ]
   btrfsMountUnit = devices: lib.foldl mergeUnit { } (lib.flatten
