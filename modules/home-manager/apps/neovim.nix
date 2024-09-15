@@ -56,7 +56,6 @@ lib.mkIf cfg.enable {
     withNodeJs = false;
     withPython3 = false;
     withRuby = false;
-    extraPackages = with pkgs; [ wl-clipboard ];
     extraLuaConfig = ''
       local o = vim.opt
 

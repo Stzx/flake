@@ -13,11 +13,7 @@
   };
 
   config = lib.mkIf config.programs.net-tools {
-    home.packages = with pkgs; ([
-      nmap
-    ] ++ lib.listNeedWM [
-      wireshark
-    ]);
+    home.packages = with pkgs; ([ nmap ] ++ lib.my.listNeedWM [ wireshark ]);
 
     programs.zsh.shellAliases = rec {
       nm-geo = "sudo nmap -n -sn -Pn --traceroute --script traceroute-geolocation";

@@ -14,20 +14,10 @@ in
   };
 
   config = lib.mkIf cfg.kde {
-    services = {
-      desktopManager.plasma6 = {
-        enable = true;
-        enableQt5Integration = false;
-        notoPackage = pkgs.emptyDirectory;
-      };
-      greetd = {
-        enable = true;
-        settings.default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd startplasma-wayland";
-      };
-      pipewire = {
-        enable = true;
-        pulse.enable = true;
-      };
+    services.desktopManager.plasma6 = {
+      enable = true;
+      enableQt5Integration = false;
+      notoPackage = pkgs.emptyDirectory;
     };
 
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
@@ -42,10 +32,6 @@ in
       krdp
     ];
 
-    i18n.inputMethod = {
-      enable = true;
-      type = "fcitx5";
-      fcitx5.plasma6Support = true;
-    };
+    i18n.inputMethod.fcitx5.plasma6Support = true;
   };
 }

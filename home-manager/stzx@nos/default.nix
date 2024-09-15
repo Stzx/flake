@@ -10,50 +10,41 @@ let
   profile = "thunderbird.${config.home.username}";
 in
 {
-  imports = [
-    ../.
-  ] ++ lib.optionals lib.my.isKDE [
-    ./wm/kde.nix
-  ] ++ lib.optionals lib.my.isHyprland [
-    ./wm/hyprland.nix
-  ] ++ lib.my.listNeedWM [
-    {
-      home.packages = with pkgs; [
-        calibre
-        librecad
-        libreoffice
+  imports = with lib;
+    [ ../. ] ++ optionals isKDE [
+      ./wm/kde.nix
+    ] ++ optionals isHyprland [
+      ./wm/hyprland.nix
+    ] ++ my.listNeedWM [
+      {
+        home.packages = with pkgs; [
+          # calibre
+          librecad
+          libreoffice
 
-        texlive.combined.scheme-full
-        texstudio
+          texlive.combined.scheme-full
+          texstudio
 
-        mpv
-        obs-studio
-        qbittorrent
-        telegram-desktop
+          mpv
+          obs-studio
+          qbittorrent
+          telegram-desktop
 
-        veracrypt
-        keepassxc
-      ];
+          veracrypt
+          keepassxc
+        ];
 
-      accounts.email.accounts.${email}.thunderbird.enable = true;
+        accounts.email.accounts.${email}.thunderbird.enable = true;
 
-      programs = {
-        firefox.enable = true;
-        thunderbird = {
-          enable = true;
-          profiles.${profile}.isDefault = true;
+        programs = {
+          firefox.enable = true;
+          thunderbird = {
+            enable = true;
+            profiles.${profile}.isDefault = true;
+          };
         };
-      };
-    }
-
-    {
-      dconf.settings = {
-        "org/gnome/desktop/privacy" = {
-          remember-recent-files = false;
-        };
-      };
-    }
-  ];
+      }
+    ];
 
   accounts.email.accounts.${email} = {
     realName = "Silence Tai";

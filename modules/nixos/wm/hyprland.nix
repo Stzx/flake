@@ -13,23 +13,5 @@ in
     default = false;
   };
 
-  config = lib.mkIf cfg.hyprland {
-    services = {
-      greetd = {
-        enable = true;
-        settings.default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd Hyprland";
-      };
-      pipewire = {
-        enable = true;
-        pulse.enable = true;
-      };
-    };
-
-    i18n.inputMethod = {
-      enable = true;
-      type = "fcitx5";
-    };
-
-    programs.hyprland.enable = true;
-  };
+  config = lib.mkIf cfg.hyprland { programs.hyprland.enable = true; };
 }

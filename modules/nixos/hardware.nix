@@ -34,6 +34,7 @@ in
     {
       hardware.firmware = [ pkgs.linux-firmware ];
 
+    (lib.mkIf lib.my.haveAnyWM {
       hardware.graphics.enable = true;
 
       environment = {
@@ -54,7 +55,7 @@ in
           MOZ_ENABLE_WAYLAND = "1";
         };
       };
-    }
+    })
 
     (lib.mkIf cpuCfg.amd {
       hardware.cpu.amd = {

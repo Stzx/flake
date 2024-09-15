@@ -13,13 +13,11 @@
     exec-once = [workspace special:chat silent] thunderbird
 
     general {
-      border_size = 2
+      border_size = 1
       gaps_in = 3
       gaps_out = 6
 
       col.active_border = rgb(884dff) rgb(4da6ff) 45deg
-
-      resize_on_border = true
     }
 
     decoration {
@@ -44,8 +42,6 @@
     bind = $mm, C, exec, telegram-desktop
     bind = $mm, B, exec, firefox
 
-    bind = $mm, P, pseudo,
-    bind = $mm, S, togglesplit,
     bind = $mm, X, killactive,
     bind = $mm, V, togglefloating,
     bind = $mm, Escape, exit
@@ -55,8 +51,8 @@
     bind = $mm, 3, workspace, 3
     bind = $mm, 4, workspace, 4
     bind = $mm, 7, togglespecialworkspace, terminal
-    bind = $mm, 8, togglespecialworkspace, music
-    bind = $mm, 9, togglespecialworkspace, chat
+    bind = $mm, 8, togglespecialworkspace, chat
+    bind = $mm, 9, togglespecialworkspace, music
     bind = $mm, 0, togglespecialworkspace, magic
 
     bind = $mm SHIFT, 1, movetoworkspace, 1
@@ -261,7 +257,15 @@
     '';
   };
 
-  services.mako.enable = true;
+  services.mako = {
+    enable = true;
+    defaultTimeout = 10000;
+
+    borderColor = "#884DFFFF";
+    borderRadius = 3;
+    backgroundColor = "#00000033";
+    font = "Sarasa Term Slab SC 10";
+  };
 
   programs.tofi = {
     enable = true;

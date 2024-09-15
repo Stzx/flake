@@ -5,22 +5,8 @@
 }:
 
 {
-  imports = [ ]
-    ++ lib.optionals lib.my.isHyprland [
-    {
-      # NOTE: https://github.com/Alexays/Waybar/issues/2381
-      systemd.user.services.waybar.Unit = rec {
-        After = [ "wireplumber.service" ];
-        Wants = After;
-      };
-
-      home.packages = with pkgs.kdePackages; [
-        breeze
-        breeze-gtk
-
-        qt6ct
-      ];
-
+  imports = with lib;
+    (optional isHyprland {
       home.pointerCursor = {
         package = pkgs.capitaine-cursors;
         name = "capitaine-cursors";
@@ -34,20 +20,38 @@
           cursor-theme = config.home.pointerCursor.name;
         };
       };
+    }) ++ (optional isHyprland {
+      # NOTE: https://github.com/Alexays/Waybar/issues/2381
+      systemd.user.services.waybar.Unit = rec {
+        After = [ "wireplumber.service" ];
+        Wants = After;
+      };
+
+      home.packages = with pkgs.kdePackages; [
+        breeze
+        breeze-gtk
+
+        qt6ct
+      ];
 
       services.playerctld.enable = true;
 
       wayland.windowManager.hyprland.enable = true;
-    }
-  ] ++ lib.my.listNeedWM [
-    {
-      home.packages = with pkgs; [
-        fcitx5-material-color
-      ];
+    }) ++ (my.listNeedWM [
+      {
+        home.packages = with pkgs; [
+          fcitx5-material-color
+        ];
 
-      fonts.fontconfig.enable = true;
-    }
-  ];
+        dconf.settings = {
+          "org/gnome/desktop/privacy" = {
+            remember-recent-files = false;
+          };
+        };
+
+        fonts.fontconfig.enable = true;
+      }
+    ]);
 
   xdg.enable = true;
 
@@ -59,8 +63,8 @@
     git.enable = true;
 
     neovim.enable = true;
-  } // lib.attrNeedWM {
-    kitty.enable = true;
+  } // lib.my.attrNeedWM {
+    kitty.enable = lib.mkDefault true;
 
     firefox.enable = true;
   };

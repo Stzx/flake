@@ -72,7 +72,7 @@
             my = import ./lib { config = osConfig; lib = final; };
             hm = home-manager.lib.hm;
 
-            inherit (my) attrNeedWM listNeedWM;
+            inherit (my) isKDE isSway isHyprland;
           });
         };
 
