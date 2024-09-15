@@ -4,5 +4,6 @@
     ./firefox.nix
     ./network.nix
     ./neovim.nix
+    ./vscode.nix
   ];
 }
