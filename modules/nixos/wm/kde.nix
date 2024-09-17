@@ -20,6 +20,8 @@ in
       notoPackage = pkgs.emptyDirectory;
     };
 
+    services.pipewire.pulse.enable = true;
+
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
       plasma-browser-integration
       konsole
