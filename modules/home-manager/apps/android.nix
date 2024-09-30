@@ -1,7 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...
+{
+  pkgs,
+  lib,
+  config,
+  ...
 }:
 
 let
@@ -22,8 +23,6 @@ in
   };
 
   config = lib.mkIf any {
-    home.packages = [ ]
-      ++ lib.optional any pkgs.android-tools
-      ++ lib.optional cfg.scrcpy pkgs.scrcpy;
+    home.packages = [ ] ++ lib.optional any pkgs.android-tools ++ lib.optional cfg.scrcpy pkgs.scrcpy;
   };
 }

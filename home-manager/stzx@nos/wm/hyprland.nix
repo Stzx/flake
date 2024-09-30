@@ -96,9 +96,18 @@
         output = "DP-1";
         margin = "0px 6px";
         spacing = 6;
-        modules-left = [ "hyprland/workspaces" "hyprland/window" ];
+        modules-left = [
+          "hyprland/workspaces"
+          "hyprland/window"
+        ];
         modules-center = [ "clock" ];
-        modules-right = [ "tray" "load" "network" "wireplumber" "group/power" ];
+        modules-right = [
+          "tray"
+          "load"
+          "network"
+          "wireplumber"
+          "group/power"
+        ];
 
         "hyprland/workspaces" = {
           format = "{icon}";
@@ -159,7 +168,11 @@
 
         wireplumber = {
           format = "{icon} <sub>{volume}%</sub>";
-          format-icons = [ "󰕿" "󰖀" "󰕾" ]; # nf-md-volume low / medium / high
+          format-icons = [
+            "󰕿"
+            "󰖀"
+            "󰕾"
+          ]; # nf-md-volume low / medium / high
           format-muted = "󰝟"; # nf-md-volume_mute
         };
 
@@ -284,4 +297,3 @@
     };
   };
 }
-

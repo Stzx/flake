@@ -1,7 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...
+{
+  pkgs,
+  lib,
+  config,
+  ...
 }:
 
 let
@@ -10,12 +11,16 @@ let
   profile = "thunderbird.${config.home.username}";
 in
 {
-  imports = with lib;
-    [ ../. ] ++ optionals isKDE [
+  imports =
+    with lib;
+    [ ../. ]
+    ++ optionals isKDE [
       ./wm/kde.nix
-    ] ++ optionals isHyprland [
+    ]
+    ++ optionals isHyprland [
       ./wm/hyprland.nix
-    ] ++ my.listNeedWM [
+    ]
+    ++ my.listNeedWM [
       {
         home.packages = with pkgs; [
           # calibre

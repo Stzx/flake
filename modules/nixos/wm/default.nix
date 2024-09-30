@@ -1,6 +1,7 @@
-{ pkgs
-, lib
-, ...
+{
+  pkgs,
+  lib,
+  ...
 }:
 
 {
@@ -10,20 +11,19 @@
   ];
 
   config = lib.mkIf lib.my.haveAnyWM {
-    environment.systemPackages = with pkgs; [
-      wl-clipboard
-    ];
+    environment.systemPackages = with pkgs; [ wl-clipboard ];
 
     xdg.portal.xdgOpenUsePortal = lib.mkDefault true;
 
     services = {
       greetd =
         let
-          tuigreetBin = with lib;
-            if isKDE then "startplasma-wayland" else
-            (
-              if isHyprland then "Hyprland" else builtions.abort "Requires desktop environment"
-            );
+          tuigreetBin =
+            with lib;
+            if isKDE then
+              "startplasma-wayland"
+            else
+              (if isHyprland then "Hyprland" else builtions.abort "Requires desktop environment");
         in
         {
           enable = true;
@@ -32,6 +32,7 @@
       pipewire = {
         enable = true;
         alsa.enable = true;
+        pulse.enable = lib.mkDefault true;
       };
     };
 

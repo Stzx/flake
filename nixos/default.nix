@@ -1,14 +1,18 @@
-{ pkgs
-, lib
-, config
-, ...
+{
+  pkgs,
+  lib,
+  config,
+  ...
 }:
 
 {
   nix = {
     settings = {
       substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" ];
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
     gc = {
       automatic = true;

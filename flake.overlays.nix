@@ -1,5 +1,10 @@
 final: prev: {
-  nerdfonts = prev.nerdfonts.override { fonts = [ "ComicShannsMono" "NerdFontsSymbolsOnly" ]; };
+  nerdfonts = prev.nerdfonts.override {
+    fonts = [
+      "ComicShannsMono"
+      "NerdFontsSymbolsOnly"
+    ];
+  };
 
   firefox = prev.firefox.override { cfg.speechSynthesisSupport = false; };
 
@@ -12,7 +17,8 @@ final: prev: {
         -XX:MaxMetaspaceSize=1024m
       '';
     in
-    prev.jetbrains // {
+    prev.jetbrains
+    // {
       idea-community = prev.jetbrains.idea-community.override { inherit vmopts; };
       rust-rover = prev.jetbrains.rust-rover.override { inherit vmopts; };
     };

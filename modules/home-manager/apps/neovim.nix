@@ -1,7 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...
+{
+  pkgs,
+  lib,
+  config,
+  ...
 }:
 
 let
@@ -13,40 +14,42 @@ let
     type = "lua";
   };
 
-  nvim-twp = pkgs.vimPlugins.nvim-treesitter.withPlugins (parser: with parser; [
-    awk
-    bash
-    comment
-    diff
-    kconfig
-    regex
-    udev
-    vim
-    vimdoc
+  nvim-twp = pkgs.vimPlugins.nvim-treesitter.withPlugins (
+    parser: with parser; [
+      awk
+      bash
+      comment
+      diff
+      kconfig
+      regex
+      udev
+      vim
+      vimdoc
 
-    asm
-    c
-    css
-    dart
-    html
-    lua
-    nasm
-    nix
+      asm
+      c
+      css
+      dart
+      html
+      lua
+      nasm
+      nix
 
-    cmake
-    csv
-    dockerfile
-    ini
-    json
-    make
-    markdown
-    ninja
-    properties
-    proto
-    toml
-    xml
-    yaml
-  ]);
+      cmake
+      csv
+      dockerfile
+      ini
+      json
+      make
+      markdown
+      ninja
+      properties
+      proto
+      toml
+      xml
+      yaml
+    ]
+  );
 in
 lib.mkIf cfg.enable {
   programs.neovim = {
@@ -209,7 +212,7 @@ lib.mkIf cfg.enable {
           settings = {
             ['nil'] = {
               formatting = {
-                command = { 'nixpkgs-fmt' },
+                command = { 'nixfmt' },
               },
             },
           },

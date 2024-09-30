@@ -1,7 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...
+{
+  pkgs,
+  lib,
+  config,
+  ...
 }:
 
 let
@@ -19,8 +20,6 @@ in
       enableQt5Integration = false;
       notoPackage = pkgs.emptyDirectory;
     };
-
-    services.pipewire.pulse.enable = true;
 
     environment.plasma6.excludePackages = with pkgs.kdePackages; [
       plasma-browser-integration

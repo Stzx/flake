@@ -16,19 +16,38 @@ in
 rec {
   # Format: { ENABLE } //  { DISABLE } // { NixOS DISABLE WARN/ERROR }
   # FIXME: 不同的 DISABLE 可能冲突
-  mkPatchAttrs = { origin ? ./., suffix ? "", name }:
+  mkPatchAttrs =
+    {
+      origin ? ./.,
+      suffix ? "",
+      name,
+    }:
     let
       f = origin + "/kernel/${name}${suffix}.nix";
     in
     lib.optionalAttrs (builtins.pathExists f) (lib.mapAttrs' pair (import f args));
 
-  mkPatch = { origin, name, suffixes ? [ ] }:
+  mkPatch =
+    {
+      origin,
+      name,
+      suffixes ? [ ],
+    }:
     let
       commonAttrs = mkPatchAttrs { inherit name; };
 
       hostAttrs = mkPatchAttrs { inherit origin name; };
 
-      suffixAttrs = (lib.foldl (f: p: f // mkPatchAttrs { inherit origin name; suffix = "-${p}"; }) { } suffixes);
+      suffixAttrs = (
+        lib.foldl (
+          f: p:
+          f
+          // mkPatchAttrs {
+            inherit origin name;
+            suffix = "-${p}";
+          }
+        ) { } suffixes
+      );
     in
     {
       inherit name;

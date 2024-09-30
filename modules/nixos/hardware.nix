@@ -1,7 +1,8 @@
-{ pkgs
-, lib
-, config
-, ...
+{
+  pkgs,
+  lib,
+  config,
+  ...
 }:
 
 let
@@ -63,12 +64,14 @@ in
     })
 
     (lib.mkIf gpuCfg.amd {
-      hardware.graphics.extraPackages = [
-        pkgs.amdvlk
-      ] ++ (with pkgs.rocmPackages; [
-        clr
-        clr.icd
-      ]);
+      hardware.graphics.extraPackages =
+        [
+          pkgs.amdvlk
+        ]
+        ++ (with pkgs.rocmPackages; [
+          clr
+          clr.icd
+        ]);
 
       environment.systemPackages = [ pkgs.amdgpu_top ];
 

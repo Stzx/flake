@@ -1,36 +1,27 @@
-{
-  lib,
-  config,
-  secrets,
-  ...
-}:
+{ lib, config, ... }:
 
 let
-  inherit (lib.my) byNVMeEui btrfsOptions;
-
-  nvme = "${byNVMeEui secrets.origin-eui}";
+  inherit (lib.my) btrfsOptions;
 in
 {
   disko.devices = {
-    disk.nvme = {
+    disk.vda = {
+      device = "/dev/disk/by-diskseq/1";
       type = "disk";
-      device = nvme;
       content = {
         type = "gpt";
         partitions = {
           ESP = {
-            device = "${nvme}-part1";
+            name = "ESP";
             size = "1G";
             type = "EF00";
             content = {
               type = "filesystem";
               format = "vfat";
               mountpoint = "/boot";
-              mountOptions = [ "umask=0077" ];
             };
           };
           ORIGIN = {
-            device = "${nvme}-part2";
             size = "100%";
             content = {
               type = "btrfs";
@@ -43,15 +34,6 @@ in
                   mountpoint = "/";
                   mountOptions = btrfsOptions;
                 };
-                "/nix" = {
-                  mountpoint = "/nix";
-                  mountOptions = btrfsOptions;
-                };
-                "/home" = {
-                  mountpoint = "/home";
-                  mountOptions = btrfsOptions;
-                };
-                "/snapshots" = { };
               };
             };
           };
@@ -59,11 +41,4 @@ in
       };
     };
   };
-
-  zramSwap = {
-    enable = true;
-    algorithm = "lzo-rle";
-  };
-
-  virtualisation.docker.storageDriver = "btrfs";
 }

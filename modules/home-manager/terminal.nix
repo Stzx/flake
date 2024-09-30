@@ -1,7 +1,8 @@
-{ lib
-, config
-, dots
-, ...
+{
+  lib,
+  config,
+  dots,
+  ...
 }:
 
 let
@@ -12,34 +13,40 @@ let
 in
 lib.mkMerge [
   (lib.mkIf cfg.alacritty.enable {
-    xdg.configFile."alacritty/theme.yml".source = dots + /alacritty/alacritty-theme/themes/monokai_charcoal.yaml;
+    xdg.configFile."alacritty/theme.yml".source =
+      dots + /alacritty/alacritty-theme/themes/monokai_charcoal.yaml;
 
     programs.alacritty = {
-      settings = {
-        import = [ "~/.config/alacritty/theme.yml" ];
-        window = {
-          dimensions = {
-            columns = 160;
-            lines = 32;
+      settings =
+        {
+          import = [ "~/.config/alacritty/theme.yml" ];
+          window = {
+            dimensions = {
+              columns = 160;
+              lines = 32;
+            };
+            opacity = 0.75;
+            startup_mode = "Maximized";
           };
-          opacity = 0.75;
-          startup_mode = "Maximized";
+          cursor.style = {
+            shape = "Underline";
+            blinking = "On";
+          };
+        }
+        // lib.optionalAttrs zshEnable {
+          shell.program = "${zshPkg}/bin/zsh";
         };
-        cursor.style = {
-          shape = "Underline";
-          blinking = "On";
-        };
-      } // lib.optionalAttrs zshEnable {
-        shell.program = "${zshPkg}/bin/zsh";
-      };
     };
   })
 
   (lib.mkIf cfg.kitty.enable {
     programs.kitty = {
-      theme = "Monokai";
+      themeFile = "Monokai";
       extraConfig = ''
         font_family ComicShannsMono Nerd Font
+
+        background_opacity 0.8
+        background_blur 0
 
         cursor_shape underline
 

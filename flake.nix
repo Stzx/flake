@@ -39,46 +39,56 @@
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , lanzaboote
-    , disko
-    , home-manager
-    , flake-utils
-    , flake-secrets
-    , ...
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      flake-utils,
+      flake-secrets,
+      disko,
+      lanzaboote,
+      ...
     }@args:
     let
       stateVersion = "24.05";
 
-      mkPkgs = system: import nixpkgs {
-        localSystem = { inherit system; };
-        config = {
-          allowAliases = false;
-          allowUnfree = true;
+      mkPkgs =
+        system:
+        import nixpkgs {
+          localSystem = {
+            inherit system;
+          };
+          config = {
+            allowAliases = false;
+            allowUnfree = true;
+          };
+          overlays = [
+            flake-secrets.overlays.default
+
+            self.overlays.default
+          ];
         };
-        overlays = [
-          flake-secrets.overlays.default
 
-          self.overlays.default
-        ];
-      };
+      mkLib = hostName: rec {
+        os = self.nixosConfigurations.${hostName};
 
-      mkLib = hostName:
-        rec {
-          os = self.nixosConfigurations.${hostName};
+        osConfig = os.config;
 
-          osConfig = os.config;
-
-          lib = nixpkgs.lib.extend (final: _: rec {
-            my = import ./lib { config = osConfig; lib = final; };
+        lib = nixpkgs.lib.extend (
+          final: _: rec {
+            my = import ./lib {
+              config = osConfig;
+              lib = final;
+            };
             hm = home-manager.lib.hm;
 
             inherit (my) isKDE isSway isHyprland;
-          });
-        };
+          }
+        );
+      };
 
-      mkHomeManager = username: hostName:
+      mkHomeManager =
+        username: hostName:
         let
           inherit (mkLib hostName) os osConfig lib;
 
@@ -99,24 +109,29 @@
 
               dots = ./dots;
             };
-            modules = [
-              ./home-manager
-              ./modules/home-manager
+            modules =
+              [
+                ./home-manager
+                ./modules/home-manager
 
-              {
-                home = {
-                  inherit stateVersion username;
+                {
+                  home = {
+                    inherit stateVersion username;
 
-                  homeDirectory = "/home/${username}";
-                };
-              }
-            ]
-            ++ lib.optional (builtins.pathExists userModule) userModule
-            ++ lib.optional (hmSecrets ? module) hmSecrets.module;
+                    homeDirectory = "/home/${username}";
+                  };
+                }
+              ]
+              ++ lib.optional (builtins.pathExists userModule) userModule
+              ++ lib.optional (hmSecrets ? module) hmSecrets.module;
           };
         };
 
-      mkSystem = hostName: { system ? "x86_64-linux" }:
+      mkSystem =
+        hostName:
+        {
+          system ? "x86_64-linux",
+        }:
         let
           inherit (mkLib hostName) lib;
 
@@ -126,21 +141,27 @@
           "${hostName}" = lib.nixosSystem {
             inherit lib;
 
-            specialArgs = { inherit (osSecrets) secrets; };
+            specialArgs = {
+              inherit (osSecrets) secrets;
+            };
             modules = [
-              lanzaboote.nixosModules.lanzaboote
               disko.nixosModules.disko
+              lanzaboote.nixosModules.lanzaboote
 
               ./nixos
               ./modules/nixos
               (./. + "/nixos/${hostName}")
 
               {
-                nixpkgs = { pkgs = (mkPkgs system); };
+                nixpkgs.pkgs = (mkPkgs system);
 
-                system = { inherit stateVersion; };
+                system = {
+                  inherit stateVersion;
+                };
 
-                networking = { inherit hostName; };
+                networking = {
+                  inherit hostName;
+                };
               }
             ] ++ lib.optional (osSecrets ? module) osSecrets.module;
           };
@@ -149,17 +170,14 @@
     {
       overlays.default = import ./flake.overlays.nix;
 
-      nixosConfigurations = { }
-      // mkSystem "nos" { }
-      // mkSystem "vnos" { };
+      nixosConfigurations = { } // mkSystem "nos" { } // mkSystem "vnos" { };
 
-      homeConfigurations = { }
-      // mkHomeManager "stzx" "nos"
-      // mkHomeManager "drop" "vnos";
+      homeConfigurations = { } // mkHomeManager "stzx" "nos" // mkHomeManager "drop" "vnos";
 
-    } // flake-utils.lib.eachDefaultSystem (system: {
+    }
+    // flake-utils.lib.eachDefaultSystem (system: {
       devShells = import ./flake.shells.nix { pkgs = (mkPkgs system); };
 
-      formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+      formatter = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
     });
 }

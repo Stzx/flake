@@ -1,5 +1,6 @@
-{ lib
-, config
+{
+  lib,
+  config,
 }:
 
 let

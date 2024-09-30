@@ -24,7 +24,11 @@
       uid = 1000;
       isNormalUser = true;
       description = "Silece Tai";
-      extraGroups = [ "wheel" "audio" "video" ] ++ [
+      extraGroups = [
+        "wheel"
+        "audio"
+        "video"
+
         "keys" # adb-tools
         "wireshark"
       ];

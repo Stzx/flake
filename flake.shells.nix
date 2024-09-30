@@ -1,29 +1,36 @@
 { pkgs, ... }:
 
 let
-  inherit (pkgs) mkShell;
-
   # FIXME: https://github.com/NixOS/nixpkgs/issues/49894
-  llvmShell = mkShell.override {
-    stdenv = with pkgs; overrideCC clangStdenv (clangStdenv.cc.override {
-      inherit (llvmPackages) bintools;
-    });
-  };
+  llvmShell = (
+    with pkgs;
+
+    mkShell.override {
+      stdenv = overrideCC clangStdenv (
+        clangStdenv.cc.override {
+          inherit (llvmPackages) bintools;
+        }
+      );
+    }
+  );
 in
 {
   default = llvmShell {
     packages = with pkgs; [
       nil
-      nixpkgs-fmt
+      nixfmt-rfc-style
     ];
   };
 
   kernel = llvmShell {
-    packages = with pkgs; [ flex bison ];
+    packages = with pkgs; [
+      flex
+      bison
+    ];
 
-    nativeBuildInputs = with pkgs; [ pkg-config ];
+    nativeBuildInputs = [ pkgs.pkg-config ];
 
-    buildInputs = with pkgs; [ ncurses ];
+    buildInputs = [ pkgs.ncurses ];
 
     shellHook = ''
       _arch="$(uname --machine)"

@@ -1,4 +1,9 @@
-{ lib, config, osConfig, ... }:
+{
+  lib,
+  config,
+  osConfig,
+  ...
+}:
 
 let
   osEnv = osConfig.environment;
