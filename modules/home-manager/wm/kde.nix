@@ -6,6 +6,8 @@
 }:
 
 let
+  inherit (lib) mkIf isKDE;
+
   kwriteConfig = "${pkgs.kdePackages.kconfig}/bin/kwriteconfig6";
 
   directory = "${config.home.homeDirectory}/.config";
@@ -53,7 +55,7 @@ let
 
   set = groups: kv: mkArgs { inherit groups kv; };
 
-  del =
+  _del =
     groups: kv:
     mkArgs {
       inherit groups kv;
@@ -416,7 +418,7 @@ let
     lib.concatLines (lib.mapAttrsToList (rc: cliFnList: mkCli rc (lib.flatten cliFnList)) settings)
   );
 in
-{
+mkIf isKDE {
   home.packages = [ ked-init-commands ];
 
   programs.zsh.shellAliases.kwin-dbg = "qdbus org.kde.KWin /KWin org.kde.KWin.showDebugConsole";

@@ -10,13 +10,17 @@
     ./misc.nix
   ];
 
-  nixpkgs.overlays = [ (import ./overlays.nix) ];
+  nix.settings.substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" ];
+
+  nixpkgs.overlays = [
+    (import ./overlays.nix)
+  ];
 
   features = {
     cpu.amd = true;
     gpu.amd = true;
 
-    wm.hyprland = true;
+    wm.niri = true;
   };
 
   users.extraUsers = {

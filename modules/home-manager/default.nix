@@ -1,8 +1,9 @@
 {
   imports = [
+    ./wm
     ./apps
 
-    ./devel.nix
+    ./dev.nix
 
     ./shell.nix
     ./terminal.nix

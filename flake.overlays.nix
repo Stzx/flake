@@ -1,8 +1,14 @@
 final: prev: {
   nerdfonts = prev.nerdfonts.override {
     fonts = [
-      "ComicShannsMono"
       "NerdFontsSymbolsOnly"
+
+      # "ComicShannsMono"
+      # "Inconsolata"
+      # "JetBrainsMono"
+      # "Ubuntu"
+      # "UbuntuMono"
+      "ZedMono"
     ];
   };
 

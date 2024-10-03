@@ -29,9 +29,9 @@ in
   inherit (wm)
     isKDE
     isHyprland
+    isNiri
     haveAnyWM
     attrNeedWM
     listNeedWM
-    desktopAssert
     ;
 }

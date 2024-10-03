@@ -6,6 +6,17 @@
 }:
 
 let
+  inherit (lib)
+    mkOption
+    mkIf
+    mkMerge
+
+    types
+    singleton
+
+    my
+    ;
+
   cfg = config.features;
 
   cpuCfg = cfg.cpu;
@@ -13,28 +24,28 @@ let
 in
 {
   options.features = {
-    cpu.amd = lib.mkOption {
-      type = lib.types.bool;
+    cpu.amd = mkOption {
+      type = types.bool;
       default = false;
     };
-    cpu.intel = lib.mkOption {
-      type = lib.types.bool;
+    cpu.intel = mkOption {
+      type = types.bool;
       default = false;
     };
-    gpu.amd = lib.mkOption {
-      type = lib.types.bool;
+    gpu.amd = mkOption {
+      type = types.bool;
       default = false;
     };
-    gpu.nvidia = lib.mkOption {
-      type = lib.types.bool;
+    gpu.nvidia = mkOption {
+      type = types.bool;
       default = false;
     };
   };
 
-  config = lib.mkMerge [
-    { hardware.firmware = [ pkgs.linux-firmware ]; }
+  config = mkMerge [
+    { hardware.firmware = singleton pkgs.linux-firmware; }
 
-    (lib.mkIf lib.my.haveAnyWM {
+    (mkIf my.haveAnyWM {
       hardware.graphics.enable = true;
 
       environment = {
@@ -56,29 +67,27 @@ in
       };
     })
 
-    (lib.mkIf cpuCfg.amd {
+    (mkIf cpuCfg.amd {
       hardware.cpu.amd = {
         updateMicrocode = true;
         sev.enable = true;
       };
     })
 
-    (lib.mkIf gpuCfg.amd {
+    (mkIf gpuCfg.amd {
       hardware.graphics.extraPackages =
-        [
-          pkgs.amdvlk
-        ]
+        [ pkgs.amdvlk ]
         ++ (with pkgs.rocmPackages; [
           clr
           clr.icd
         ]);
 
-      environment.systemPackages = [ pkgs.amdgpu_top ];
+      environment.systemPackages = singleton pkgs.amdgpu_top;
 
-      services.xserver.videoDrivers = [ "modesetting" ];
+      services.xserver.videoDrivers = singleton "modesetting";
     })
 
-    (lib.mkIf gpuCfg.nvidia {
+    (mkIf gpuCfg.nvidia {
       hardware.nvidia = {
         package = config.boot.kernelPackages.nvidiaPackages.production;
         nvidiaSettings = false;
@@ -87,7 +96,7 @@ in
         powerManagement.enable = true;
       };
 
-      hardware.graphics.extraPackages = [ pkgs.nvidia-vaapi-driver ];
+      hardware.graphics.extraPackages = singleton pkgs.nvidia-vaapi-driver;
 
       environment.sessionVariables = {
         __GLX_VENDOR_LIBRARY_NAME = "nvidia";

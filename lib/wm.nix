@@ -11,14 +11,11 @@ rec {
 
   isHyprland = wm.hyprland;
 
-  haveAnyWM = isKDE || isHyprland;
+  isNiri = wm.niri;
+
+  haveAnyWM = isKDE || isHyprland || isNiri;
 
   attrNeedWM = attr: if haveAnyWM then attr else { };
 
   listNeedWM = list: if haveAnyWM then list else [ ];
-
-  desktopAssert = {
-    assertion = haveAnyWM;
-    message = "Desktop environment is not enabled";
-  };
 }

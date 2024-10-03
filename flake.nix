@@ -13,6 +13,7 @@
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
         flake-utils.follows = "flake-utils";
       };
     };
@@ -26,6 +27,16 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     flake-utils = {
       url = "github:numtide/flake-utils";
@@ -47,6 +58,7 @@
       flake-secrets,
       disko,
       lanzaboote,
+      niri,
       ...
     }@args:
     let
@@ -82,7 +94,12 @@
             };
             hm = home-manager.lib.hm;
 
-            inherit (my) isKDE isSway isHyprland;
+            inherit (my)
+              isKDE
+              isSway
+              isHyprland
+              isNiri
+              ;
           }
         );
       };
@@ -111,6 +128,8 @@
             };
             modules =
               [
+                niri.homeModules.niri
+
                 ./home-manager
                 ./modules/home-manager
 
@@ -147,6 +166,7 @@
             modules = [
               disko.nixosModules.disko
               lanzaboote.nixosModules.lanzaboote
+              niri.nixosModules.niri
 
               ./nixos
               ./modules/nixos

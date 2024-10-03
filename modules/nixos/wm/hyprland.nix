@@ -6,15 +6,17 @@
 }:
 
 let
+  inherit (lib) mkIf mkOption types;
+
   cfg = config.features.wm;
 in
 {
-  options.features.wm.hyprland = lib.mkOption {
-    type = lib.types.bool;
+  options.features.wm.hyprland = mkOption {
+    type = types.bool;
     default = false;
   };
 
-  config = lib.mkIf cfg.hyprland {
+  config = mkIf cfg.hyprland {
     xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # file picker
 
     programs.hyprland = {

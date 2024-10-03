@@ -7,13 +7,10 @@
 
 {
   nix = {
-    settings = {
-      substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" ];
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-    };
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     gc = {
       automatic = true;
       dates = "weekly";
@@ -70,7 +67,7 @@
     ];
     shellAliases =
       let
-        _flake = name: "--flake \"$_FLAKE?submodules=1#${name}\"";
+        _flake = name: ''--flake "$_FLAKE?submodules=1#${name}"'';
 
         flake = _flake config.networking.hostName;
 
@@ -91,7 +88,7 @@
       };
   };
 
-  programs.dconf.enable = lib.mkDefault lib.my.haveAnyWM;
+  programs.dconf.enable = lib.mkOverride 999 lib.my.haveAnyWM;
 
   programs.htop = {
     enable = true;

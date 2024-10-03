@@ -6,15 +6,17 @@
 }:
 
 let
+  inherit (lib) mkIf mkOption types;
+
   cfg = config.features.wm;
 in
 {
-  options.features.wm.kde = lib.mkOption {
-    type = lib.types.bool;
+  options.features.wm.kde = mkOption {
+    type = types.bool;
     default = false;
   };
 
-  config = lib.mkIf cfg.kde {
+  config = mkIf cfg.kde {
     services.desktopManager.plasma6 = {
       enable = true;
       enableQt5Integration = false;

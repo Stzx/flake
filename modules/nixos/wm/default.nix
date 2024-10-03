@@ -4,37 +4,52 @@
   ...
 }:
 
+let
+  inherit (lib)
+    mkIf
+
+    isKDE
+    isHyprland
+    isNiri
+    ;
+in
 {
   imports = [
     ./kde.nix
     ./hyprland.nix
+    ./niri.nix
   ];
 
-  config = lib.mkIf lib.my.haveAnyWM {
-    environment.systemPackages = with pkgs; [ wl-clipboard ];
+  config = mkIf lib.my.haveAnyWM {
+    environment.systemPackages = [ pkgs.wl-clipboard ];
 
     xdg.portal.xdgOpenUsePortal = lib.mkDefault true;
 
     services = {
-      greetd =
-        let
-          tuigreetBin =
-            with lib;
-            if isKDE then
-              "startplasma-wayland"
-            else
-              (if isHyprland then "Hyprland" else builtions.abort "Requires desktop environment");
-        in
-        {
-          enable = true;
-          settings.default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd ${tuigreetBin}";
-        };
+      greetd.enable = true;
       pipewire = {
         enable = true;
         alsa.enable = true;
         pulse.enable = lib.mkDefault true;
       };
     };
+
+    services.greetd.settings =
+      if lib.my.haveAnyWM then
+        let
+          bin =
+            if isKDE then
+              "startplasma-wayland"
+            else
+              (if isHyprland then "Hyprland" else (if isNiri then "niri-session" else null));
+
+          cmd = if (builtins.isNull bin) then "" else " --cmd ${bin}";
+        in
+        {
+          default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet${cmd}";
+        }
+      else
+        { };
 
     fonts = {
       packages = with pkgs; [
@@ -43,6 +58,14 @@
         # source-han-mono
 
         sarasa-gothic
+        # Gothic, UI = Inter
+        #
+        # Mono, Term, Fixed = Iosevka
+        # | suffix | half width | ligature |
+        # |--------|:----------:|:--------:|
+        # | Mono   |      N     |     Y    |
+        # | Term   |      Y     |     Y    |
+        # | Fixed  |      Y     |     N    |
 
         nerdfonts
 

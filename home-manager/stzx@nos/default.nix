@@ -12,15 +12,8 @@ let
 in
 {
   imports =
-    with lib;
     [ ../. ]
-    ++ optionals isKDE [
-      ./wm/kde.nix
-    ]
-    ++ optionals isHyprland [
-      ./wm/hyprland.nix
-    ]
-    ++ my.listNeedWM [
+    ++ lib.my.listNeedWM [
       {
         home.packages = with pkgs; [
           # calibre
@@ -37,9 +30,30 @@ in
 
           veracrypt
           keepassxc
+
+          jetbrains.rust-rover
+
+          zed-editor
         ];
 
-        accounts.email.accounts.${email}.thunderbird.enable = true;
+        accounts.email.accounts.${email} = {
+          realName = "Silence Tai";
+          address = email;
+          primary = true;
+
+          userName = email;
+          imap = {
+            host = "outlook.office365.com";
+            port = 993;
+          };
+          smtp = {
+            host = "smtp.office365.com";
+            port = 587;
+            tls.useStartTls = true;
+          };
+
+          thunderbird.enable = true;
+        };
 
         programs = {
           firefox.enable = true;
@@ -51,32 +65,17 @@ in
       }
     ];
 
-  accounts.email.accounts.${email} = {
-    realName = "Silence Tai";
-    address = email;
-    primary = true;
-
-    userName = email;
-    imap = {
-      host = "outlook.office365.com";
-      port = 993;
-    };
-    smtp = {
-      host = "smtp.office365.com";
-      port = 587;
-      tls.useStartTls = true;
-    };
-  };
+  home.packages = [ pkgs.temurin-bin ];
 
   programs = {
     ssh.enable = true;
 
     adb = true;
     net-tools = true;
-  };
 
-  programs.git = {
-    userName = "Stzx";
-    userEmail = email;
+    git = {
+      userName = "Stzx";
+      userEmail = email;
+    };
   };
 }

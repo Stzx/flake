@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  import = [ ./fs.nix ];
+  imports = [ ./fs.nix ];
 
   users.extraUsers = {
     "root".hashedPassword = "$y$j9T$ANV6NJ.3Cv9tNkz3N5F0i.$nWqLkgTczHrSqgJV43aQXLC3RsxRUHt2m6UtYHR6z65";
