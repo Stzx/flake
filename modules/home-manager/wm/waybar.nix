@@ -159,7 +159,7 @@ in
               chat = "󱧎"; # nf-md-message_text_fast
               sea = "󱝆"; # nf-md-surfing
               run = "󰜎"; # nf-md-run
-              dark = "󰨀"; # nf-md-lighthouse_on
+              anvil = "󰢛"; # nf-md-anvil
               magic = "󰄛"; # nf-md-cat
             };
           };

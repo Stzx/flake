@@ -15,7 +15,10 @@ mkIf isNiri {
       ];
       prefer-no-csd = true;
       input.touchpad.enable = false;
-      outputs."DP-1".variable-refresh-rate = "on-demand";
+      outputs = {
+        "DP-1".variable-refresh-rate = "on-demand";
+        "DP-2".transform.rotation = 90;
+      };
       layout = {
         gaps = 6;
         focus-ring = {
@@ -64,7 +67,19 @@ mkIf isNiri {
           open-on-workspace = "chat";
         }
         {
-          matches = [ { app-id = "org.keepassxc.KeePassXC"; } ];
+          matches = [ { app-id = "org.qbittorrent.qBittorrent"; } ];
+          open-on-workspace = "run";
+          default-column-width.proportion = 0.5;
+        }
+        {
+          matches = [ { app-id = "dev.zed.Zed"; } ];
+          open-on-workspace = "anvil";
+        }
+        {
+          matches = [
+            { app-id = "veracrypt"; }
+            { app-id = "org.keepassxc.KeePassXC"; }
+          ];
           open-on-workspace = "magic";
           block-out-from = "screen-capture";
         }
@@ -73,52 +88,54 @@ mkIf isNiri {
         "Mod+1".action = focus-workspace "terminal";
         "Mod+2".action = focus-workspace "sea";
         "Mod+3".action = focus-workspace "chat";
-        "Mod+A".action = focus-workspace "run";
-        "Mod+S".action = focus-workspace "dark";
-        "Mod+D".action = focus-workspace "magic";
+        "Mod+8".action = focus-workspace "run";
+        "Mod+9".action = focus-workspace "dark";
+        "Mod+0".action = focus-workspace "magic";
 
         "Mod+Shift+1".action = move-column-to-workspace "terminal";
         "Mod+Shift+2".action = move-column-to-workspace "sea";
         "Mod+Shift+3".action = move-column-to-workspace "chat";
-        "Mod+Shift+A".action = move-column-to-workspace "run";
-        "Mod+Shift+S".action = move-column-to-workspace "dark";
-        "Mod+Shift+D".action = move-column-to-workspace "magic";
+        "Mod+Shift+8".action = move-column-to-workspace "run";
+        "Mod+Shift+9".action = move-column-to-workspace "anvil";
+        "Mod+Shift+0".action = move-column-to-workspace "magic";
 
         "Mod+H".action = focus-column-left;
-        "Mod+Left".action = focus-column-left;
-
         "Mod+L".action = focus-column-right;
-        "Mod+Right".action = focus-column-right;
-
-        "Mod+K".action = focus-window-up;
-        "Mod+Up".action = focus-window-up;
-
-        "Mod+J".action = focus-window-down;
-        "Mod+Down".action = focus-window-down;
 
         "Mod+Home".action = focus-column-first;
         "Mod+End".action = focus-column-last;
 
-        "Mod+Ctrl+H".action = move-column-left;
-        "Mod+Ctrl+Left".action = move-column-left;
+        "Mod+Shift+H".action = move-column-left;
+        "Mod+Shift+L".action = move-column-right;
 
-        "Mod+Ctrl+L".action = move-column-right;
-        "Mod+Ctrl+Right".action = move-column-right;
+        "Mod+Shift+Home".action = move-column-to-first;
+        "Mod+Shift+End".action = move-column-to-last;
 
-        "Mod+Ctrl+Home".action = move-column-to-first;
-        "Mod+Ctrl+End".action = move-column-to-last;
+        "Mod+Prior".action = focus-workspace-up;
+        "Mod+Next".action = focus-workspace-down;
 
-        "Mod+Shift+M".action = maximize-column;
-        "Mod+Shift+F".action = fullscreen-window;
-        "Mod+Shift+C".action = center-column;
-        "Mod+Shift+X".action = close-window;
-
-        "Mod+Shift+Q".action = quit;
-        "Mod+Shift+P".action = power-off-monitors;
-        "Mod+Shift+Slash".action = show-hotkey-overlay;
+        "Mod+Up".action = move-column-to-monitor-up;
+        "Mod+Down".action = move-column-to-monitor-down;
+        "Mod+Left".action = move-column-to-monitor-left;
+        "Mod+Right".action = move-column-to-monitor-right;
 
         "Mod+Q".action = spawn "tofi";
         "Mod+T".action = spawn "kitty";
+        "Mod+B".action = spawn "firefox";
+
+        "Mod+P".action = power-off-monitors;
+        "Mod+Slash".action = show-hotkey-overlay;
+
+        "Mod+W".action = switch-preset-column-width;
+        "Mod+F".action = fullscreen-window;
+        "Mod+M".action = maximize-column;
+        "Mod+C".action = center-column;
+        "Mod+X".action = close-window;
+
+        "Mod+S".action = screenshot-window;
+        "Mod+Shift+S".action = screenshot-screen;
+
+        "Mod+Shift+Q".action = quit;
 
         "XF86AudioMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
         "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "1%-";
