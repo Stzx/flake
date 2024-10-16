@@ -38,7 +38,7 @@ mkIf isNiri {
         "2".name = "sea";
         "3".name = "chat";
         "4".name = "run";
-        "5".name = "dark";
+        "5".name = "anvil";
         "6".name = "magic";
       };
       window-rules = [
