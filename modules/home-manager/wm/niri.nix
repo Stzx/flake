@@ -119,7 +119,7 @@ mkIf isNiri {
         "Mod+Left".action = move-column-to-monitor-left;
         "Mod+Right".action = move-column-to-monitor-right;
 
-        "Mod+Q".action = spawn "tofi";
+        "Mod+Q".action = spawn "fuzzel";
         "Mod+T".action = spawn "kitty";
         "Mod+B".action = spawn "firefox";
 

@@ -55,21 +55,40 @@ in
         font = "Sarasa Term Slab SC 10";
       };
 
-      programs.tofi = {
+      programs.fuzzel = {
         enable = true;
         settings = {
-          font = "Sarasa Mono Slab SC";
-          font-size = 12;
+          main = {
+            font = "Sarasa Mono Slab SC:slant=italic";
+            icon-theme = "Papirus";
+            horizontal-pad = 24;
+            vertical-pad = 8;
 
-          outline-width = 0;
-
-          background-color = "#1B1D1EBF";
-
-          border-width = 2;
-          border-color = "#884DFF";
-
-          history = false;
+            lines = 10;
+            tabs = 4;
+          };
+          colors = rec {
+            background = "bebebecc";
+            text = "f5f5f5ff";
+            selection = "8e24aa80";
+            selection-text = text;
+          };
+          border.radius = 0;
         };
+      };
+
+      programs.tofi.settings = {
+        font = "Sarasa Mono Slab SC";
+        font-size = 12;
+
+        outline-width = 0;
+
+        background-color = "#1B1D1EBF";
+
+        border-width = 2;
+        border-color = "#884DFF";
+
+        history = false;
       };
 
       programs.waybar.enable = mkDefault true;
