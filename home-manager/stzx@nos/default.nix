@@ -57,11 +57,18 @@ in
 
         programs = {
           firefox.enable = true;
+
           thunderbird = {
             enable = true;
             profiles.${profile}.isDefault = true;
           };
         };
+
+        xdg.configFile."mpv/mpv.conf".text = ''
+          profile=high-quality
+
+          fs=yes
+        '';
       }
     ];
 
