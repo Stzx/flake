@@ -50,12 +50,13 @@ in
 
       environment = {
         systemPackages = with pkgs; [
-          vulkan-tools
-
           clinfo
 
-          libva-utils
+          vulkan-tools
+
           wayland-utils
+
+          libva-utils
         ];
         sessionVariables = {
           NIXOS_OZONE_WL = "1";

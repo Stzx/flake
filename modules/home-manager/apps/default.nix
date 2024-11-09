@@ -1,8 +1,9 @@
 {
   imports = [
     ./android.nix
-    ./firefox.nix
     ./network.nix
+    ./firefox.nix
+
     ./neovim.nix
     ./vscode.nix
   ];

@@ -66,6 +66,8 @@ in
 
           "browser.vpn_promo.enabled" = false;
 
+          "browser.quitShortcut.disabled" = true;
+
           "network.dns.disableIPv6" = true;
           "network.trr.mode" = 5;
           "network.predictor.enabled" = false;
@@ -87,10 +89,10 @@ in
           "app.normandy.enabled" = false;
           "app.normandy.first_run" = false;
 
+          "pdfjs.enabledCache.state" = true;
+          "pdfjs.defaultZoomValue" = "page-fit";
           "pdfjs.sidebarViewOnLoad" = 0;
           "pdfjs.spreadModeOnLoad" = 0;
-          "pdfjs.defaultZoomValue" = "page-fit";
-          "pdfjs.enabledCache.state" = true;
 
           "datareporting.policy.dataSubmissionEnabled" = false;
           "datareporting.healthreport.uploadEnabled" = false;

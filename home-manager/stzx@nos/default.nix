@@ -79,10 +79,10 @@ in
 
     adb = true;
     net-tools = true;
+  };
 
-    git = {
-      userName = "Stzx";
-      userEmail = email;
-    };
+  programs.git = {
+    userName = "Stzx";
+    userEmail = email;
   };
 }

@@ -18,11 +18,16 @@ mkMerge [
       envExtra = osEnv.interactiveShellInit;
       initExtraFirst = ''
         ZSH_COMPDUMP="/tmp/.zcompdump-$USER"
-        ZSH_AUTOSUGGEST_STRATEGY=(history completion)
       '';
       shellAliases = osEnv.shellAliases;
       history.ignoreAllDups = true;
-      autosuggestion.enable = true;
+      autosuggestion = {
+        enable = true;
+        strategy = [
+          "history"
+          "completion"
+        ];
+      };
       syntaxHighlighting.enable = true;
       oh-my-zsh = {
         enable = true;

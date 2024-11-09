@@ -1,8 +1,6 @@
 { lib, ... }:
 {
-  services.flatpak.enable = true; # for game
-
-  services.boinc.enable = true;
+  services.flatpak.enable = true;
 
   services.prometheus = {
     enable = true;
