@@ -11,7 +11,6 @@ mkIf isNiri {
         { command = [ "kitty" ]; }
         { command = [ "firefox" ]; }
         { command = [ "thunderbird" ]; }
-        { command = [ "telegram-desktop" ]; }
       ];
       prefer-no-csd = true;
       input.touchpad.enable = false;
@@ -47,7 +46,10 @@ mkIf isNiri {
           clip-to-geometry = true;
         }
         {
-          matches = singleton { app-id = "kitty"; };
+          matches = singleton {
+            app-id = "kitty";
+            at-startup = true;
+          };
           open-on-workspace = "terminal";
           default-column-width.proportion = 0.75;
         }
@@ -65,14 +67,23 @@ mkIf isNiri {
             { app-id = "thunderbird"; }
           ];
           open-on-workspace = "chat";
+          default-column-width.proportion = 0.5;
         }
         {
-          matches = [ { app-id = "org.qbittorrent.qBittorrent"; } ];
+          matches = singleton {
+            app-id = "org.telegram.desktop";
+            title = "Media viewer";
+          };
+          open-fullscreen = false;
+          default-column-width.proportion = 0.5;
+        }
+        {
+          matches = singleton { app-id = "org.qbittorrent.qBittorrent"; };
           open-on-workspace = "run";
           default-column-width.proportion = 0.5;
         }
         {
-          matches = [ { app-id = "dev.zed.Zed"; } ];
+          matches = singleton { app-id = "dev.zed.Zed"; };
           open-on-workspace = "anvil";
         }
         {
