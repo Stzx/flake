@@ -72,7 +72,11 @@ in
       }
     ];
 
-  home.packages = [ pkgs.temurin-bin ];
+  home.packages = with pkgs; [
+    flac
+
+    temurin-bin
+  ];
 
   programs = {
     ssh.enable = true;
