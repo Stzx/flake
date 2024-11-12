@@ -13,7 +13,6 @@
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
         flake-utils.follows = "flake-utils";
       };
     };
@@ -28,8 +27,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
-
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
@@ -42,10 +39,7 @@
 
     niri = {
       url = "github:sodiboo/niri-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
