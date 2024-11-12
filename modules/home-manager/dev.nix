@@ -2,22 +2,14 @@
 
 {
   programs.git.extraConfig = {
-    init = {
-      defaultBranch = "main";
-    };
+    init.defaultBranch = "main";
     fetch = {
       prune = true;
       pruneTags = true;
     };
-    pull = {
-      rebase = true;
-    };
-    push = {
-      autoSetupRemote = true;
-    };
-    protocol = {
-      file.allow = "always";
-    };
+    pull.rebase = true;
+    push.autoSetupRemote = true;
+    protocol.file.allow = "always";
   };
 
   programs.direnv = {

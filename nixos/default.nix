@@ -50,43 +50,22 @@
 
   documentation.doc.enable = false;
 
-  environment = {
-    systemPackages = with pkgs; [
-      smartmontools
-      acpitool
-      nvme-cli
-      pciutils
-      usbutils
+  environment.systemPackages = with pkgs; [
+    smartmontools
+    acpitool
+    nvme-cli
+    pciutils
+    usbutils
 
-      lsof
-      tree
-      file
+    lsof
+    tree
+    file
 
-      bat
-      p7zip
-    ];
-    shellAliases =
-      let
-        _flake = name: ''--flake "$_FLAKE?submodules=1#${name}"'';
+    bat
+    p7zip
 
-        flake = _flake config.networking.hostName;
-
-        userFlake = _flake "$USER@${config.networking.hostName}";
-      in
-      {
-        npdc = "nix profile diff-closures --profile /nix/var/nix/profiles/system";
-
-        rb = "sudo nixos-rebuild boot ${flake} -v";
-
-        rs = "sudo nixos-rebuild switch ${flake} -v";
-
-        rh = "home-manager switch ${userFlake} -v";
-
-        ih = "nix run home-manager -- switch ${userFlake}";
-
-        less = "less -S";
-      };
-  };
+    # lsix, read-edid
+  ];
 
   programs.dconf.enable = lib.mkOverride 999 lib.my.haveAnyWM;
 
