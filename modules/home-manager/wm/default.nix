@@ -68,10 +68,15 @@ in
             tabs = 4;
           };
           colors = rec {
-            background = "bebebecc";
+            background = "161b22cc";
             text = "f5f5f5ff";
-            selection = "8e24aa80";
-            selection-text = text;
+            selection = "30563fcc";
+            selection-text = "3fb950ff";
+
+            match = "c38000ff";
+            selection-match = match;
+
+            border = "0088ffff";
           };
           border.radius = 0;
         };
