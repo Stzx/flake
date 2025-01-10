@@ -100,7 +100,7 @@ mkIf isNiri {
         "Mod+2".action = focus-workspace "sea";
         "Mod+3".action = focus-workspace "chat";
         "Mod+8".action = focus-workspace "run";
-        "Mod+9".action = focus-workspace "dark";
+        "Mod+9".action = focus-workspace "anvil";
         "Mod+0".action = focus-workspace "magic";
 
         "Mod+Shift+1".action = move-column-to-workspace "terminal";
