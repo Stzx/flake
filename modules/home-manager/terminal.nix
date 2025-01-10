@@ -21,7 +21,7 @@ mkMerge [
     programs.kitty = {
       themeFile = "Monokai";
       extraConfig = ''
-        font_family ZedMono Nerd Font Mono
+        font_family Sarasa Term Slab SC
 
         background_opacity 0.8
         background_blur 0

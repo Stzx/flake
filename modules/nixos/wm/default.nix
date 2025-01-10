@@ -59,35 +59,47 @@ in
 
         sarasa-gothic
         # Gothic, UI = Inter
+        #   Quotes (“”) are full width —— Gothic
+        #   Quotes (“”) are narrow —— UI
         #
         # Mono, Term, Fixed = Iosevka
-        # | suffix | half width | ligature |
-        # |--------|:----------:|:--------:|
-        # | Mono   |      N     |     Y    |
-        # | Term   |      Y     |     Y    |
-        # | Fixed  |      Y     |     N    |
-
-        nerdfonts
+        #   | suffix | half width | ligature |
+        #   |--------|:----------:|:--------:|
+        #   | Mono   |      N     |     Y    |
+        #   | Term   |      Y     |     Y    |
+        #   | Fixed  |      Y     |     N    |
+        #
+        #   Em dashes (——) are full width —— Mono
+        #   Em dashes (——) are half width —— Term
+        #   No ligature, Em dashes (——) are half width —— Fixed
+        #
+        # Orthography dimension
+        #   CL: Classical orthography
+        #   SC, TC, J, K, HC: Regional orthography, following Source Han Sans notations.
 
         noto-fonts-color-emoji
+
+        # nerd-fonts.iosevka-term-slab
+        nerd-fonts.comic-shanns-mono
+        nerd-fonts.symbols-only
       ];
       fontconfig = {
         enable = true;
         subpixel.rgba = "rgb";
         defaultFonts = lib.mkForce {
           serif = [
-            "Sarasa Term Slab SC"
-            "Sarasa Term Slab TC"
-            "Sarasa Term Slab HC"
-            "Sarasa Term Slab J"
-            "Sarasa Term Slab K"
+            "Sarasa Gothic SC"
+            "Sarasa Gothic TC"
+            "Sarasa Gothic HC"
+            "Sarasa Gothic J"
+            "Sarasa Gothic K"
           ];
           sansSerif = [
-            "Sarasa Term SC"
-            "Sarasa Term TC"
-            "Sarasa Term HC"
-            "Sarasa Term J"
-            "Sarasa Term K"
+            "Sarasa UI SC"
+            "Sarasa UI TC"
+            "Sarasa UI HC"
+            "Sarasa UI J"
+            "Sarasa UI K"
           ];
           monospace = [
             "Sarasa Mono SC"

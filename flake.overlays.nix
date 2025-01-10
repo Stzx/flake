@@ -1,17 +1,4 @@
 final: prev: {
-  nerdfonts = prev.nerdfonts.override {
-    fonts = [
-      "NerdFontsSymbolsOnly"
-
-      # "ComicShannsMono"
-      # "Inconsolata"
-      # "JetBrainsMono"
-      # "Ubuntu"
-      # "UbuntuMono"
-      "ZedMono"
-    ];
-  };
-
   firefox = prev.firefox.override { cfg.speechSynthesisSupport = false; };
 
   jetbrains =
