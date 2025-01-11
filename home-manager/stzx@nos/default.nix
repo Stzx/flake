@@ -21,11 +21,11 @@ in
           libreoffice
 
           texlive.combined.scheme-full
-          texstudio
 
+          unrar
           mpv
-          obs-studio
           qbittorrent
+          obs-studio
           telegram-desktop
 
           veracrypt
@@ -87,6 +87,7 @@ in
     ssh.enable = true;
 
     adb = true;
+    scrcpy = true;
     net-tools = true;
   };
 
