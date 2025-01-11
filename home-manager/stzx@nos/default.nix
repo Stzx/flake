@@ -65,9 +65,14 @@ in
         };
 
         xdg.configFile."mpv/mpv.conf".text = ''
-          profile=high-quality
+          profile=gpu-hq
 
           fs=yes
+          mute=yes
+          keepaspect=yes
+
+          alang=chi,zh,en
+          slang=chi,zh,en
         '';
       }
     ];
