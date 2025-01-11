@@ -6,9 +6,12 @@
 }:
 
 let
-  inherit (lib) mkIf mkMerge;
+  inherit (lib) mkIf mkMerge optionalAttrs;
 
-  zshCfg = config.programs.zsh;
+  cfg = config.programs;
+
+  zshCfg = cfg.zsh;
+  kittyCfg = cfg.kitty;
 
   osEnv = osConfig.environment;
 in
@@ -19,7 +22,12 @@ mkMerge [
       initExtraFirst = ''
         ZSH_COMPDUMP="/tmp/.zcompdump-$USER"
       '';
-      shellAliases = osEnv.shellAliases;
+      shellAliases =
+        osEnv.shellAliases
+        // optionalAttrs kittyCfg.enable {
+          icat = "kitty +kitten icat";
+          kssh = "kitty +kitten ssh";
+        };
       history.ignoreAllDups = true;
       autosuggestion = {
         enable = true;
