@@ -71,77 +71,101 @@ let
 
   settings = {
     "kded5rc" = [
-      (lock [ "Module-colorcorrectlocationupdater" ] [
+      (lock
+        [ "Module-colorcorrectlocationupdater" ]
         [
-          "autoload"
-          "false"
+          [
+            "autoload"
+            "false"
+          ]
         ]
-      ])
-      (lock [ "Module-freespacenotifier" ] [
+      )
+      (lock
+        [ "Module-freespacenotifier" ]
         [
-          "autoload"
-          "false"
+          [
+            "autoload"
+            "false"
+          ]
         ]
-      ])
-      (lock [ "Module-kded_touchpad" ] [
+      )
+      (lock
+        [ "Module-kded_touchpad" ]
         [
-          "autoload"
-          "false"
+          [
+            "autoload"
+            "false"
+          ]
         ]
-      ])
-      (lock [ "Module-plasma_accentcolor_service" ] [
+      )
+      (lock
+        [ "Module-plasma_accentcolor_service" ]
         [
-          "autoload"
-          "false"
+          [
+            "autoload"
+            "false"
+          ]
         ]
-      ])
+      )
     ];
 
     "kwinrc" = [
-      (set [ "Desktops" ] [
+      (set
+        [ "Desktops" ]
         [
-          "Number"
-          "2"
+          [
+            "Number"
+            "2"
+          ]
+          [
+            "Name_1"
+            "Tom"
+          ]
+          [
+            "Name_2"
+            "Jerry"
+          ]
         ]
+      )
+      (lock
+        [ "TabBox" ]
         [
-          "Name_1"
-          "Tom"
+          [
+            "ShowTabBox"
+            "false"
+          ]
+          [
+            "SwitchingMode"
+            "1"
+          ]
         ]
+      )
+      (lock
+        [ "Plugins" ]
         [
-          "Name_2"
-          "Jerry"
+          [
+            "slidebackEnabled"
+            "true"
+          ]
+          [
+            "zoomEnabled"
+            "false"
+          ]
+          [
+            "tileseditorEnabled"
+            "false"
+          ]
         ]
-      ])
-      (lock [ "TabBox" ] [
+      )
+      (lock
+        [ "Input" ]
         [
-          "ShowTabBox"
-          "false"
+          [
+            "TabletMode"
+            "off"
+          ]
         ]
-        [
-          "SwitchingMode"
-          "1"
-        ]
-      ])
-      (lock [ "Plugins" ] [
-        [
-          "slidebackEnabled"
-          "true"
-        ]
-        [
-          "zoomEnabled"
-          "false"
-        ]
-        [
-          "tileseditorEnabled"
-          "false"
-        ]
-      ])
-      (lock [ "Input" ] [
-        [
-          "TabletMode"
-          "off"
-        ]
-      ])
+      )
     ];
 
     "kdeglobals" =
@@ -150,34 +174,40 @@ let
         mono = "Sarasa Mono SC,10,-1,5,50,0,0,0,0,0";
       in
       [
-        (lock [ "General" ] [
+        (lock
+          [ "General" ]
           [
-            "fixed"
-            mono
+            [
+              "fixed"
+              mono
+            ]
+            [
+              "font"
+              default
+            ]
+            [
+              "menuFont"
+              default
+            ]
+            [
+              "smallestReadableFont"
+              default
+            ]
+            [
+              "toolBarFont"
+              default
+            ]
           ]
+        )
+        (lock
+          [ "WM" ]
           [
-            "font"
-            default
+            [
+              "activeFont"
+              default
+            ]
           ]
-          [
-            "menuFont"
-            default
-          ]
-          [
-            "smallestReadableFont"
-            default
-          ]
-          [
-            "toolBarFont"
-            default
-          ]
-        ])
-        (lock [ "WM" ] [
-          [
-            "activeFont"
-            default
-          ]
-        ])
+        )
       ];
 
     "powerdevilrc" = [
@@ -196,119 +226,137 @@ let
     ];
 
     "ksplashrc" = [
-      (lock [ "KSplash" ] [
+      (lock
+        [ "KSplash" ]
         [
-          "Engine"
-          "None"
+          [
+            "Engine"
+            "None"
+          ]
+          [
+            "Theme"
+            "None"
+          ]
         ]
-        [
-          "Theme"
-          "None"
-        ]
-      ])
+      )
     ];
 
     "kwalletrc" = [
-      (lock [ "Wallet" ] [
+      (lock
+        [ "Wallet" ]
         [
-          "Enabled"
-          "false"
+          [
+            "Enabled"
+            "false"
+          ]
         ]
-      ])
+      )
     ];
 
     "kcminputrc" = [
-      (lock [ "Keyboard" ] [
+      (lock
+        [ "Keyboard" ]
         [
-          "NumLock"
-          "0"
+          [
+            "NumLock"
+            "0"
+          ]
+          [
+            "RepeatDelay"
+            "500"
+          ]
         ]
-        [
-          "RepeatDelay"
-          "500"
-        ]
-      ])
+      )
     ];
 
     # Theme
     "breezerc" = [
-      (lock [ "Common" ] [
+      (lock
+        [ "Common" ]
         [
-          "OutlineCloseButton"
-          "true"
+          [
+            "OutlineCloseButton"
+            "true"
+          ]
         ]
-      ])
+      )
     ];
 
     # Search & Index
     "baloofilerc" = [
-      (lock [ "General" ] [
+      (lock
+        [ "General" ]
         [
-          "only basic indexing"
-          "true"
+          [
+            "only basic indexing"
+            "true"
+          ]
         ]
-      ])
+      )
     ];
 
     "krunnerrc" = [
-      (lock [ "Plugins" ] [
+      (lock
+        [ "Plugins" ]
         [
-          "helprunnerEnabled"
-          "false"
+          [
+            "helprunnerEnabled"
+            "false"
+          ]
+          [
+            "krunner_appstreamEnabled"
+            "false"
+          ]
+          [
+            "krunner_bookmarksrunnerEnabled"
+            "false"
+          ]
+          [
+            "krunner_dictionaryEnabled"
+            "false"
+          ]
+          [
+            "krunner_katesessionsEnabled"
+            "false"
+          ]
+          [
+            "krunner_killEnabled"
+            "false"
+          ]
+          [
+            "krunner_konsoleprofilesEnabled"
+            "false"
+          ]
+          [
+            "krunner_placesrunnerEnabled"
+            "false"
+          ]
+          [
+            "krunner_powerdevilEnabled"
+            "false"
+          ]
+          [
+            "krunner_recentdocumentsEnabled"
+            "false"
+          ]
+          [
+            "krunner_spellcheckEnabled"
+            "false"
+          ]
+          [
+            "krunner_webshortcutsEnabled"
+            "false"
+          ]
+          [
+            "locationsEnabled"
+            "false"
+          ]
+          [
+            "org.kde.datetimeEnabled"
+            "false"
+          ]
         ]
-        [
-          "krunner_appstreamEnabled"
-          "false"
-        ]
-        [
-          "krunner_bookmarksrunnerEnabled"
-          "false"
-        ]
-        [
-          "krunner_dictionaryEnabled"
-          "false"
-        ]
-        [
-          "krunner_katesessionsEnabled"
-          "false"
-        ]
-        [
-          "krunner_killEnabled"
-          "false"
-        ]
-        [
-          "krunner_konsoleprofilesEnabled"
-          "false"
-        ]
-        [
-          "krunner_placesrunnerEnabled"
-          "false"
-        ]
-        [
-          "krunner_powerdevilEnabled"
-          "false"
-        ]
-        [
-          "krunner_recentdocumentsEnabled"
-          "false"
-        ]
-        [
-          "krunner_spellcheckEnabled"
-          "false"
-        ]
-        [
-          "krunner_webshortcutsEnabled"
-          "false"
-        ]
-        [
-          "locationsEnabled"
-          "false"
-        ]
-        [
-          "org.kde.datetimeEnabled"
-          "false"
-        ]
-      ])
+      )
     ];
 
     # Lockscreen
@@ -339,78 +387,99 @@ let
 
     # History
     "kactivitymanagerd-pluginsrc" = [
-      (lock [ "Plugin-org.kde.ActivityManager.Resources.Scoring" ] [
+      (lock
+        [ "Plugin-org.kde.ActivityManager.Resources.Scoring" ]
         [
-          "keep-history-for"
-          "1"
+          [
+            "keep-history-for"
+            "1"
+          ]
+          [
+            "what-to-remember"
+            "2"
+          ]
         ]
-        [
-          "what-to-remember"
-          "2"
-        ]
-      ])
+      )
     ];
 
     # Application
     "systemsettingsrc" = [
-      (lock [ "systemsettings_sidebar_mode" ] [
+      (lock
+        [ "systemsettings_sidebar_mode" ]
         [
-          "HighlightNonDefaultSettings"
-          "true"
+          [
+            "HighlightNonDefaultSettings"
+            "true"
+          ]
         ]
-      ])
+      )
     ];
 
     "dolphinrc" = [
-      (lock [ "General" ] [
+      (lock
+        [ "General" ]
         [
-          "ModifiedStartupSettings"
-          "false"
+          [
+            "ModifiedStartupSettings"
+            "false"
+          ]
+          [
+            "OpenExternallyCalledFolderInNewTab"
+            "true"
+          ]
+          [
+            "ShowFullPath"
+            "true"
+          ]
+          [
+            "SplitView"
+            "true"
+          ]
         ]
+      )
+      (lock
+        [ "PlacesPanel" ]
         [
-          "OpenExternallyCalledFolderInNewTab"
-          "true"
+          [
+            "IconSize"
+            "32"
+          ]
         ]
+      )
+      (lock
+        [ "KFileDialog Settings" ]
         [
-          "ShowFullPath"
-          "true"
+          [
+            "IconSize"
+            "32"
+          ]
         ]
+      )
+      (lock
+        [ "PreviewSettings" ]
         [
-          "SplitView"
-          "true"
+          [
+            "Plugins"
+            "appimagethumbnail,windowsimagethumbnail,windowsexethumbnail,svgthumbnail,cursorthumbnail"
+          ]
         ]
-      ])
-      (lock [ "PlacesPanel" ] [
-        [
-          "IconSize"
-          "32"
-        ]
-      ])
-      (lock [ "KFileDialog Settings" ] [
-        [
-          "IconSize"
-          "32"
-        ]
-      ])
-      (lock [ "PreviewSettings" ] [
-        [
-          "Plugins"
-          "appimagethumbnail,windowsimagethumbnail,windowsexethumbnail,svgthumbnail,cursorthumbnail"
-        ]
-      ])
+      )
     ];
 
     "kservicemenurc" = [
-      (lock [ "Show" ] [
+      (lock
+        [ "Show" ]
         [
-          "makefileactions"
-          "true"
+          [
+            "makefileactions"
+            "true"
+          ]
+          [
+            "wallpaperfileitemaction"
+            "true"
+          ]
         ]
-        [
-          "wallpaperfileitemaction"
-          "true"
-        ]
-      ])
+      )
     ];
   };
 
