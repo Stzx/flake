@@ -1,5 +1,5 @@
-final: prev: rec {
-  waybar = prev.waybar.override (_: {
+final: prev: {
+  waybar = prev.waybar.override {
     cavaSupport = false;
     jackSupport = false;
     mpdSupport = false;
@@ -9,7 +9,7 @@ final: prev: rec {
     swaySupport = false;
     upowerSupport = false;
     withMediaPlayer = false;
-  });
+  };
 
   mpv = prev.mpv-unwrapped.wrapper {
     mpv = prev.mpv-unwrapped.override {
@@ -23,5 +23,21 @@ final: prev: rec {
       openalSupport = false;
     };
     youtubeSupport = false;
+  };
+
+  qbittorrent = prev.qbittorrent.override {
+    trackerSearch = false;
+    webuiSupport = false;
+  };
+
+  keepassxc = prev.keepassxc.override {
+    withKeePassBrowser = false;
+    withKeePassBrowserPasskeys = false;
+    withKeePassFDOSecrets = false;
+    withKeePassNetworking = false;
+    withKeePassSSHAgent = false;
+    withKeePassTouchID = false;
+    withKeePassX11 = false;
+    withKeePassYubiKey = false;
   };
 }
