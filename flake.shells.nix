@@ -1,18 +1,16 @@
 { pkgs, ... }:
 
 let
-  # FIXME: https://github.com/NixOS/nixpkgs/issues/49894
-  llvmShell = (
-    with pkgs;
+  inherit (pkgs) mkShell overrideCC clangStdenv;
 
-    mkShell.override {
-      stdenv = overrideCC clangStdenv (
-        clangStdenv.cc.override {
-          inherit (llvmPackages) bintools;
-        }
-      );
-    }
-  );
+  # FIXME: https://github.com/NixOS/nixpkgs/issues/49894
+  llvmShell = mkShell.override {
+    stdenv = overrideCC clangStdenv (
+      clangStdenv.cc.override {
+        inherit (pkgs.llvmPackages) bintools;
+      }
+    );
+  };
 in
 {
   default = llvmShell {
@@ -22,7 +20,7 @@ in
     ];
   };
 
-  kernel = llvmShell {
+  kernel = mkShell {
     packages = with pkgs; [
       flex
       bison
@@ -33,13 +31,10 @@ in
     buildInputs = [ pkgs.ncurses ];
 
     shellHook = ''
-      _arch="$(uname --machine)"
-
-      export LLVM=1 && \
-      export ARCH=$_arch && \
-      git fetch origin tag "$(uname --kernel-release)" --depth=1 && \
-      git checkout "tags/$(uname --kernel-release)" && \
-      (make helpnewconfig | less -F)
+      export ARCH="$(uname --machine)" \
+      && git fetch origin tag "$(uname --kernel-release)" --depth=1 \
+      && git checkout "tags/$(uname --kernel-release)" \
+      && (make helpnewconfig | less -F)
     '';
   };
 }
