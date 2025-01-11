@@ -33,7 +33,7 @@
       "workbench.colorTheme" = "Monokai Classic";
       "workbench.iconTheme" = "material-icon-theme";
 
-      "editor.fontFamily" = "'Sarasa Mono SC', 'Sarasa Mono TC', 'Sarasa Mono HC', 'Sarasa Mono J', 'Sarasa Mono K', monospace";
+      "editor.fontFamily" = "monospace";
       "editor.fontLigatures" = true;
       "editor.cursorStyle" = "underline";
 

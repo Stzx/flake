@@ -77,6 +77,8 @@ in
         #   CL: Classical orthography
         #   SC, TC, J, K, HC: Regional orthography, following Source Han Sans notations.
 
+        noto-fonts-cjk-serif
+        noto-fonts-cjk-sans
         noto-fonts-color-emoji
 
         # nerd-fonts.iosevka-term-slab
@@ -88,18 +90,18 @@ in
         subpixel.rgba = "rgb";
         defaultFonts = lib.mkForce {
           serif = [
-            "Sarasa Gothic SC"
-            "Sarasa Gothic TC"
-            "Sarasa Gothic HC"
-            "Sarasa Gothic J"
-            "Sarasa Gothic K"
+            "Noto Serif CJK SC"
+            "Noto Serif CJK TC"
+            "Noto Serif CJK HK"
+            "Noto Serif CJK JP"
+            "Noto Serif CJK KR"
           ];
           sansSerif = [
-            "Sarasa UI SC"
-            "Sarasa UI TC"
-            "Sarasa UI HC"
-            "Sarasa UI J"
-            "Sarasa UI K"
+            "Noto Sans CJK SC"
+            "Noto Sans CJK TC"
+            "Noto Sans CJK HK"
+            "Noto Sans CJK JP"
+            "Noto Sans CJK KR"
           ];
           monospace = [
             "Sarasa Mono SC"
