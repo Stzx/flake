@@ -129,6 +129,11 @@ lib.mkIf cfg.enable {
 
       indent-blankline-nvim
 
+      cmp-nvim-lsp
+      cmp-buffer
+      cmp-path
+      cmp-cmdline
+
       nvim-lspconfig
 
       (luaCfg nvim-twp ''
@@ -143,20 +148,10 @@ lib.mkIf cfg.enable {
         }
       '')
 
-      cmp-nvim-lsp
-      cmp-buffer
-      cmp-path
-      cmp-cmdline
-
-      (luaCfg cmp-snippy ''
+      (luaCfg nvim-cmp ''
         local cmp = require('cmp')
 
         cmp.setup({
-          snippet = {
-            expand = function(args)
-              require('snippy').expand_snippet(args.body)
-            end,
-          },
           window = {
             completion = cmp.config.window.bordered(),
             documentation = cmp.config.window.bordered(),
@@ -172,7 +167,6 @@ lib.mkIf cfg.enable {
           }),
           sources = cmp.config.sources({
             { name = 'nvim_lsp' },
-            { name = 'snippy' },
           }, {
             { name = 'buffer' },
           })
