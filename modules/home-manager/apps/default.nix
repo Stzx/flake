@@ -4,7 +4,8 @@
     ./network.nix
     ./firefox.nix
 
-    ./neovim.nix
-    ./vscode.nix
+    ./editor/neovim.nix
+    ./editor/zed.nix
+    ./editor/vscode.nix
   ];
 }
