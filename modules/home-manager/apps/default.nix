@@ -3,6 +3,7 @@
     ./android.nix
     ./network.nix
     ./firefox.nix
+    ./mpv.nix
 
     ./editor/neovim.nix
     ./editor/zed.nix

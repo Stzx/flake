@@ -15,12 +15,15 @@ final: prev: {
     mpv = prev.mpv-unwrapped.override {
       x11Support = false;
       sdl2Support = false;
+      cacaSupport = false;
       vdpauSupport = false;
-      vapoursynthSupport = false;
-      javascriptSupport = false;
+
       alsaSupport = false;
       pulseSupport = false;
       openalSupport = false;
+
+      vapoursynthSupport = false;
+      javascriptSupport = false;
     };
     youtubeSupport = false;
   };

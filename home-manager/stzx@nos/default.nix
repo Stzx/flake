@@ -23,7 +23,6 @@ in
           texlive.combined.scheme-full
 
           unrar
-          mpv
           qbittorrent
           obs-studio
           telegram-desktop
@@ -62,18 +61,9 @@ in
             enable = true;
             profiles.${profile}.isDefault = true;
           };
+
+          mpv.enable = true;
         };
-
-        xdg.configFile."mpv/mpv.conf".text = ''
-          profile=gpu-hq
-
-          fs=yes
-          mute=yes
-          keepaspect=yes
-
-          alang=chi,zh,en
-          slang=chi,zh,en
-        '';
       }
     ];
 
