@@ -173,7 +173,7 @@ in
 
           margin: 0;
 
-          font-family: "Symbols Nerd Font", "Sarasa Term Slab SC", sans-serif;
+          font-family: "Symbols Nerd Font Mono", "Sarasa Fixed Slab SC", sans-serif;
           font-size: 1.0rem;
         }
 
@@ -186,7 +186,7 @@ in
         window#waybar .module {
           border-bottom: 2px solid #8e24aa;
 
-          padding: 0 6px;
+          padding: 0 3px;
         }
 
         #window, #clock {

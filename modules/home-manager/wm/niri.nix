@@ -20,6 +20,7 @@ mkIf isNiri {
       };
       layout = {
         gaps = 6;
+        always-center-single-column = true;
         focus-ring = {
           width = 2;
           active = {
@@ -80,11 +81,12 @@ mkIf isNiri {
         {
           matches = singleton { app-id = "org.qbittorrent.qBittorrent"; };
           open-on-workspace = "run";
-          default-column-width.proportion = 0.5;
+          default-column-width.proportion = 0.75;
         }
         {
           matches = singleton { app-id = "dev.zed.Zed"; };
           open-on-workspace = "anvil";
+          open-maximized = true;
         }
         {
           matches = [
