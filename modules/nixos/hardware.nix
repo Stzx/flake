@@ -76,14 +76,17 @@ in
     })
 
     (mkIf gpuCfg.amd {
-      hardware.graphics.extraPackages =
-        [ pkgs.amdvlk ]
-        ++ (with pkgs.rocmPackages; [
-          clr
-          clr.icd
-        ]);
+      environment.systemPackages = [
+        pkgs.amdgpu_top
 
-      environment.systemPackages = singleton pkgs.amdgpu_top;
+        pkgs.rocmPackages.rocminfo
+      ];
+
+      hardware.graphics.extraPackages = with pkgs; [
+        amdvlk
+
+        rocmPackages.clr.icd
+      ];
 
       services.xserver.videoDrivers = singleton "modesetting";
     })
