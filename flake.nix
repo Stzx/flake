@@ -10,11 +10,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
+      url = "github:nix-community/lanzaboote/v0.4.2";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     disko = {
@@ -69,6 +66,7 @@
             allowUnfree = true;
           };
           overlays = [
+            niri.overlays.niri
             flake-secrets.overlays.default
 
             self.overlays.default
