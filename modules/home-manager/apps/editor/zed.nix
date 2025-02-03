@@ -53,7 +53,7 @@
       };
       load_direnv = "shell_hook";
       file_types = {
-        "Shell Script" = [ "source" ];
+        "Shell Script" = [ "sh" "source" "src" ];
       };
       file_scan_exclusions = [
         "**/.git"
