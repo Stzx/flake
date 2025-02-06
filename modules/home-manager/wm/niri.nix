@@ -67,6 +67,7 @@ mkIf isNiri {
             { app-id = "org.telegram.desktop"; }
             { app-id = "thunderbird"; }
           ];
+          excludes = singleton { title = "Media viewer"; };
           open-on-workspace = "chat";
           default-column-width.proportion = 0.5;
         }
@@ -76,11 +77,15 @@ mkIf isNiri {
             title = "Media viewer";
           };
           open-fullscreen = false;
-          default-column-width.proportion = 0.5;
+          open-floating = true;
+
+          default-column-width.proportion = 0.75;
+          default-window-height.proportion = 0.75;
         }
         {
           matches = singleton { app-id = "org.qbittorrent.qBittorrent"; };
           open-on-workspace = "run";
+
           default-column-width.proportion = 0.75;
         }
         {
