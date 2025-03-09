@@ -20,7 +20,21 @@ in
           librecad
           libreoffice
 
-          texlive.combined.scheme-full
+          (texliveSmall.withPackages (
+            ps: with ps; [
+              roboto
+              sourcesanspro
+              fontawesome5
+
+              ctex
+              enumitem
+              tcolorbox
+              tikzfill
+              ifmtarg
+              xifthen
+              xstring
+            ]
+          ))
 
           unrar
           qbittorrent
