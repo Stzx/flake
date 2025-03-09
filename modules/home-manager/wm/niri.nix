@@ -13,11 +13,6 @@ mkIf isNiri {
         { command = [ "thunderbird" ]; }
       ];
       prefer-no-csd = true;
-      input.touchpad.enable = false;
-      outputs = {
-        "DP-1".variable-refresh-rate = "on-demand";
-        "DP-2".transform.rotation = 90;
-      };
       layout = {
         gaps = 6;
         always-center-single-column = true;
@@ -46,19 +41,14 @@ mkIf isNiri {
           matches = singleton { is-focused = true; };
           clip-to-geometry = true;
         }
-        {
-          matches = singleton {
-            app-id = "kitty";
-            at-startup = true;
-          };
-          open-on-workspace = "terminal";
-          default-column-width.proportion = 0.75;
-        }
+
+        # non-floating window rules
         {
           matches = singleton {
             app-id = "firefox";
             at-startup = true;
           };
+
           open-on-workspace = "sea";
           open-maximized = true;
         }
@@ -67,29 +57,41 @@ mkIf isNiri {
             { app-id = "org.telegram.desktop"; }
             { app-id = "thunderbird"; }
           ];
-          excludes = singleton { title = "Media viewer"; };
+          excludes = [
+            {
+              app-id = "org.telegram.desktop";
+              title = "Media viewer";
+            }
+            {
+              app-id = "thunderbird";
+              title = "^(?-x:Password Required|Enter credentials for)";
+            }
+          ];
+
           open-on-workspace = "chat";
+
           default-column-width.proportion = 0.5;
         }
         {
           matches = singleton {
-            app-id = "org.telegram.desktop";
-            title = "Media viewer";
+            app-id = "kitty";
+            at-startup = true;
           };
-          open-fullscreen = false;
-          open-floating = true;
+
+          open-on-workspace = "terminal";
 
           default-column-width.proportion = 0.75;
-          default-window-height.proportion = 0.75;
         }
         {
           matches = singleton { app-id = "org.qbittorrent.qBittorrent"; };
+
           open-on-workspace = "run";
 
           default-column-width.proportion = 0.75;
         }
         {
           matches = singleton { app-id = "dev.zed.Zed"; };
+
           open-on-workspace = "anvil";
           open-maximized = true;
         }
@@ -98,8 +100,38 @@ mkIf isNiri {
             { app-id = "veracrypt"; }
             { app-id = "org.keepassxc.KeePassXC"; }
           ];
+
           open-on-workspace = "magic";
+
           block-out-from = "screen-capture";
+        }
+
+        # floating window rules
+        {
+          matches = [
+            {
+              app-id = "firefox";
+              title = "^(?-x:Picture-in-Picture|Library|About Mozilla Firefox)$";
+            }
+            {
+              app-id = "thunderbird";
+              title = "^(?-x:Password Required|Enter credentials for)";
+            }
+          ];
+
+          open-floating = true;
+        }
+        {
+          matches = singleton {
+            app-id = "org.telegram.desktop";
+            title = "Media viewer";
+          };
+
+          open-fullscreen = false;
+          open-floating = true;
+
+          default-column-width.proportion = 0.25;
+          default-window-height.proportion = 0.75;
         }
       ];
       binds = with config.lib.niri.actions; {

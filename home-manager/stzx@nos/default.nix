@@ -85,4 +85,12 @@ in
     userName = "Stzx";
     userEmail = email;
   };
+
+  programs.niri.settings = {
+    input.touchpad.enable = false;
+    outputs = {
+      "DP-1".variable-refresh-rate = "on-demand";
+      "DP-2".transform.rotation = 90;
+    };
+  };
 }
