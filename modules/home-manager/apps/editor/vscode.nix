@@ -2,50 +2,52 @@
 
 {
   programs.vscode = {
-    enableExtensionUpdateCheck = false;
-    enableUpdateCheck = false;
-    extensions = with pkgs.vscode-extensions; [
-      pkief.material-icon-theme
-      monokai.monokai-pro
+    profiles.default = {
+      enableExtensionUpdateCheck = false;
+      enableUpdateCheck = false;
+      extensions = with pkgs.vscode-extensions; [
+        pkief.material-icon-theme
+        monokai.monokai-pro
 
-      vscodevim.vim
+        vscodevim.vim
 
-      mkhl.direnv
-      twxs.cmake
-      timonwong.shellcheck
-      jnoortheen.nix-ide
+        mkhl.direnv
+        twxs.cmake
+        timonwong.shellcheck
+        jnoortheen.nix-ide
 
-      dart-code.flutter
-      dart-code.dart-code
+        dart-code.flutter
+        dart-code.dart-code
 
-      ms-vscode.cpptools
-      ms-vscode.makefile-tools
-      ms-vscode.hexeditor
+        ms-vscode.cpptools
+        ms-vscode.makefile-tools
+        ms-vscode.hexeditor
 
-      rust-lang.rust-analyzer
-    ];
-    userSettings = {
-      "extensions.autoUpdate" = false;
+        rust-lang.rust-analyzer
+      ];
+      userSettings = {
+        "extensions.autoUpdate" = false;
 
-      "files.enableTrash" = false;
+        "files.enableTrash" = false;
 
-      "workbench.startupEditor" = "none";
-      "workbench.colorTheme" = "Monokai Classic";
-      "workbench.iconTheme" = "material-icon-theme";
+        "workbench.startupEditor" = "none";
+        "workbench.colorTheme" = "Monokai Classic";
+        "workbench.iconTheme" = "material-icon-theme";
 
-      "editor.fontFamily" = "monospace";
-      "editor.fontLigatures" = true;
-      "editor.cursorStyle" = "underline";
+        "editor.fontFamily" = "monospace";
+        "editor.fontLigatures" = true;
+        "editor.cursorStyle" = "underline";
 
-      "editor.renderWhitespace" = "all";
-      "editor.formatOnSave" = true;
-      "editor.rulers" = [ 80 ];
+        "editor.renderWhitespace" = "all";
+        "editor.formatOnSave" = true;
+        "editor.rulers" = [ 80 ];
 
-      "nix.enableLanguageServer" = true;
-      "nix.serverPath" = "nil";
-      "nix.serverSettings.nil.formatting.command" = [ "nixpkgs-fmt" ];
+        "nix.enableLanguageServer" = true;
+        "nix.serverPath" = "nil";
+        "nix.serverSettings.nil.formatting.command" = [ "nixpkgs-fmt" ];
 
-      "dart.checkForSdkUpdates" = false;
+        "dart.checkForSdkUpdates" = false;
+      };
     };
   };
 }

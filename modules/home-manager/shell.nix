@@ -53,6 +53,6 @@ mkMerge [
 
     programs.direnv.enableZshIntegration = true;
 
-    programs.vscode.userSettings."terminal.integrated.defaultProfile.linux" = "zsh";
+    programs.vscode.profiles.default.userSettings."terminal.integrated.defaultProfile.linux" = "zsh";
   })
 ]
