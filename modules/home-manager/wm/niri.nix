@@ -182,8 +182,8 @@ mkIf isNiri {
         "Mod+C".action = center-column;
         "Mod+X".action = close-window;
 
-        "Mod+S".action = screenshot-window;
-        "Mod+Shift+S".action = screenshot-screen;
+        "Mod+S".action = screenshot;
+        "Mod+Shift+S".action = screenshot-window;
 
         "Mod+Shift+Q".action = quit;
 
