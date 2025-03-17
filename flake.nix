@@ -120,12 +120,12 @@
             };
             modules =
               [
-                niri.homeModules.niri
-
                 ./home-manager
                 ./modules/home-manager
 
                 {
+                  imports = [ niri.homeModules.config ];
+
                   home = {
                     inherit stateVersion username;
 
