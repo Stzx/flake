@@ -3,7 +3,7 @@
 let
   inherit (lib) mkIf isHyprland;
 in
-mkIf isHyprland {
+(mkIf isHyprland {
   # NOTE: https://github.com/Alexays/Waybar/issues/2381
   systemd.user.services.waybar.Unit = rec {
     After = [ "wireplumber.service" ];
@@ -122,4 +122,4 @@ mkIf isHyprland {
       "group/power"
     ];
   };
-}
+})
