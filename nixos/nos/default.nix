@@ -16,6 +16,8 @@
     (import ./overlays.nix)
   ];
 
+  programs.ccache.packageNames = [ "mpv" ]; # mainly used to enable ccacheWrapper
+
   features = {
     cpu.amd = true;
     gpu.amd = true;

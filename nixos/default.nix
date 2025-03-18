@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   ...
@@ -6,10 +7,13 @@
 
 {
   nix = {
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      extra-sandbox-paths = [ config.programs.ccache.cacheDir ];
+    };
     gc = {
       automatic = true;
       dates = "weekly";
@@ -68,6 +72,8 @@
 
     # lsix, read-edid
   ];
+
+  programs.ccache.enable = true;
 
   programs.dconf.enable = lib.mkOverride 999 lib.my.haveAnyWM;
 
