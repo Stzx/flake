@@ -5,9 +5,7 @@
         diagnostics = false;
         metrics = false;
       };
-      features = {
-        copilot = false;
-      };
+      features.copilot = false;
       ui_font_size = 16;
       ui_font_family = "ComicShannsMono Nerd Font";
       ui_font_fallbacks = [ "Sarasa Fixed SC" ];
@@ -24,6 +22,7 @@
         enabled = true;
       };
       terminal = {
+        dock = "right";
         shell = {
           program = "zsh";
         };
@@ -53,7 +52,11 @@
       };
       load_direnv = "shell_hook";
       file_types = {
-        "Shell Script" = [ "sh" "source" "src" ];
+        "Shell Script" = [
+          "sh"
+          "source"
+          "src"
+        ];
       };
       file_scan_exclusions = [
         "**/.git"
