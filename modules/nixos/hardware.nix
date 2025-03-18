@@ -43,7 +43,15 @@ in
   };
 
   config = mkMerge [
-    { hardware.firmware = singleton pkgs.linux-firmware; }
+    {
+      hardware.enableAllFirmware = false;
+      hardware.enableRedistributableFirmware = false;
+      hardware.firmware = with pkgs; [
+        linux-firmware
+        alsa-firmware
+        sof-firmware
+      ];
+    }
 
     (mkIf my.haveAnyWM {
       hardware.graphics.enable = true;

@@ -32,7 +32,10 @@ in
     kernelPackages = xanmodPackages;
     initrd = {
       includeDefaultModules = false;
-      availableKernelModules = lib.mkForce [ "amdgpu" ];
+      availableKernelModules = lib.mkForce [
+        "sha256"
+        "amdgpu"
+      ];
     };
     kernelParams = [ "libahci.ignore_sss=1" ];
     supportedFilesystems = [

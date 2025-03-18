@@ -22,6 +22,8 @@ in
 
   kernel = mkShell {
     packages = with pkgs; [
+      dracut
+
       flex
       bison
     ];
