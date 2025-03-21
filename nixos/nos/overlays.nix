@@ -32,14 +32,26 @@ final: prev: {
   });
 
   linuxPackages_xanmod = prev.linuxPackages_xanmod.extend (
-    _: prevAttrs: {
-      kernel = final.linuxManualConfig {
+    _: prevAttrs:
+    let
+      kernel_ = final.linuxManualConfig {
         inherit (prevAttrs.kernel) src version modDirVersion;
 
         configfile = ./core/kernel-configuration;
         allowImportFromDerivation = true;
         extraMeta = prevAttrs.kernel.meta;
       };
+    in
+    {
+      kernel = kernel_.overrideAttrs (
+        _: prevAttrs_: {
+          preConfigure = ''
+            ${prevAttrs_.preConfigure or ""}
+
+            export CCACHE_SLOPPINESS=random_seed
+          '';
+        }
+      );
     }
   );
 
