@@ -1,5 +1,16 @@
 {
   programs.zed-editor = {
+    extensions = [
+      "latex"
+
+      "html"
+      "lua"
+
+      "xml"
+      "toml"
+
+      "vscode-monokai-charcoal"
+    ];
     userSettings = {
       telemetry = {
         diagnostics = false;
