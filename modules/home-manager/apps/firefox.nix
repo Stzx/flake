@@ -14,11 +14,11 @@ in
   programs.firefox = {
     profiles.${profile} = {
       search = {
-        default = "Bing";
+        default = "bing";
         order = [
-          "Bing"
-          "Google"
-          "DuckDuckGo"
+          "bing"
+          "google"
+          "ddg"
         ];
         force = true;
       };
