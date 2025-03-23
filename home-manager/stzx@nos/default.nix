@@ -6,6 +6,8 @@
 }:
 
 let
+  inherit (lib) singleton;
+
   email = "silence.m@hotmail.com";
 
   profile = "thunderbird.${config.home.username}";
@@ -45,8 +47,6 @@ in
           keepassxc
 
           jetbrains.rust-rover
-
-          zed-editor
         ];
 
         accounts.email.accounts.${email} = {
@@ -77,20 +77,16 @@ in
           };
 
           mpv.enable = true;
+          zed-editor.enable = true;
         };
       }
     ];
 
-  home.packages = with pkgs; [
-    flac
-
-    temurin-bin
-  ];
+  home.packages = with pkgs; [ flac ];
 
   programs = {
     ssh.enable = true;
 
-    adb = true;
     scrcpy = true;
     net-tools = true;
   };
@@ -106,5 +102,12 @@ in
       "DP-1".variable-refresh-rate = "on-demand";
       "DP-2".transform.rotation = 90;
     };
+    window-rules = [
+      {
+        matches = singleton { app-id = "Waydroid"; };
+
+        open-on-output = "DP-2";
+      }
+    ];
   };
 }

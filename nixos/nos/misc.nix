@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
   services.flatpak.enable = true;
@@ -39,10 +39,15 @@
     };
   };
 
-  virtualisation.docker = {
+  services.ollama.enable = false;
+
+  programs.java = {
     enable = true;
-    enableOnBoot = false;
+    package = pkgs.temurin-jre-bin;
+    binfmt = true;
   };
+
+  virtualisation.waydroid.enable = false;
 
   virtualisation.libvirtd = {
     enable = true;
@@ -50,9 +55,5 @@
     qemu.swtpm.enable = true;
   };
 
-  users.extraUsers.stzx.extraGroups = [
-    "boinc"
-    "docker"
-    "libvirtd"
-  ];
+  users.extraUsers.stzx.extraGroups = [ "libvirtd" ];
 }

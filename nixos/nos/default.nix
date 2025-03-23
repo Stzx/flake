@@ -1,5 +1,13 @@
-{ pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
+let
+  inherit (lib) optional;
+in
 {
   imports = [
     ./core
@@ -15,8 +23,6 @@
   nixpkgs.overlays = [
     (import ./overlays.nix)
   ];
-
-  programs.ccache.packageNames = [ "mpv" ]; # mainly used to enable ccacheWrapper
 
   features = {
     cpu.amd = true;
@@ -35,11 +41,12 @@
         "audio"
         "video"
 
-        "keys" # adb-tools
         "wireshark"
-      ];
+      ] ++ optional config.programs.adb.enable "adbusers";
     };
   };
+
+  programs.ccache.packageNames = [ "mpv-unwrapped" ]; # mainly used to enable ccacheWrapper
 
   programs.nix-ld.enable = true;
 
@@ -47,4 +54,7 @@
     enable = true;
     pinentryPackage = pkgs.pinentry-curses;
   };
+
+  programs.adb.enable = true;
+
 }

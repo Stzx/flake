@@ -2,27 +2,31 @@
   pkgs,
   lib,
   config,
+  osConfig,
   ...
 }:
 
 let
-  cfg = config.programs;
-
-  any = cfg.adb || cfg.scrcpy;
+  enable = config.programs.scrcpy;
 in
 {
   options.programs = {
-    adb = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
     scrcpy = lib.mkOption {
       type = lib.types.bool;
       default = false;
     };
   };
 
-  config = lib.mkIf any {
-    home.packages = [ ] ++ lib.optional any pkgs.android-tools ++ lib.optional cfg.scrcpy pkgs.scrcpy;
+  config = lib.mkIf enable {
+    assertions = [
+      {
+        assertion = osConfig.programs.adb.enable;
+        message = "ADB is not enabled. Please ensure that ADB is enabled.";
+      }
+    ];
+
+    home.packages = [
+      pkgs.scrcpy
+    ];
   };
 }
