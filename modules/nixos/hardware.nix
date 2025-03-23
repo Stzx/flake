@@ -93,6 +93,7 @@ in
       hardware.graphics.extraPackages = with pkgs; [
         amdvlk
 
+        rocmPackages.clr
         rocmPackages.clr.icd
       ];
 

@@ -57,6 +57,8 @@
   documentation.doc.enable = false;
 
   environment.systemPackages = with pkgs; [
+    nix-output-monitor
+
     smartmontools
     acpitool
     nvme-cli
@@ -68,6 +70,7 @@
     file
 
     bat
+    btop
     p7zip
 
     # lsix, read-edid
