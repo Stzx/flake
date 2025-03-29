@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   osConfig,
@@ -6,7 +7,7 @@
 }:
 
 let
-  inherit (lib) mkIf mkMerge optionalAttrs;
+  inherit (lib) mkIf mkMerge;
 
   cfg = config.programs;
 
@@ -15,19 +16,21 @@ let
 
   osEnv = osConfig.environment;
 in
-mkMerge [
-  (mkIf zshCfg.enable {
+mkIf zshCfg.enable (mkMerge [
+  {
     programs.zsh = {
       envExtra = osEnv.interactiveShellInit;
       initExtraFirst = ''
         ZSH_COMPDUMP="/tmp/.zcompdump-$USER"
       '';
-      shellAliases =
+      shellAliases = mkMerge [
         osEnv.shellAliases
-        // optionalAttrs kittyCfg.enable {
+
+        (mkIf kittyCfg.enable {
           icat = "kitty +kitten icat";
           kssh = "kitty +kitten ssh";
-        };
+        })
+      ];
       history.ignoreAllDups = true;
       autosuggestion = {
         enable = true;
@@ -54,5 +57,15 @@ mkMerge [
     programs.direnv.enableZshIntegration = true;
 
     programs.vscode.profiles.default.userSettings."terminal.integrated.defaultProfile.linux" = "zsh";
+  }
+
+  (mkIf kittyCfg.enable {
+    programs.bash.initExtra = ''
+      # home manager has checked to see if it is an interactive terminal
+      # but it still needs attention
+      if [[ -n "$KITTY_PID" ]] && [[ -n "$KITTY_WINDOW_ID" ]]; then
+          exec ${pkgs.zsh}/bin/zsh
+      fi
+    '';
   })
-]
+])

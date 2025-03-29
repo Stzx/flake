@@ -91,6 +91,13 @@ in
     net-tools = true;
   };
 
+  programs.bash = {
+    enable = true;
+    package = null;
+    historyFileSize = 0;
+    historySize = null;
+  };
+
   programs.git = {
     userName = "Stzx";
     userEmail = email;
