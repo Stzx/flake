@@ -46,6 +46,8 @@ in
           name = "capitaine-cursors";
         };
 
+        services.playerctld.enable = true;
+
         services.mako = {
           enable = true;
           defaultTimeout = 10000;

@@ -17,8 +17,6 @@ in
     qt6ct
   ];
 
-  services.playerctld.enable = true;
-
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = false;
