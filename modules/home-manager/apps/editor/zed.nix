@@ -5,6 +5,7 @@
 
       "html"
       "lua"
+      "nix"
 
       "xml"
       "toml"
