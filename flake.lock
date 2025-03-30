@@ -79,10 +79,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1743235995,
-        "narHash": "sha256-NW8ALRUjr1NIz8RSeaDRLx3aXX7a8C5+j+qPGjx7WLE=",
+        "lastModified": 1743304351,
+        "narHash": "sha256-Vt4lnJcfqBTUG9fZhRvj41Z9ReBUAEkPlw7c31hZP50=",
         "ref": "refs/heads/main",
-        "rev": "4cb113132f57ddfd3959e7d99c3b0677f2cfaffd",
+        "rev": "d2100c790f0e4273c8d92877ff1d2e1db6522ab6",
         "revCount": 1,
         "type": "git",
         "url": "file:./../flake-secrets"
@@ -141,11 +141,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1743136572,
-        "narHash": "sha256-uwaVrKgi6g1TUq56247j6QvvFtYHloCkjCrEpGBvV54=",
+        "lastModified": 1743295846,
+        "narHash": "sha256-hKKz07d4RV9gzxzE5Qu3RQWX8a7XpzRrP5timoxoGRQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "1efd2503172016a6742c87b47b43ca2c8145607d",
+        "rev": "717030011980e9eb31eb8ce011261dd532bce92c",
         "type": "github"
       },
       "original": {

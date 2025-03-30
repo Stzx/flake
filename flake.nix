@@ -51,7 +51,7 @@
       lanzaboote,
       niri,
       ...
-    }@args:
+    }@inputs:
     let
       stateVersion = "24.05";
 
@@ -182,10 +182,15 @@
     {
       overlays.default = import ./flake.overlays.nix;
 
-      nixosConfigurations = { } // mkSystem "nos" { } // mkSystem "vnos" { };
+      nixosConfigurations =
+        (flake-secrets.nixosConfigurations { inherit mkPkgs mkLib mkSystem; })
+        // (mkSystem "nos" { })
+        // (mkSystem "vnos" { });
 
-      homeConfigurations = { } // mkHomeManager "stzx" "nos" // mkHomeManager "drop" "vnos";
-
+      homeConfigurations =
+        (flake-secrets.homeConfigurations { inherit mkPkgs mkLib mkHomeManager; })
+        // (mkHomeManager "stzx" "nos")
+        // (mkHomeManager "drop" "vnos");
     }
     // flake-utils.lib.eachDefaultSystem (system: {
       devShells = import ./flake.shells.nix { pkgs = (mkPkgs system); };
