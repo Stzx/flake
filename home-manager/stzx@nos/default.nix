@@ -101,6 +101,7 @@ in
   programs.git = {
     userName = "Stzx";
     userEmail = email;
+    delta.enable = true;
   };
 
   programs.niri.settings = {
