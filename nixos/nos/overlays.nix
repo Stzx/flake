@@ -1,4 +1,6 @@
-final: prev: {
+{ lib, ... }:
+
+(final: prev: {
   linuxManualConfig = prev.linuxManualConfig.override {
     # FIXME: https://github.com/NixOS/nixpkgs/issues/49894
     # see https://github.com/NixOS/nixpkgs/issues/142901
@@ -65,6 +67,8 @@ final: prev: {
     swaySupport = false;
     upowerSupport = false;
     withMediaPlayer = false;
+    hyprlandSupport = lib.isHyprland;
+    niriSupport = lib.isNiri;
   };
 
   mpv = prev.mpv-unwrapped.wrapper {
@@ -99,4 +103,4 @@ final: prev: {
     withKeePassX11 = false;
     withKeePassYubiKey = false;
   };
-}
+})

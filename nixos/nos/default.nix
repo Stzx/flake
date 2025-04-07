@@ -21,7 +21,7 @@ in
   nix.settings.substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" ];
 
   nixpkgs.overlays = [
-    (import ./overlays.nix)
+    (import ./overlays.nix { inherit lib; })
   ];
 
   features = {
