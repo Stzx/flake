@@ -2,10 +2,7 @@
   description = "NixOS";
 
   inputs = {
-    systems = {
-      url = "path:./flake.systems.nix";
-      flake = false;
-    };
+    systems.url = "github:nix-systems/default-linux";
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
