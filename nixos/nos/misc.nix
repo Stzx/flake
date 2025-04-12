@@ -47,7 +47,7 @@
     binfmt = true;
   };
 
-  virtualisation.waydroid.enable = false;
+  virtualisation.waydroid.enable = true;
 
   virtualisation.libvirtd = {
     enable = true;

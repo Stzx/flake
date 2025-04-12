@@ -51,6 +51,14 @@ in
         open-maximized = true;
       }
       {
+        matches = singleton {
+          app-id = "Waydroid";
+        };
+
+        open-on-output = "DP-2";
+        open-fullscreen = true;
+      }
+      {
         matches = [
           { app-id = "org.telegram.desktop"; }
           { app-id = "thunderbird"; }
