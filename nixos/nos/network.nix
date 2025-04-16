@@ -18,7 +18,12 @@ in
   networking = {
     useDHCP = lib.mkForce false;
     nftables.enable = true;
-    firewall.enable = true;
+    firewall = {
+      enable = true;
+      extraInputRules = ''
+        ip saddr 192.168.254.0/24 tcp dport 53317 accept
+      '';
+    };
     nameservers = gateway;
     timeServers = gateway;
   };
