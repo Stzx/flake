@@ -54,6 +54,9 @@ in
       };
     };
     defaultProfiles = [ "high-quality" ];
-    scripts = [ pkgs.mpvScripts.modernx ];
+    scripts = with pkgs.mpvScripts; [
+      modernx
+      mpris
+    ];
   };
 }
