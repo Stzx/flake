@@ -18,6 +18,8 @@
         metrics = false;
       };
       features.copilot = false;
+      auto_update = false;
+
       ui_font_size = 16;
       ui_font_family = "ComicShannsMono Nerd Font";
       ui_font_fallbacks = [ "Sarasa Fixed SC" ];
@@ -29,12 +31,14 @@
         light = "One Light";
         dark = "Monokai Charcoal (purple)";
       };
+
+      inlay_hints.enabled = true;
       vim_mode = true;
-      inlay_hints = {
-        enabled = true;
-      };
+      autosave = "on_focus_change";
+      load_direnv = "shell_hook";
+
       terminal = {
-        dock = "right";
+        dock = "bottom";
         shell = {
           program = "zsh";
         };
@@ -42,6 +46,7 @@
         font_family = "Sarasa Term Slab SC";
         font_fallbacks = [ "Symbols Nerd Font Mono" ];
       };
+
       language_models = {
         openai = {
           version = "1";
@@ -55,6 +60,7 @@
           ];
         };
       };
+
       assistant = {
         default_model = {
           provider = "openai";
@@ -62,7 +68,7 @@
         };
         version = "2";
       };
-      load_direnv = "shell_hook";
+
       file_types = {
         "Shell Script" = [
           "sh"
@@ -82,6 +88,7 @@
         "**/.settings"
         "**/Thumbs.db"
       ];
+
       languages = {
         Nix = {
           language_servers = [
@@ -94,6 +101,19 @@
             };
           };
         };
+      };
+
+      auto_install_extension = {
+        html = true;
+        toml = true;
+        xml = true;
+
+        nix = true;
+        lua = true;
+        dart = true;
+        latex = true;
+
+        vscode-monokai-charcoal = true;
       };
     };
   };
