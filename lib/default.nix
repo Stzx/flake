@@ -8,6 +8,8 @@ let
 
   fs = import ./fs.nix { inherit lib; };
 
+  service = import ./service.nix { inherit config; };
+
   wm = import ./wm.nix { inherit config lib; };
 in
 {
@@ -24,6 +26,12 @@ in
     btrfsMountUnit
     exfatMountUnit
     f2fsMountUnit
+    ;
+
+  inherit (service)
+    afterServices
+    afterMultiUserTarget
+    afterGraphicalTarget
     ;
 
   inherit (wm)
