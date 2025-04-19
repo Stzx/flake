@@ -1,19 +1,22 @@
 { pkgs, ... }:
 
 let
-  inherit (pkgs) mkShell overrideCC clangStdenv;
+  inherit (pkgs)
+    mkShell
+    mkShellNoCC
+    ;
 
   # FIXME: https://github.com/NixOS/nixpkgs/issues/49894
-  llvmShell = mkShell.override {
-    stdenv = overrideCC clangStdenv (
-      clangStdenv.cc.override {
+  _llvmShell = mkShell.override {
+    stdenv = pkgs.overrideCC pkgs.clangStdenv (
+      pkgs.clangStdenv.cc.override {
         inherit (pkgs.llvmPackages) bintools;
       }
     );
   };
 in
 {
-  default = llvmShell {
+  default = mkShellNoCC {
     packages = with pkgs; [
       nil
       nixfmt-rfc-style

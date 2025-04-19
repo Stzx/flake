@@ -99,7 +99,6 @@
     withKeePassFDOSecrets = false;
     withKeePassNetworking = false;
     withKeePassSSHAgent = false;
-    withKeePassTouchID = false;
     withKeePassX11 = false;
     withKeePassYubiKey = false;
   };

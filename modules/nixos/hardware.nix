@@ -70,8 +70,6 @@ in
           NIXOS_OZONE_WL = "1";
 
           EGL_PLATFORM = "wayland";
-
-          MOZ_ENABLE_WAYLAND = "1";
         };
       };
     })
