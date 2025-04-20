@@ -40,7 +40,7 @@ in
         clip-to-geometry = true;
       }
 
-      # non-floating window rules
+      # only startup
       {
         matches = singleton {
           app-id = "firefox";
@@ -52,12 +52,14 @@ in
       }
       {
         matches = singleton {
-          app-id = "Waydroid";
+          app-id = "kitty";
+          at-startup = true;
         };
 
-        open-on-output = "DP-2";
-        open-fullscreen = true;
+        open-on-workspace = "terminal";
       }
+
+      # non-floating window rules
       {
         matches = [
           { app-id = "org.telegram.desktop"; }
@@ -77,16 +79,6 @@ in
         open-on-workspace = "chat";
 
         default-column-width.proportion = 0.5;
-      }
-      {
-        matches = singleton {
-          app-id = "kitty";
-          at-startup = true;
-        };
-
-        open-on-workspace = "terminal";
-
-        default-column-width.proportion = 0.75;
       }
       {
         matches = singleton { app-id = "org.qbittorrent.qBittorrent"; };
@@ -120,7 +112,6 @@ in
         };
 
         open-floating = true;
-        open-on-workspace = "sea";
       }
       {
         matches = singleton {
@@ -132,16 +123,37 @@ in
         open-on-workspace = "chat";
       }
       {
-        matches = singleton {
-          app-id = "org.telegram.desktop";
-          title = "Media viewer";
-        };
+        matches = [
+          {
+            app-id = "org.telegram.desktop";
+            title = "Media viewer";
+          }
+          {
+            app-id = "firefox";
+            title = "Library";
+          }
+        ];
 
         open-fullscreen = false;
         open-floating = true;
 
-        default-column-width.proportion = 0.25;
+        default-column-width.proportion = 0.5;
         default-window-height.proportion = 0.75;
+      }
+      {
+        matches = [
+          { app-id = "veracrypt"; }
+          {
+            app-id = "thunderbird";
+            title = "^Password Required";
+          }
+        ];
+
+        default-floating-position = {
+          x = 6;
+          y = 6;
+          relative-to = "top-right";
+        };
       }
     ];
     binds = with config.lib.niri.actions; {
