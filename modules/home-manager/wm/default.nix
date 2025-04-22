@@ -26,26 +26,57 @@ in
 
   config = (
     mkMerge [
-      (mkIf lib.my.haveAnyWM {
-        home.packages = [ pkgs.fcitx5-material-color ];
+      (mkIf lib.my.haveAnyWM (
+        let
+          cursor = {
+            package = pkgs.capitaine-cursors; # bibata-cursors, material-cursors
+            name = "capitaine-cursors-white"; # Bibata-Modern-Ice
+            size = 24;
+          };
+        in
+        {
+          home.packages = [ pkgs.fcitx5-material-color ];
 
-        dconf.settings."org/gnome/desktop/privacy" = {
-          remember-recent-files = false;
-        };
+          dconf.settings = {
+            "org/gnome/desktop/privacy" = {
+              remember-app-usage = false;
+              remember-recent-files = false;
+            };
+            "org/gnome/desktop/interface" = {
+              color-scheme = "prefer-dark";
+            };
+          };
 
-        fonts.fontconfig.enable = true;
+          fonts.fontconfig.enable = true;
 
-        programs.kitty.enable = mkDefault true;
+          programs.kitty.enable = mkDefault true;
 
-        programs.firefox.enable = mkDefault true;
-      })
+          programs.firefox.enable = mkDefault true;
+
+          home.pointerCursor = {
+            gtk.enable = true;
+          } // cursor;
+
+          programs.niri.settings.cursor = {
+            theme = cursor.name;
+            size = cursor.size;
+          };
+
+          gtk = {
+            enable = true;
+            theme = {
+              package = pkgs.fluent-gtk-theme;
+              name = "Fluent-purple-Dark";
+            };
+            iconTheme = {
+              package = pkgs.papirus-icon-theme;
+              name = "Papirus-Dark";
+            };
+          };
+        }
+      ))
 
       (mkIf (isHyprland || isNiri) {
-        home.pointerCursor = {
-          package = pkgs.capitaine-cursors;
-          name = "capitaine-cursors";
-        };
-
         services.playerctld.enable = true;
 
         services.mako = {
@@ -63,11 +94,11 @@ in
           settings = {
             main = {
               font = "Sarasa Mono Slab SC:slant=italic";
-              icon-theme = "Papirus";
-              horizontal-pad = 24;
+              icon-theme = config.gtk.iconTheme.name;
+              horizontal-pad = 16;
               vertical-pad = 8;
 
-              lines = 10;
+              lines = 12;
               tabs = 4;
             };
             colors = rec {
@@ -100,15 +131,6 @@ in
         };
 
         programs.waybar.enable = mkDefault true;
-
-        dconf.settings = {
-          "org/gnome/desktop/interface" = {
-            gtk-theme = "Breeze-Dark";
-            color-scheme = "prefer-dark";
-            icon-theme = "Papirus";
-            cursor-theme = config.home.pointerCursor.name;
-          };
-        };
       })
     ]
   );

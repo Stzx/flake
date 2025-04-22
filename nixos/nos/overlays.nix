@@ -102,4 +102,24 @@
     withKeePassX11 = false;
     withKeePassYubiKey = false;
   };
+
+  fluent-gtk-theme = prev.fluent-gtk-theme.override {
+    themeVariants = [
+      "purple"
+      "green"
+    ];
+    sizeVariants = [ "standard" ];
+    tweaks = [ "blur" ];
+  };
+
+  bibata-cursors = prev.bibata-cursors.overrideAttrs {
+    buildPhase = ''
+      runHook preBuild
+
+      ctgen configs/normal/x.build.toml -p x11 -d $bitmaps/Bibata-Modern-Classic -n 'Bibata-Modern-Classic' -c 'Black and rounded edge Bibata XCursors'
+      ctgen configs/normal/x.build.toml -p x11 -d $bitmaps/Bibata-Modern-Ice -n 'Bibata-Modern-Ice' -c 'White and rounded edge Bibata XCursors'
+
+      runHook postBuild
+    '';
+  };
 })
