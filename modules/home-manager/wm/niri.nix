@@ -107,14 +107,6 @@ in
       # floating window rules
       {
         matches = singleton {
-          app-id = "firefox";
-          title = "^(?-x:Picture-in-Picture|Library|About Mozilla Firefox)$";
-        };
-
-        open-floating = true;
-      }
-      {
-        matches = singleton {
           app-id = "thunderbird";
           title = "^(?-x:Password Required|Enter credentials for)";
         };
@@ -130,7 +122,7 @@ in
           }
           {
             app-id = "firefox";
-            title = "Library";
+            title = "^(?-x:Picture-in-Picture|Library|About Mozilla Firefox)$";
           }
         ];
 
