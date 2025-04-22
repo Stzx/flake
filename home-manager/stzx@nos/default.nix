@@ -46,7 +46,7 @@ in
           veracrypt
           keepassxc
 
-          jetbrains.rust-rover
+          jetbrains-toolbox
         ];
 
         accounts.email.accounts.${email} = {
@@ -69,8 +69,6 @@ in
         };
 
         programs = {
-          firefox.enable = true;
-
           thunderbird = {
             enable = true;
             profiles.${profile}.isDefault = true;
