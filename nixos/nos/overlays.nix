@@ -20,16 +20,11 @@
 
   linux-firmware = prev.linux-firmware.overrideAttrs (prevAttrs: {
     postInstall = ''
-      rm -fv $out/lib/firmware/amdgpu/{\
-      aldebaran,arcturus,\
-      hainan,oland,pitcairn,tahiti,topaz,polaris,vega,fiji,tonga,stoney,carrizo,hawaii,bonaire,kabini,kaveri,mullins,banks_k_s,renoir,picasso,raven,verde,\
-      navi10,navi12,navi14,\
-      yellow_carp,vangogh,green_sardine,cyan_skillfish2,si58,\
-      gc_9_4,sdma_4_4}*.bin
-
-      rm -rfv $out/lib/firmware/radeon
-
-      ${prevAttrs.postInstall or ""}
+      find $out/lib/firmware/amdgpu -type f ! \( \
+      -name 'sienna_cichlid_*.bin' \
+      -o -name 'beige_goby_dmcub.bin' \
+      -o -name 'beige_goby_vcn.bin' \
+      \) -exec truncate -s 0 {} +
     '';
   });
 
