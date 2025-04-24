@@ -34,7 +34,7 @@ in
   users.extraUsers = {
     "stzx" = {
       uid = 1000;
-      isNormalUser = true;
+      isNormalUser = true; # group = users
       description = "Silece Tai";
       extraGroups = [
         "wheel"

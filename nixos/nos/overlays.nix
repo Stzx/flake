@@ -25,6 +25,9 @@
       -o -name 'beige_goby_dmcub.bin' \
       -o -name 'beige_goby_vcn.bin' \
       \) -exec truncate -s 0 {} +
+
+      # dimgrey_cavefish_dmcub.bin, dimgrey_cavefish_vcn.bin
+      # it will still point to `beige_goby`, causing the file to be copied.
     '';
   });
 
