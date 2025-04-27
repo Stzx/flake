@@ -69,6 +69,8 @@ in
           "browser.quitShortcut.disabled" = true;
 
           "network.dns.disableIPv6" = true;
+          "network.dns.disablePrefetch" = true;
+          "network.dns.disablePrefetchFromHTTPS" = true;
           "network.trr.mode" = 5;
           "network.predictor.enabled" = false;
           "network.captive-portal-service.enabled" = false;
@@ -94,12 +96,9 @@ in
           "pdfjs.sidebarViewOnLoad" = 0;
           "pdfjs.spreadModeOnLoad" = 0;
 
-          "datareporting.policy.dataSubmissionEnabled" = false;
-          "datareporting.healthreport.uploadEnabled" = false;
-
           "full-screen-api.warning.timeout" = 0;
 
-          "layout.frame_rate" = 144;
+          "layout.frame_rate" = 60;
           "layout.spellcheckDefault" = 0;
 
           "trailhead.firstrun.branches" = "nofirstrun-empty";
@@ -109,7 +108,11 @@ in
           "media.ffmpeg.vaapi.enabled" = true;
 
           "toolkit.telemetry.enabled" = false;
-          "toolkit.telemetry.reportingpolicy.firstRun" = false;
+          "toolkit.telemetry.archive.enabled" = false;
+          "toolkit.telemetry.unified" = false;
+
+          "datareporting.healthreport.uploadEnabled" = false;
+          "datareporting.policy.dataSubmissionEnabled" = false;
         }
         // lib.optionalAttrs useNvidia {
           # FIXME: https://github.com/elFarto/nvidia-vaapi-driver
