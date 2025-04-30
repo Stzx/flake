@@ -69,21 +69,18 @@
     niriSupport = lib.isNiri;
   };
 
-  mpv = prev.mpv-unwrapped.wrapper {
-    mpv = prev.mpv-unwrapped.override {
-      x11Support = false;
-      sdl2Support = false;
-      cacaSupport = false;
-      vdpauSupport = false;
+  mpv-unwrapped = prev.mpv-unwrapped.override {
+    x11Support = false;
+    sdl2Support = false;
+    cacaSupport = false;
+    vdpauSupport = false;
 
-      alsaSupport = false;
-      pulseSupport = false;
-      openalSupport = false;
+    alsaSupport = false;
+    pulseSupport = false;
+    openalSupport = false;
 
-      vapoursynthSupport = false;
-      javascriptSupport = false;
-    };
-    youtubeSupport = false;
+    vapoursynthSupport = false;
+    javascriptSupport = false;
   };
 
   qbittorrent = prev.qbittorrent.override {
