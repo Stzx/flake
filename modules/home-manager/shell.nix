@@ -19,9 +19,10 @@ in
 mkIf zshCfg.enable (mkMerge [
   {
     programs.zsh = {
-      envExtra = osEnv.interactiveShellInit;
-      initExtraFirst = ''
-        ZSH_COMPDUMP="/tmp/.zcompdump-$USER"
+      envExtra = ''
+        ZSH_COMPDUMP="/tmp/.zcompdump-$USER";
+
+        ${osEnv.interactiveShellInit or ""}
       '';
       shellAliases = mkMerge [
         osEnv.shellAliases
