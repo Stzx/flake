@@ -34,7 +34,7 @@
   linuxPackages_xanmod = prev.linuxPackages_xanmod.extend (
     _: prevAttrs:
     let
-      kernel_ = final.linuxManualConfig {
+      kernel' = final.linuxManualConfig {
         inherit (prevAttrs.kernel) src version modDirVersion;
 
         configfile = ./core/kernel-configuration;
@@ -43,7 +43,7 @@
       };
     in
     {
-      kernel = kernel_.overrideAttrs (
+      kernel = kernel'.overrideAttrs (
         _: prevAttrs_: {
           preConfigure = ''
             ${prevAttrs_.preConfigure or ""}

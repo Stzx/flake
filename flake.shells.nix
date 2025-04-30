@@ -26,12 +26,17 @@ in
   kernel = mkShell {
     packages = with pkgs; [
       dracut
-
-      flex
-      bison
     ];
 
-    nativeBuildInputs = [ pkgs.pkg-config ];
+    nativeBuildInputs = with pkgs; [
+      bison
+      flex
+      pahole
+      rustc
+      rust-bindgen
+
+      pkg-config
+    ];
 
     buildInputs = [ pkgs.ncurses ];
 
