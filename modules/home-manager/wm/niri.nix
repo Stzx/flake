@@ -26,6 +26,7 @@ in
         };
       };
     };
+    screenshot-path = "~/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
     workspaces = {
       "1".name = "terminal";
       "2".name = "sea";
@@ -97,6 +98,7 @@ in
         matches = [
           { app-id = "veracrypt"; }
           { app-id = "org.keepassxc.KeePassXC"; }
+          { app-id = "com.obsproject.Studio"; }
         ];
 
         open-on-workspace = "magic";
@@ -144,7 +146,7 @@ in
         default-floating-position = {
           x = 6;
           y = 6;
-          relative-to = "top-right";
+          relative-to = "bottom-right";
         };
       }
     ];
@@ -185,19 +187,21 @@ in
 
       "Mod+Q".action = spawn "fuzzel";
       "Mod+T".action = spawn "kitty";
-      "Mod+B".action = spawn "firefox";
 
       "Mod+P".action = power-off-monitors;
       "Mod+Slash".action = show-hotkey-overlay;
 
       "Mod+W".action = switch-preset-column-width;
+      "Mod+E".action = expand-column-to-available-width;
+
       "Mod+F".action = fullscreen-window;
       "Mod+M".action = maximize-column;
       "Mod+C".action = center-column;
       "Mod+X".action = close-window;
 
       "Mod+S".action = screenshot;
-      "Mod+Shift+S".action = screenshot-window;
+      "Mod+Shift+S".action.screenshot-screen = [ ]; # FIXME: niri-flake bug
+      "Mod+Print".action = screenshot-window { write-to-disk = false; };
 
       "Mod+Shift+Q".action = quit;
 
