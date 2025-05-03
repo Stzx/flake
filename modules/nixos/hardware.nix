@@ -82,11 +82,16 @@ in
     })
 
     (mkIf gpuCfg.amd {
-      environment.systemPackages = [
-        pkgs.amdgpu_top
+      environment = {
+        systemPackages = [
+          pkgs.amdgpu_top
 
-        pkgs.rocmPackages.rocminfo
-      ];
+          pkgs.rocmPackages.rocminfo
+        ];
+        sessionVariables = {
+          AMD_VULKAN_ICD = "RADV"; # amdvlk: Requested image size 3840x2160x0 exceeds the maximum allowed dimensions 2560x2560x1 for vulkan image format 46
+        };
+      };
 
       hardware.graphics.extraPackages = with pkgs; [
         amdvlk
