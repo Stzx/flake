@@ -6,25 +6,19 @@
   services.prometheus = {
     enable = true;
     listenAddress = "127.0.0.1";
-    scrapeConfigs = [
-      {
-        job_name = "prometheus";
-        static_configs = lib.singleton { targets = [ "127.0.0.1:9090" ]; };
-      }
-
-      {
-        job_name = "node";
-        static_configs = lib.singleton { targets = [ "127.0.0.1:9100" ]; };
-      }
-    ];
+    scrapeConfigs = lib.singleton {
+      job_name = "prometheus";
+      static_configs = lib.singleton { targets = [ "127.0.0.1:9090" ]; };
+    };
     exporters.node = {
       enable = true;
       listenAddress = "127.0.0.1";
       disabledCollectors = [
+        "bcache"
         "zfs"
         "infiniband"
         "fibrechannel"
-        "bcache"
+        "tapestats"
       ];
     };
   };
