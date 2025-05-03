@@ -32,7 +32,19 @@ mkIf zshCfg.enable (mkMerge [
           kssh = "kitty +kitten ssh";
         })
       ];
-      history.ignoreAllDups = true;
+      history = {
+        ignoreAllDups = true;
+        ignorePatterns = [
+          "l"
+          "ls"
+          "rm *"
+          "find *"
+          "mpv *"
+          "vim *"
+          "cat *"
+          "bat *"
+        ];
+      };
       autosuggestion = {
         enable = true;
         strategy = [
@@ -40,10 +52,17 @@ mkIf zshCfg.enable (mkMerge [
           "completion"
         ];
       };
-      syntaxHighlighting.enable = true;
+      syntaxHighlighting = {
+        enable = true;
+        highlighters = [
+          "main"
+          "brackets"
+          "cursor"
+        ];
+      };
       oh-my-zsh = {
         enable = true;
-        theme = "dieter";
+        theme = "gentoo";
         plugins = [
           "colored-man-pages"
           "sudo"
