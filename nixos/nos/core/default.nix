@@ -21,6 +21,8 @@ in
     pkiBundle = "/etc/secureboot";
   };
 
+  systemd.oomd.enable = false;
+
   services.udev.extraRules = ''
     ${lib.optionalString amdGpu ''SUBSYSTEM=="pci", DRIVER=="amdgpu", ATTR{power_dpm_force_performance_level}="manual", ATTR{pp_power_profile_mode}="2"''}
 
