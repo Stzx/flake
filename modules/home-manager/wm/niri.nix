@@ -6,9 +6,9 @@ in
 (mkIf isNiri {
   programs.niri.settings = {
     spawn-at-startup = [
-      { command = [ "kitty" ]; }
-      { command = [ "firefox" ]; }
-      { command = [ "thunderbird" ]; }
+      { command = singleton "kitty"; }
+      { command = singleton "firefox"; }
+      { command = singleton "thunderbird"; }
     ];
     prefer-no-csd = true;
     layout = {
