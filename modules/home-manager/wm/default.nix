@@ -81,12 +81,14 @@ in
 
         services.mako = {
           enable = true;
-          defaultTimeout = 10000;
+          settings = {
+            defaultTimeout = 10000;
 
-          borderColor = "#884DFFFF";
-          borderRadius = 3;
-          backgroundColor = "#00000033";
-          font = "Sarasa Term Slab SC 10";
+            borderColor = "#884DFFFF";
+            borderRadius = 3;
+            backgroundColor = "#00000033";
+            font = "Sarasa Term Slab SC 10";
+          };
         };
 
         programs.fuzzel = {
