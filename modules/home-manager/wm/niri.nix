@@ -224,11 +224,32 @@ in
       "niri/workspaces"
     ];
     right = [
-      "tray"
-      "load"
-      "wireplumber"
+      "wlr/taskbar"
+      "pulseaudio"
       "network"
+      "load"
+      "tray"
       "group/power"
     ];
+    extraSettings = {
+      "niri/workspaces" = {
+        format = "{icon}";
+        format-icons = {
+          default = "󰋦"; # nf-md-human
+
+          terminal = "󱆃"; # nf-md-bash
+          chat = "󱧎"; # nf-md-message_text_fast
+          sea = "󱝆"; # nf-md-surfing
+          run = "󰜎"; # nf-md-run
+          anvil = "󰢛"; # nf-md-anvil
+          magic = "󰄛"; # nf-md-cat
+        };
+      };
+
+      "niri/window" = {
+        format = "{title:.25}";
+        icon = true;
+      };
+    };
   };
 })

@@ -106,18 +106,35 @@ in
 
   programs.waybar = {
     left = [
+      "clock"
       "hyprland/window"
     ];
     center = [
       "hyprland/workspaces"
     ];
     right = [
-      "tray"
-      "load"
-      "wireplumber"
+      "wlr/taskbar"
+      "pulseaudio"
       "network"
-      "clock"
+      "load"
+      "tray"
       "group/power"
     ];
+    extraSettings = {
+      "hyprland/workspaces" = {
+        format = "{icon}";
+        format-icons = {
+          default = "󰪯"; # nf-md-egg
+          empty = "󰒲"; # nf-md-sleep
+
+          terminal = "󱆃"; # nf-md-bash
+          chat = "󱧎"; # nf-md-message_text_fast
+          magic = "󰄛"; # nf-md-cat
+        };
+        show-special = true;
+      };
+
+      "hyprland/window".icon = true;
+    };
   };
 })

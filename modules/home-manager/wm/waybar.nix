@@ -7,7 +7,6 @@ let
     mkIf
 
     types
-    optionalAttrs
 
     isHyprland
     isNiri
@@ -38,134 +37,124 @@ in
   config = mkIf cfg.enable {
     programs.waybar = {
       systemd.enable = true;
-      settings.mainBar =
-        {
-          layer = "top";
-          output = "DP-1";
-          height = 32;
-          margin = "4px";
+      settings.mainBar = {
+        layer = "top";
+        height = 32;
+        margin = "4px";
+        spacing = 6;
+
+        modules-left = cfg.left;
+        modules-center = cfg.center;
+        modules-right = cfg.right;
+
+        tray = {
+          icon-size = 24;
           spacing = 6;
+          reverse-direction = true;
+        };
 
-          modules-left = cfg.left;
-          modules-center = cfg.center;
-          modules-right = cfg.right;
+        load = {
+          format = "󰑮 <sub>{}</sub>"; # nf-md-run_fast
+          tooltip = false;
+        };
 
-          tray = {
-            icon-size = 24;
-            spacing = 6;
-            reverse-direction = true;
+        network = {
+          interval = 3;
+          format-ethernet = "󰞉 <sub>{bandwidthUpBits} | {bandwidthDownBits}</sub>"; # nf-md-web_check
+          format-linked = "󱐅"; # nf-md-earth_remove
+          format-disconnected = "󰇨"; # nf-md-earth_off
+          tooltip = false;
+        };
+
+        keyboard-state = {
+          numlock = true;
+          capslock = true;
+          scrolllock = true;
+          format = {
+            numlock = "N {icon}";
+            capslock = "C {icon}";
+            scrolllock = "S {icon}";
           };
-
-          load = {
-            format = "󰑮 <sub>{}</sub>"; # nf-md-run_fast
-            tooltip = false;
+          format-icons = {
+            locked = "󰨀"; # nf-md-lighthouse_on
+            unlocked = "󰧿"; # nf-md-lighthouse
           };
+        };
 
-          network = {
-            interval = 3;
-            format-ethernet = "󰞉 <sub>{bandwidthUpBits} | {bandwidthDownBits}</sub>"; # nf-md-web_check
-            format-linked = "󱐅"; # nf-md-earth_remove
-            format-disconnected = "󰇨"; # nf-md-earth_off
-            tooltip = false;
-          };
+        # [warning] [wireplumber]: (onMixerChanged) - Object with id xx not found
+        wireplumber = {
+          format = "{icon} <sub>{volume}%</sub>";
+          format-icons = [
+            "󰕿"
+            "󰖀"
+            "󰕾"
+          ]; # nf-md-volume low / medium / high
+          format-muted = "󰝟"; # nf-md-volume_mute
+        };
 
-          keyboard-state = {
-            numlock = true;
-            capslock = true;
-            scrolllock = true;
-            format-icons = {
-              locked = "󰨀"; # nf-md-lighthouse_on
-              unlocked = "󰧿"; # nf-md-lighthouse
-            };
-          };
-
-          wireplumber = {
-            format = "{icon} <sub>{volume}%</sub>";
-            format-icons = [
+        pulseaudio = {
+          format = "{icon} <sub>{volume}%</sub>";
+          format-icons = {
+            default = [
               "󰕿"
               "󰖀"
               "󰕾"
             ]; # nf-md-volume low / medium / high
-            format-muted = "󰝟"; # nf-md-volume_mute
           };
-
-          clock = {
-            format = "{:%m-%d %H:%M}";
-            tooltip-format = "<tt><small>{calendar}</small></tt>";
-            calendar = {
-              mode = "year";
-              mode-mon-col = 3;
-              weeks-pos = "right";
-              format = {
-                weeks = "<span color='#7733ff'><b>W{:%W}</b></span>";
-                today = "<span color='#00bfff'><b><u>{}</u></b></span>";
-              };
-            };
-          };
-
-          "custom/quit" = {
-            format = "󰩈"; # nf-md-exit_run
-            tooltip = false;
-            on-click =
-              if isHyprland then
-                "hyprctl dispatch exit"
-              else
-                (if isNiri then "niri msg action quit" else builtins.abort "Unconfirmed escape route :(");
-          };
-
-          "custom/shutdown" = {
-            format = "󱄅"; # nf-md-nix
-            tooltip = false;
-            on-click = "systemctl poweroff";
-          };
-          "custom/reboot" = {
-            format = "󱋋"; # nf-md-snowflake_melt
-            tooltip = false;
-            on-click = "systemctl reboot";
-          };
-          "group/power" = {
-            orientation = "inherit";
-            drawer.transition-left-to-right = false;
-            modules = [
-              "custom/quit"
-              "custom/shutdown"
-              "custom/reboot"
-            ];
-          };
-        }
-        // optionalAttrs isHyprland {
-          "hyprland/workspaces" = {
-            format = "{icon}";
-            format-icons = {
-              default = "󰪯"; # nf-md-egg
-              empty = "󰒲"; # nf-md-sleep
-
-              terminal = "󱆃"; # nf-md-bash
-              chat = "󱧎"; # nf-md-message_text_fast
-              magic = "󰄛"; # nf-md-cat
-            };
-            show-special = true;
-          };
-
-          "hyprland/window".icon = true;
-        }
-        // optionalAttrs isNiri {
-          "niri/workspaces" = {
-            format = "{icon}";
-            format-icons = {
-              default = "󰋦"; # nf-md-human
-
-              terminal = "󱆃"; # nf-md-bash
-              chat = "󱧎"; # nf-md-message_text_fast
-              sea = "󱝆"; # nf-md-surfing
-              run = "󰜎"; # nf-md-run
-              anvil = "󰢛"; # nf-md-anvil
-              magic = "󰄛"; # nf-md-cat
-            };
-          };
-
-          "niri/window".icon = true;
+          format-muted = "󰝟"; # nf-md-volume_mute
         };
+
+        clock = {
+          format = "{:%m-%d %H:%M}";
+          tooltip-format = "<tt><small>{calendar}</small></tt>";
+          calendar = {
+            mode = "year";
+            mode-mon-col = 3;
+            weeks-pos = "right";
+            format = {
+              weeks = "<span color='#7733ff'><b>W{:%W}</b></span>";
+              today = "<span color='#00bfff'><b><u>{}</u></b></span>";
+            };
+          };
+        };
+
+        "wlr/taskbar" = {
+          format = "{icon}";
+          icon-size = 24;
+          on-click = "minimize-raise";
+          on-click-middle = "close";
+        };
+
+        "custom/quit" = {
+          format = "󰩈"; # nf-md-exit_run
+          tooltip = false;
+          on-click =
+            if isHyprland then
+              "hyprctl dispatch exit"
+            else
+              (if isNiri then "niri msg action quit" else builtins.abort "Unconfirmed escape route :(");
+        };
+        "custom/shutdown" = {
+          format = "󱄅"; # nf-md-nix
+          tooltip = false;
+          on-click = "systemctl poweroff";
+        };
+        "custom/reboot" = {
+          format = "󱋋"; # nf-md-snowflake_melt
+          tooltip = false;
+          on-click = "systemctl reboot";
+        };
+
+        "group/power" = {
+          orientation = "inherit";
+          drawer.transition-left-to-right = false;
+          modules = [
+            "custom/quit"
+            "custom/shutdown"
+            "custom/reboot"
+          ];
+        };
+      } // cfg.extraSettings;
       style = mkDefault ''
         * {
           border: unset;

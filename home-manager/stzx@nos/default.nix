@@ -102,6 +102,8 @@ in
     delta.enable = true;
   };
 
+  programs.waybar.settings.mainBar.output = "DP-1";
+
   programs.niri.settings = {
     input.touchpad.enable = false;
     outputs = {

@@ -38,8 +38,9 @@ in
       description = "Silece Tai";
       extraGroups = [
         "wheel"
-        "audio"
+        "input" # waybar, keyboard-state
         "video"
+        "audio"
 
         "wireshark"
       ] ++ optional config.programs.adb.enable "adbusers";
