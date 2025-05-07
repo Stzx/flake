@@ -71,7 +71,10 @@ in
         programs = {
           thunderbird = {
             enable = true;
-            profiles.${profile}.isDefault = true;
+            profiles.${profile} = {
+              isDefault = true;
+              feedAccounts.${profile} = { };
+            };
           };
 
           mpv.enable = true;
