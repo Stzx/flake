@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   ...
@@ -16,6 +17,8 @@ in
   };
 
   config = mkIf cfg.niri {
+    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
     niri-flake.cache.enable = false;
 
     programs.niri.enable = true;
