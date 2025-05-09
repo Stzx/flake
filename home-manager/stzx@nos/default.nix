@@ -83,7 +83,12 @@ in
       }
     ];
 
-  home.packages = with pkgs; [ flac ];
+  home.packages = with pkgs; [
+    fuse-archive
+    fuse-avfs # original name: avfs
+
+    flac
+  ];
 
   programs = {
     ssh.enable = true;
