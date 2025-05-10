@@ -60,7 +60,7 @@ in
 
         network = {
           interval = 3;
-          format-ethernet = "󰞉 <sub>{bandwidthUpBits} | {bandwidthDownBits}</sub>"; # nf-md-web_check
+          format-ethernet = " <sub>{bandwidthUpBits}</sub>  | 󰞉 |  <sub>{bandwidthDownBits}</sub> "; # nf-oct-upload, nf-md-web_check, nf-oct-download
           format-linked = "󱐅"; # nf-md-earth_remove
           format-disconnected = "󰇨"; # nf-md-earth_off
           tooltip = false;
