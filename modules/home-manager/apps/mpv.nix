@@ -9,7 +9,7 @@ in
 {
   programs.mpv = {
     bindings = {
-      "CTRL+v" = ''cycle-values vo "gpu-next" "dmabuf-wayland"'';
+      "CTRL+v" = ''cycle-values vo "gpu-next" "gpu" "dmabuf-wayland"'';
 
       # curl -sL https://github.com/bloc97/Anime4K/raw/master/md/Template/GLSL_Mac_Linux_High-end/input.conf | grep '^CTRL' | sed -r -e '/^$/d' -e 's|~~/shaders/|${anime4k}/|g' -e "s| |\" = ''|" -e "s|$|'';|"
       # curl -sL https://github.com/bloc97/Anime4K/raw/master/md/Template/GLSL_Mac_Linux_Low-end/input.conf | grep '^CTRL' | sed -r -e '/^$/d' -e 's|~~/shaders/|${anime4k}/|g' -e "s| |\" = ''|" -e "s|$|'';|"
@@ -37,18 +37,21 @@ in
       video-sync = "display-resample";
       interpolation = true;
       icc-profile-auto = true;
+      blend-subtitles = "video";
 
       fs = true;
       mute = true;
       keepaspect = true;
 
       alang = "chi,zh,ja,en";
+      audio-file-auto = "exact";
+
       slang = "chi,zh,en";
       sub-auto = "fuzzy";
-      blend-subtitles = "video";
     };
     profiles = {
       "unscaled" = {
+        profile = "high-quality";
         profile-cond = "p['video-params/h'] <= 1080";
         video-unscaled = true;
       };
