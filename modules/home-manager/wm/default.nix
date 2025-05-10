@@ -81,12 +81,20 @@ in
       services.mako = {
         enable = true;
         settings = {
-          defaultTimeout = 10000;
+          default-timeout = 5000;
+          group-by = "app-name,summary";
 
-          borderColor = "#884DFFFF";
-          borderRadius = 3;
-          backgroundColor = "#00000033";
-          font = "Sarasa Term Slab SC 10";
+          icon-path = "${pkgs.papirus-icon-theme}/share/icons/${config.gtk.iconTheme.name}";
+
+          outer-margin = 12;
+
+          font = "Sarasa Term Slab SC Italic 13px";
+          border-color = "#884DFFFF";
+          background-color = "#00000080";
+
+          anchor = "bottom-right";
+          icon-location = "right";
+          text-alignment = "right";
         };
       };
 
