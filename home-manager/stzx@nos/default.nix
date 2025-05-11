@@ -20,7 +20,6 @@ in
         fuse-archive
         fuse-avfs # original name: avfs
 
-        unrar
         flac
       ];
 

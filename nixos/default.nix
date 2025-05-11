@@ -71,7 +71,7 @@
 
     bat
     btop
-    p7zip
+    _7zz
 
     # lsix, read-edid
   ];
