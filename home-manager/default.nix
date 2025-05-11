@@ -1,6 +1,8 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
+  home.packages = with pkgs; [ numbat ];
+
   programs = {
     home-manager.enable = true;
 
