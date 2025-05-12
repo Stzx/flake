@@ -180,14 +180,11 @@
       overlays.default = import ./flake.overlays.nix;
 
       nixosConfigurations =
-        (flake-secrets.nixosConfigurations { inherit mkPkgs mkLib mkSystem; })
-        // (mkSystem "nos" { })
-        // (mkSystem "vnos" { });
+        (mkSystem "nos" { }) // (flake-secrets.nixosConfigurations { inherit mkPkgs mkLib mkSystem; });
 
       homeConfigurations =
-        (flake-secrets.homeConfigurations { inherit mkPkgs mkLib mkHomeManager; })
-        // (mkHomeManager "stzx" "nos")
-        // (mkHomeManager "drop" "vnos");
+        (mkHomeManager "stzx" "nos")
+        // (flake-secrets.homeConfigurations { inherit mkPkgs mkLib mkHomeManager; });
     }
     // flake-utils.lib.eachDefaultSystem (system: {
       devShells = import ./flake.shells.nix { pkgs = (mkPkgs system); };
