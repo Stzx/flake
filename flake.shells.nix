@@ -19,14 +19,33 @@ in
   default = mkShellNoCC {
     packages = with pkgs; [
       nil
+      taplo
       nixfmt-rfc-style
     ];
   };
 
-  kernel = mkShell {
+  latex = mkShellNoCC {
     packages = with pkgs; [
-      dracut
+      (texliveSmall.withPackages (
+        ps: with ps; [
+          roboto
+          sourcesanspro
+          fontawesome5
+
+          ctex
+          enumitem
+          tcolorbox
+          tikzfill
+          ifmtarg
+          xifthen
+          xstring
+        ]
+      ))
     ];
+  };
+
+  kernel = mkShell {
+    packages = [ pkgs.dracut ];
 
     nativeBuildInputs = with pkgs; [
       bison
