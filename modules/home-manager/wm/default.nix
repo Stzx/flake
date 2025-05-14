@@ -88,7 +88,7 @@ in
 
           outer-margin = 12;
 
-          font = "Sarasa Term Slab SC Italic 13px";
+          font = "Sarasa Fixed Slab SC Italic 13px";
           border-color = "#884DFFFF";
           background-color = "#00000080";
 
@@ -102,7 +102,7 @@ in
         enable = true;
         settings = {
           main = {
-            font = "Sarasa Mono Slab SC:slant=italic";
+            font = "Sarasa Fixed Slab SC:slant=italic";
             icon-theme = config.gtk.iconTheme.name;
             horizontal-pad = 16;
             vertical-pad = 8;
@@ -126,7 +126,7 @@ in
       };
 
       programs.tofi.settings = {
-        font = "Sarasa Mono Slab SC";
+        font = "Sarasa Fixed Slab SC";
         font-size = 12;
 
         outline-width = 0;

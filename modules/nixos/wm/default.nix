@@ -51,6 +51,7 @@ in
         };
 
       fonts = {
+        enableDefaultPackages = false;
         packages = with pkgs; [
           # source-han-serif
           # source-han-sans
@@ -76,8 +77,8 @@ in
           #   CL: Classical orthography
           #   SC, TC, J, K, HC: Regional orthography, following Source Han Sans notations.
 
-          noto-fonts-cjk-serif
-          noto-fonts-cjk-sans
+          # noto-fonts-cjk-serif
+          # noto-fonts-cjk-sans
           noto-fonts-color-emoji
 
           # nerd-fonts.iosevka-term-slab
@@ -86,21 +87,20 @@ in
         ];
         fontconfig = {
           enable = true;
-          subpixel.rgba = "rgb";
           defaultFonts = lib.mkForce {
             serif = [
-              "Noto Serif CJK SC"
-              "Noto Serif CJK TC"
-              "Noto Serif CJK HK"
-              "Noto Serif CJK JP"
-              "Noto Serif CJK KR"
+              "Sarasa Fixed Slab SC"
+              "Sarasa Fixed Slab TC"
+              "Sarasa Fixed Slab HC"
+              "Sarasa Fixed Slab J"
+              "Sarasa Fixed Slab K"
             ];
             sansSerif = [
-              "Noto Sans CJK SC"
-              "Noto Sans CJK TC"
-              "Noto Sans CJK HK"
-              "Noto Sans CJK JP"
-              "Noto Sans CJK KR"
+              "Sarasa Fixed SC"
+              "Sarasa Fixed TC"
+              "Sarasa Fixed HC"
+              "Sarasa Fixed J"
+              "Sarasa Fixed K"
             ];
             monospace = [
               "Sarasa Mono SC"
@@ -109,9 +109,7 @@ in
               "Sarasa Mono J"
               "Sarasa Mono K"
             ];
-            emoji = [
-              "Noto Color Emoji"
-            ];
+            emoji = [ "Noto Color Emoji" ];
           };
         };
       };
@@ -184,7 +182,7 @@ in
               classicui.globalSection = {
                 "Vertical Candidate List" = "False";
                 "WheelForPaging" = "True";
-                "Font" = "Sarasa Term Slab SC 10";
+                "Font" = "Sarasa UI SC 10";
                 "MenuFont" = "Sarasa UI SC 10";
                 "TrayFont" = "Sarasa UI SC Bold 10";
                 "TrayOutlineColor" = "#000000";
