@@ -62,12 +62,15 @@
     mprisSupport = false;
     rfkillSupport = false;
     sndioSupport = false;
-    swaySupport = false;
     upowerSupport = false;
     withMediaPlayer = false;
+
+    swaySupport = false;
     hyprlandSupport = lib.isHyprland;
     niriSupport = lib.isNiri;
   };
+
+  _7zz = prev._7zz.override { useUasm = true; };
 
   mpv-unwrapped = prev.mpv-unwrapped.override {
     x11Support = false;
