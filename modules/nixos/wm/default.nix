@@ -87,6 +87,7 @@ in
         ];
         fontconfig = {
           enable = true;
+          subpixel.rgba = "rgb";
           defaultFonts = lib.mkForce {
             serif = [
               "Sarasa Fixed Slab SC"
