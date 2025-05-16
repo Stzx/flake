@@ -26,11 +26,14 @@ in
 
   latex = mkShellNoCC {
     packages = with pkgs; [
+      texlab
+
       (texliveSmall.withPackages (
         ps: with ps; [
           roboto
           sourcesanspro
           fontawesome5
+          fandol
 
           ctex
           enumitem
