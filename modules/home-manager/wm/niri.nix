@@ -44,20 +44,21 @@ in
       # only startup
       {
         matches = singleton {
+          app-id = "kitty";
+          at-startup = true;
+        };
+
+        open-on-workspace = "terminal";
+        open-fullscreen = true;
+      }
+      {
+        matches = singleton {
           app-id = "firefox";
           at-startup = true;
         };
 
         open-on-workspace = "sea";
         open-maximized = true;
-      }
-      {
-        matches = singleton {
-          app-id = "kitty";
-          at-startup = true;
-        };
-
-        open-on-workspace = "terminal";
       }
 
       # non-floating window rules
@@ -69,7 +70,7 @@ in
         excludes = [
           {
             app-id = "org.telegram.desktop";
-            title = "Media viewer";
+            title = "^Media viewer$";
           }
           {
             app-id = "thunderbird";
@@ -82,7 +83,21 @@ in
         default-column-width.proportion = 0.5;
       }
       {
-        matches = singleton { app-id = "org.qbittorrent.qBittorrent"; };
+        matches = [
+          { app-id = "org.qbittorrent.qBittorrent"; }
+          { app-id = "calibre-gui"; }
+          { app-id = "spotify"; }
+        ];
+        excludes = [
+          {
+            app-id = "org.qbittorrent.qBittorrent";
+            title = "^Preferences$";
+          }
+          {
+            app-id = "calibre-gui";
+            title = "^calibre - Preferences$";
+          }
+        ];
 
         open-on-workspace = "run";
 
@@ -119,8 +134,16 @@ in
       {
         matches = [
           {
+            app-id = "org.qbittorrent.qBittorrent";
+            title = "^(Preferences|Rename|Renaming)$";
+          }
+          {
+            app-id = "calibre-gui";
+            title = "^calibre - Preferences$";
+          }
+          {
             app-id = "org.telegram.desktop";
-            title = "Media viewer";
+            title = "^Media viewer$";
           }
           {
             app-id = "firefox";
@@ -158,15 +181,18 @@ in
       "Mod+9".action = focus-workspace "anvil";
       "Mod+0".action = focus-workspace "magic";
 
-      "Mod+Shift+1".action = move-column-to-workspace "terminal";
-      "Mod+Shift+2".action = move-column-to-workspace "sea";
-      "Mod+Shift+3".action = move-column-to-workspace "chat";
-      "Mod+Shift+8".action = move-column-to-workspace "run";
-      "Mod+Shift+9".action = move-column-to-workspace "anvil";
-      "Mod+Shift+0".action = move-column-to-workspace "magic";
+      # FIXME: https://github.com/sodiboo/niri-flake/issues/1018
+      "Mod+Shift+1".action.move-column-to-workspace = "terminal";
+      "Mod+Shift+2".action.move-column-to-workspace = "sea";
+      "Mod+Shift+3".action.move-column-to-workspace = "chat";
+      "Mod+Shift+8".action.move-column-to-workspace = "run";
+      "Mod+Shift+9".action.move-column-to-workspace = "anvil";
+      "Mod+Shift+0".action.move-column-to-workspace = "magic";
 
       "Mod+H".action = focus-column-left;
+      "Mod+WheelScrollUp".action = focus-column-left;
       "Mod+L".action = focus-column-right;
+      "Mod+WheelScrollDown".action = focus-column-right;
 
       "Mod+Home".action = focus-column-first;
       "Mod+End".action = focus-column-last;
@@ -175,7 +201,9 @@ in
       "Mod+Shift+L".action = move-column-right;
 
       "Mod+Shift+Home".action = move-column-to-first;
+      "Mod+Shift+WheelScrollUp".action = move-column-to-first;
       "Mod+Shift+End".action = move-column-to-last;
+      "Mod+Shift+WheelScrollDown".action = move-column-to-last;
 
       "Mod+Prior".action = focus-workspace-up;
       "Mod+Next".action = focus-workspace-down;
@@ -200,7 +228,7 @@ in
       "Mod+X".action = close-window;
 
       "Mod+S".action = screenshot;
-      "Mod+Shift+S".action.screenshot-screen = [ ]; # FIXME: niri-flake bug
+      "Mod+Shift+S".action.screenshot-screen = [ ]; # FIXME: https://github.com/sodiboo/niri-flake/issues/1018
       "Mod+Print".action = screenshot-window { write-to-disk = false; };
 
       "Mod+Shift+Q".action = quit;

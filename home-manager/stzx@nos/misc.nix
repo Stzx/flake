@@ -24,10 +24,13 @@
     };
     window-rules = [
       {
-        matches = [ { app-id = "Waydroid"; } ];
+        matches = [
+          { app-id = "Waydroid"; }
+          { app-id = "calibre-ebook-viewer"; }
+        ];
 
         open-on-output = "DP-2";
-        open-on-workspace = "sea";
+        open-fullscreen = true;
       }
     ];
   };
