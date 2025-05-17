@@ -1,6 +1,10 @@
 { lib, pkgs, ... }:
 
 {
+  # GAME
+  # com.valvesoftware.Steam
+  # com.valvesoftware.Steam.CompatibilityTool.Proton-GE
+  # org.freedesktop.Platform.VulkanLayer.gamescope
   services.flatpak.enable = true;
 
   services.prometheus = {
