@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.bash = {
@@ -16,7 +16,20 @@
 
   programs.waybar.settings.mainBar.output = "DP-1";
 
+  home.packages = [ pkgs.xwayland-satellite-stable ];
+
   programs.niri.settings = {
+    spawn-at-startup = [
+      {
+        command = [
+          "xwayland-satellite"
+          "-rootless"
+        ];
+      }
+    ];
+    environment = {
+      DISPLAY = ":0";
+    };
     input.touchpad.enable = false;
     outputs = {
       "DP-1".variable-refresh-rate = "on-demand";
@@ -30,7 +43,6 @@
         ];
 
         open-on-output = "DP-2";
-        open-fullscreen = true;
       }
     ];
   };

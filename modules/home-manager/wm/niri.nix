@@ -63,9 +63,15 @@ in
 
       # non-floating window rules
       {
+        matches = [ { app-id = "spotify"; } ];
+
+        open-on-workspace = "sea";
+      }
+      {
         matches = [
           { app-id = "org.telegram.desktop"; }
           { app-id = "thunderbird"; }
+          { app-id = "calibre-gui"; }
         ];
         excludes = [
           {
@@ -76,6 +82,10 @@ in
             app-id = "thunderbird";
             title = "^(?-x:Password Required|Enter credentials for)";
           }
+          {
+            app-id = "calibre-gui";
+            title = "^calibre - Preferences$";
+          }
         ];
 
         open-on-workspace = "chat";
@@ -85,17 +95,12 @@ in
       {
         matches = [
           { app-id = "org.qbittorrent.qBittorrent"; }
-          { app-id = "calibre-gui"; }
-          { app-id = "spotify"; }
+          { app-id = "steam"; }
         ];
         excludes = [
           {
             app-id = "org.qbittorrent.qBittorrent";
             title = "^Preferences$";
-          }
-          {
-            app-id = "calibre-gui";
-            title = "^calibre - Preferences$";
           }
         ];
 
@@ -122,15 +127,6 @@ in
       }
 
       # floating window rules
-      {
-        matches = singleton {
-          app-id = "thunderbird";
-          title = "^(?-x:Password Required|Enter credentials for)";
-        };
-
-        open-floating = true;
-        open-on-workspace = "chat";
-      }
       {
         matches = [
           {
@@ -162,9 +158,11 @@ in
           { app-id = "veracrypt"; }
           {
             app-id = "thunderbird";
-            title = "^Password Required";
+            title = "^(?-x:Password Required|Enter credentials for)";
           }
         ];
+
+        open-floating = true;
 
         default-floating-position = {
           x = 6;
