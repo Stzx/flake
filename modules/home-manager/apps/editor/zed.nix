@@ -1,120 +1,118 @@
 {
-  programs.zed-editor = {
-    extensions = [
-      "latex"
-
-      "html"
-      "lua"
-      "nix"
-
-      "xml"
-      "toml"
-
-      "vscode-monokai-charcoal"
+  programs.zed-editor.userSettings = {
+    ui_font_size = 16;
+    ui_font_family = "ComicShannsMono Nerd Font";
+    ui_font_fallbacks = [ "Symbols Nerd Font Mono" ];
+    buffer_font_size = 14;
+    buffer_font_family = "Sarasa Mono SC";
+    buffer_font_fallbacks = [
+      "Sarasa Mono TC"
+      "Sarasa Mono HC"
+      "Sarasa Mono J"
+      "Sarasa Mono K"
+      "Symbols Nerd Font Mono"
     ];
-    userSettings = {
-      telemetry = {
-        diagnostics = false;
-        metrics = false;
-      };
-      features.copilot = false;
-      auto_update = false;
+    theme = {
+      mode = "system";
+      light = "Monokai Charcoal (green)";
+      dark = "Monokai Charcoal (purple)";
+    };
 
-      ui_font_size = 16;
-      ui_font_family = "ComicShannsMono Nerd Font";
-      ui_font_fallbacks = [ "Sarasa Fixed SC" ];
-      buffer_font_size = 14;
-      buffer_font_family = "Sarasa Mono SC";
-      buffer_font_fallbacks = [ "Symbols Nerd Font Mono" ];
-      theme = {
-        mode = "system";
-        light = "One Light";
-        dark = "Monokai Charcoal (purple)";
-      };
+    load_direnv = "shell_hook";
 
-      inlay_hints.enabled = true;
-      vim_mode = true;
-      autosave = "on_focus_change";
-      load_direnv = "shell_hook";
+    vim_mode = true;
 
-      terminal = {
-        dock = "bottom";
-        shell = {
-          program = "zsh";
-        };
-        font_size = 14;
-        font_family = "Sarasa Term Slab SC";
-        font_fallbacks = [ "Symbols Nerd Font Mono" ];
-      };
+    inlay_hints.enabled = true;
 
-      language_models = {
-        openai = {
-          version = "1";
-          api_url = "https://api.deepseek.com";
-          low_speed_timeout_in_seconds = 600;
-          available_models = [
-            {
-              name = "deepseek-chat";
-              max_tokens = 4000;
-            }
-          ];
-        };
-      };
+    terminal = {
+      dock = "bottom";
+      font_size = 14;
+      font_family = "Sarasa Term Slab SC";
+      font_fallbacks = [
+        "Sarasa Term Slab TC"
+        "Sarasa Term Slab HC"
+        "Sarasa Term Slab J"
+        "Sarasa Term Slab K"
+        "Symbols Nerd Font Mono"
+      ];
+    };
 
-      assistant = {
-        default_model = {
-          provider = "openai";
-          model = "deepseek-chat";
-        };
-        version = "2";
-      };
-
-      file_types = {
-        "Shell Script" = [
-          "sh"
-          "source"
-          "src"
+    language_models = {
+      openai = {
+        version = "1";
+        api_url = "https://api.deepseek.com";
+        low_speed_timeout_in_seconds = 600;
+        available_models = [
+          {
+            name = "deepseek-chat";
+            max_tokens = 4000;
+          }
         ];
       };
-      file_scan_exclusions = [
-        "**/.git"
-        "**/.svn"
-        "**/.direnv"
-        "**/.hg"
-        "**/.jj"
-        "**/CVS"
-        "**/.DS_Store"
-        "**/.classpath"
-        "**/.settings"
-        "**/Thumbs.db"
-      ];
+    };
 
-      languages = {
-        Nix = {
-          language_servers = [
-            "nil"
-            "!nixd"
-          ];
-          formatter = {
-            external = {
-              command = "nixfmt";
-            };
-          };
-        };
+    assistant = {
+      default_model = {
+        provider = "openai";
+        model = "deepseek-chat";
       };
+      version = "2";
+    };
 
-      auto_install_extension = {
-        html = true;
-        toml = true;
-        xml = true;
+    show_whitespaces = "all";
+    autosave = "on_focus_change";
 
-        nix = true;
-        lua = true;
-        dart = true;
-        latex = true;
+    file_types = {
+      "Shell Script" = [
+        "sh"
+        "source"
+        "src"
+      ];
+    };
+    file_scan_exclusions = [
+      "**/.git"
+      "**/.svn"
+      "**/.direnv"
+      "**/.hg"
+      "**/.jj"
+      "**/CVS"
+      "**/.DS_Store"
+      "**/.classpath"
+      "**/.settings"
+      "**/Thumbs.db"
+    ];
 
-        vscode-monokai-charcoal = true;
+    languages = {
+      Nix = {
+        language_servers = [
+          "nil"
+          "!nixd"
+        ];
+        formatter.external.command = "nixfmt";
       };
     };
+
+    auto_install_extensions = {
+      html = false; # FIXME: https://github.com/zed-industries/zed/issues/16703
+
+      lua = true;
+      dart = true;
+      nix = true;
+      latex = true;
+
+      make = true;
+      toml = true;
+      xml = true;
+      proto = true;
+
+      vscode-monokai-charcoal = true;
+    };
+
+    features.copilot = false;
+    telemetry = {
+      diagnostics = false;
+      metrics = false;
+    };
+    auto_update = false;
   };
 }
