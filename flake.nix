@@ -50,7 +50,7 @@
       ...
     }@inputs:
     let
-      stateVersion = "24.11";
+      stateVersion = "25.11";
 
       mkPkgs =
         system:
