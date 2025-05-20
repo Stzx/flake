@@ -47,6 +47,13 @@ in
     ];
   };
 
+  audio = mkShellNoCC {
+    packages = with pkgs; [
+      flac
+      alac
+    ];
+  };
+
   kernel = mkShell {
     packages = [ pkgs.dracut ];
 

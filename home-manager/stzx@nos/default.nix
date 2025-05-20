@@ -19,8 +19,6 @@ in
       home.packages = with pkgs; [
         fuse-archive
         fuse-avfs # original name: avfs
-
-        flac
       ];
 
       programs = {

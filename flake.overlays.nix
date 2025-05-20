@@ -1,4 +1,6 @@
 final: prev: {
+  _7zz = prev._7zz.override { useUasm = true; };
+
   firefox = prev.firefox.override { cfg.speechSynthesisSupport = false; };
 
   jetbrains =
@@ -15,4 +17,24 @@ final: prev: {
       idea-community = prev.jetbrains.idea-community.override { inherit vmopts; };
       rust-rover = prev.jetbrains.rust-rover.override { inherit vmopts; };
     };
+
+  fluent-gtk-theme = prev.fluent-gtk-theme.override {
+    themeVariants = [
+      "purple"
+      "green"
+    ];
+    sizeVariants = [ "standard" ];
+    tweaks = [ "blur" ];
+  };
+
+  bibata-cursors = prev.bibata-cursors.overrideAttrs {
+    buildPhase = ''
+      runHook preBuild
+
+      ctgen configs/normal/x.build.toml -p x11 -d $bitmaps/Bibata-Modern-Classic -n 'Bibata-Modern-Classic' -c 'Black and rounded edge Bibata XCursors'
+      ctgen configs/normal/x.build.toml -p x11 -d $bitmaps/Bibata-Modern-Ice -n 'Bibata-Modern-Ice' -c 'White and rounded edge Bibata XCursors'
+
+      runHook postBuild
+    '';
+  };
 }
