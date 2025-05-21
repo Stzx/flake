@@ -1,0 +1,11 @@
+tree-root-file = "flake.nix"
+
+[formatter.nixfmt-rfc-style]
+command = "nixfmt"
+includes = ["*.nix"]
+excludes = ["*/niri.window-rules.nix"]
+
+[formatter.taplo]
+command = "taplo"
+options = ["format"]
+includes = ["*.toml"]

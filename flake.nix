@@ -44,11 +44,9 @@
       home-manager,
       flake-utils,
       flake-secrets,
-      disko,
-      lanzaboote,
       niri,
       ...
-    }@inputs:
+    }@args:
     let
       stateVersion = "25.11";
 
@@ -153,8 +151,8 @@
               inherit (osSecrets) secrets;
             };
             modules = [
-              disko.nixosModules.disko
-              lanzaboote.nixosModules.lanzaboote
+              args.disko.nixosModules.disko
+              args.lanzaboote.nixosModules.lanzaboote
               niri.nixosModules.niri
 
               ./nixos
@@ -189,6 +187,6 @@
     // flake-utils.lib.eachDefaultSystem (system: {
       devShells = import ./flake.shells.nix { pkgs = (mkPkgs system); };
 
-      formatter = nixpkgs.legacyPackages.${system}.nixfmt-rfc-style;
+      formatter = nixpkgs.legacyPackages.${system}.treefmt;
     });
 }

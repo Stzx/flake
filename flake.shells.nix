@@ -20,6 +20,7 @@ in
     packages = with pkgs; [
       nil
       taplo
+
       nixfmt-rfc-style
     ];
   };

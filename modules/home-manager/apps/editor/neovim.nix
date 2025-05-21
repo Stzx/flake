@@ -203,13 +203,13 @@ lib.mkIf cfg.enable {
 
         require('lspconfig').nil_ls.setup {
           capabilities = caps,
-          settings = {
-            ['nil'] = {
-              formatting = {
-                command = { 'nixfmt' },
-              },
-            },
-          },
+          -- settings = {
+          --   ['nil'] = {
+          --     formatting = {
+          --       command = { },
+          --     },
+          --   },
+          -- },
         }
 
         vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
