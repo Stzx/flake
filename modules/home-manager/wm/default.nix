@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  osConfig,
   ...
 }:
 
@@ -46,7 +47,8 @@ in
           };
         };
 
-        fonts.fontconfig.enable = true;
+        # FIX: https://github.com/nix-community/home-manager/pull/7045
+        fonts.fontconfig.enable = !osConfig.fonts.fontconfig.enable;
 
         programs.kitty.enable = mkDefault true;
 
