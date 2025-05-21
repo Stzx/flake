@@ -88,16 +88,6 @@
           "nil"
           "!nixd"
         ];
-
-        formatter.external = {
-          command = "nix";
-          arguments = [
-            "fmt"
-            "--"
-            "--stdin"
-            "{buffer_path}"
-          ];
-        };
       };
     };
 
