@@ -104,7 +104,7 @@ in
         enable = true;
         settings = {
           main = {
-            font = "Sarasa Fixed Slab SC:slant=italic";
+            font = "Monaspace Radon Frozen";
             icon-theme = config.gtk.iconTheme.name;
             horizontal-pad = 16;
             vertical-pad = 8;
@@ -129,7 +129,7 @@ in
 
       programs.tofi.settings = {
         font = "Sarasa Fixed Slab SC";
-        font-size = 12;
+        font-size = 13;
 
         outline-width = 0;
 

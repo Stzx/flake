@@ -57,6 +57,10 @@ in
           # source-han-sans
           # source-han-mono
 
+          monaspace
+          comic-mono
+          victor-mono
+
           sarasa-gothic
           # Gothic, UI = Inter
           #   Quotes (“”) are full width —— Gothic
@@ -81,8 +85,6 @@ in
           # noto-fonts-cjk-sans
           noto-fonts-color-emoji
 
-          # nerd-fonts.iosevka-term-slab
-          nerd-fonts.comic-shanns-mono
           nerd-fonts.symbols-only
         ];
         fontconfig = {

@@ -60,7 +60,7 @@ in
 
         network = {
           interval = 3;
-          format-ethernet = " <sub>{bandwidthUpBits}</sub>  | 󰞉 |  <sub>{bandwidthDownBits}</sub> "; # nf-oct-upload, nf-md-web_check, nf-oct-download
+          format-ethernet = "<sup> {bandwidthUpBits} </sup>  |  <sub> {bandwidthDownBits} </sub>"; # nf-oct-upload, nf-oct-download
           format-linked = "󱐅"; # nf-md-earth_remove
           format-disconnected = "󰇨"; # nf-md-earth_off
           tooltip = false;
@@ -162,7 +162,7 @@ in
 
           margin: 0;
 
-          font-family: "Symbols Nerd Font Mono", "Sarasa Fixed Slab SC", sans-serif;
+          font-family: "Symbols Nerd Font Mono", "Sarasa UI SC", "Sarasa UI TC", "Sarasa UI HC", "Sarasa UI J", "Sarasa UI K", sans-serif;
           font-size: 1.0rem;
         }
 

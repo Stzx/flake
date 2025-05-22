@@ -1,11 +1,16 @@
 {
   programs.zed-editor.userSettings = {
     ui_font_size = 16;
-    ui_font_family = "ComicShannsMono Nerd Font";
+    ui_font_family = "Comic Mono";
     ui_font_fallbacks = [ "Symbols Nerd Font Mono" ];
+
     buffer_font_size = 14;
-    buffer_font_family = "Sarasa Mono SC";
+    buffer_font_features = {
+      calt = true;
+    };
+    buffer_font_family = "Monaspace Neon Frozen";
     buffer_font_fallbacks = [
+      "Sarasa Mono SC"
       "Sarasa Mono TC"
       "Sarasa Mono HC"
       "Sarasa Mono J"
@@ -16,6 +21,12 @@
       mode = "system";
       light = "Monokai Charcoal (green)";
       dark = "Monokai Charcoal (purple)";
+    };
+    "experimental.theme_overrides" = {
+      syntax = rec {
+        comment.font_style = "italic";
+        "comment.doc" = comment;
+      };
     };
 
     load_direnv = "shell_hook";
