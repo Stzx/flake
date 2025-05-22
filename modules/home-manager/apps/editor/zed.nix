@@ -86,10 +86,10 @@
       "**/.direnv"
       "**/.hg"
       "**/.jj"
-      "**/CVS"
       "**/.DS_Store"
       "**/.classpath"
       "**/.settings"
+      "**/CVS"
       "**/Thumbs.db"
     ];
 

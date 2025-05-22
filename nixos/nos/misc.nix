@@ -5,6 +5,9 @@
   # com.valvesoftware.Steam
   # com.valvesoftware.Steam.CompatibilityTool.Proton-GE
   # org.freedesktop.Platform.VulkanLayer.gamescope
+  # org.freedesktop.Platform.VulkanLayer.MangoHud
+  #
+  # flatpak override --user --env=PROTON_ENABLE_WAYLAND=1 --env=MANGOHUD=1 com.valvesoftware.Steam
   services.flatpak.enable = true;
 
   services.prometheus = {
@@ -40,7 +43,6 @@
   services.ollama.enable = false;
 
   programs.java = {
-    enable = true;
     package = pkgs.temurin-jre-bin;
     binfmt = true;
   };

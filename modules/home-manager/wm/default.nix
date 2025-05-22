@@ -74,12 +74,18 @@ in
             name = "Papirus-Dark";
           };
         };
+
+        qt = {
+          enable = true;
+          platformTheme.name = "gtk3";
+        };
       }
     ))
 
     (mkIf (isHyprland || isNiri) {
       services.playerctld.enable = true;
 
+      # notifications
       services.mako = {
         enable = true;
         settings = {
@@ -88,26 +94,26 @@ in
 
           icon-path = "${pkgs.papirus-icon-theme}/share/icons/${config.gtk.iconTheme.name}";
 
-          outer-margin = 12;
+          outer-margin = 3;
 
           font = "Sarasa Fixed Slab SC Italic 13px";
           border-color = "#884DFFFF";
           background-color = "#00000080";
 
-          anchor = "bottom-right";
           icon-location = "right";
           text-alignment = "right";
         };
       };
 
+      # launcher
       programs.fuzzel = {
         enable = true;
         settings = {
           main = {
             font = "Monaspace Radon Frozen";
             icon-theme = config.gtk.iconTheme.name;
-            horizontal-pad = 16;
-            vertical-pad = 8;
+            horizontal-pad = 8;
+            vertical-pad = 16;
 
             lines = 12;
             tabs = 4;
@@ -127,6 +133,7 @@ in
         };
       };
 
+      # launcher
       programs.tofi.settings = {
         font = "Sarasa Fixed Slab SC";
         font-size = 13;

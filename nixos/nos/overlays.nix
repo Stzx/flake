@@ -96,7 +96,6 @@
     withKeePassNetworking = false;
     withKeePassSSHAgent = false;
     withKeePassX11 = false;
-    withKeePassYubiKey = false;
   };
 
   # I haven't found anyone encountering a similar error in nixpkgs issues.
