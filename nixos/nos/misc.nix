@@ -4,10 +4,11 @@
   # GAME
   # com.valvesoftware.Steam
   # com.valvesoftware.Steam.CompatibilityTool.Proton-GE
-  # org.freedesktop.Platform.VulkanLayer.gamescope
   # org.freedesktop.Platform.VulkanLayer.MangoHud
   #
-  # flatpak override --user --env=PROTON_ENABLE_WAYLAND=1 --env=MANGOHUD=1 com.valvesoftware.Steam
+  # ? org.freedesktop.Platform.VulkanLayer.gamescope
+  #
+  # flatpak override --user --env=PROTON_ENABLE_WAYLAND=1 --env=MANGOHUD=1 --filesystem=xdg-config/MangoHud:ro --filesystem=/nix/store:ro com.valvesoftware.Steam
   services.flatpak.enable = true;
 
   services.prometheus = {
