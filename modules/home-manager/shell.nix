@@ -31,6 +31,8 @@ mkIf zshCfg.enable (mkMerge [
           icat = "kitty +kitten icat";
           kssh = "kitty +kitten ssh";
         })
+
+        (mkIf cfg.rmpc.enable { rmpc = "rmpc -a $XDG_RUNTIME_DIR/mpd/socket"; })
       ];
       history = {
         ignoreAllDups = true;

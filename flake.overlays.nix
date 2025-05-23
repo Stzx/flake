@@ -3,6 +3,35 @@ final: prev: {
 
   firefox = prev.firefox.override { cfg.speechSynthesisSupport = false; };
 
+  mpd = prev.mpdWithFeatures {
+    features = [
+      "io_uring"
+
+      "alsa"
+      "pipewire"
+
+      "soxr"
+
+      "audiofile" # wav or aiff
+      "faad"
+      # "ffmpeg" # I don't need it for a while
+      "flac"
+      # "mad" # mp3
+      "mpg123" # mp1 or mp2 or mp3
+      "vorbis" # ogg
+
+      "id3tag"
+
+      "dbus"
+      "expat"
+      "icu"
+      "pcre"
+      "sqlite"
+      "syslog"
+      "systemd"
+    ];
+  };
+
   jetbrains =
     let
       vmopts = ''

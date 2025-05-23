@@ -48,6 +48,8 @@ in
 
       programs = {
         mpv.enable = true;
+        rmpc.enable = true;
+
         zed-editor.enable = true;
       };
     })
