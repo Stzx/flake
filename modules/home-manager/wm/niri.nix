@@ -272,10 +272,7 @@ in
         };
       };
 
-      "niri/window" = {
-        format = "{title:.25}";
-        icon = true;
-      };
+      "niri/window".icon = true;
     };
   };
 })
