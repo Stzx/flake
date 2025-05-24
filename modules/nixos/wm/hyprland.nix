@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   ...
@@ -17,8 +16,6 @@ in
   };
 
   config = mkIf cfg.hyprland {
-    xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # file picker
-
     programs.hyprland = {
       enable = true;
       xwayland.enable = false;

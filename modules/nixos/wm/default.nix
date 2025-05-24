@@ -277,8 +277,32 @@ in
       };
     })
 
-    (mkIf (isHyprland || isNiri) {
-      xdg.portal.config.common."org.freedesktop.impl.portal.FileChooser" = "gtk";
-    })
+    (mkIf (isHyprland || isNiri) (
+      let
+        name' =
+          if isHyprland then
+            "hyprland"
+          else if isNiri then
+            "niri"
+          else
+            builtins.abort;
+
+        name = "xdg-desktop-portal/${name'}-portals.conf";
+      in
+      {
+        xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+        # https://man.archlinux.org/man/portals.conf.5
+        #
+        # Due to the configuration loading priority issue with xdg-desktop-portal,
+        # hyprland / niri built-in configuration gets skipped.
+        # Additionally, since nixpkgs cannot read INI files and convert them into Attrs,
+        # I resorted to hard-coding.
+        environment.etc."xdg/${name}".text = ''
+          ${builtins.readFile "${config.programs.${name'}.package}/share/${name}"}
+          org.freedesktop.impl.portal.FileChooser=gtk;
+        '';
+      }
+    ))
   ];
 }
