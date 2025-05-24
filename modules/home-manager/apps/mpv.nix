@@ -7,6 +7,8 @@ let
   inherit (pkgs) anime4k;
 in
 {
+  xdg.configFile."yt-dlp/config".text = "--cookies-from-browser Firefox";
+
   programs.mpv = {
     bindings = {
       "CTRL+v" = ''cycle-values vo "gpu-next" "gpu" "dmabuf-wayland"'';
@@ -32,8 +34,8 @@ in
       osc = false;
       border = false;
 
-      vo = "gpu-next";
-      hwdec = "auto";
+      vo = "gpu-next,gpu,dmabuf-wayland";
+      hwdec = "vulkan,vaapi";
       video-sync = "display-resample";
       interpolation = true;
       icc-profile-auto = true;
@@ -61,5 +63,8 @@ in
       modernx
       mpris
     ];
+    scriptOpts = {
+      osc.showonpause = false;
+    };
   };
 }
