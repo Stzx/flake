@@ -22,15 +22,23 @@
   xdg.configFile."MangoHud/MangoHud.conf" = {
     enable = osConfig.services.flatpak.enable;
     text = ''
-      background_alpha=0.25
+      cellpadding_y=0.05
 
+      cpu_load_change
+      gpu_load_change
+
+      cpu_temp
+      cpu_mhz
+
+      gpu_temp
       gpu_power
-      arch
+
+      dynamic_frame_timing
       histogram
-      show_fps_limit
+
+      engine_short_names
       display_server
 
-      wine
       winesync
     '';
   };
