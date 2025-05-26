@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   osConfig,
@@ -39,11 +38,14 @@ mkIf zshCfg.enable (mkMerge [
         ignorePatterns = [
           "l"
           "ls"
+          "cp *"
           "rm *"
+          "cat *"
+          "grep *"
+          "tree *"
           "find *"
           "mpv *"
           "vim *"
-          "cat *"
           "bat *"
         ];
       };
@@ -79,15 +81,7 @@ mkIf zshCfg.enable (mkMerge [
     programs.direnv.enableZshIntegration = true;
 
     programs.vscode.profiles.default.userSettings."terminal.integrated.defaultProfile.linux" = "zsh";
-  }
 
-  (mkIf kittyCfg.enable {
-    programs.bash.initExtra = ''
-      # home manager has checked to see if it is an interactive terminal
-      # but it still needs attention
-      if [[ -n "$KITTY_PID" ]] && [[ -n "$KITTY_WINDOW_ID" ]]; then
-          exec ${pkgs.zsh}/bin/zsh
-      fi
-    '';
-  })
+    programs.zed-editor.userSettings.terminal.shell.program = "zsh";
+  }
 ])
