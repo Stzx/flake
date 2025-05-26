@@ -1,5 +1,14 @@
-{ lib, pkgs, ... }:
+{
+  pkgs,
+  lib,
+  utils,
+  config,
+  ...
+}:
 
+let
+  varPrometheus = config.systemd.services.prometheus.serviceConfig.WorkingDirectory;
+in
 {
   # GAME
   # com.valvesoftware.Steam
@@ -11,9 +20,25 @@
   # flatpak override --user --env=PROTON_ENABLE_WAYLAND=1 --env=MANGOHUD=1 --filesystem=xdg-config/MangoHud:ro --filesystem=/nix/store:ro com.valvesoftware.Steam
   services.flatpak.enable = true;
 
+  systemd = {
+    mounts = [
+      rec {
+        type = "tmpfs";
+        what = type;
+        where = varPrometheus;
+        options = builtins.concatStringsSep "," lib.my.dataOptions;
+      }
+    ];
+    services.prometheus.serviceConfig = rec {
+      requires = [ "${utils.escapeSystemdPath varPrometheus}.mount" ];
+      after = requires;
+    };
+  };
+
   services.prometheus = {
     enable = true;
     listenAddress = "127.0.0.1";
+    stateDir = "prometheus-ram";
     scrapeConfigs = lib.singleton {
       job_name = "prometheus";
       static_configs = lib.singleton { targets = [ "127.0.0.1:9090" ]; };
