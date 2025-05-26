@@ -13,6 +13,20 @@ let
     ;
 
   cfg = config.programs.waybar;
+
+  iconSize = 24;
+  fontSize = 13;
+
+  # only the font property can be used with px
+  nerd' =
+    symbol: "<span font=\"Symbols Nerd Font Mono ${builtins.toString iconSize}px\">${symbol}</span>";
+
+  # comma is important
+  var' =
+    text:
+    "<span font=\"Vector Mono, Oblique Medium ${builtins.toString fontSize}px\" rise=\"-1pt\">${text}</span>";
+
+  nerd = symbol: var: "${nerd' symbol} ${var' var}";
 in
 {
   options.programs.waybar = with types; {
@@ -36,7 +50,10 @@ in
 
   config = mkIf cfg.enable {
     programs.waybar = {
-      systemd.enable = true;
+      systemd = {
+        enable = true;
+        enableInspect = false;
+      };
       settings.mainBar = {
         layer = "top";
         height = 32;
@@ -48,52 +65,37 @@ in
         modules-right = cfg.right;
 
         tray = {
-          icon-size = 24;
+          icon-size = iconSize;
           spacing = 6;
           reverse-direction = true;
         };
 
         load = {
-          format = "󰑮 <sub>{}</sub>"; # nf-md-run_fast
+          format = nerd "󰑮" "{}"; # nf-md-run_fast
           tooltip = false;
         };
 
         network = {
           interval = 3;
-          format-ethernet = "<sup> {bandwidthUpBits} </sup>  |  <sub> {bandwidthDownBits} </sub>"; # nf-oct-upload, nf-oct-download
-          format-linked = "󱐅"; # nf-md-earth_remove
-          format-disconnected = "󰇨"; # nf-md-earth_off
+          format-ethernet = "${var' "{bandwidthUpBits}"} ${nerd' "󰚮"} ${var' "{bandwidthDownBits}"}"; # nf-md-transit_transfer
+          format-linked = nerd' "󰌚"; # nf-md-lan_pending
+          format-disconnected = nerd' "󰌙"; # nf-md-lan_disconnect
           tooltip = false;
-        };
-
-        keyboard-state = {
-          numlock = true;
-          capslock = true;
-          scrolllock = true;
-          format = {
-            numlock = "N {icon}";
-            capslock = "C {icon}";
-            scrolllock = "S {icon}";
-          };
-          format-icons = {
-            locked = "󰨀"; # nf-md-lighthouse_on
-            unlocked = "󰧿"; # nf-md-lighthouse
-          };
         };
 
         # [warning] [wireplumber]: (onMixerChanged) - Object with id xx not found
         wireplumber = {
-          format = "{icon} <sub>{volume}%</sub>";
+          format = nerd "{icon}" "{volume}%";
           format-icons = [
             "󰕿"
             "󰖀"
             "󰕾"
           ]; # nf-md-volume low / medium / high
-          format-muted = "󰝟"; # nf-md-volume_mute
+          format-muted = nerd' "󰝟"; # nf-md-volume_mute
         };
 
         pulseaudio = {
-          format = "{icon} <sub>{volume}%</sub>";
+          format = nerd "{icon}" "{volume}%";
           format-icons = {
             default = [
               "󰕿"
@@ -101,7 +103,8 @@ in
               "󰕾"
             ]; # nf-md-volume low / medium / high
           };
-          format-muted = "󰝟"; # nf-md-volume_mute
+          format-muted = nerd' "󰝟"; # nf-md-volume_mute
+          format-source-muted = nerd' "󰸈"; # nf-md-volume_variant_off
         };
 
         clock = {
@@ -118,9 +121,13 @@ in
           };
         };
 
+        systemd-failed-units = {
+          format = nerd "󱡍" "{nr_failed_system}:{nr_failed_user}";
+        };
+
         "wlr/taskbar" = {
           format = "{icon}";
-          icon-size = 24;
+          icon-size = iconSize;
           on-click = "minimize-raise";
           on-click-middle = "close";
         };
@@ -131,8 +138,10 @@ in
           on-click =
             if isHyprland then
               "hyprctl dispatch exit"
+            else if isNiri then
+              "niri msg action quit"
             else
-              (if isNiri then "niri msg action quit" else builtins.abort "Unconfirmed escape route :(");
+              builtins.abort;
         };
         "custom/shutdown" = {
           format = "󱄅"; # nf-md-nix
@@ -162,8 +171,8 @@ in
 
           margin: 0;
 
-          font-family: "Symbols Nerd Font Mono", "Sarasa UI SC", "Sarasa UI TC", "Sarasa UI HC", "Sarasa UI J", "Sarasa UI K", sans-serif;
-          font-size: 1.0rem;
+          font-family: "Sarasa UI SC", "Sarasa UI TC", "Sarasa UI HC", "Sarasa UI J", "Sarasa UI K", sans-serif;
+          font-size: 14px;
         }
 
         window#waybar {
@@ -178,12 +187,13 @@ in
           padding: 0 3px;
         }
 
-        #window, #clock {
+        #window {
           font-style: italic;
         }
 
         #workspaces label, #power label {
-          font-size: 24px;
+          font-family: "Symbols Nerd Font Mono";
+          font-size: ${builtins.toString iconSize}px;
         }
 
         /* LEFT */
@@ -204,7 +214,8 @@ in
           background: #8e24aa;
         }
 
-        /* RIGHT */
+        #systemd-failed-units.degraded { color: yellow; }
+
         #custom-quit { color: #008000; }
         #custom-reboot { color: #fbc02d; }
         #custom-shutdown { color: #dc143c; }

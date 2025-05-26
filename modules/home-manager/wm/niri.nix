@@ -250,10 +250,10 @@ in
       "niri/workspaces"
     ];
     right = [
-      "wlr/taskbar"
-      "pulseaudio"
+      "systemd-failed-units"
       "network"
       "load"
+      "pulseaudio"
       "tray"
       "group/power"
     ];
