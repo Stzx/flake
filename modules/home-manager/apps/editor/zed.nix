@@ -34,6 +34,8 @@
     vim_mode = true;
 
     inlay_hints.enabled = true;
+    preview_tabs.enable_preview_from_code_navigation = true;
+    minimap.show = "auto";
 
     terminal = {
       dock = "bottom";
@@ -70,6 +72,11 @@
       version = "2";
     };
 
+    edit_predictions = {
+      mode = "subtle";
+    };
+
+    cursor_shape = "underline";
     show_whitespaces = "all";
     autosave = "on_focus_change";
 
