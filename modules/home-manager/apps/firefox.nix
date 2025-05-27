@@ -24,15 +24,19 @@ in
       };
       settings =
         {
+          "dom.security.https_only_mode" = true;
+          "dom.security.https_only_mode_error_page_user_suggestions" = true;
+
           "browser.aboutConfig.showWarning" = false;
 
-          "browser.cache.memory.capacity" = 1048576;
           "browser.cache.disk.enable" = false;
           "browser.cache.disk_cache_ssl" = false;
+          "browser.cache.memory.capacity" = 1048576;
 
-          "browser.sessionstore.interval" = 900000;
+          "browser.sessionstore.interval" = 60000;
+          "browser.bookmarks.max_backups" = 3;
 
-          "browser.contentblocking.category" = "strict";
+          "browser.contentblocking.category" = "standard";
 
           "browser.newtabpage.enabled" = false;
           "browser.startup.homepage" = "about:blank";
@@ -47,8 +51,11 @@ in
           "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
           "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
 
-          "browser.urlbar.suggest.topsites" = false;
           "browser.urlbar.suggest.engines" = false;
+          "browser.urlbar.suggest.topsites" = false;
+          "browser.urlbar.suggest.trending" = false;
+          "browser.urlbar.suggest.weather" = false;
+          "browser.urlbar.suggest.yelp" = false;
 
           "browser.preferences.moreFromMozilla" = false;
 
@@ -68,19 +75,35 @@ in
 
           "browser.quitShortcut.disabled" = true;
 
-          "network.dns.disableIPv6" = true;
+          # "network.dns.disableIPv6" = true;
           "network.dns.disablePrefetch" = true;
           "network.dns.disablePrefetchFromHTTPS" = true;
+
           "network.trr.mode" = 5;
           "network.predictor.enabled" = false;
+
+          "network.connectivity-service.enabled" = false;
           "network.captive-portal-service.enabled" = false;
+
+          "sidebar.visibility" = "always-show"; # expand-on-hover ?
+          "sidebar.main.tools" = "history,bookmarks";
+          "sidebar.verticalTabs" = true;
 
           "privacy.partition.serviceWorkers" = true;
 
+          # PASSWORDS
           "signon.autofillForms" = false;
           "signon.rememberSignons" = false;
           "signon.formlessCapture.enabled" = false;
+          "signon.firefoxRelay.feature" = "disabled";
+          "signon.generation.enabled" = false;
+          "signon.management.page.breach-alerts.enabled" = false;
 
+          "services.sync.log.appender.file.logOnError" = false;
+          "services.sync.log.appender.file.logOnSuccess" = false;
+
+          "extensions.formautofill.addresses.enabled" = false;
+          "extensions.formautofill.creditCards.enabled" = false;
           "extensions.htmlaboutaddons.recommendations.enabled" = false;
 
           "extensions.pocket.enabled" = false;
@@ -98,7 +121,7 @@ in
 
           "full-screen-api.warning.timeout" = 0;
 
-          "layout.frame_rate" = 60;
+          "layout.frame_rate" = 120;
           "layout.spellcheckDefault" = 0;
 
           "trailhead.firstrun.branches" = "nofirstrun-empty";
@@ -111,6 +134,7 @@ in
           "toolkit.telemetry.archive.enabled" = false;
           "toolkit.telemetry.unified" = false;
 
+          "datareporting.usage.uploadEnabled" = false;
           "datareporting.healthreport.uploadEnabled" = false;
           "datareporting.policy.dataSubmissionEnabled" = false;
         }
