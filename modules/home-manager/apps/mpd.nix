@@ -21,6 +21,8 @@ in
     '';
   };
 
+  services.mpdscribble.enable = config.services.mpd.enable;
+
   # HM does not have overrideStrategy
   xdg.configFile."systemd/user/mpd.service.d/overrides.conf".text = ''
     [Service]
