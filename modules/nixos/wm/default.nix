@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }:
 
@@ -41,8 +42,12 @@ in
           bin =
             if isKDE then
               "startplasma-wayland"
+            else if isHyprland then
+              "Hyprland"
+            else if isNiri then
+              "niri-session"
             else
-              (if isHyprland then "Hyprland" else (if isNiri then "niri-session" else null));
+              null;
 
           cmd = if (builtins.isNull bin) then "" else " --cmd ${bin}";
         in

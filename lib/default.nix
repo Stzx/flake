@@ -21,6 +21,7 @@ in
     byNVMeEui
     fstab
     timeOptions
+    dataOptions
     btrfsOptions
     f2fsOptions
     btrfsMountUnit

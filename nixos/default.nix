@@ -72,8 +72,6 @@
     bat
     btop
     _7zz
-
-    # lsix, read-edid
   ];
 
   programs.ccache.enable = true;

@@ -21,8 +21,6 @@ in
     enable = true;
     xwayland.enable = false;
     extraConfig = ''
-      env = QT_QPA_PLATFORMTHEME,qt6ct
-
       exec-once = fcitx5 -d
       exec-once = mako
 
@@ -113,7 +111,6 @@ in
       "hyprland/workspaces"
     ];
     right = [
-      "wlr/taskbar"
       "pulseaudio"
       "network"
       "load"

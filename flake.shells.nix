@@ -55,6 +55,15 @@ in
     ];
   };
 
+  misc = mkShellNoCC {
+    packages = with pkgs; [
+      read-edid
+      fontpreview
+
+      exiftool
+    ];
+  };
+
   kernel = mkShell {
     packages = [ pkgs.dracut ];
 

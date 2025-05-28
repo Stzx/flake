@@ -3,6 +3,8 @@
 let
   inherit (builtins) elemAt;
 
+  concatOptions = options: builtins.concatStringsSep "," options;
+
   mergeUnit = a: b: {
     mounts = (a.mounts or [ ]) ++ b.mounts;
     automounts = (a.automounts or [ ]) ++ b.automounts;
@@ -14,8 +16,6 @@ rec {
   byId = id: "/dev/disk/by-id/${id}";
 
   byNVMeEui = eui: byId "nvme-eui.${eui}";
-
-  lineOptions = options: builtins.concatStringsSep "," options;
 
   timeOptions = [
     "noatime"
@@ -62,14 +62,13 @@ rec {
   # [ [ UUID MOUNT_POINT AUTO_MOUNT ] ]
   simpleMountUnit =
     devices: fs: options:
-
     lib.foldl mergeUnit { } (
       lib.forEach devices (i: {
         mounts = lib.singleton {
           what = byUuid (elemAt i 0);
           where = elemAt i 1;
           type = fs;
-          options = lineOptions options;
+          options = concatOptions options;
         };
         automounts = lib.optional (elemAt i 2) {
           where = elemAt i 1;
@@ -85,7 +84,6 @@ rec {
   # [ [ UUID [ [ SUBVOL MOUNT_POINT AUTO_MOUNT ] ] ] ]
   btrfsMountUnit =
     devices:
-
     lib.foldl mergeUnit { } (
       lib.flatten (
         lib.forEach devices (
@@ -95,7 +93,7 @@ rec {
               what = byUuid (elemAt i 0);
               where = elemAt ee 1;
               type = "btrfs";
-              options = lineOptions (subvolBtrfsOptions (elemAt ee 0));
+              options = concatOptions (subvolBtrfsOptions (elemAt ee 0));
             };
             automounts = lib.optional (elemAt ee 2) {
               where = elemAt ee 1;
