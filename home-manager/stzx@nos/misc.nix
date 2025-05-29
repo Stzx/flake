@@ -1,6 +1,10 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  ...
+}:
 
 {
+
   programs.bash = {
     enable = true;
     package = null;
@@ -32,14 +36,14 @@
     };
     input.touchpad.enable = false;
     outputs = {
-      "DP-1".variable-refresh-rate = "on-demand";
+      "DP-1".variable-refresh-rate = true;
       "DP-2".transform.rotation = 90;
     };
     window-rules = [
       {
         matches = [
-          { app-id = "Waydroid"; }
-          { app-id = "calibre-ebook-viewer"; }
+          { app-id = "^Waydroid$"; }
+          { app-id = "^calibre-ebook-viewer$"; }
         ];
 
         open-on-output = "DP-2";

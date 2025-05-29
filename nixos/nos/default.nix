@@ -1,13 +1,12 @@
 {
+  self,
+  pkgs,
   lib,
   config,
-  pkgs,
+  wmCfg,
   ...
 }:
 
-let
-  inherit (lib) optional;
-in
 {
   imports = [
     ./core
@@ -21,33 +20,34 @@ in
   nix.settings.substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" ];
 
   nixpkgs.overlays = [
-    (import ./overlays.nix { inherit lib; })
+    (import ./overlays.nix { inherit self lib wmCfg; })
   ];
 
   features = {
     cpu.amd = true;
     gpu.amd = true;
 
-    wm.niri = true;
+    wm.enable = "niri";
   };
 
-  users.extraUsers = {
-    "stzx" = {
-      uid = 1000;
-      isNormalUser = true; # group = users
-      description = "Silece Tai";
-      extraGroups = [
-        "wheel"
-        "input" # waybar, keyboard-state
-        "video"
-        "audio"
+  users.extraUsers."stzx" = {
+    uid = 1000;
+    isNormalUser = true; # group = users
+    description = "Silece Tai";
+    extraGroups = [
+      "wheel"
+      "input" # waybar, keyboard-state
+      "video"
+      "audio"
 
-        "wireshark"
-      ] ++ optional config.programs.adb.enable "adbusers";
-    };
+      "wireshark"
+    ] ++ lib.optional config.programs.adb.enable "adbusers";
   };
 
-  programs.ccache.packageNames = [ "mpv-unwrapped" ]; # mainly used to enable ccacheWrapper
+  programs.ccache = {
+    enable = true;
+    packageNames = [ "mpv-unwrapped" ]; # mainly used to enable ccacheWrapper
+  };
 
   programs.nix-ld.enable = true;
 
@@ -55,7 +55,4 @@ in
     enable = true;
     pinentryPackage = pkgs.pinentry-curses;
   };
-
-  programs.adb.enable = true;
-
 }

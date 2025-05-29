@@ -1,4 +1,9 @@
-{ lib, ... }:
+{
+  self,
+  lib,
+  wmCfg,
+  ...
+}:
 
 (final: prev: {
   linuxManualConfig = prev.linuxManualConfig.override {
@@ -66,8 +71,8 @@
     withMediaPlayer = false;
 
     swaySupport = false;
-    hyprlandSupport = lib.isHyprland;
-    niriSupport = lib.isNiri;
+    hyprlandSupport = wmCfg.isHyprland;
+    niriSupport = wmCfg.isNiri;
   };
 
   mpv-unwrapped = prev.mpv-unwrapped.override {

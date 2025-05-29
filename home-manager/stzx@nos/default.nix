@@ -1,20 +1,17 @@
 {
   pkgs,
   lib,
+  wmCfg,
   ...
 }:
 
-let
-  inherit (lib) mkMerge;
-in
 {
   imports = [
-    ../.
     ./mail.nix
     ./misc.nix
   ];
 
-  config = mkMerge [
+  config = lib.mkMerge [
     {
       home.packages = with pkgs; [
         fuse-archive
@@ -23,13 +20,13 @@ in
 
       programs = {
         ssh.enable = true;
+        direnv.enable = true;
 
         scrcpy = true;
-        net-tools = true;
       };
     }
 
-    (lib.my.attrNeedWM {
+    (lib.mkIf wmCfg.isEnable {
       home.packages = with pkgs; [
         calibre
         librecad

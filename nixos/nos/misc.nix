@@ -1,4 +1,5 @@
 {
+  self,
   pkgs,
   lib,
   utils,
@@ -10,6 +11,8 @@ let
   varPrometheus = config.systemd.services.prometheus.serviceConfig.WorkingDirectory;
 in
 {
+  programs.adb.enable = true;
+
   # GAME
   # com.valvesoftware.Steam
   # com.valvesoftware.Steam.CompatibilityTool.Proton-GE
@@ -26,7 +29,7 @@ in
         type = "tmpfs";
         what = type;
         where = varPrometheus;
-        options = builtins.concatStringsSep "," lib.my.dataOptions;
+        options = builtins.concatStringsSep "," self.lib.dataOptions;
       }
     ];
     services.prometheus.serviceConfig = rec {

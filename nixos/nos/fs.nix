@@ -1,14 +1,14 @@
 {
-  lib,
+  self,
   config,
-  secrets,
+  values,
   ...
 }:
 
 let
-  inherit (lib.my) byNVMeEui btrfsOptions;
+  inherit (self.lib) byNVMeEui btrfsOptions;
 
-  nvme = "${byNVMeEui secrets.origin-eui}";
+  nvme = "${byNVMeEui values.origin-eui}";
 in
 {
   disko.devices = {
@@ -60,10 +60,7 @@ in
     };
   };
 
-  zramSwap = {
-    enable = true;
-    algorithm = "lzo-rle";
-  };
+  zramSwap.enable = true;
 
   virtualisation.docker.storageDriver = "btrfs";
 }

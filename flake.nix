@@ -26,10 +26,7 @@
       inputs.systems.follows = "systems";
     };
 
-    flake-secrets = {
-      url = "git+file:./../flake-secrets";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    flake-secrets.url = "git+file:./../flake-secrets";
 
     niri = {
       url = "github:sodiboo/niri-flake";
@@ -50,74 +47,99 @@
     let
       stateVersion = "25.11";
 
+      modules' = self.lib.scanModules ./modules;
+
       mkPkgs =
         system:
         import nixpkgs {
-          localSystem = {
-            inherit system;
-          };
+          localSystem = { inherit system; };
           config = {
             allowAliases = false;
             allowUnfree = true;
           };
           overlays = [
-            niri.overlays.niri
+            self.overlays.default
             flake-secrets.overlays.default
 
-            self.overlays.default
+            niri.overlays.niri
           ];
         };
 
-      mkLib = hostName: rec {
-        os = self.nixosConfigurations.${hostName};
+      mkSystem =
+        hostName:
+        {
+          system ? "x86_64-linux",
+          secrets ? (flake-secrets.lib.nixosModule hostName),
+          modules ? [
+            args.lanzaboote.nixosModules.lanzaboote
 
-        osConfig = os.config;
+            (./. + "/nixos/${hostName}")
 
-        lib = nixpkgs.lib.extend (
-          final: _: rec {
-            my = import ./lib {
-              config = osConfig;
-              lib = final;
+            secrets.module
+          ],
+        }:
+        let
+          pkgs = (mkPkgs system);
+        in
+        {
+          "${hostName}" = nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              inherit self;
+              inherit (secrets) values;
+
+              wmCfg = (self.lib.wm' self.nixosConfigurations."${hostName}".config);
             };
-            hm = home-manager.lib.hm;
+            modules =
+              [
+                args.disko.nixosModules.disko
+                niri.nixosModules.niri
 
-            inherit (my)
-              isKDE
-              isSway
-              isHyprland
-              isNiri
-              ;
-          }
-        );
-      };
+                {
+                  nixpkgs.pkgs = pkgs;
+
+                  system = {
+                    inherit stateVersion;
+                  };
+
+                  networking = {
+                    inherit hostName;
+                  };
+                }
+              ]
+              ++ modules
+              ++ modules'.sys;
+          };
+        };
 
       mkHomeManager =
         username: hostName:
+        {
+          mark ? "${username}@${hostName}",
+          secrets ? (flake-secrets.lib.hmModule username hostName),
+          modules ? [
+            (./. + "/home-manager/${mark}")
+
+            secrets.module
+          ],
+        }:
         let
-          inherit (mkLib hostName) os osConfig lib;
+          sys = self.nixosConfigurations.${hostName};
 
-          mark = "${username}@${hostName}";
-
-          userModule = ./. + "/home-manager/${mark}";
-
-          hmSecrets = flake-secrets.lib.hmModule username hostName;
+          sysCfg = sys.config;
         in
         {
           "${mark}" = home-manager.lib.homeManagerConfiguration {
-            inherit (os) pkgs;
-            inherit lib;
+            inherit (sys) pkgs;
 
             extraSpecialArgs = {
-              inherit (hmSecrets) secrets;
-              inherit osConfig;
+              inherit (secrets) values;
+              inherit sysCfg;
+              wmCfg = (self.lib.wm' sysCfg);
 
               dots = ./dots;
             };
             modules =
               [
-                ./home-manager
-                ./modules/home-manager
-
                 {
                   imports = [ niri.homeModules.config ];
 
@@ -128,61 +150,28 @@
                   };
                 }
               ]
-              ++ lib.optional (builtins.pathExists userModule) userModule
-              ++ lib.optional (hmSecrets ? module) hmSecrets.module;
-          };
-        };
-
-      mkSystem =
-        hostName:
-        {
-          system ? "x86_64-linux",
-        }:
-        let
-          inherit (mkLib hostName) lib;
-
-          osSecrets = flake-secrets.lib.nixosModule hostName;
-        in
-        {
-          "${hostName}" = lib.nixosSystem {
-            inherit lib;
-
-            specialArgs = {
-              inherit (osSecrets) secrets;
-            };
-            modules = [
-              args.disko.nixosModules.disko
-              args.lanzaboote.nixosModules.lanzaboote
-              niri.nixosModules.niri
-
-              ./nixos
-              ./modules/nixos
-              (./. + "/nixos/${hostName}")
-
-              {
-                nixpkgs.pkgs = (mkPkgs system);
-
-                system = {
-                  inherit stateVersion;
-                };
-
-                networking = {
-                  inherit hostName;
-                };
-              }
-            ] ++ lib.optional (osSecrets ? module) osSecrets.module;
+              ++ modules
+              ++ modules'.home;
           };
         };
     in
     {
       overlays.default = import ./flake.overlays.nix;
 
+      lib = import ./lib {
+        inherit
+          mkPkgs
+          mkSystem
+          mkHomeManager
+          ;
+        inherit (nixpkgs) lib;
+      };
+
       nixosConfigurations =
-        (mkSystem "nos" { }) // (flake-secrets.nixosConfigurations { inherit mkPkgs mkLib mkSystem; });
+        (mkSystem "nos" { }) // (flake-secrets.nixosConfigurations { inherit (self) lib; });
 
       homeConfigurations =
-        (mkHomeManager "stzx" "nos")
-        // (flake-secrets.homeConfigurations { inherit mkPkgs mkLib mkHomeManager; });
+        (mkHomeManager "stzx" "nos" { }) // (flake-secrets.homeConfigurations { inherit (self) lib; });
     }
     // flake-utils.lib.eachDefaultSystem (system: {
       devShells = import ./flake.shells.nix { pkgs = (mkPkgs system); };

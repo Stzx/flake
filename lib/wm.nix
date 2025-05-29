@@ -1,21 +1,22 @@
-{
-  lib,
-  config,
-}:
+{ lib, ... }:
 
-let
-  wm = config.features.wm;
-in
-rec {
-  isKDE = wm.kde;
+cfg:
 
-  isHyprland = wm.hyprland;
+with cfg.features.wm; rec {
+  inherit enable;
 
-  isNiri = wm.niri;
+  isEnable = enable != null;
+  isKDE = enable == "kde";
+  isNiri = enable == "niri";
+  isHyprland = enable == "hyprland";
 
-  haveAnyWM = isKDE || isHyprland || isNiri;
-
-  attrNeedWM = attr: if haveAnyWM then attr else { };
-
-  listNeedWM = list: if haveAnyWM then list else [ ];
+  getExe =
+    if isKDE then
+      "startplasma-wayland"
+    else if isHyprland then
+      "Hyprland"
+    else if isNiri then
+      "niri-session"
+    else
+      null;
 }

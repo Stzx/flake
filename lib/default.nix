@@ -1,6 +1,9 @@
 {
+  mkPkgs,
+  mkSystem,
+  mkHomeManager,
   lib,
-  config,
+  ...
 }:
 
 let
@@ -8,11 +11,13 @@ let
 
   fs = import ./fs.nix { inherit lib; };
 
-  service = import ./service.nix { inherit config; };
+  modules = import ./modules.nix { inherit lib; };
 
-  wm = import ./wm.nix { inherit config lib; };
+  wm' = import ./wm.nix { inherit lib; };
 in
 {
+  inherit mkPkgs mkSystem mkHomeManager;
+
   inherit (kernel) mkPatch mkPatchs;
 
   inherit (fs)
@@ -29,18 +34,7 @@ in
     f2fsMountUnit
     ;
 
-  inherit (service)
-    afterServices
-    afterMultiUserTarget
-    afterGraphicalTarget
-    ;
+  inherit wm';
 
-  inherit (wm)
-    isKDE
-    isHyprland
-    isNiri
-    haveAnyWM
-    attrNeedWM
-    listNeedWM
-    ;
+  scanModules = modules;
 }
