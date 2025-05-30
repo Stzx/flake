@@ -7,52 +7,6 @@
       ...
     }:
     {
-      nix = {
-        settings.experimental-features = [
-          "nix-command"
-          "flakes"
-        ];
-        gc = {
-          automatic = true;
-          dates = "weekly";
-          randomizedDelaySec = "3m";
-          options = "--delete-older-than 7d";
-        };
-      };
-
-      boot = {
-        loader = {
-          timeout = 1;
-          efi.canTouchEfiVariables = true;
-          systemd-boot = {
-            consoleMode = "max";
-            edk2-uefi-shell.enable = true;
-          };
-        };
-        tmp.useTmpfs = true;
-      };
-
-      users.mutableUsers = lib.mkDefault false;
-
-      time.timeZone = lib.mkDefault "Asia/Shanghai";
-
-      systemd.extraConfig = "DefaultTimeoutStopSec=60s";
-
-      programs.htop = {
-        enable = true;
-        settings = {
-          hide_userland_threads = true;
-          show_thread_names = true;
-          show_merged_command = true;
-          shadow_other_users = true;
-          highlight_base_name = true;
-          highlight_threads = true;
-          highlight_changes = true;
-          tree_view = true;
-          tree_view_always_by_pid = true;
-        };
-      };
-
       environment.systemPackages = with pkgs; [
         nix-output-monitor
 
@@ -70,6 +24,21 @@
         btop
         _7zz
       ];
+
+      programs.htop = {
+        enable = true;
+        settings = {
+          hide_userland_threads = true;
+          show_thread_names = true;
+          show_merged_command = true;
+          shadow_other_users = true;
+          highlight_base_name = true;
+          highlight_threads = true;
+          highlight_changes = true;
+          tree_view = true;
+          tree_view_always_by_pid = true;
+        };
+      };
     };
 
   home =

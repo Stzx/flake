@@ -13,7 +13,6 @@
       inherit (lib)
         mkOption
         mkIf
-        mkMerge
 
         types
         singleton
@@ -44,7 +43,7 @@
         };
       };
 
-      config = mkMerge [
+      config = lib.mkMerge [
         {
           hardware = {
             enableAllFirmware = false;
