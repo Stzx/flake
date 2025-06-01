@@ -32,9 +32,9 @@ in
         options = builtins.concatStringsSep "," self.lib.dataOptions;
       }
     ];
-    services.prometheus.serviceConfig = rec {
-      requires = [ "${utils.escapeSystemdPath varPrometheus}.mount" ];
-      after = requires;
+    services.prometheus.unitConfig = rec {
+      Requires = [ "${utils.escapeSystemdPath varPrometheus}.mount" ];
+      After = Requires;
     };
   };
 
