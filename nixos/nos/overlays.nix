@@ -5,8 +5,8 @@
   ...
 }:
 
-(final: prev: {
-  linuxManualConfig = prev.linuxManualConfig.override {
+(final': prev': {
+  linuxManualConfig = prev'.linuxManualConfig.override {
     # FIXME: https://github.com/NixOS/nixpkgs/issues/49894
     # see https://github.com/NixOS/nixpkgs/issues/142901
     # stdenv = with pkgs; overrideCC clangStdenv (
@@ -17,13 +17,13 @@
     # );
     # LTO: extraMakeFlags = [ "LLVM=1" ];
 
-    stdenv = final.ccacheStdenv;
-    buildPackages = final.buildPackages // {
-      stdenv = final.ccacheStdenv;
+    stdenv = final'.ccacheStdenv;
+    buildPackages = final'.buildPackages // {
+      stdenv = final'.ccacheStdenv;
     };
   };
 
-  linux-firmware = prev.linux-firmware.overrideAttrs (prevAttrs: {
+  linux-firmware = prev'.linux-firmware.overrideAttrs (prevAttrs: {
     postInstall = ''
       find $out/lib/firmware/amdgpu -type f ! \( \
       -name 'sienna_cichlid_*.bin' \
@@ -36,22 +36,22 @@
     '';
   });
 
-  linuxPackages_xanmod = prev.linuxPackages_xanmod.extend (
-    _: prevAttrs:
+  linuxPackages_xanmod = prev'.linuxPackages_xanmod.extend (
+    _: prev:
     let
-      kernel' = final.linuxManualConfig {
-        inherit (prevAttrs.kernel) src version modDirVersion;
+      kernel' = final'.linuxManualConfig {
+        inherit (prev.kernel) src version modDirVersion;
 
         configfile = ./core/kernel-configuration;
         allowImportFromDerivation = true;
-        extraMeta = prevAttrs.kernel.meta;
+        extraMeta = prev.kernel.meta;
       };
     in
     {
       kernel = kernel'.overrideAttrs (
-        _: prevAttrs_: {
+        _: prevAttrs: {
           preConfigure = ''
-            ${prevAttrs_.preConfigure or ""}
+            ${prevAttrs.preConfigure or ""}
 
             export CCACHE_SLOPPINESS=random_seed
           '';
@@ -60,7 +60,7 @@
     }
   );
 
-  waybar = prev.waybar.override {
+  waybar = prev'.waybar.override {
     cavaSupport = false;
     jackSupport = false;
     mpdSupport = false;
@@ -75,26 +75,29 @@
     niriSupport = wmCfg.isNiri;
   };
 
-  mpv-unwrapped = prev.mpv-unwrapped.override {
+  mpv-unwrapped = prev'.mpv-unwrapped.override {
     x11Support = false;
     sdl2Support = false;
     cacaSupport = false;
     vdpauSupport = false;
 
+    dvbinSupport = false;
+
     alsaSupport = false;
     pulseSupport = false;
     openalSupport = false;
 
-    vapoursynthSupport = false;
     javascriptSupport = false;
+
+    vapoursynthSupport = true;
   };
 
-  qbittorrent = prev.qbittorrent.override {
+  qbittorrent = prev'.qbittorrent.override {
     trackerSearch = false;
     webuiSupport = false;
   };
 
-  keepassxc = prev.keepassxc.override {
+  keepassxc = prev'.keepassxc.override {
     withKeePassBrowser = false;
     withKeePassBrowserPasskeys = false;
     withKeePassFDOSecrets = false;
@@ -122,10 +125,10 @@
   #10 0x000077d2dc13dac2 fuse_do_work (libfuse.so.2 + 0x16ac2)
   #11 0x000077d2dbe97e63 start_thread (libc.so.6 + 0x97e63)
   #12 0x000077d2dbf1bdbc __clone3 (libc.so.6 + 0x11bdbc)
-  fuse-avfs = prev.avfs.overrideAttrs (
+  fuse-avfs = prev'.avfs.overrideAttrs (
     _: prevAttrs: {
       pname = "fuse-avfs"; # I prefer the package name fuse-avfs.
-      buildInputs = (prevAttrs.buildInputs or [ ]) ++ [ final.zstd ];
+      buildInputs = (prevAttrs.buildInputs or [ ]) ++ [ final'.zstd ];
       configureFlags = (prevAttrs.configureFlags or [ ]) ++ [ "--with-zstd=yes" ];
     }
   );

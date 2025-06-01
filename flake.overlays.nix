@@ -1,9 +1,9 @@
-final: prev: {
-  _7zz = prev._7zz.override { useUasm = true; };
+final': prev': {
+  _7zz = prev'._7zz.override { useUasm = true; };
 
-  firefox = prev.firefox.override { cfg.speechSynthesisSupport = false; };
+  firefox = prev'.firefox.override { cfg.speechSynthesisSupport = false; };
 
-  mpd = prev.mpdWithFeatures {
+  mpd = prev'.mpdWithFeatures {
     features = [
       "io_uring"
 
@@ -41,13 +41,13 @@ final: prev: {
         -XX:MaxMetaspaceSize=1024m
       '';
     in
-    prev.jetbrains
+    prev'.jetbrains
     // {
-      idea-community = prev.jetbrains.idea-community.override { inherit vmopts; };
-      rust-rover = prev.jetbrains.rust-rover.override { inherit vmopts; };
+      idea-community = prev'.jetbrains.idea-community.override { inherit vmopts; };
+      rust-rover = prev'.jetbrains.rust-rover.override { inherit vmopts; };
     };
 
-  fluent-gtk-theme = prev.fluent-gtk-theme.override {
+  fluent-gtk-theme = prev'.fluent-gtk-theme.override {
     themeVariants = [
       "purple"
       "green"
@@ -56,7 +56,7 @@ final: prev: {
     tweaks = [ "blur" ];
   };
 
-  bibata-cursors = prev.bibata-cursors.overrideAttrs {
+  bibata-cursors = prev'.bibata-cursors.overrideAttrs {
     buildPhase = ''
       runHook preBuild
 
