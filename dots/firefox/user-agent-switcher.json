@@ -1,0 +1,24 @@
+{
+  "blacklist": [
+    "cloudflare.com"
+  ],
+  "custom": {},
+  "mode": "blacklist",
+  "parser": {},
+  "popup-browser": "Firefox",
+  "popup-os": "Windows",
+  "protected": [
+    "google.com/recaptcha",
+    "gstatic.com/recaptcha",
+    "accounts.google.com",
+    "accounts.youtube.com",
+    "gitlab.com/users/sign_in",
+    "challenges.cloudflare.com"
+  ],
+  "remote-address": "https://raw.githubusercontent.com/Stzx/flake/refs/heads/main/dots/firefox/user-agent-switcher.json",
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0",
+  "userAgentData": true,
+  "whitelist": [],
+  "json-guid": "73de96de-ed8c-44d6-9161-4c94233d4997",
+  "json-forced": false
+}
