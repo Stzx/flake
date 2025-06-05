@@ -60,8 +60,8 @@
           settings.mainBar = {
             layer = "top";
             height = 32;
-            margin = "4px";
-            spacing = 6;
+            margin = "3px";
+            spacing = 3;
 
             modules-left = cfg.left;
             modules-center = cfg.center;
@@ -69,7 +69,7 @@
 
             tray = {
               icon-size = iconSize;
-              spacing = 6;
+              spacing = 5;
               reverse-direction = true;
             };
 
@@ -185,7 +185,7 @@
             }
 
             window#waybar .module {
-              border-bottom: 2px solid #8e24aa;
+              border-bottom: 3px solid #8e24aa;
 
               padding: 0 3px;
             }

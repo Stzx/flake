@@ -36,13 +36,15 @@
           ];
           prefer-no-csd = true;
           layout = {
-            gaps = 6;
+            gaps = 5;
             always-center-single-column = true;
             tab-indicator = {
+              width = 3;
+              position = "right";
               place-within-column = true;
             };
             focus-ring = {
-              width = 2;
+              width = 3;
               active = {
                 gradient = {
                   angle = 45;
