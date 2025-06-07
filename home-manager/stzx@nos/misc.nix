@@ -20,7 +20,7 @@
 
   programs.waybar.settings.mainBar.output = "DP-1";
 
-  home.packages = [ pkgs.xwayland-satellite-stable ];
+  home.packages = [ pkgs.xwayland-satellite ];
 
   programs.niri.settings = {
     spawn-at-startup = [

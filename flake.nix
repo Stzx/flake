@@ -60,8 +60,6 @@
           overlays = [
             self.overlays.default
             flake-secrets.overlays.default
-
-            niri.overlays.niri
           ];
         };
 
@@ -92,7 +90,6 @@
             modules =
               [
                 args.disko.nixosModules.disko
-                niri.nixosModules.niri
 
                 {
                   nixpkgs.pkgs = pkgs;

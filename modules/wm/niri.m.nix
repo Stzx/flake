@@ -2,15 +2,14 @@
   sys =
     {
       lib,
-      config,
       wmCfg,
       ...
     }:
     {
       config = lib.mkIf wmCfg.isNiri {
-        niri-flake.cache.enable = false;
-
-        programs.niri.enable = true;
+        programs.niri = {
+          enable = true;
+        };
       };
     };
 
