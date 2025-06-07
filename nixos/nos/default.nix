@@ -27,6 +27,8 @@
     cpu.amd = true;
     gpu.amd = true;
 
+    THP = true;
+
     wm.enable = "niri";
   };
 
