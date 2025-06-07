@@ -8,15 +8,15 @@
           network.startWhenNeeded = true; # wait socket or port
           dbFile = "${config.services.mpd.dataDir}/tags";
           extraConfig = ''
-            auto_update "yes"
+            filesystem_charset "UTF-8"
+            restore_paused "yes"
+
             audio_output {
               type "pipewire"
               name "PipeWire Sound Server"
               mixer_type "none"
               replay_gain_handler "none"
             }
-
-            restore_paused "yes"
           '';
         };
 
