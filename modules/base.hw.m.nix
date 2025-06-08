@@ -11,10 +11,9 @@
 
     let
       inherit (lib)
-        mkOption
+        mkEnableOption
         mkIf
 
-        types
         singleton
         ;
 
@@ -25,22 +24,10 @@
     in
     {
       options.features = {
-        cpu.amd = mkOption {
-          type = types.bool;
-          default = false;
-        };
-        cpu.intel = mkOption {
-          type = types.bool;
-          default = false;
-        };
-        gpu.amd = mkOption {
-          type = types.bool;
-          default = false;
-        };
-        gpu.nvidia = mkOption {
-          type = types.bool;
-          default = false;
-        };
+        cpu.amd = mkEnableOption "AMD CPU";
+        cpu.intel = mkEnableOption "Intel CPU";
+        gpu.amd = mkEnableOption "AMD GPU";
+        gpu.nvidia = mkEnableOption "NVIDIA GPU";
       };
 
       config = lib.mkMerge [

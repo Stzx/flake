@@ -8,6 +8,8 @@
 }:
 
 let
+  inherit (lib) singleton;
+
   varPrometheus = config.systemd.services.prometheus.serviceConfig.WorkingDirectory;
 in
 {
@@ -33,7 +35,7 @@ in
       }
     ];
     services.prometheus.unitConfig = rec {
-      Requires = [ "${utils.escapeSystemdPath varPrometheus}.mount" ];
+      Requires = singleton "${utils.escapeSystemdPath varPrometheus}.mount";
       After = Requires;
     };
   };
@@ -42,9 +44,9 @@ in
     enable = true;
     listenAddress = "127.0.0.1";
     stateDir = "prometheus-ram";
-    scrapeConfigs = lib.singleton {
+    scrapeConfigs = singleton {
       job_name = "prometheus";
-      static_configs = lib.singleton { targets = [ "127.0.0.1:9090" ]; };
+      static_configs = singleton { targets = singleton "127.0.0.1:9090"; };
     };
     exporters.node = {
       enable = true;
