@@ -23,6 +23,7 @@
     };
   };
 
+  # https://wiki.gentoo.org/wiki/AMDGPU#Firmware_blobs_for_a_known_card_model
   linux-firmware = prev'.linux-firmware.overrideAttrs (prevAttrs: {
     postInstall = ''
       find $out/lib/firmware/amdgpu -type f ! \( \

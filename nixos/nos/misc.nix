@@ -13,6 +13,11 @@ let
   varPrometheus = config.systemd.services.prometheus.serviceConfig.WorkingDirectory;
 in
 {
+  programs.ccache = {
+    enable = true;
+    packageNames = [ "mpv-unwrapped" ]; # mainly used to enable ccacheWrapper
+  };
+
   programs.adb.enable = true;
 
   # GAME
@@ -85,6 +90,4 @@ in
     onBoot = "ignore";
     qemu.swtpm.enable = true;
   };
-
-  users.extraUsers.stzx.extraGroups = [ "libvirtd" ];
 }

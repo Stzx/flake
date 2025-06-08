@@ -72,6 +72,7 @@
         })
 
         (mkIf gpuCfg.amd {
+          # :| hardware.amdgpu
           environment = {
             systemPackages = with pkgs; [
               amdgpu_top
@@ -92,6 +93,11 @@
           ];
 
           services.xserver.videoDrivers = singleton "modesetting";
+
+          # 2 => POWER_SAVEING
+          services.udev.extraRules = ''
+            SUBSYSTEM=="pci", DRIVER=="amdgpu", ATTR{power_dpm_force_performance_level}="manual", ATTR{pp_power_profile_mode}="2"
+          '';
         })
 
         (mkIf gpuCfg.nvidia {
