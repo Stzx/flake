@@ -2,8 +2,6 @@
 
 let
   email = config.programs.git.userEmail;
-
-  profile = "thunderbird.${config.home.username}";
 in
 {
   accounts.email.accounts.${email} = {
@@ -25,11 +23,5 @@ in
     thunderbird.enable = true;
   };
 
-  programs.thunderbird = {
-    enable = true;
-    profiles.${profile} = {
-      isDefault = true;
-      feedAccounts.${profile} = { };
-    };
-  };
+  programs.thunderbird.enable = true;
 }
