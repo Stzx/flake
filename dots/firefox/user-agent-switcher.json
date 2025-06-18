@@ -1,8 +1,8 @@
 {
-  "blacklist": [
-    "cloudflare.com"
-  ],
+  "blacklist": [],
   "custom": {},
+  "json-forced": false,
+  "json-guid": "54d8f557-23d3-43f7-9f3a-02082ad7e957",
   "mode": "blacklist",
   "parser": {},
   "popup-browser": "Firefox",
@@ -18,7 +18,5 @@
   "remote-address": "https://raw.githubusercontent.com/Stzx/flake/refs/heads/main/dots/firefox/user-agent-switcher.json",
   "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0",
   "userAgentData": true,
-  "whitelist": [],
-  "json-guid": "73de96de-ed8c-44d6-9161-4c94233d4997",
-  "json-forced": false
+  "whitelist": []
 }
