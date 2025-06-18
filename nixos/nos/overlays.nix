@@ -71,8 +71,6 @@
     upowerSupport = false;
     withMediaPlayer = false;
 
-    swaySupport = false;
-    hyprlandSupport = wmCfg.isHyprland;
     niriSupport = wmCfg.isNiri;
   };
 

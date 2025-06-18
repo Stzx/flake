@@ -12,13 +12,13 @@ final': prev': {
 
       "soxr"
 
-      "audiofile" # wav or aiff
-      "faad"
-      # "ffmpeg" # I don't need it for a while
+      # "audiofile" # wav or aiff
+      # "faad"
+      "ffmpeg"
       "flac"
       # "mad" # mp3
-      "mpg123" # mp1 or mp2 or mp3
-      "vorbis" # ogg
+      # "mpg123" # mp1 or mp2 or mp3
+      # vorbis" # ogg
 
       "id3tag"
 
