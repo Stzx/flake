@@ -48,10 +48,13 @@ in
     ];
   };
 
-  audio = mkShellNoCC {
+  media = mkShellNoCC {
     packages = with pkgs; [
       flac
       alac
+
+      exiftool
+      mediainfo
     ];
   };
 
@@ -60,7 +63,7 @@ in
       read-edid
       fontpreview
 
-      exiftool
+      unrar
     ];
   };
 
