@@ -18,8 +18,9 @@
 
             cursor_shape underline
 
+            window_padding_width 3
             tab_bar_align center
-            tab_bar_edge top
+            tab_bar_edge bottom
 
             shell_integration no-cursor
 
