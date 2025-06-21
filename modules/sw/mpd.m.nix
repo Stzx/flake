@@ -43,9 +43,13 @@
               tabs: [
                   (
                       name: "Queue",
+                      borders: "ALL",
                       pane: Split(
                           direction: Horizontal,
-                          panes: [(size: "35%", pane: Pane(AlbumArt)), (size: "65%", pane: Pane(Queue))],
+                          panes: [
+                            (size: "40%", pane: Pane(AlbumArt)),
+                            (size: "60%", pane: Pane(Queue)),
+                          ],
                       ),
                   ),
                   (
@@ -59,7 +63,11 @@
                   (
                       name: "Albums",
                       pane: Pane(Albums),
-                  )
+                  ),
+                  (
+                      name: "Search",
+                      pane: Pane(Search),
+                  ),
               ],
           )
         '';
