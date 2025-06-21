@@ -18,7 +18,6 @@
             with lib.types;
             nullOr (enum [
               "kde"
-              "hyprland"
               "niri"
             ]);
           default = null;
@@ -280,7 +279,7 @@
             };
           }
 
-          (mkIf (wmCfg.isHyprland || wmCfg.isNiri) (
+          (mkIf (wmCfg.isNiri) (
             let
               file = "xdg-desktop-portal/${wmCfg.enable}-portals.conf";
             in
@@ -290,7 +289,7 @@
               # https://man.archlinux.org/man/portals.conf.5
               #
               # Due to the configuration loading priority issue with xdg-desktop-portal,
-              # hyprland / niri built-in configuration gets skipped.
+              # niri built-in configuration gets skipped.
               # Additionally, since nixpkgs cannot read INI files and convert them into Attrs,
               # I resorted to hard-coding.
               environment.etc."xdg/${file}".text = ''
@@ -370,7 +369,7 @@
           programs.firefox.enable = mkDefault true;
         })
 
-        (mkIf (wmCfg.isHyprland || wmCfg.isNiri) {
+        (mkIf (wmCfg.isNiri) {
           services.playerctld.enable = true;
 
           # notifications

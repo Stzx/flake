@@ -139,9 +139,7 @@
               format = "󰩈"; # nf-md-exit_run
               tooltip = false;
               on-click =
-                if wmCfg.isHyprland then
-                  "hyprctl dispatch exit"
-                else if wmCfg.isNiri then
+                if wmCfg.isNiri then
                   "niri msg action quit"
                 else
                   builtins.abort;
