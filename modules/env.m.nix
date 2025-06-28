@@ -16,6 +16,7 @@
         pciutils
         usbutils
 
+        lsb-release
         lsof
         tree
         file
