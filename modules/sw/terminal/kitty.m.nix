@@ -1,6 +1,7 @@
 {
   home =
     {
+      pkgs,
       lib,
       config,
       dots,
@@ -29,9 +30,12 @@
         };
 
         programs.zsh.shellAliases = {
-          icat = "kitty +kitten icat";
           kssh = "kitty +kitten ssh";
         };
+
+        home.packages = [
+          (pkgs.writeShellScriptBin "icat" (builtins.readFile ./icat.src))
+        ];
       };
     };
 }

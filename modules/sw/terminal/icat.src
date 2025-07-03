@@ -1,0 +1,70 @@
+if [[ -z "$KITTY_WINDOW_ID" ]]; then
+    echo "需要 Kitty 才能运行!" >&2
+    exit 1
+fi
+
+search_dir="${1:-.}"
+
+if [[ ! -d "$search_dir" ]]; then
+    exit 1
+fi
+
+files=()
+while IFS= read -r -d $'\0'; do
+    files+=("$REPLY")
+done < <(find "$search_dir" -type f \( \
+    -iname "*.jpg" -o \
+    -iname "*.jpeg" -o \
+    -iname "*.png" -o \
+    -iname "*.gif" -o \
+    -iname "*.webp" \
+    \) -print0)
+
+
+num_files=${#files[@]}
+if [ $num_files -eq 0 ]; then
+    exit 0
+fi
+
+idx=0
+
+display_image() {
+    local width=$(tput cols)
+    local height=$(tput lines)
+
+    local image_height=$((height - 2))
+    if [ $image_height -lt 1 ]; then
+        image_height=1
+    fi
+
+    clear
+
+    echo "[$(($idx + 1))/$num_files] ${files[$idx]}"
+    echo "h/H | l/L | q/Q"
+
+    kitty +kitten icat --align=center --place="${width}x${image_height}@0x2" "${files[$idx]}"
+}
+
+trap 'clear; exit 0' INT TERM
+
+display_image
+
+while true; do
+    read -s -n 1 key
+
+    case "$key" in
+        h | H)
+            idx=$(( (idx - 1 + num_files) % num_files ))
+            display_image
+            ;;
+        l | L)
+            idx=$(( (idx + 1) % num_files ))
+            display_image
+            ;;
+        q | Q)
+            break
+            ;;
+    esac
+done
+
+clear
