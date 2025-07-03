@@ -59,7 +59,7 @@
           };
           settings.mainBar = {
             layer = "top";
-            height = 32;
+            height = 36;
             margin = "3px";
             spacing = 3;
 
@@ -125,7 +125,7 @@
             };
 
             systemd-failed-units = {
-              format = nerd "󱡍" "{nr_failed_system}:{nr_failed_user}";
+              format = nerd "󱡍" "S^{nr_failed_system} | U^{nr_failed_user}";
             };
 
             "wlr/taskbar" = {
@@ -138,11 +138,7 @@
             "custom/quit" = {
               format = "󰩈"; # nf-md-exit_run
               tooltip = false;
-              on-click =
-                if wmCfg.isNiri then
-                  "niri msg action quit"
-                else
-                  builtins.abort;
+              on-click = if wmCfg.isNiri then "niri msg action quit" else builtins.abort;
             };
             "custom/shutdown" = {
               format = "󱄅"; # nf-md-nix
