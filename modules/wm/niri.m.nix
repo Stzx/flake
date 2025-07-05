@@ -197,6 +197,13 @@
             "niri/window".icon = true;
           };
         };
+
+        services.swayidle.timeouts = [
+          {
+            timeout = 180;
+            command = "${sysCfg.programs.niri.package}/bin/niri msg action power-off-monitors";
+          }
+        ];
       };
     };
 }

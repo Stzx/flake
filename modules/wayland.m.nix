@@ -372,6 +372,8 @@
         (mkIf (wmCfg.isNiri) {
           services.playerctld.enable = true;
 
+          services.swayidle.enable = true;
+
           # notifications
           services.mako = {
             enable = true;
