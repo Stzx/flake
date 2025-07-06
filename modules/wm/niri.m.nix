@@ -153,6 +153,8 @@
             "Mod+Shift+S".action.screenshot-screen = [ ]; # FIXME: https://github.com/sodiboo/niri-flake/issues/1018
             "Mod+Print".action = screenshot-window { write-to-disk = false; };
 
+            "Mod+grave".action = spawn "${pkgs.procps}/bin/pkill" "-SIGUSR1" "waybar";
+
             "XF86AudioMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
             "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "1%-";
             "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "1%+";

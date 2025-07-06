@@ -67,6 +67,9 @@
             modules-center = cfg.center;
             modules-right = cfg.right;
 
+            mode = "dock";
+            start_hidden = true;
+
             tray = {
               icon-size = iconSize;
               spacing = 5;
