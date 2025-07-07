@@ -1,4 +1,4 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 
 let
   email = config.programs.git.userEmail;
@@ -23,5 +23,8 @@ in
     thunderbird.enable = true;
   };
 
-  programs.thunderbird.enable = true;
+  programs.thunderbird = {
+    enable = true;
+    package = pkgs.thunderbird-esr;
+  };
 }
