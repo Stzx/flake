@@ -372,6 +372,10 @@
         (mkIf (wmCfg.isNiri) {
           services.playerctld.enable = true;
 
+          systemd.user.services.playerctld.Service = {
+            StandardOutput="file:%t/playerctld.log";
+          };
+
           services.swayidle.enable = true;
 
           # notifications
