@@ -20,14 +20,6 @@ in
 
   programs.adb.enable = true;
 
-  # GAME
-  # com.valvesoftware.Steam
-  # com.valvesoftware.Steam.CompatibilityTool.Proton-GE
-  # org.freedesktop.Platform.VulkanLayer.MangoHud
-  #
-  # ? org.freedesktop.Platform.VulkanLayer.gamescope
-  #
-  # flatpak override --user --env=PROTON_ENABLE_WAYLAND=1 --env=MANGOHUD=1 --filesystem=xdg-config/MangoHud:ro --filesystem=/nix/store:ro com.valvesoftware.Steam
   services.flatpak.enable = true;
 
   systemd = {
@@ -77,11 +69,6 @@ in
   };
 
   services.ollama.enable = false;
-
-  programs.java = {
-    package = pkgs.temurin-jre-bin;
-    binfmt = true;
-  };
 
   virtualisation.waydroid.enable = true;
 

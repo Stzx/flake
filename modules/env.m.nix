@@ -56,6 +56,8 @@
     {
       config = lib.mkMerge [
         {
+          xdg.enable = true;
+
           home.packages = [ pkgs.numbat ];
 
           programs = {
