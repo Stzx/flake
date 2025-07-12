@@ -37,13 +37,20 @@
     {
       config = lib.mkIf sysCfg.services.flatpak.enable {
         xdg.dataFile = {
-          # flatpak override --user --env=PROTON_ENABLE_WAYLAND=1 --env=MANGOHUD=1 --filesystem=xdg-config/MangoHud:ro --filesystem=/nix/store:ro com.valvesoftware.Steam
+          # flatpak override --user \
+          # --env=PROTON_ENABLE_WAYLAND=1 \
+          # --env=PROTON_USE_NTSYNC=1 \
+          # --env=MANGOHUD=1 \
+          # --filesystem=xdg-config/MangoHud:ro \
+          # --filesystem=/nix/store:ro \
+          # com.valvesoftware.Steam
           "flatpak/overrides/com.valvesoftware.Steam".text = ''
             [Context]
             filesystems=/nix/store:ro;xdg-config/MangoHud:ro;
 
             [Environment]
             PROTON_ENABLE_WAYLAND=1
+            PROTON_USE_NTSYNC=1
             MANGOHUD=1
           '';
         };
