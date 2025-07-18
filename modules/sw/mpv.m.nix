@@ -10,7 +10,7 @@
     let
       inherit (pkgs) anime4k fetchurl;
 
-      rifeVer =  "rife-v4.25-lite";
+      rifeVer = "rife-v4.25-lite";
       vsrVer = "r9_mod_v33";
 
       rife' = pkgs.linkFarm rifeVer [
@@ -101,7 +101,7 @@
             alang = "chi,zh,ja,en";
             audio-file-auto = "exact";
 
-            slang = "chi,zh-Hans,cmn-Hans,zh,en";
+            slang = "zh-CN,zh-Hans,cmn-Hans,chi,chs,sc,zh,en";
             sub-auto = "fuzzy";
           };
           profiles = {
