@@ -7,6 +7,10 @@
       ...
     }:
     {
+      services.udev.extraRules = ''
+        SUBSYSTEM=="misc", KERNEL=="ntsync", MODE="0666"
+      '';
+
       programs.java = {
         enable = lib.mkDefault config.services.flatpak.enable;
         package = pkgs.temurin-jre-bin;
@@ -38,18 +42,18 @@
       config = lib.mkIf sysCfg.services.flatpak.enable {
         xdg.dataFile = {
           # flatpak override --user \
-          # --env=PROTON_ENABLE_WAYLAND=1 \
+          # --env=PROTON_USE_WAYLAND=1 \
           # --env=PROTON_USE_NTSYNC=1 \
           # --env=MANGOHUD=1 \
-          # --filesystem=xdg-config/MangoHud:ro \
           # --filesystem=/nix/store:ro \
+          # --filesystem=xdg-config/MangoHud:ro \
           # com.valvesoftware.Steam
           "flatpak/overrides/com.valvesoftware.Steam".text = ''
             [Context]
             filesystems=/nix/store:ro;xdg-config/MangoHud:ro;
 
             [Environment]
-            PROTON_ENABLE_WAYLAND=1
+            PROTON_USE_WAYLAND=1
             PROTON_USE_NTSYNC=1
             MANGOHUD=1
           '';
