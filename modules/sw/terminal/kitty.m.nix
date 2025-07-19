@@ -30,11 +30,12 @@
         };
 
         programs.zsh.shellAliases = {
+          icat = "kitty +kitten icat";
           kssh = "kitty +kitten ssh";
         };
 
         home.packages = [
-          (pkgs.writeShellScriptBin "icat" (builtins.readFile ./icat.src))
+          (pkgs.writeShellScriptBin "dicat" (builtins.readFile ./dicat.src))
         ];
       };
     };
