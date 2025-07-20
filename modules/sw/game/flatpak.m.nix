@@ -43,7 +43,6 @@
         xdg.dataFile = {
           # flatpak override --user \
           # --env=PROTON_USE_WAYLAND=1 \
-          # --env=PROTON_USE_NTSYNC=1 \
           # --env=MANGOHUD=1 \
           # --filesystem=/nix/store:ro \
           # --filesystem=xdg-config/MangoHud:ro \
@@ -54,7 +53,6 @@
 
             [Environment]
             PROTON_USE_WAYLAND=1
-            PROTON_USE_NTSYNC=1
             MANGOHUD=1
           '';
         };
