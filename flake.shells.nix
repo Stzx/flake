@@ -21,7 +21,7 @@ in
       nil
       taplo
 
-      nixfmt-rfc-style
+      nixfmt
     ];
   };
 
