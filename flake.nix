@@ -87,24 +87,23 @@
 
               wmCfg = (self.lib.wm' self.nixosConfigurations."${hostName}".config);
             };
-            modules =
-              [
-                args.disko.nixosModules.disko
+            modules = [
+              args.disko.nixosModules.disko
 
-                {
-                  nixpkgs.pkgs = pkgs;
+              {
+                nixpkgs.pkgs = pkgs;
 
-                  system = {
-                    inherit stateVersion;
-                  };
+                system = {
+                  inherit stateVersion;
+                };
 
-                  networking = {
-                    inherit hostName;
-                  };
-                }
-              ]
-              ++ modules
-              ++ modules'.sys;
+                networking = {
+                  inherit hostName;
+                };
+              }
+            ]
+            ++ modules
+            ++ modules'.sys;
           };
         };
 
@@ -135,20 +134,19 @@
 
               dots = ./dots;
             };
-            modules =
-              [
-                {
-                  imports = [ niri.homeModules.config ];
+            modules = [
+              {
+                imports = [ niri.homeModules.config ];
 
-                  home = {
-                    inherit stateVersion username;
+                home = {
+                  inherit stateVersion username;
 
-                    homeDirectory = "/home/${username}";
-                  };
-                }
-              ]
-              ++ modules
-              ++ modules'.home;
+                  homeDirectory = "/home/${username}";
+                };
+              }
+            ]
+            ++ modules
+            ++ modules'.home;
           };
         };
     in

@@ -298,7 +298,6 @@
               '';
             }
           ))
-
         ]
       );
     };
@@ -345,7 +344,8 @@
 
           home.pointerCursor = {
             gtk.enable = true;
-          } // cursor;
+          }
+          // cursor;
 
           gtk = {
             enable = true;

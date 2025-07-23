@@ -26,7 +26,8 @@ rec {
     "nosuid"
     "nodev"
     "noexec"
-  ] ++ timeOptions;
+  ]
+  ++ timeOptions;
 
   btrfsOptions = (lib.singleton "compress=zstd") ++ timeOptions;
 
@@ -37,7 +38,8 @@ rec {
     "compress_chksum"
     "atgc"
     "gc_merge"
-  ] ++ timeOptions;
+  ]
+  ++ timeOptions;
 
   fstab =
     {

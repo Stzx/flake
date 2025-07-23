@@ -40,15 +40,14 @@ in
     uid = 1000;
     isNormalUser = true; # group = users
     description = "Silece Tai";
-    extraGroups =
-      [
-        "wheel"
-        "input" # waybar, keyboard-state
-        "video"
-        "audio"
-      ]
-      ++ optional config.programs.adb.enable "adbusers"
-      ++ optional config.virtualisation.libvirtd.enable "libvirtd";
+    extraGroups = [
+      "wheel"
+      "input" # waybar, keyboard-state
+      "video"
+      "audio"
+    ]
+    ++ optional config.programs.adb.enable "adbusers"
+    ++ optional config.virtualisation.libvirtd.enable "libvirtd";
   };
 
   programs.nix-ld.enable = true;

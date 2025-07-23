@@ -163,7 +163,8 @@
                 "custom/reboot"
               ];
             };
-          } // cfg.extraSettings;
+          }
+          // cfg.extraSettings;
           style = mkDefault ''
             * {
               border: unset;
