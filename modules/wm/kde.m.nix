@@ -25,8 +25,6 @@
           print-manager
           krdp
         ];
-
-        i18n.inputMethod.fcitx5.plasma6Support = true;
       };
     };
 

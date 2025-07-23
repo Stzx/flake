@@ -23,7 +23,7 @@
     }:
 
     let
-      inherit (lib) singleton;
+      inherit (lib) mkAfter;
     in
     {
       config = lib.mkIf (wmCfg.isNiri) {
@@ -166,14 +166,14 @@
         };
 
         programs.waybar = {
-          left = [
+          left = mkAfter [
             "clock"
             "niri/window"
           ];
-          center = [
+          center = mkAfter [
             "niri/workspaces"
           ];
-          right = [
+          right = mkAfter [
             "systemd-failed-units"
             "network"
             "load"

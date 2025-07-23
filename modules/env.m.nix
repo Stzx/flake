@@ -8,21 +8,15 @@
     }:
     {
       environment.systemPackages = with pkgs; [
+        lsb-release
         nix-output-monitor
 
-        smartmontools
-        acpitool
-        nvme-cli
-        pciutils
-        usbutils
-
-        lsb-release
         lsof
-        tree
         file
 
-        bat
         btop
+        bat
+        tree
         _7zz
       ];
 

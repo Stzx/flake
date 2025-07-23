@@ -45,7 +45,7 @@
       ...
     }@args:
     let
-      stateVersion = "25.11";
+      stateVersion = "25.05";
 
       modules' = self.lib.scanModules ./modules;
 

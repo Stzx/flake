@@ -128,7 +128,7 @@
             };
 
             systemd-failed-units = {
-              format = nerd "󱡍" "S^{nr_failed_system} | U^{nr_failed_user}";
+              format = nerd "󱡍" "{nr_failed_system} ⚞ S ☯ U ⚟ {nr_failed_user}";
             };
 
             "wlr/taskbar" = {

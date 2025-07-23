@@ -13,7 +13,7 @@
 
       programs.java = {
         enable = lib.mkDefault config.services.flatpak.enable;
-        package = pkgs.temurin-jre-bin;
+        package = pkgs.temurin-bin;
         binfmt = true;
       };
     };
@@ -103,6 +103,8 @@
           # --env=MANGOHUD=1 \
           # --filesystem=xdg-config/MangoHud:ro \
           # com.valvesoftware.Steam
+          #
+          # DXVK_FRAME_RATE / VKD3D_FRAME_RATE
           "flatpak/overrides/com.valvesoftware.Steam".text = ''
             [Context]
             filesystems=${font'}:ro;${mangohud'}:ro;xdg-config/MangoHud:ro;

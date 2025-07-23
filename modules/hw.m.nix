@@ -32,6 +32,15 @@
 
       config = lib.mkMerge [
         {
+          environment.systemPackages = with pkgs; [
+            smartmontools
+            acpitool
+            nvme-cli
+            pciutils
+            usbutils
+            hwloc
+          ];
+
           hardware = {
             enableAllFirmware = false;
             enableRedistributableFirmware = false;

@@ -40,7 +40,7 @@
 
                 monaspace
                 comic-mono
-                victor-mono
+                # victor-mono
 
                 sarasa-gothic
                 # Gothic, UI = Inter
@@ -125,6 +125,7 @@
               fcitx5 = {
                 ignoreUserConfig = true;
                 waylandFrontend = true;
+                plasma6Support = true;
                 addons = [ pkgs.kdePackages.fcitx5-chinese-addons ];
                 settings = {
                   globalOptions = {
@@ -372,9 +373,7 @@
         (mkIf (wmCfg.isNiri) {
           services.playerctld.enable = true;
 
-          systemd.user.services.playerctld.Service = {
-            StandardOutput="file:%t/playerctld.log";
-          };
+          systemd.user.services.playerctld.Service.StandardOutput = "file:%t/playerctld.log";
 
           services.swayidle.enable = true;
 
