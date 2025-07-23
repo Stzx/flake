@@ -37,15 +37,14 @@
     '';
   });
 
-  linuxPackages_xanmod = prev'.linuxPackages_xanmod.extend (
+  linuxPackages_xanmod_stable = prev'.linuxPackages_xanmod_stable.extend (
     _: prev:
     let
       kernel' = final'.linuxManualConfig {
         inherit (prev.kernel) src version modDirVersion;
+        allowImportFromDerivation = true;
 
         configfile = ./core/kernel-configuration;
-        allowImportFromDerivation = true;
-        extraMeta = prev.kernel.meta;
       };
     in
     {

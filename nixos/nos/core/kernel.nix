@@ -9,7 +9,7 @@ let
 in
 {
   boot = {
-    kernelPackages = pkgs.linuxPackages_xanmod;
+    kernelPackages = pkgs.linuxPackages_xanmod_stable;
     initrd = {
       includeDefaultModules = false;
       availableKernelModules = mkForce [
