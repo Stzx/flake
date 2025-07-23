@@ -61,6 +61,7 @@
   );
 
   waybar = prev'.waybar.override {
+    evdevSupport = false;
     cavaSupport = false;
     jackSupport = false;
     mpdSupport = false;

@@ -1,5 +1,13 @@
 final': prev': {
-  _7zz = prev'._7zz.override { useUasm = true; };
+  _7zz = prev'._7zz.overrideAttrs (
+    _: prev: {
+      postInstall = ''
+        ${prev.postInstall or ""}
+
+        ln -s $out/bin/7zz $out/bin/7z
+      '';
+    }
+  );
 
   firefox = prev'.firefox.override { cfg.speechSynthesisSupport = false; };
 
