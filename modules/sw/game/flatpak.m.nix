@@ -1,23 +1,4 @@
 {
-  sys =
-    {
-      pkgs,
-      lib,
-      config,
-      ...
-    }:
-    {
-      services.udev.extraRules = ''
-        SUBSYSTEM=="misc", KERNEL=="ntsync", MODE="0666"
-      '';
-
-      programs.java = {
-        enable = lib.mkDefault config.services.flatpak.enable;
-        package = pkgs.temurin-bin;
-        binfmt = true;
-      };
-    };
-
   home =
     {
       pkgs,
