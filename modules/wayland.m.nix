@@ -119,6 +119,8 @@
                 };
               };
 
+            services.speechd.enable = lib.mkForce false;
+
             i18n.inputMethod = {
               enable = true;
               type = "fcitx5";

@@ -9,7 +9,15 @@ final': prev': {
     }
   );
 
-  firefox = prev'.firefox.override { cfg.speechSynthesisSupport = false; };
+  wrapFirefox = prev'.wrapFirefox.override {
+    config = rec {
+      firefox = {
+        enableQuakeLive = false;
+        speechSynthesisSupport = false;
+      };
+      thunderbird = firefox;
+    };
+  };
 
   mpd = prev'.mpdWithFeatures {
     features = [
