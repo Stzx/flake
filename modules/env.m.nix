@@ -88,18 +88,19 @@
             protocol.file.allow = "always";
           };
 
-          home.file = {
-            ".cargo/config.toml".text = ''
-              [source.crates-io]
-              replace-with = 'ustc'
+          home.file.".cargo/config.toml".text = ''
+            [source.crates-io]
+            replace-with = 'ustc'
 
-              [source.ustc]
-              registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"
+            [source.ustc]
+            registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"
 
-              [build]
-              rustc-wrapper = "${pkgs.sccache}/bin/sccache"
-            '';
-          };
+            [registries.ustc]
+            index = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"
+
+            [build]
+            rustc-wrapper = "${pkgs.sccache}/bin/sccache"
+          '';
         })
       ];
     };
