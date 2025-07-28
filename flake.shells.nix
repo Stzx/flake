@@ -14,9 +14,8 @@ let
       }
     );
   };
-in
-{
-  default = mkShellNoCC {
+
+  default' = {
     packages = with pkgs; [
       nil
       taplo
@@ -24,6 +23,16 @@ in
       nixfmt
     ];
   };
+
+  proxy' = {
+    RUSTUP_DIST_SERVER = "https://mirrors.ustc.edu.cn/rust-static";
+    RUSTUP_UPDATE_ROOT = "https://mirrors.ustc.edu.cn/rust-static/rustup";
+  };
+in
+{
+  default = mkShellNoCC (default' // proxy');
+
+  noProxy = mkShellNoCC default';
 
   latex = mkShellNoCC {
     packages = with pkgs; [
