@@ -46,8 +46,6 @@
 
           documentation.doc.enable = false;
 
-          zramSwap.algorithm = "lzo-rle";
-
           security = {
             apparmor.enable = true;
             rtkit.enable = true;
