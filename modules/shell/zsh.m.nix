@@ -1,4 +1,11 @@
 {
+  sys =
+    { ... }:
+
+    {
+      environment.pathsToLink = [ "/share/zsh" ];
+    };
+
   home =
     {
       lib,
