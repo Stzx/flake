@@ -62,7 +62,7 @@
 
           i18n = {
             defaultLocale = "en_US.UTF-8";
-            supportedLocales = [
+            extraLocales = [
               "C.UTF-8/UTF-8"
               "en_US.UTF-8/UTF-8"
               "zh_CN.UTF-8/UTF-8"
@@ -94,5 +94,16 @@
           ];
         })
       ];
+    };
+
+  home =
+    { sysCfg, ... }:
+
+    {
+      # Standalone installation only !!!
+      #
+      # Set `LOCALE_ARCHIVE_*` to point to the same
+      # glibc-locales as the system `LOCALE_ARCHIVE`
+      i18n.glibcLocales = sysCfg.i18n.glibcLocales;
     };
 }
