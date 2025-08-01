@@ -17,7 +17,6 @@
     # );
     # LTO: extraMakeFlags = [ "LLVM=1" ];
 
-    stdenv = final'.ccacheStdenv;
     buildPackages = final'.buildPackages // {
       stdenv = final'.ccacheStdenv;
     };

@@ -13,11 +13,6 @@ let
   varPrometheus = config.systemd.services.prometheus.serviceConfig.WorkingDirectory;
 in
 {
-  programs.ccache = {
-    enable = true;
-    packageNames = [ "mpv-unwrapped" ]; # mainly used to enable ccacheWrapper
-  };
-
   programs.adb.enable = true;
 
   services.flatpak.enable = true;

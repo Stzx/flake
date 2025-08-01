@@ -59,6 +59,6 @@ in
 
   programs.ccache = {
     enable = true;
-    packageNames = [ "mpv-unwrapped" ]; # mainly used to enable ccacheWrapper
+    packageNames = [ "linuxManualConfig" ];
   };
 }
