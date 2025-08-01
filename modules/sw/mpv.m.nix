@@ -10,7 +10,7 @@
     let
       inherit (pkgs) anime4k fetchurl;
 
-      rifeVer = "rife-v4.25-lite";
+      rifeVer = "rife-v4.26";
       vsrVer = "r9_mod_v33";
 
       rife' = pkgs.linkFarm rifeVer [
@@ -18,7 +18,7 @@
           name = "flownet.bin";
           path = fetchurl {
             url = "https://github.com/styler00dollar/VapourSynth-RIFE-ncnn-Vulkan/raw/refs/tags/${vsrVer}/models/${rifeVer}_ensembleFalse/flownet.bin";
-            hash = "sha256-NQoV5GS+pa03jgbA+0OZbpCg01ZT1abva8mA2DJTj7c=";
+            hash = "sha256-lNWOMLddfHYJz6bzva1STe3dFPX3XoXDbS+CfvXGRzE=";
           };
         }
 
@@ -26,7 +26,7 @@
           name = "flownet.param";
           path = fetchurl {
             url = "https://github.com/styler00dollar/VapourSynth-RIFE-ncnn-Vulkan/raw/refs/tags/${vsrVer}/models/${rifeVer}_ensembleFalse/flownet.param";
-            hash = "sha256-91DsZyPwWoAMj7B6wL81N+dBtv9/5hs4lOQHvRA3OmM=";
+            hash = "sha256-efFsKJA/k/gwjwxMlH+MfgwX2ZpXuFRz5fKY3VeNE3s=";
           };
         }
       ];
@@ -45,7 +45,7 @@
 
         clip = core.resize.Point(clip, format=RGBS, matrix_in_s="709")
 
-        clip = core.rife.RIFE(clip, model_path=r"${rife'}", factor_num=5, factor_den=2, gpu_thread=4)
+        clip = core.rife.RIFE(clip, model_path=r"${rife'}", factor_num=2, gpu_thread=2, uhd=False)
 
         clip = core.resize.Point(clip, format=YUV420P8, matrix_s="709")
 
