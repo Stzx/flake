@@ -1,5 +1,4 @@
 final': prev': {
-  # toolchain is too large
   # _ = prev'._.overrideAttrs (
   #   _: prev:
   #   let

@@ -59,6 +59,19 @@
     }
   );
 
+  niri = prev'.niri.overrideAttrs (
+    _: prev:
+    let
+      env' = prev.env or { };
+      NIX_RUSTFLAGS' = env'.NIX_RUSTFLAGS or [ ];
+    in
+    {
+      env = env' // {
+        NIX_RUSTFLAGS = builtins.toString ([ NIX_RUSTFLAGS' ] ++ [ "-C target-cpu=x86-64-v3" ]);
+      };
+    }
+  );
+
   waybar = prev'.waybar.override {
     evdevSupport = false;
     cavaSupport = false;
