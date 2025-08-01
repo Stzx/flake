@@ -25,12 +25,14 @@ in
       enable = true;
       extraInputRules = ''
         ip saddr 192.168.254.0/24 tcp dport 53317 accept
+        ip6 daddr ::/0 tcp dport 61611 accept comment "qB"
       '';
     };
     nameservers = gateway;
     timeServers = gateway;
   };
 
+  environment.etc."systemd/networkd.conf".enable = false;
   systemd.network = {
     enable = true;
     networks = {
@@ -49,10 +51,7 @@ in
         };
       };
     };
-    wait-online = {
-      anyInterface = true;
-      extraArgs = [ "-4" ];
-    };
+    wait-online.anyInterface = true;
   };
 
   services = {

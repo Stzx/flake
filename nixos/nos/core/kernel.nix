@@ -8,6 +8,8 @@ let
   inherit (lib) mkForce;
 in
 {
+  security.lsm = mkForce [ ];
+
   boot = {
     kernelPackages = pkgs.linuxPackages_xanmod_stable;
     kernelPatches = [

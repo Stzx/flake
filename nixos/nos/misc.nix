@@ -1,6 +1,5 @@
 {
   self,
-  pkgs,
   lib,
   utils,
   config,
@@ -43,6 +42,7 @@ in
     exporters.node = {
       enable = true;
       listenAddress = "127.0.0.1";
+      enabledCollectors = lib.optional config.features.gpu.amd "drm";
       disabledCollectors = [
         "bcache"
         "zfs"
@@ -65,7 +65,14 @@ in
 
   services.ollama.enable = false;
 
+  environment.etc."waydroid-extra/images".source = "/var/cache/waydroid-images";
+
   virtualisation.waydroid.enable = true;
+
+  virtualisation.docker = {
+    enable = false;
+    enableOnBoot = false;
+  };
 
   virtualisation.libvirtd = {
     enable = true;

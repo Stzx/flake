@@ -5,11 +5,12 @@
       lib,
       config,
       wmCfg,
+      dots,
       ...
     }:
 
     let
-      inherit (lib) mkIf mkDefault;
+      inherit (lib) mkIf mkDefault mkForce;
     in
     {
       options.features.wm = {
@@ -27,8 +28,6 @@
       config = mkIf wmCfg.isEnable (
         lib.mkMerge [
           {
-            environment.systemPackages = [ pkgs.wl-clipboard ];
-
             xdg.portal.xdgOpenUsePortal = mkDefault true;
 
             fonts = {
@@ -71,7 +70,7 @@
               fontconfig = {
                 enable = true;
                 subpixel.rgba = "rgb";
-                defaultFonts = lib.mkForce {
+                defaultFonts = mkForce {
                   serif = [
                     "Sarasa Fixed Slab SC"
                     "Sarasa Fixed Slab TC"
@@ -106,20 +105,21 @@
               pulse.enable = mkDefault true;
             };
 
-            services.greetd =
-              let
-                exe = wmCfg.getExe;
+            services.greetd = {
+              enable = true;
+              settings =
+                let
+                  exe' = lib.getExe pkgs.greetd.tuigreet;
+                  exe = wmCfg.getExe;
 
-                args = if (exe == null) then "" else " --cmd ${exe}";
-              in
-              {
-                enable = true;
-                settings = {
-                  default_session.command = "${lib.getExe pkgs.greetd.tuigreet}${args}";
+                  args = lib.optionalString (exe != null) " --cmd ${exe}";
+                in
+                {
+                  default_session.command = "${exe'}${args}";
                 };
-              };
+            };
 
-            services.speechd.enable = lib.mkForce false;
+            services.speechd.enable = mkForce false;
 
             i18n.inputMethod = {
               enable = true;
@@ -215,6 +215,13 @@
               package = pkgs.papirus-icon-theme;
               name = "Papirus-Dark";
             };
+            gtk2.extraConfig = "gtk-im-module = \"fcitx\"";
+            gtk3.extraConfig = {
+              gtk-im-module = "fcitx";
+            };
+            gtk4.extraConfig = {
+              gtk-im-module = "fcitx";
+            };
           };
 
           qt = {
@@ -261,11 +268,11 @@
               main = {
                 font = "Monaspace Radon Frozen";
                 icon-theme = config.gtk.iconTheme.name;
-                horizontal-pad = 8;
-                vertical-pad = 16;
+                prompt = "'!!! '";
 
-                lines = 12;
-                tabs = 4;
+                line-height = 24;
+                vertical-pad = 16;
+                horizontal-pad = 32;
               };
               colors = rec {
                 background = "161b22cc";

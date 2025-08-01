@@ -46,8 +46,9 @@ in
       "video"
       "audio"
     ]
+    ++ optional config.virtualisation.libvirtd.enable "libvirtd"
     ++ optional config.programs.adb.enable "adbusers"
-    ++ optional config.virtualisation.libvirtd.enable "libvirtd";
+    ++ optional config.programs.gamemode.enable "gamemode";
   };
 
   programs.nix-ld.enable = true;

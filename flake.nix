@@ -86,6 +86,7 @@
               inherit (secrets) values;
 
               wmCfg = (self.lib.wm' self.nixosConfigurations."${hostName}".config);
+              dots = ./dots;
             };
             modules = [
               args.disko.nixosModules.disko
