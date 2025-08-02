@@ -17,6 +17,10 @@ let
 
   default' = {
     packages = with pkgs; [
+      nix-init
+      nix-diff
+      nix-tree
+
       nil
       taplo
 
@@ -33,6 +37,14 @@ in
   default = mkShellNoCC (default' // proxy');
 
   noProxy = mkShellNoCC default';
+
+  java = mkShellNoCC {
+    packages = with pkgs; [
+      temurin-bin
+
+      python3
+    ];
+  };
 
   latex = mkShellNoCC {
     packages = with pkgs; [

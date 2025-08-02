@@ -92,7 +92,12 @@
               args.disko.nixosModules.disko
 
               {
-                nixpkgs.pkgs = pkgs;
+                nixpkgs = {
+                  inherit pkgs;
+                  overlays = [
+                    (_: _: self.packages.${system}) # fix INF
+                  ];
+                };
 
                 system = {
                   inherit stateVersion;
@@ -129,8 +134,8 @@
             inherit (sys) pkgs;
 
             extraSpecialArgs = {
+              inherit self sysCfg;
               inherit (secrets) values;
-              inherit sysCfg;
               wmCfg = (self.lib.wm' sysCfg);
 
               dots = ./dots;
@@ -169,9 +174,20 @@
       homeConfigurations =
         (mkHomeManager "stzx" "nos" { }) // (flake-secrets.homeConfigurations { inherit (self) lib; });
     }
-    // flake-utils.lib.eachDefaultSystem (system: {
-      devShells = import ./flake.shells.nix { pkgs = (mkPkgs system); };
+    // flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = (mkPkgs system);
+      in
+      {
+        devShells = import ./flake.shells.nix { inherit pkgs; };
 
-      formatter = nixpkgs.legacyPackages.${system}.treefmt;
-    });
+        formatter = pkgs.treefmt;
+
+        packages = pkgs.lib.packagesFromDirectoryRecursive {
+          inherit (pkgs) callPackage;
+          directory = ./pkgs;
+        };
+      }
+    );
 }

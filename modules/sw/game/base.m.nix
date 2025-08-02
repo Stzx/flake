@@ -29,7 +29,7 @@
 
         programs.java = {
           enable = lib.mkDefault true;
-          package = pkgs.temurin-bin;
+          package = pkgs.temurin-jre-bin;
         };
       };
     };
