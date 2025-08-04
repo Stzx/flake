@@ -1,0 +1,4 @@
+*.src linguist-language=Shell
+*.source linguist-language=Shell
+
+dots/fcitx5/** linguist-language=INI
