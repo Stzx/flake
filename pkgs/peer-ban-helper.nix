@@ -7,8 +7,11 @@
   maven,
   makeWrapper,
   temurin-jre-bin,
-  rtJre ? temurin-jre-bin
+  pbhJre ? temurin-jre-bin,
+  vmOpts ? "-XX:+UseZGC -XX:+ZGenerational",
 }:
+
+assert lib.versionAtLeast (lib.getVersion pbhJre) "21";
 
 let
   pname = "peer-ban-helper";
@@ -70,7 +73,12 @@ in
 maven.buildMavenPackage rec {
   inherit pname version src;
 
-  nativeBuildInputs = [    makeWrapper  ];
+  outputs = [
+    "out"
+    "doc"
+  ];
+
+  nativeBuildInputs = [ makeWrapper ];
 
   # 有些可疑的 repository URLs
   # 我虽然打包了，但并没有使用该软件
@@ -80,14 +88,21 @@ maven.buildMavenPackage rec {
     cp -r ${webui}/ src/main/resources/static/
   '';
 
+  # PACKAGING.md
+  #
+  # pbh.datadir, pbh.configdir, pbh.logsdir
+  #
+  # swing, swt, qt, nogui, silent
   installPhase = ''
     runHook preInstall
 
     install -Dm644 -t $out/share/${pname}/ ./target/*.jar
-    install -Dm644 -t $out/share/${pname}/libraries ./target/libraries/*
+    install -Dm644 -t $out/share/${pname}/libraries/ ./target/libraries/*
 
-    makeWrapper ${lib.getExe rtJre} $out/bin/${meta.mainProgram} \
-      --add-flags "-jar $out/share/${pname}/PeerBanHelper.jar"
+    install -Dm444 -t $doc/share/doc/${pname}/ ./pkg/deb/usr/share/doc/peerbanhelper/*
+
+    makeWrapper ${lib.getExe pbhJre} $out/bin/${meta.mainProgram} \
+      --add-flags "${vmOpts} -Dpbh.release=nixos -jar $out/share/${pname}/PeerBanHelper.jar"
 
     runHook postInstall
   '';
