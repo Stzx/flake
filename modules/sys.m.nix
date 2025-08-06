@@ -62,6 +62,11 @@
 
           i18n = {
             defaultLocale = "en_US.UTF-8";
+            extraLocaleSettings = rec {
+              LC_TIME = "zh_CN.UTF-8";
+              LC_COLLATE = LC_TIME;
+              LC_PAPER = LC_TIME;
+            };
             extraLocales = [
               "C.UTF-8/UTF-8"
               "en_US.UTF-8/UTF-8"
