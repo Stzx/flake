@@ -30,11 +30,11 @@ final': prev': {
     };
   };
 
-  mpd = prev'.mpdWithFeatures {
+  mpd = prev'.mpd.override {
     features = [
       "io_uring"
 
-      "alsa"
+      # "alsa"
       "pipewire"
 
       "soxr"
@@ -77,7 +77,7 @@ final': prev': {
   fluent-gtk-theme = prev'.fluent-gtk-theme.override {
     themeVariants = [
       "purple"
-      "green"
+      "grey"
     ];
     sizeVariants = [ "standard" ];
     tweaks = [ "blur" ];

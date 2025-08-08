@@ -54,7 +54,7 @@
 
           console.font = mkDefault "LatGrkCyr-8x16";
 
-          systemd.extraConfig = "DefaultTimeoutStopSec=60s";
+          systemd.settings.Manager.DefaultTimeoutStopSec = "60s";
 
           users.mutableUsers = mkDefault false;
 
