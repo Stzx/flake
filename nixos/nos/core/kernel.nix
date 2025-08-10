@@ -35,7 +35,10 @@ in
         "amdgpu"
       ];
     };
-    kernelParams = [ "libahci.ignore_sss=1" ];
+    kernelParams = [
+      "libahci.ignore_sss=1"
+      "amdgpu.ppfeaturemask=0xfff7ffff"
+    ];
     kernelModules = mkForce [
       "ntsync"
     ];
