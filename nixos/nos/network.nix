@@ -1,8 +1,5 @@
 { lib, ... }:
 
-let
-  gateway = [ "192.168.254.254" ];
-in
 {
   boot.kernel.sysctl = {
     "net.core.rmem_max" = 16777216;
@@ -25,29 +22,28 @@ in
       enable = true;
       extraInputRules = ''
         ip saddr 192.168.254.0/24 tcp dport 53317 accept
+
         ip6 daddr ::/0 tcp dport 61611 accept comment "qB"
       '';
     };
-    nameservers = gateway;
-    timeServers = gateway;
   };
 
-  environment.etc."systemd/networkd.conf".enable = false;
+  environment.etc."systemd/networkd.conf".enable = lib.mkDefault false;
   systemd.network = {
     enable = true;
     networks = {
       "20-wan" = rec {
-        inherit gateway;
 
         name = "en*";
         address = [ "192.168.254.253/24" ];
-        ntp = gateway;
+        gateway = [ "192.168.254.254" ];
+        dns = gateway; # resolved
+        ntp = gateway; # timesyncd
         networkConfig = {
-          DHCP = "ipv6";
+          DHCP = "no";
+          DNSSEC ="allow-downgrade"; # resolved
           IPv6AcceptRA = true;
-        };
-        ipv6AcceptRAConfig = {
-          UseDNS = false;
+          IPv6PrivacyExtensions = true;
         };
       };
     };
@@ -56,6 +52,6 @@ in
 
   services = {
     timesyncd.enable = true;
-    resolved.enable = lib.mkForce false;
+    resolved.enable = true;
   };
 }

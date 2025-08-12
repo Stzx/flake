@@ -21,7 +21,11 @@ in
     ./misc.nix
   ];
 
-  nix.settings.substituters = [ "https://mirrors.ustc.edu.cn/nix-channels/store" ];
+  nix.settings.substituters = [
+    "https://mirrors.ustc.edu.cn/nix-channels/store"
+    "https://mirror.sjtu.edu.cn/nix-channels/store"
+    "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+  ];
 
   nixpkgs.overlays = [
     (import ./overlays.nix { inherit self lib wmCfg; })
