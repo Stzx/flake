@@ -7,15 +7,7 @@
 {
   imports = [ ./kernel.nix ];
 
-  environment.systemPackages = [
-    pkgs.sbctl # lanzaboote
-  ];
-
-  boot.loader.systemd-boot.enable = lib.mkForce false; # lanzaboote
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/etc/secureboot";
-  };
+  zramSwap.enable = true;
 
   systemd.oomd.enable = false;
 

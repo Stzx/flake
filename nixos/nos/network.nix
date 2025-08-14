@@ -41,7 +41,7 @@
         ntp = gateway; # timesyncd
         networkConfig = {
           DHCP = "no";
-          DNSSEC ="allow-downgrade"; # resolved
+          DNSSEC = "allow-downgrade"; # resolved
           IPv6AcceptRA = true;
           IPv6PrivacyExtensions = true;
         };

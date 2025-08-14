@@ -60,7 +60,5 @@ in
     };
   };
 
-  zramSwap.enable = true;
-
   virtualisation.docker.storageDriver = "btrfs";
 }

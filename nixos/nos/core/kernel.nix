@@ -8,9 +8,17 @@ let
   inherit (lib) mkForce;
 in
 {
-  security.lsm = mkForce [ ];
+  environment.systemPackages = [
+    pkgs.sbctl # lanzaboote
+  ];
 
   boot = {
+    loader.systemd-boot.enable = lib.mkForce false; # lanzaboote
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/etc/secureboot";
+    };
+
     kernelPackages = pkgs.linuxPackages_xanmod_stable;
     kernelPatches = [
       # {
@@ -48,4 +56,6 @@ in
       "exfat"
     ];
   };
+
+  security.lsm = mkForce [ ];
 }
