@@ -72,6 +72,36 @@
     }
   );
 
+  qt6Packages = prev'.qt6Packages.overrideScope (
+    fs: ps: rec {
+      fcitx5-configtool = ps.fcitx5-configtool.override { kcmSupport = wmCfg.isKDE; };
+
+      fcitx5-chinese-addons =
+        let
+          cmb = final'.lib.cmakeBool;
+
+          fca' = ps.fcitx5-chinese-addons.override {
+            curl = null;
+            opencc = null;
+            qtwebengine = null;
+          };
+        in
+        fca'.overrideAttrs (
+          _: prevAttrs: {
+            buildInputs = prevAttrs.buildInputs ++ [ fs.qtbase ];
+
+            cmakeFlags = prevAttrs.cmakeFlags ++ [
+              (cmb "ENABLE_BROWSER" false)
+              (cmb "ENABLE_CLOUDPINYIN" false)
+              (cmb "ENABLE_OPENCC" false)
+            ];
+          }
+        );
+
+      fcitx5-with-addons = ps.fcitx5-with-addons.override { inherit fcitx5-configtool; };
+    }
+  );
+
   waybar = prev'.waybar.override {
     evdevSupport = false;
     cavaSupport = false;
