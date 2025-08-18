@@ -12,6 +12,21 @@ final': prev': {
   #   }
   # );
 
+  papirus-icon-theme = prev'.papirus-icon-theme.overrideAttrs (
+    _: prev:
+    assert prev.version == "20250501"; # wait release
+    {
+      version = "git";
+
+      src = final'.fetchFromGitHub {
+        owner = "PapirusDevelopmentTeam";
+        repo = "papirus-icon-theme";
+        rev = "3aa364b35784ccf5f38e52081f92839ce6ab67a1";
+        hash = "sha256-SsXrk5KSy4RU5KZioNAr3Z1mioSIMe2dOy9oN+1Akew=";
+      };
+    }
+  );
+
   _7zz = final'.symlinkJoin {
     name = "7z";
     paths = [ prev'._7zz ];
