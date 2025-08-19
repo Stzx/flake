@@ -16,12 +16,12 @@ assert lib.versionAtLeast (lib.getVersion pbhJre) "21";
 let
   pname = "peer-ban-helper";
 
-  version = "8.0.11";
+  version = "8.0.12";
 
   src = fetchgit {
     url = "https://github.com/PBH-BTN/PeerBanHelper.git";
     tag = "v${version}";
-    hash = "sha256-/Z8u7qHS8cVh3gBWJnWXkaqAVOTj2XNl0klgJvFgOLM=";
+    hash = "sha256-iRf4eH8zGI+ixJAjMLB4FR7sz+hTsfECit+pFvgol3k=";
     leaveDotGit = true; # git-commit-id-maven-plugin
   };
 
