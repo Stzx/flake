@@ -1,5 +1,6 @@
 {
   self,
+  pkgs,
   lib,
   utils,
   config,
@@ -12,6 +13,11 @@ let
   varPrometheus = config.systemd.services.prometheus.serviceConfig.WorkingDirectory;
 in
 {
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark;
+  };
+
   programs.adb.enable = true;
 
   services.flatpak.enable = true;
@@ -70,7 +76,7 @@ in
   virtualisation.waydroid.enable = true;
 
   virtualisation.docker = {
-    enable = false;
+    enable = true;
     enableOnBoot = false;
   };
 

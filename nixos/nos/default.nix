@@ -49,7 +49,9 @@ in
       "input" # waybar, keyboard-state
       "video"
       "audio"
+      "wireshark"
     ]
+    ++ optional config.virtualisation.docker.enable "docker"
     ++ optional config.virtualisation.libvirtd.enable "libvirtd"
     ++ optional config.programs.adb.enable "adbusers"
     ++ optional config.programs.gamemode.enable "gamemode";
