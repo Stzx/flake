@@ -14,7 +14,6 @@
         lsof
         file
 
-        btop
         bat
         tree
         _7zz

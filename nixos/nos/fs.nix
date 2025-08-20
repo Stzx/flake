@@ -35,7 +35,7 @@ in
             content = {
               type = "btrfs";
               extraArgs = [
-                "--checksum sha256"
+                "--checksum blake2"
                 "-f"
               ];
               subvolumes = {

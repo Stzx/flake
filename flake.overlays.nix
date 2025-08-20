@@ -45,6 +45,10 @@ final': prev': {
     };
   };
 
+  htop = prev'.htop.override {
+    sensorsSupport = false;
+  };
+
   mpd = prev'.mpd.override {
     features = [
       "io_uring"

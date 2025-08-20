@@ -109,7 +109,7 @@
               enable = true;
               settings =
                 let
-                  exe' = lib.getExe pkgs.greetd.tuigreet;
+                  exe' = lib.getExe pkgs.tuigreet;
                   exe = wmCfg.getExe;
 
                   args = lib.optionalString (exe != null) " --cmd ${exe}";

@@ -93,10 +93,21 @@
         }
 
         (mkIf cfg.THP {
+          boot.tmp.tmpfsHugeMemoryPages = "within_size";
+
           systemd.tmpfiles.rules = [
             "w /sys/kernel/mm/transparent_hugepage/enabled - - - - madvise"
             "w /sys/kernel/mm/transparent_hugepage/shmem_enabled - - - - advise"
           ];
+        })
+
+        (mkIf config.zramSwap.enable {
+          boot.kernel.sysctl = {
+            "vm.swappiness" = 180;
+            "vm.watermark_boost_factor" = 0;
+            "vm.watermark_scale_factor" = 125;
+            "vm.page-cluster" = 0;
+          };
         })
       ];
     };

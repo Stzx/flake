@@ -24,6 +24,8 @@ let
       nil
       taplo
 
+      python3Packages.python-lsp-server
+
       nixfmt
     ];
   };
