@@ -13,7 +13,6 @@
           ui_font_fallbacks = [ "Symbols Nerd Font Mono" ];
 
           buffer_font_size = 14;
-          buffer_font_features.calt = true;
           buffer_font_family = "Monaspace Neon Frozen";
           buffer_font_fallbacks = [
             "Sarasa Mono SC"
@@ -23,25 +22,26 @@
             "Sarasa Mono K"
             "Symbols Nerd Font Mono"
           ];
+
           theme = {
             mode = "system";
             light = "Monokai Charcoal (green)";
             dark = "Monokai Charcoal (purple)";
           };
+          icon_theme = "Material Icon Theme";
           "experimental.theme_overrides" = {
-            syntax = rec {
-              comment.font_style = "italic";
-              "comment.doc" = comment;
+            syntax = {
+              "comment".font_style = "italic";
+              "comment.doc".font_style = "italic";
             };
           };
 
-          load_direnv = "shell_hook";
-
           vim_mode = true;
+          relative_line_numbers = true;
 
           inlay_hints.enabled = true;
-          preview_tabs.enable_preview_from_code_navigation = true;
           minimap.show = "auto";
+          preview_tabs.enable_preview_from_code_navigation = true;
 
           terminal = {
             dock = "bottom";
@@ -54,33 +54,14 @@
               "Sarasa Term Slab K"
               "Symbols Nerd Font Mono"
             ];
-          };
-
-          language_models = {
-            openai = {
-              version = "1";
-              api_url = "https://api.deepseek.com";
-              low_speed_timeout_in_seconds = 600;
-              available_models = [
-                {
-                  name = "deepseek-chat";
-                  max_tokens = 4000;
-                }
-              ];
+            toolbar = {
+              breadcrumbs = false;
             };
+            cursor_shape = "underline";
+            copy_on_select = true;
           };
 
-          agent = {
-            default_model = {
-              provider = "openai";
-              model = "deepseek-chat";
-            };
-            version = "2";
-          };
-
-          edit_predictions = {
-            mode = "subtle";
-          };
+          edit_predictions.mode = "subtle";
 
           cursor_shape = "underline";
           show_whitespaces = "all";
@@ -112,12 +93,14 @@
                 "nil"
                 "!nixd"
               ];
+              format_on_save = "off"; # FIXME: https://github.com/numtide/treefmt/issues/596
             };
           };
 
           auto_install_extensions = {
             html = false; # FIXME: https://github.com/zed-industries/zed/issues/16703
 
+            java = true;
             lua = true;
             dart = true;
             nix = true;
@@ -125,13 +108,21 @@
 
             make = true;
             toml = true;
+            ini = true;
             xml = true;
+            qml = true;
             proto = true;
+            dockerfile = true;
+            assembly = true;
 
+            material-icon-theme = true;
             vscode-monokai-charcoal = true;
           };
 
-          features.copilot = false;
+          load_direnv = "shell_hook";
+
+          disable_ai = true;
+
           telemetry = {
             diagnostics = false;
             metrics = false;
