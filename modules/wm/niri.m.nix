@@ -24,15 +24,47 @@
 
     let
       inherit (lib) mkAfter;
+
+      cfg = config.programs.niri;
+
+      ds = cfg.display;
+
+      open-on-output' =
+        o: ws:
+        builtins.mapAttrs (_: v: {
+          name = v;
+          open-on-output = o;
+        }) ws;
+
+      horizontal = {
+        "3" = "chat";
+
+        "8" = "run";
+        "9" = "anvil";
+        "0" = "magic";
+      };
+      vertical = {
+        "1" = "terminal";
+        "2" = "sea";
+      };
+
+      ws' = horizontal // vertical;
+
+      workspaces = (open-on-output' ds.primary horizontal) // (open-on-output' ds.secondary vertical);
     in
     {
+      options.programs.niri.display = {
+        primary = lib.mkOption { type = lib.types.str; };
+        secondary = lib.mkOption {
+          type = lib.types.str;
+          default = ds.primary;
+        };
+      };
+
       config = lib.mkIf (wmCfg.isNiri) {
         programs.niri.settings = {
-          spawn-at-startup = [
-            { command = singleton "kitty"; }
-            { command = singleton "firefox"; }
-            { command = singleton "thunderbird"; }
-          ];
+          inherit workspaces;
+
           prefer-no-csd = true;
           layout = {
             gaps = 5;
@@ -55,22 +87,14 @@
             };
           };
           screenshot-path = "~/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
-          workspaces = {
-            "1".name = "terminal";
-            "2".name = "sea";
-            "3".name = "chat";
-            "4".name = "run";
-            "5".name = "anvil";
-            "6".name = "magic";
-          };
           window-rules = import ./niri.window-rules.nix;
           binds = with config.lib.niri.actions; {
-            "Mod+1".action = focus-workspace "terminal";
-            "Mod+2".action = focus-workspace "sea";
-            "Mod+3".action = focus-workspace "chat";
-            "Mod+8".action = focus-workspace "run";
-            "Mod+9".action = focus-workspace "anvil";
-            "Mod+0".action = focus-workspace "magic";
+            "Mod+1".action = focus-workspace ws'."1";
+            "Mod+2".action = focus-workspace ws'."2";
+            "Mod+3".action = focus-workspace ws'."3";
+            "Mod+8".action = focus-workspace ws'."8";
+            "Mod+9".action = focus-workspace ws'."9";
+            "Mod+0".action = focus-workspace ws'."0";
 
             "Mod+Prior".action = focus-workspace-up;
             "Mod+Shift+WheelScrollUp".action = focus-workspace-up;
@@ -78,12 +102,12 @@
             "Mod+Shift+WheelScrollDown".action = focus-workspace-down;
 
             # FIXME: https://github.com/sodiboo/niri-flake/issues/1018
-            "Mod+Shift+1".action.move-column-to-workspace = "terminal";
-            "Mod+Shift+2".action.move-column-to-workspace = "sea";
-            "Mod+Shift+3".action.move-column-to-workspace = "chat";
-            "Mod+Shift+8".action.move-column-to-workspace = "run";
-            "Mod+Shift+9".action.move-column-to-workspace = "anvil";
-            "Mod+Shift+0".action.move-column-to-workspace = "magic";
+            "Mod+Shift+1".action.move-column-to-workspace = ws'."1";
+            "Mod+Shift+2".action.move-column-to-workspace = ws'."2";
+            "Mod+Shift+3".action.move-column-to-workspace = ws'."3";
+            "Mod+Shift+8".action.move-column-to-workspace = ws'."8";
+            "Mod+Shift+9".action.move-column-to-workspace = ws'."9";
+            "Mod+Shift+0".action.move-column-to-workspace = ws'."0";
 
             "Mod+Ctrl+Left".action = move-workspace-to-monitor-left;
             "Mod+Ctrl+Down".action = move-workspace-to-monitor-down;
