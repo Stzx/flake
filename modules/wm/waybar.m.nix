@@ -178,8 +178,6 @@
 
             window#waybar {
               background: transparent;
-
-              color: white;
             }
 
             window#waybar .module {

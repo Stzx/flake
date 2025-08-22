@@ -232,13 +232,13 @@
           programs.kitty.enable = mkDefault true;
 
           programs.firefox.enable = mkDefault true;
-        })
 
-        (mkIf (wmCfg.isNiri) {
           services.playerctld.enable = true;
 
           systemd.user.services.playerctld.Service.StandardOutput = "file:%t/playerctld.log";
+        })
 
+        (mkIf (config.programs.quickshell.mode == "supplemental" && wmCfg.isNiri) {
           services.swayidle.enable = true;
 
           # notifications
@@ -312,6 +312,8 @@
             theme = cursor.name;
             size = cursor.size;
           };
+
+          programs.quickshell.enable = true;
         })
       ];
     };

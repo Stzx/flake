@@ -34,6 +34,25 @@
               "comment".font_style = "italic";
               "comment.doc".font_style = "italic";
             };
+
+            # transparent / blur - base `Monokai Charcoal`
+            "background" = "#4c464290";
+            "background.appearance" = "blurred";
+
+            "editor.background" = "#00000070";
+            "editor.gutter.background" = "#00000070";
+
+            "panel.background" = "#00000070";
+            "tab.active_background" = "#000000AF";
+            "tab.inactive_background" = "#00000000";
+
+            "tab_bar.background" = "#00000070";
+            "title_bar.background" = "#00000070";
+            "status_bar.background" = "#00000070";
+
+            "toolbar.background" = "#000000AF";
+            "scrollbar.track.background" = "#000000AF";
+            "terminal.background" = "#00000070";
           };
 
           vim_mode = true;

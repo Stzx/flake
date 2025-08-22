@@ -66,27 +66,21 @@
           inherit workspaces;
 
           prefer-no-csd = true;
+          screenshot-path = "~/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
+          overview = {
+            backdrop-color = "#808080";
+          };
           layout = {
-            gaps = 5;
+            gaps = 8;
             always-center-single-column = true;
+            background-color = "transparent";
             tab-indicator = {
               width = 3;
               position = "right";
               place-within-column = true;
             };
-            focus-ring = {
-              width = 3;
-              active = {
-                gradient = {
-                  angle = 45;
-                  in' = "oklch longer hue";
-                  from = "#C2185B";
-                  to = "#689F38";
-                };
-              };
-            };
+            focus-ring.enable = false;
           };
-          screenshot-path = "~/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
           window-rules = import ./niri.window-rules.nix;
           binds = with config.lib.niri.actions; {
             "Mod+1".action = focus-workspace ws'."1";

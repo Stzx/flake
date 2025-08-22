@@ -24,6 +24,7 @@ let
       nil
       taplo
 
+      qt6Packages.qtdeclarative
       python3Packages.python-lsp-server
 
       nixfmt
