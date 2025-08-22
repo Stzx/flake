@@ -48,7 +48,9 @@
       ...
     }@args:
     let
-      stateVersion = "25.05";
+      stateVersion = "25.11";
+
+      dots = ./. + "/dots";
 
       modules' = self.lib.scanModules ./modules;
 
@@ -59,6 +61,9 @@
           config = {
             allowAliases = false;
             allowUnfree = true;
+            permittedInsecurePackages = [
+              "python-2.7.18.8"
+            ];
           };
           overlays = [
             self.overlays.default
@@ -85,11 +90,10 @@
         {
           "${hostName}" = nixpkgs.lib.nixosSystem {
             specialArgs = {
-              inherit self;
+              inherit self dots;
               inherit (secrets) values;
 
               wmCfg = (self.lib.wm' self.nixosConfigurations."${hostName}".config);
-              dots = ./dots;
             };
             modules = [
               args.disko.nixosModules.disko
@@ -137,11 +141,9 @@
             inherit (sys) pkgs;
 
             extraSpecialArgs = {
-              inherit self sysCfg;
+              inherit self dots sysCfg;
               inherit (secrets) values;
               wmCfg = (self.lib.wm' sysCfg);
-
-              dots = ./dots;
             };
             modules = [
               {

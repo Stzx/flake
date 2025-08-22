@@ -40,9 +40,8 @@ display_image() {
     clear
 
     echo "[$(($idx + 1))/$num_files] ${files[$idx]}"
-    echo "h/H | l/L | q/Q"
 
-    kitty +kitten icat --align=center --place="${width}x${image_height}@0x2" "${files[$idx]}"
+    kitty +kitten icat --align=center --place="${width}x${image_height}@0x3" "${files[$idx]}"
 }
 
 trap 'clear; exit 0' INT TERM
@@ -53,11 +52,11 @@ while true; do
     read -s -n 1 key
 
     case "$key" in
-        h | H)
+        k | K)
             idx=$(( (idx - 1 + num_files) % num_files ))
             display_image
             ;;
-        l | L)
+        j | J)
             idx=$(( (idx + 1) % num_files ))
             display_image
             ;;

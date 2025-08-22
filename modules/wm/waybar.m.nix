@@ -177,7 +177,7 @@
             }
 
             window#waybar {
-              background: transparent;
+              background: rgba(0, 0, 0, 0.3);
             }
 
             window#waybar .module {

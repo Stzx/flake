@@ -40,6 +40,7 @@
                 monaspace
                 comic-mono
                 # victor-mono
+                # maple-mono.CN-unhinted
 
                 sarasa-gothic
                 # Gothic, UI = Inter

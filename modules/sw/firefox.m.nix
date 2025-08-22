@@ -89,6 +89,8 @@
 
                   "browser.quitShortcut.disabled" = true;
 
+                  "browser.ml.chat.enabled" = false;
+
                   # "network.dns.disableIPv6" = true;
                   "network.dns.disablePrefetch" = true;
                   "network.dns.disablePrefetchFromHTTPS" = true;

@@ -19,7 +19,7 @@
     {
       options.programs.quickshell = with types; {
         cfgs = lib.mkOption {
-          type = attr;
+          type = attrs;
           default = { };
         };
         mode = lib.mkOption {

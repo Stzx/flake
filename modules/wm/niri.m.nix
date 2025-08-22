@@ -1,16 +1,26 @@
 {
   sys =
     {
+      pkgs,
       lib,
+      config,
       wmCfg,
       ...
     }:
+
+    let
+      inherit (lib) mkIf;
+    in
     {
-      config = lib.mkIf wmCfg.isNiri {
-        programs.niri = {
-          enable = true;
-        };
-      };
+      config = mkIf wmCfg.isNiri (
+        lib.mkMerge [
+          { programs.niri.enable = true; }
+
+          (mkIf config.services.flatpak.enable {
+            environment.systemPackages = [ pkgs.xwayland-satellite ]; # Steam
+          })
+        ]
+      );
     };
 
   home =
@@ -171,10 +181,10 @@
             "Mod+Shift+S".action.screenshot-screen = [ ]; # FIXME: https://github.com/sodiboo/niri-flake/issues/1018
             "Mod+Print".action = screenshot-window { write-to-disk = false; };
 
-            "Mod+grave".action = spawn "${pkgs.procps}/bin/pkill" "-SIGUSR1" "waybar";
+            "Mod+grave".action = spawn "pkill" "-SIGUSR1" "waybar";
 
             "XF86AudioMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
-            "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "1%-";
+            "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "1%-";
             "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "1%+";
 
             "XF86AudioPrev".action = spawn "playerctl" "previous";
