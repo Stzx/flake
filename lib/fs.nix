@@ -3,17 +3,24 @@
 let
   inherit (builtins) elemAt;
 
-  concatOptions = options: builtins.concatStringsSep "," options;
+  ccOptions = options: builtins.concatStringsSep "," options;
 
-  mergeUnit = a: b: {
-    mounts = (a.mounts or [ ]) ++ b.mounts;
-    automounts = (a.automounts or [ ]) ++ b.automounts;
+  mergeInit = {
+    mounts = [ ];
+    automounts = [ ];
+  };
+
+  mergeUnit = acc: unit: {
+    mounts = acc.mounts ++ unit.mounts;
+    automounts = acc.automounts ++ unit.automounts;
   };
 in
 rec {
   byUuid = uuid: "/dev/disk/by-uuid/${uuid}";
 
   byId = id: "/dev/disk/by-id/${id}";
+
+  byLabel = label: "/dev/disk/by-label/${label}";
 
   byNVMeEui = eui: byId "nvme-eui.${eui}";
 
@@ -29,80 +36,85 @@ rec {
   ]
   ++ timeOptions;
 
-  btrfsOptions = (lib.singleton "compress=zstd") ++ timeOptions;
+  btrfsOptions = [ "compress=zstd:3" ] ++ timeOptions;
 
-  subvolBtrfsOptions = subvol: btrfsOptions ++ (lib.singleton "subvol=${subvol}");
+  subvolBtrfsOptions = subvol: btrfsOptions ++ [ "subvol=${subvol}" ];
 
-  f2fsOptions = [
-    "compress_algorithm=zstd"
-    "compress_chksum"
-    "atgc"
-    "gc_merge"
+  xfsOptions = [
+
   ]
   ++ timeOptions;
 
-  fstab =
-    {
-      device,
-      fsType,
-      mountPoint,
-      subvol ? mountPoint,
-    }:
-    {
-      "${mountPoint}" = {
-        inherit device fsType;
-        options =
-          if (fsType == "vfat") then
-            timeOptions
-          else if (fsType == "btrfs") then
-            (subvolBtrfsOptions subvol)
-          else
-            builtins.abort "fsType: ${fsType} unsupported";
-      };
-    };
+  # see: https://www.kernel.org/doc/html/latest/filesystems/f2fs.html
+  f2fsOptions = [
+    "atgc"
+    "flush_merge"
+    "gc_merge"
+    "compress_algorithm=zstd:6"
+    "compress_chksum"
+  ]
+  ++ timeOptions;
 
-  # [ [ UUID MOUNT_POINT AUTO_MOUNT ] ]
-  simpleMountUnit =
-    devices: fs: options:
-    lib.foldl mergeUnit { } (
-      lib.forEach devices (i: {
+  exfatOptions = [
+
+  ]
+  ++ timeOptions;
+
+  mergeMounts' = mounts: lib.foldl mergeUnit mergeInit mounts;
+
+  # [ [ UUID [ [ SUBVOL MOUNT_POINT OPTIONS AUTO_MOUNT ] ] ] ]
+
+  btrfsMounts =
+    devices:
+
+    mergeMounts' (
+      lib.flatten (
+        lib.forEach devices (
+          device:
+
+          let
+            uuid = (elemAt device 0);
+
+            map' = info: uuid: {
+              mounts = lib.singleton {
+                what = byUuid uuid;
+                where = (elemAt info 1);
+                type = "btrfs";
+                options = ccOptions ((elemAt info 2) ++ (subvolBtrfsOptions (elemAt info 0)));
+              };
+              automounts = lib.optional (elemAt info 3) {
+                where = (elemAt info 1);
+                wantedBy = [ "multi-user.target" ];
+              };
+            };
+          in
+          lib.forEach (elemAt device 1) (info: map' info uuid)
+        )
+      )
+    );
+
+  # [ [ UUID MOUNT_POINT OPTIONS AUTO_MOUNT ] ]
+  mounts' =
+    devices: fs: defaultOption:
+
+    mergeMounts' (
+      lib.forEach devices (device: {
         mounts = lib.singleton {
-          what = byUuid (elemAt i 0);
-          where = elemAt i 1;
+          what = byUuid (elemAt device 0);
+          where = (elemAt device 1);
           type = fs;
-          options = concatOptions options;
+          options = ccOptions ((elemAt device 2) ++ defaultOption);
         };
-        automounts = lib.optional (elemAt i 2) {
-          where = elemAt i 1;
+        automounts = lib.optional (elemAt device 3) {
+          where = (elemAt device 1);
           wantedBy = [ "multi-user.target" ];
         };
       })
     );
 
-  exfatMountUnit = devices: simpleMountUnit devices "exfat" [ ];
+  xfsMounts = devices: mounts' devices "xfs" xfsOptions;
 
-  f2fsMountUnit = devices: simpleMountUnit devices "f2fs" f2fsOptions;
+  f2fsMounts = devices: mounts' devices "f2fs" f2fsOptions;
 
-  # [ [ UUID [ [ SUBVOL MOUNT_POINT AUTO_MOUNT ] ] ] ]
-  btrfsMountUnit =
-    devices:
-    lib.foldl mergeUnit { } (
-      lib.flatten (
-        lib.forEach devices (
-          i:
-          (lib.forEach (elemAt i 1) (ee: {
-            mounts = lib.singleton {
-              what = byUuid (elemAt i 0);
-              where = elemAt ee 1;
-              type = "btrfs";
-              options = concatOptions (subvolBtrfsOptions (elemAt ee 0));
-            };
-            automounts = lib.optional (elemAt ee 2) {
-              where = elemAt ee 1;
-              wantedBy = [ "multi-user.target" ];
-            };
-          }))
-        )
-      )
-    );
+  exfatMounts = devices: mounts' devices "exfat" exfatOptions;
 }

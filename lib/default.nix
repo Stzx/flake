@@ -23,15 +23,22 @@ in
   inherit (fs)
     byUuid
     byId
+    byLabel
     byNVMeEui
-    fstab
+
     timeOptions
     dataOptions
     btrfsOptions
+    xfsOptions
     f2fsOptions
-    btrfsMountUnit
-    exfatMountUnit
-    f2fsMountUnit
+    exfaOptions
+
+    mergeMounts'
+
+    btrfsMounts
+    xfsMounts
+    f2fsMounts
+    exfatMounts
     ;
 
   inherit wm';
