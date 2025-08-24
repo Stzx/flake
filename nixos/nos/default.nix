@@ -57,7 +57,7 @@ in
     ++ optional config.programs.gamemode.enable "gamemode";
   };
 
-  programs.nix-ld.enable = true;
+  programs.nix-ld.enable = false;
 
   programs.gnupg.agent = {
     enable = true;

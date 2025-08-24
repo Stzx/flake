@@ -49,9 +49,7 @@
     {
       kernel = kernel'.overrideAttrs (
         _: prevAttrs: {
-          preConfigure = ''
-            ${prevAttrs.preConfigure or ""}
-
+          preConfigure = (prevAttrs.preConfigure or "") + ''
             export CCACHE_SLOPPINESS=random_seed
           '';
         }

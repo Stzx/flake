@@ -28,6 +28,8 @@ let
       python3Packages.python-lsp-server
 
       nixfmt
+
+      treefmt
     ];
   };
 

@@ -70,7 +70,7 @@
               ];
               fontconfig = {
                 enable = true;
-                subpixel.rgba = "rgb";
+                includeUserConf = mkDefault false;
                 defaultFonts = mkForce {
                   serif = [
                     "Sarasa Fixed Slab SC"
@@ -224,7 +224,15 @@
         })
 
         (mkIf (config.programs.quickshell.mode == "supplemental" && wmCfg.isNiri) {
-          services.swayidle.enable = true;
+          services.swayidle = {
+            enable = true;
+            timeouts = [
+              {
+                timeout = 300;
+                command = "${pkgs.systemd}/bin/systemctl suspend";
+              }
+            ];
+          };
 
           # notifications
           services.mako = {
@@ -297,8 +305,6 @@
             theme = cursor.name;
             size = cursor.size;
           };
-
-          programs.quickshell.enable = true;
         })
       ];
     };

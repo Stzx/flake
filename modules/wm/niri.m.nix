@@ -193,6 +193,8 @@
           };
         };
 
+        programs.quickshell.enable = true;
+
         programs.waybar = {
           left = mkAfter [
             "clock"
