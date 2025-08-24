@@ -140,25 +140,9 @@
             environment.etc."xdg/fcitx5".source = dots + "/fcitx5";
           }
 
-          (mkIf (wmCfg.isNiri) (
-            let
-              file = "xdg-desktop-portal/${wmCfg.enable}-portals.conf";
-            in
-            {
-              xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-
-              # https://man.archlinux.org/man/portals.conf.5
-              #
-              # Due to the configuration loading priority issue with xdg-desktop-portal,
-              # niri built-in configuration gets skipped.
-              # Additionally, since nixpkgs cannot read INI files and convert them into Attrs,
-              # I resorted to hard-coding.
-              environment.etc."xdg/${file}".text = ''
-                ${builtins.readFile "${config.programs.${wmCfg.enable}.package}/share/${file}"}
-                org.freedesktop.impl.portal.FileChooser=gtk;
-              '';
-            }
-          ))
+          (mkIf (wmCfg.isNiri) {
+            xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+          })
         ]
       );
     };

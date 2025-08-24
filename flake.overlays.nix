@@ -35,6 +35,14 @@ final': prev': {
     '';
   };
 
+  niri = prev'.niri.overrideAttrs (
+    _: prev: {
+      preInstall = (prev.preInstall or "") + ''
+        echo "org.freedesktop.impl.portal.FileChooser=gtk;" >> resources/niri-portals.conf
+      '';
+    }
+  );
+
   wrapFirefox = prev'.wrapFirefox.override {
     config = rec {
       firefox = {
