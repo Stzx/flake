@@ -1,6 +1,9 @@
 [
   {
-    matches = [ { is-focused = true; } ];
+    matches = [
+      { is-focused = true; }
+    ];
+
     clip-to-geometry = true;
   }
 
@@ -11,8 +14,7 @@
     ];
 
     open-on-workspace = "terminal";
-
-    default-column-width.proportion = 0.75;
+    open-maximized = true;
   }
   {
     matches = [
@@ -38,9 +40,8 @@
       { app-id = "^calibre-gui$"; }
     ];
     excludes = [
-      { app-id = "^org\.telegram\.desktop$";title = "^Media viewer$"; }
-      { app-id = "^thunderbird$"; title = "^(?-x:Password Required|Enter credentials for)"; }
-      { app-id = "^calibre-gui$"; title = "^calibre - Preferences$"; }
+      { app-id = "^org\.telegram\.desktop$"; title = "^Media viewer$"; }
+      { app-id = "^calibre-gui$";            title = "^calibre - Preferences$"; }
     ];
 
     open-on-workspace = "chat";
@@ -49,12 +50,11 @@
   }
   {
     matches = [
-      { app-id = "^org\.qbittorrent\.qBittorrent$"; }
-      { app-id = "^org\.prismlauncher\.PrismLauncher$"; }
+      { app-id = "^org\.(?-x:qbittorrent|prismlauncher)\.(?-x:qBittorrent|PrismLauncher)$"; }
       { app-id = "^steam$"; }
     ];
     excludes = [
-      { app-id = "^org\.qbittorrent\.qBittorrent$"; title = "^Preferences$"; }
+      { app-id = "^org\.qbittorrent\.qBittorrent$"; title = "^(?-x:Preferences|Rename|Renaming)$"; }
     ];
 
     open-on-workspace = "run";
@@ -62,7 +62,9 @@
     default-column-display = "tabbed";
   }
   {
-    matches = [ { app-id = "^dev\.zed\.Zed$"; } ];
+    matches = [
+      { app-id = "^dev\.zed\.Zed$"; }
+    ];
 
     open-on-workspace = "anvil";
     open-maximized = true;
@@ -78,30 +80,41 @@
 
     block-out-from = "screen-capture";
   }
+  {
+    matches = [
+      { app-id = "^mpv$"; }
+      {                title = "^(?-x:Counter-Strike|Path of Exile) 2$"; }
+      { app-id = "^$"; title = "^Minecraft"; }
+    ];
+
+    variable-refresh-rate = true;
+  }
 
   # floating window rules
   {
     matches = [
-      { app-id = "^org\.qbittorrent\.qBittorrent$"; title = "^(Preferences|Rename|Renaming)$"; }
-      { app-id = "^org\.telegram\.desktop$"; title = "^Media viewer$"; }
-      { app-id = "^firefox$"; title = "^(?-x:Picture-in-Picture|Library|About Mozilla Firefox)$"; }
+      { app-id = "^thunderbird$"; title = "^Password Required"; }
+    ];
+
+    open-fullscreen = false;
+    open-floating = true;
+  }
+  {
+    matches = [
+      { app-id = "^firefox$";
+        title = "^(?-x:Picture-in-Picture|Library|About Mozilla Firefox|画中画|我的足迹|关于 Mozilla Firefox)$";
+      }
+      { app-id = "^org\.(?-x:qbittorrent|telegram)\.(?-x:qBittorrent|desktop)$";
+        title = "^(?-x:Preferences|Rename|Renaming|Media viewer)$";
+      }
+      { app-id = "^veracrypt$";   title = "^Select (?-x:a|Keyfile)"; }
       { app-id = "^calibre-gui$"; title = "^calibre - Preferences$"; }
     ];
 
     open-fullscreen = false;
     open-floating = true;
 
-    default-column-width.proportion = 0.5;
+    default-column-width.fixed = 1280;
     default-window-height.proportion = 0.75;
-  }
-  {
-    matches = [
-      { app-id = "^thunderbird$"; title = "^(?-x:Password Required|Enter credentials for)"; }
-      { app-id = "^veracrypt$"; }
-    ];
-
-    open-floating = true;
-
-    default-floating-position = { x = 6; y = 6; relative-to = "bottom-right"; };
   }
 ]

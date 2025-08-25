@@ -33,7 +33,7 @@
     }:
 
     let
-      inherit (lib) mkAfter;
+      inherit (lib) mkOption mkAfter types;
 
       cfg = config.programs.niri;
 
@@ -58,15 +58,22 @@
         "2" = "sea";
       };
 
-      ws' = horizontal // vertical;
-
       workspaces = (open-on-output' ds.primary horizontal) // (open-on-output' ds.secondary vertical);
+
+      wsBinds = lib.foldlAttrs (
+        acc: n: v:
+        acc
+        // {
+          "Mod+${n}".action.focus-workspace = v;
+          "Mod+Ctrl+${n}".action.move-column-to-workspace = v;
+        }
+      ) { } (horizontal // vertical);
     in
     {
       options.programs.niri.display = {
-        primary = lib.mkOption { type = lib.types.str; };
-        secondary = lib.mkOption {
-          type = lib.types.str;
+        primary = mkOption { type = types.str; };
+        secondary = mkOption {
+          type = types.str;
           default = ds.primary;
         };
       };
@@ -79,118 +86,131 @@
           screenshot-path = "~/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
           overview = {
             backdrop-color = "#808080";
+            workspace-shadow.enable = false;
           };
           layout = {
-            gaps = 8;
+            gaps = 4;
+            default-column-width = { };
             always-center-single-column = true;
+            empty-workspace-above-first = true;
             background-color = "transparent";
             tab-indicator = {
-              width = 3;
-              position = "right";
+              width = 4;
+              position = "left";
               place-within-column = true;
+              active.color = "#FF1493";
+              inactive.color = "#000000";
+              urgent.color = "#F54927";
             };
             focus-ring.enable = false;
           };
+          layer-rules = [
+            {
+              matches = [
+                { namespace = "(bg|background|wallpaper)$"; }
+              ];
+
+              place-within-backdrop = true;
+            }
+            {
+              matches = [
+                { namespace = "^notifications$"; }
+              ];
+
+              block-out-from = "screencast";
+            }
+          ];
           window-rules = import ./niri.window-rules.nix;
-          binds = with config.lib.niri.actions; {
-            "Mod+1".action = focus-workspace ws'."1";
-            "Mod+2".action = focus-workspace ws'."2";
-            "Mod+3".action = focus-workspace ws'."3";
-            "Mod+8".action = focus-workspace ws'."8";
-            "Mod+9".action = focus-workspace ws'."9";
-            "Mod+0".action = focus-workspace ws'."0";
+          binds =
+            wsBinds
+            // (with config.lib.niri.actions; {
+              "Mod+Prior".action = focus-workspace-up; # PAGE UP
+              "Mod+Shift+WheelScrollUp".action = focus-workspace-up;
+              "Mod+Next".action = focus-workspace-down; # PAGE DOWN
+              "Mod+Shift+WheelScrollDown".action = focus-workspace-down;
 
-            "Mod+Prior".action = focus-workspace-up;
-            "Mod+Shift+WheelScrollUp".action = focus-workspace-up;
-            "Mod+Next".action = focus-workspace-down;
-            "Mod+Shift+WheelScrollDown".action = focus-workspace-down;
+              "Mod+Home".action = focus-column-first;
+              "Mod+WheelScrollUp".action = focus-column-left;
+              "Mod+H".action = focus-column-left;
+              "Mod+J".action = focus-window-down;
+              "Mod+K".action = focus-window-up;
+              "Mod+L".action = focus-column-right;
+              "Mod+WheelScrollDown".action = focus-column-right;
+              "Mod+End".action = focus-column-last;
 
-            # FIXME: https://github.com/sodiboo/niri-flake/issues/1018
-            "Mod+Shift+1".action.move-column-to-workspace = ws'."1";
-            "Mod+Shift+2".action.move-column-to-workspace = ws'."2";
-            "Mod+Shift+3".action.move-column-to-workspace = ws'."3";
-            "Mod+Shift+8".action.move-column-to-workspace = ws'."8";
-            "Mod+Shift+9".action.move-column-to-workspace = ws'."9";
-            "Mod+Shift+0".action.move-column-to-workspace = ws'."0";
+              "Mod+Tab".action = focus-window-down-or-column-right;
+              "Mod+Shift+Tab".action = focus-window-up-or-column-left;
 
-            "Mod+Ctrl+Left".action = move-workspace-to-monitor-left;
-            "Mod+Ctrl+Down".action = move-workspace-to-monitor-down;
-            "Mod+Ctrl+Up".action = move-workspace-to-monitor-up;
-            "Mod+Ctrl+Right".action = move-workspace-to-monitor-right;
+              "Mod+Shift+Home".action = move-column-to-first;
+              "Mod+Shift+H".action = move-column-left;
+              "Mod+Shift+J".action = move-window-down;
+              "Mod+Shift+K".action = move-window-up;
+              "Mod+Shift+L".action = move-column-right;
+              "Mod+Shift+End".action = move-column-to-last;
 
-            "Mod+Home".action = focus-column-first;
-            "Mod+H".action = focus-column-left;
-            "Mod+WheelScrollUp".action = focus-column-left;
-            "Mod+J".action = focus-window-down;
-            "Mod+K".action = focus-window-up;
-            "Mod+L".action = focus-column-right;
-            "Mod+WheelScrollDown".action = focus-column-right;
-            "Mod+End".action = focus-column-last;
+              "Mod+Left".action = focus-monitor-left;
+              "Mod+Down".action = focus-monitor-down;
+              "Mod+Up".action = focus-monitor-up;
+              "Mod+Right".action = focus-monitor-right;
 
-            "Mod+Tab".action = focus-window-down-or-column-right;
-            "Mod+Shift+Tab".action = focus-window-up-or-column-left;
+              "Mod+Shift+Left".action = move-column-to-monitor-left;
+              "Mod+Shift+Down".action = move-column-to-monitor-down;
+              "Mod+Shift+Up".action = move-column-to-monitor-up;
+              "Mod+Shift+Right".action = move-column-to-monitor-right;
 
-            "Mod+Shift+Home".action = move-column-to-first;
-            "Mod+Shift+H".action = move-column-left;
-            "Mod+Shift+J".action = move-window-down;
-            "Mod+Shift+K".action = move-window-up;
-            "Mod+Shift+L".action = move-column-right;
-            "Mod+Shift+End".action = move-column-to-last;
+              "Mod+Shift+KP_Left".action = move-workspace-to-monitor-left;
+              "Mod+Shift+KP_Down".action = move-workspace-to-monitor-down;
+              "Mod+Shift+KP_Up".action = move-workspace-to-monitor-up;
+              "Mod+Shift+KP_Right".action = move-workspace-to-monitor-right;
 
-            "Mod+Left".action = focus-monitor-left;
-            "Mod+Down".action = focus-monitor-down;
-            "Mod+Up".action = focus-monitor-up;
-            "Mod+Right".action = focus-monitor-right;
+              "Mod+E".action = expand-column-to-available-width;
+              "Mod+Ctrl+W".action = toggle-windowed-fullscreen;
+              "Mod+Ctrl+F".action = toggle-window-floating;
 
-            "Mod+Shift+Left".action = move-column-to-monitor-left;
-            "Mod+Shift+Down".action = move-column-to-monitor-down;
-            "Mod+Shift+Up".action = move-column-to-monitor-up;
-            "Mod+Shift+Right".action = move-column-to-monitor-right;
+              "Mod+W".action = switch-preset-column-width;
+              "Mod+bracketleft".action = switch-preset-window-width; # [
+              "Mod+bracketright".action = switch-preset-window-height; # ]
+              "Mod+Ctrl+bracketright".action = reset-window-height;
 
-            "Mod+Q".action = spawn "fuzzel";
-            "Mod+T".action = spawn "kitty";
+              "Mod+M".action = maximize-column;
+              "Mod+X".action = close-window;
+              "Mod+C".action = center-column;
+              "Mod+Shift+C".action = center-window;
+              "Mod+Ctrl+Return".action = fullscreen-window;
 
-            "Mod+W".action = switch-preset-column-width;
-            "Mod+bracketleft".action = switch-preset-window-width;
-            "Mod+bracketright".action = switch-preset-window-height;
+              "Mod+Space".action = consume-window-into-column;
+              "Mod+Shift+Space".action = expel-window-from-column;
+              "Mod+Ctrl+Space".action = toggle-column-tabbed-display;
 
-            "Mod+M".action = maximize-column;
-            "Mod+X".action = close-window;
-            "Mod+C".action = center-column;
-            "Mod+Shift+C".action = center-window;
-            "Mod+Return".action = fullscreen-window;
+              "Mod+O".action.open-overview = [ ];
+              "Mod+Shift+O".action.close-overview = [ ];
+              "Mod+Ctrl+O".action.toggle-overview = [ ];
 
-            # Tabbed
-            "Mod+I".action = consume-window-into-column;
-            "Mod+Shift+I".action = expel-window-from-column;
-            "Mod+Ctrl+I".action = toggle-column-tabbed-display;
+              "Mod+Q".action = spawn "fuzzel";
+              "Mod+T".action = spawn "kitty";
 
-            "Mod+P".action = power-off-monitors;
-            "Mod+Slash".action = show-hotkey-overlay;
-            "Mod+E".action = expand-column-to-available-width;
-            # "Mod+Space".action = toggle-overview;
-            "Mod+Ctrl+Escape".action = toggle-keyboard-shortcuts-inhibit;
-            # "Mod+Ctrl+F".action = toggle-windowed-fullscreen;
-            "Mod+Ctrl+F".action = toggle-window-floating;
-            "Mod+Shift+Q".action = quit;
+              "Mod+P".action = power-off-monitors;
+              "Mod+Slash".action = show-hotkey-overlay; # /
+              "Mod+Ctrl+Escape".action = toggle-keyboard-shortcuts-inhibit;
+              "Mod+Shift+Q".action = quit;
 
-            # "Mod+D".action = set-dynamic-cast-window;
-            # "Mod+Shift+D".action = clear-dynamic-cast-target;
+              "Mod+D".action = set-dynamic-cast-window;
+              "Mod+Shift+D".action = clear-dynamic-cast-target;
 
-            "Mod+S".action = screenshot;
-            "Mod+Shift+S".action.screenshot-screen = [ ]; # FIXME: https://github.com/sodiboo/niri-flake/issues/1018
-            "Mod+Print".action = screenshot-window { write-to-disk = false; };
+              "Mod+S".action = screenshot;
+              "Mod+Shift+S".action.screenshot-screen = [ ]; # FIXME: https://github.com/sodiboo/niri-flake/issues/1018
+              "Mod+Print".action = screenshot-window { write-to-disk = false; };
 
-            "Mod+grave".action = spawn "pkill" "-SIGUSR1" "waybar";
+              "Mod+grave".action = spawn "pkill" "-SIGUSR1" "waybar"; # `
 
-            "XF86AudioMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
-            "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "1%-";
-            "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "1%+";
+              "XF86AudioMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
+              "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "1%-";
+              "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "1%+";
 
-            "XF86AudioPrev".action = spawn "playerctl" "previous";
-            "XF86AudioPlay".action = spawn "playerctl" "play-pause";
-            "XF86AudioNext".action = spawn "playerctl" "next";
-          };
+              "XF86AudioPrev".action = spawn "playerctl" "previous";
+              "XF86AudioPlay".action = spawn "playerctl" "play-pause";
+              "XF86AudioNext".action = spawn "playerctl" "next";
+            });
         };
 
         programs.quickshell.enable = true;
