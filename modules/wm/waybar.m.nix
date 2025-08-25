@@ -60,19 +60,20 @@
           settings.mainBar = {
             layer = "top";
             height = 36;
-            margin = "3px";
-            spacing = 3;
+            margin-top = 4;
+            margin-left = 8;
+            margin-right = 8;
+            spacing = 4;
 
             modules-left = cfg.left;
             modules-center = cfg.center;
             modules-right = cfg.right;
 
-            mode = "dock";
             start_hidden = true;
 
             tray = {
               icon-size = iconSize;
-              spacing = 5;
+              spacing = 4;
               reverse-direction = true;
             };
 
@@ -166,6 +167,9 @@
           }
           // cfg.extraSettings;
           style = mkDefault ''
+            /* Tailwind */
+            @define-color theme-color #4D179A;
+
             * {
               border: unset;
               border-radius: 0;
@@ -177,11 +181,13 @@
             }
 
             window#waybar {
-              background: rgba(0, 0, 0, 0.3);
+              background: rgba(0, 0, 0, 0.25);
+
+              border-radius: 0 4px;
             }
 
             window#waybar .module {
-              border-bottom: 3px solid #8e24aa;
+              border-top: 3px solid @theme-color;
 
               padding: 0 3px;
             }
@@ -205,21 +211,25 @@
               color: white;
             }
 
-            #workspaces button:hover {
-              background: unset;
-            }
-
             #workspaces button.focused {
-              background: #8e24aa;
+              background: @theme-color;
             }
 
+            #workspaces button:hover {
+              color: @theme-color;
+
+              background: white;
+            }
+
+            /* RIGHT */
             #systemd-failed-units.degraded { color: yellow; }
 
             #custom-quit { color: #008000; }
-            #custom-reboot { color: #fbc02d; }
-            #custom-shutdown { color: #dc143c; }
+            #custom-reboot { color: #FF8904; }
+            #custom-shutdown { color: #DC143C; }
           '';
-        };
+        }
+        // lib.optionalAttrs (!wmCfg.isNiri) { mode = "dock"; };
       };
     };
 }
