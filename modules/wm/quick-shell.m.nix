@@ -5,7 +5,6 @@
       lib,
       config,
       sysCfg,
-      wmCfg,
       ...
     }:
 

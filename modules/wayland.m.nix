@@ -4,28 +4,66 @@
       pkgs,
       lib,
       config,
-      wmCfg,
       dots,
       ...
     }:
 
     let
-      inherit (lib) mkIf mkDefault mkForce;
+      inherit (lib)
+        types
+        mkOption
+        mkIf
+        mkDefault
+        mkForce
+        ;
+
+      wmCfg = config.wm;
+
+      condOption =
+        value:
+        mkOption {
+          type = types.bool;
+          default = config.features.wm.enable == value;
+          readOnly = true;
+        };
     in
     {
-      options.features.wm = {
-        enable = lib.mkOption {
-          type =
-            with lib.types;
-            nullOr (enum [
-              "kde"
-              "niri"
-            ]);
-          default = null;
+      options = {
+        features.wm = {
+          enable = mkOption {
+            type = types.nullOr (
+              types.enum [
+                "kde"
+                "niri"
+              ]
+            );
+            default = null;
+          };
+        };
+        wm = {
+          enable = mkOption {
+            type = types.bool;
+            default = config.features.wm.enable != null;
+            readOnly = true;
+          };
+          exe = mkOption {
+            type = types.nullOr types.str;
+            default =
+              with config.wm;
+              if isKDE then
+                "startplasma-wayland"
+              else if isNiri then
+                "niri-session"
+              else
+                null;
+            readOnly = true;
+          };
+          isKDE = condOption "kde";
+          isNiri = condOption "niri";
         };
       };
 
-      config = mkIf wmCfg.isEnable (
+      config = mkIf config.wm.enable (
         lib.mkMerge [
           {
             xdg.portal.xdgOpenUsePortal = mkDefault true;
@@ -111,7 +149,7 @@
               settings =
                 let
                   exe' = lib.getExe pkgs.tuigreet;
-                  exe = wmCfg.getExe;
+                  exe = wmCfg.exe;
 
                   args = lib.optionalString (exe != null) " --cmd ${exe}";
                 in
@@ -153,7 +191,6 @@
       lib,
       config,
       sysCfg,
-      wmCfg,
       ...
     }:
 
@@ -163,6 +200,8 @@
         mkDefault
         ;
 
+      wmCfg = sysCfg.wm;
+
       cursor = {
         package = pkgs.capitaine-cursors; # bibata-cursors, material-cursors
         name = "capitaine-cursors-white"; # Bibata-Modern-Ice
@@ -171,7 +210,7 @@
     in
     {
       config = lib.mkMerge [
-        (mkIf wmCfg.isEnable {
+        (mkIf wmCfg.enable {
           # FIX: https://github.com/nix-community/home-manager/pull/7045
           fonts.fontconfig.enable = !sysCfg.fonts.fontconfig.enable;
 

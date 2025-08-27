@@ -3,11 +3,11 @@
     {
       pkgs,
       lib,
-      wmCfg,
+      config,
       ...
     }:
     {
-      config = lib.mkIf wmCfg.isKDE {
+      config = lib.mkIf config.wm.isKDE {
         services.desktopManager.plasma6 = {
           enable = true;
           enableQt5Integration = false;
@@ -33,7 +33,7 @@
       pkgs,
       lib,
       config,
-      wmCfg,
+      sysCfg,
       ...
     }:
 
@@ -514,7 +514,7 @@
       };
     in
     {
-      config = lib.mkIf wmCfg.isKDE {
+      config = lib.mkIf sysCfg.wm.isKDE {
         home.packages = [
           (pkgs.writeShellScriptBin "kde-init" (
             lib.concatLines (lib.mapAttrsToList (rc: cliFnList: mkCli rc (lib.flatten cliFnList)) settings)

@@ -1,11 +1,9 @@
 {
   sys =
     {
-      self,
       pkgs,
       lib,
       config,
-      wmCfg,
       ...
     }:
 
@@ -52,7 +50,7 @@
           };
         }
 
-        (mkIf wmCfg.isEnable {
+        (mkIf config.wm.enable {
           hardware.graphics.enable = true;
 
           environment = {

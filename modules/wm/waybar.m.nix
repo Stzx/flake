@@ -3,7 +3,7 @@
     {
       lib,
       config,
-      wmCfg,
+      sysCfg,
       ...
     }:
 
@@ -16,6 +16,7 @@
         ;
 
       cfg = config.programs.waybar;
+      wmCfg = sysCfg.wm;
 
       iconSize = 24;
       fontSize = 13;

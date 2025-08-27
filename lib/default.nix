@@ -12,8 +12,6 @@ let
   fs = import ./fs.nix { inherit lib; };
 
   modules = import ./modules.nix { inherit lib; };
-
-  wm' = import ./wm.nix { inherit lib; };
 in
 {
   inherit mkPkgs mkSystem mkHomeManager;
@@ -40,8 +38,6 @@ in
     f2fsMounts
     exfatMounts
     ;
-
-  inherit wm';
 
   scanModules = modules;
 }

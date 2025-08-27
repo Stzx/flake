@@ -4,7 +4,6 @@
       pkgs,
       lib,
       config,
-      wmCfg,
       ...
     }:
 
@@ -12,7 +11,7 @@
       inherit (lib) mkIf;
     in
     {
-      config = mkIf wmCfg.isNiri (
+      config = mkIf config.wm.isNiri (
         lib.mkMerge [
           { programs.niri.enable = true; }
 
@@ -28,7 +27,6 @@
       lib,
       config,
       sysCfg,
-      wmCfg,
       ...
     }:
 
@@ -78,7 +76,7 @@
         };
       };
 
-      config = lib.mkIf (wmCfg.isNiri) {
+      config = lib.mkIf (sysCfg.wm.isNiri) {
         programs.niri.settings = {
           inherit workspaces;
 

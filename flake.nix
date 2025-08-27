@@ -92,8 +92,6 @@
             specialArgs = {
               inherit self dots;
               inherit (secrets) values;
-
-              wmCfg = (self.lib.wm' self.nixosConfigurations."${hostName}".config);
             };
             modules = [
               args.disko.nixosModules.disko
@@ -143,7 +141,6 @@
             extraSpecialArgs = {
               inherit self dots sysCfg;
               inherit (secrets) values;
-              wmCfg = (self.lib.wm' sysCfg);
             };
             modules = [
               {

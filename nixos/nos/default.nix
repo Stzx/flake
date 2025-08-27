@@ -1,14 +1,14 @@
 {
-  self,
   pkgs,
   lib,
   config,
-  wmCfg,
   ...
 }:
 
 let
   inherit (lib) optional;
+
+  wmCfg = config.wm;
 in
 {
   imports = [
@@ -28,7 +28,7 @@ in
   ];
 
   nixpkgs.overlays = [
-    (import ./overlays.nix { inherit self lib wmCfg; })
+    (import ./overlays.nix { inherit lib wmCfg; })
   ];
 
   features = {
