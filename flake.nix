@@ -2,6 +2,8 @@
   description = "NixOS";
 
   inputs = {
+    self.submodules = true;
+
     systems.url = "github:nix-systems/default-linux";
 
     nixpkgs.url = "git+https://github.com/NixOS/nixpkgs.git?ref=nixos-unstable&shallow=1";
@@ -26,7 +28,7 @@
       inputs.systems.follows = "systems";
     };
 
-    flake-secrets.url = "git+file:./../flake-secrets";
+    flake-secrets.url = "git+file:../flake-secrets";
 
     niri = {
       url = "github:sodiboo/niri-flake";
