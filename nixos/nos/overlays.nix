@@ -16,6 +16,7 @@
     # );
     # LTO: extraMakeFlags = [ "LLVM=1" ];
 
+    stdenv = final'.ccacheStdenv;
     buildPackages = final'.buildPackages // {
       stdenv = final'.ccacheStdenv;
     };
@@ -36,23 +37,13 @@
   };
 
   linuxPackages_xanmod_stable = prev'.linuxPackages_xanmod_stable.extend (
-    _: prev:
-    let
-      kernel' = final'.linuxManualConfig {
+    _: prev: {
+      kernel = final'.linuxManualConfig {
         inherit (prev.kernel) src version modDirVersion;
         allowImportFromDerivation = true;
 
         configfile = ./core/kernel-configuration;
       };
-    in
-    {
-      kernel = kernel'.overrideAttrs (
-        _: prevAttrs: {
-          preConfigure = (prevAttrs.preConfigure or "") + ''
-            export CCACHE_SLOPPINESS=random_seed
-          '';
-        }
-      );
     }
   );
 

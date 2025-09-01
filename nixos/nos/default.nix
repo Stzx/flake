@@ -37,6 +37,8 @@ in
 
     THP = true;
 
+    ccache.enable = true;
+
     wm.enable = "niri";
   };
 
@@ -62,10 +64,5 @@ in
   programs.gnupg.agent = {
     enable = true;
     pinentryPackage = pkgs.pinentry-curses;
-  };
-
-  programs.ccache = {
-    enable = true;
-    packageNames = [ "linuxManualConfig" ];
   };
 }
