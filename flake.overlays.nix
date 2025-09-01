@@ -141,10 +141,10 @@ final': prev': {
   #11 0x000077d2dbe97e63 start_thread (libc.so.6 + 0x97e63)
   #12 0x000077d2dbf1bdbc __clone3 (libc.so.6 + 0x11bdbc)
   fuse-avfs = prev'.avfs.overrideAttrs (
-    _: prevAttrs: {
+    _: prev: {
       pname = "fuse-avfs"; # I prefer the package name fuse-avfs.
-      buildInputs = (prevAttrs.buildInputs or [ ]) ++ [ final'.zstd ];
-      configureFlags = (prevAttrs.configureFlags or [ ]) ++ [ "--with-zstd=yes" ];
+      buildInputs = (prev.buildInputs or [ ]) ++ [ final'.zstd ];
+      configureFlags = (prev.configureFlags or [ ]) ++ [ "--with-zstd=yes" ];
     }
   );
 }

@@ -77,6 +77,8 @@
       };
 
       config = lib.mkIf (sysCfg.wm.isNiri) {
+        programs.niri.package = sysCfg.programs.niri.package;
+
         programs.niri.settings = {
           inherit workspaces;
 

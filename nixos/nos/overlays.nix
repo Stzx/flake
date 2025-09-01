@@ -75,10 +75,16 @@
           };
         in
         fca'.overrideAttrs (
-          _: prevAttrs: {
-            buildInputs = prevAttrs.buildInputs ++ [ fs.qtbase ];
+          _: prev:
+          assert prev.version == "5.1.9"; # wait release
+          {
+            # FIXME: https://github.com/fcitx/fcitx5-chinese-addons/issues/233
+            postPatch = ''
+              substituteInPlace test/addon/CMakeLists.txt \
+                --replace-fail '    cloudpinyin.conf.in-fmt' ' '
+            '';
 
-            cmakeFlags = prevAttrs.cmakeFlags ++ [
+            cmakeFlags = (prev.cmakeFlags or [ ]) ++ [
               (cmb "ENABLE_BROWSER" false)
               (cmb "ENABLE_CLOUDPINYIN" false)
               (cmb "ENABLE_OPENCC" false)
