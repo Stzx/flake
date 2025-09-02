@@ -59,7 +59,7 @@ in
     ++ optional config.programs.gamemode.enable "gamemode";
   };
 
-  programs.nix-ld.enable = false;
+  programs.nix-ld.enable = true;
 
   programs.gnupg.agent = {
     enable = true;

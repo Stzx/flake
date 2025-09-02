@@ -58,6 +58,7 @@
     ];
 
     open-on-workspace = "run";
+    open-maximized = true;
 
     default-column-display = "tabbed";
   }
