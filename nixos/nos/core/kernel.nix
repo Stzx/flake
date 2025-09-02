@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }:
 
@@ -37,10 +38,11 @@ in
       # }
     ];
     initrd = {
+      systemd.enable = true;
       includeDefaultModules = false;
       availableKernelModules = mkForce [
-        "sha256"
-        "amdgpu"
+        "autofs"
+        "amdgpu" # copy firmware (AMDGPU=y)
       ];
     };
     kernelParams = [
@@ -54,7 +56,8 @@ in
       "f2fs"
       "xfs"
       "exfat"
-    ];
+    ]
+    ++ lib.optional config.virtualisation.waydroid.enable "ext4";
   };
 
   security.lsm = mkForce [ ];

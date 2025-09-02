@@ -52,7 +52,10 @@
             sudo.execWheelOnly = true;
           };
 
-          console.font = mkDefault "LatGrkCyr-8x16";
+          console = {
+            font = mkDefault "LatGrkCyr-8x16";
+            earlySetup = true;
+          };
 
           systemd.settings.Manager.DefaultTimeoutStopSec = "60s";
 
