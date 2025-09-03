@@ -47,6 +47,16 @@
           documentation.doc.enable = false;
 
           security = {
+            # ???? not work
+            # https://github.com/NixOS/nixpkgs/issues/159964
+            # pam.loginLimits = [
+            #   {
+            #     domain = "*";
+            #     item = "nofile";
+            #     type = "soft";
+            #     value = "8192";
+            #   }
+            # ];
             apparmor.enable = true;
             rtkit.enable = true;
             sudo.execWheelOnly = true;
@@ -57,7 +67,10 @@
             earlySetup = true;
           };
 
-          systemd.settings.Manager.DefaultTimeoutStopSec = "60s";
+          systemd.settings.Manager = {
+            DefaultTimeoutStopSec = "60s";
+            DefaultLimitNOFILE = 8192;
+          };
 
           users.mutableUsers = mkDefault false;
 
