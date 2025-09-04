@@ -55,8 +55,7 @@ in
     ]
     ++ optional config.virtualisation.docker.enable "docker"
     ++ optional config.virtualisation.libvirtd.enable "libvirtd"
-    ++ optional config.programs.adb.enable "adbusers"
-    ++ optional config.programs.gamemode.enable "gamemode";
+    ++ optional config.programs.adb.enable "adbusers";
   };
 
   programs.nix-ld.enable = true;
