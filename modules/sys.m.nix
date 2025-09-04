@@ -47,16 +47,15 @@
           documentation.doc.enable = false;
 
           security = {
-            # ???? not work
-            # https://github.com/NixOS/nixpkgs/issues/159964
-            # pam.loginLimits = [
-            #   {
-            #     domain = "*";
-            #     item = "nofile";
-            #     type = "soft";
-            #     value = "8192";
-            #   }
-            # ];
+            # non-systemd (tty, ...)
+            pam.loginLimits = [
+              {
+                domain = "@nixbld";
+                item = "nofile";
+                type = "soft";
+                value = "4096";
+              }
+            ];
             apparmor.enable = true;
             rtkit.enable = true;
             sudo.execWheelOnly = true;
@@ -69,8 +68,12 @@
 
           systemd.settings.Manager = {
             DefaultTimeoutStopSec = "60s";
-            DefaultLimitNOFILE = 8192;
+            DefaultLimitNOFILE = "4096:524288";
           };
+
+          systemd.user.extraConfig = ''
+            DefaultLimitNOFILE=8192:524288
+          '';
 
           users.mutableUsers = mkDefault false;
 
