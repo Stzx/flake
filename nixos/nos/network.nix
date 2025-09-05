@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   boot.kernel.sysctl = {
@@ -9,22 +9,18 @@
 
     "net.ipv4.tcp_rmem" = "4096 87380 16777216";
     "net.ipv4.tcp_wmem" = "4096 65536 16777216";
+    "net.ipv4.tcp_mtu_probing" = 1;
   };
 
-  environment.etc."gai.conf".text = ''
-    precedence ::ffff:0:0/96 100
-  '';
+  # environment.etc."gai.conf".text = ''
+  #   precedence ::ffff:0:0/96 100
+  # '';
 
   networking = {
     useDHCP = lib.mkForce false;
     nftables.enable = true;
     firewall = {
       enable = true;
-      extraInputRules = ''
-        ip saddr 192.168.254.0/24 tcp dport 53317 accept
-
-        ip6 daddr ::/0 tcp dport 61611 accept comment "qB"
-      '';
     };
   };
 
@@ -35,13 +31,10 @@
       "20-wan" = rec {
 
         name = "en*";
-        address = [ "192.168.254.253/24" ];
         gateway = [ "192.168.254.254" ];
-        dns = gateway; # resolved
         ntp = gateway; # timesyncd
         networkConfig = {
-          DHCP = "no";
-          DNSSEC = "allow-downgrade"; # resolved
+          DHCP = "ipv4";
           IPv6AcceptRA = true;
           IPv6PrivacyExtensions = true;
         };
@@ -53,5 +46,10 @@
   services = {
     timesyncd.enable = true;
     resolved.enable = true;
+  };
+
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark;
   };
 }

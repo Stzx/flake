@@ -51,8 +51,8 @@ in
       "input" # waybar, keyboard-state
       "video"
       "audio"
-      "wireshark"
     ]
+    ++ optional config.programs.wireshark.enable "wireshark"
     ++ optional config.virtualisation.docker.enable "docker"
     ++ optional config.virtualisation.libvirtd.enable "libvirtd"
     ++ optional config.programs.adb.enable "adbusers";
