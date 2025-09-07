@@ -184,7 +184,7 @@
             window#waybar {
               background: rgba(0, 0, 0, 0.25);
 
-              border-radius: 0 4px;
+              border-radius: 0 3px;
             }
 
             window#waybar .module {
@@ -203,7 +203,7 @@
             }
 
             /* LEFT */
-            window#waybar.empty#window {
+            window#waybar.empty #window {
               border: unset;
             }
 
@@ -223,7 +223,26 @@
             }
 
             /* RIGHT */
-            #systemd-failed-units.degraded { color: yellow; }
+            #systemd-failed-units.degraded {
+              color: yellow;
+            }
+
+            #tray decoration, menu, menuitem {
+              border-radius: 6px;
+            }
+
+            #tray menu {
+              padding: 6px;
+            }
+
+            #tray menu > * {
+              margin: 3px;
+            }
+
+            #tray menuitem > :last-child {
+              padding-left: 6px;
+              font-style: italic;
+            }
 
             #custom-quit { color: #008000; }
             #custom-reboot { color: #FF8904; }
