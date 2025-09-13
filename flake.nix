@@ -8,6 +8,17 @@
 
     nixpkgs.url = "git+https://github.com/NixOS/nixpkgs.git?ref=nixos-unstable&shallow=1";
 
+    # nix = {
+    #   url = "git+https://github.com/DeterminateSystems/nix-src.git?ref=refs/tags/v3.11.1&shallow=1";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     nixpkgs-23-11.follows = "";
+    #     nixpkgs-regression.follows = "";
+    #
+    #     git-hooks-nix.follows = "";
+    #   };
+    # };
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,7 +30,7 @@
     };
 
     home-manager = {
-      url = "git+https://github.com/nix-community/home-manager.git?ref=master&shallow=1";
+      url = "git+https://github.com/nix-community/home-manager.git?shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -34,7 +45,13 @@
       url = "github:sodiboo/niri-flake";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "nixpkgs";
+        nixpkgs-stable.follows = "";
+
+        niri-stable.follows = "";
+        niri-unstable.follows = "";
+
+        xwayland-satellite-stable.follows = "";
+        xwayland-satellite-unstable.follows = "";
       };
     };
   };
@@ -69,6 +86,7 @@
           };
           overlays = [
             self.overlays.default
+
             flake-secrets.overlays.default
           ];
         };
