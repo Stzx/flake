@@ -48,8 +48,6 @@
             tmp.useTmpfs = mkDefault true;
           };
 
-          documentation.doc.enable = false;
-
           security = {
             # non-systemd (tty, ...)
             pam.loginLimits = [
@@ -61,8 +59,8 @@
               }
             ];
             apparmor.enable = true;
-            rtkit.enable = true;
             sudo.execWheelOnly = true;
+            rtkit.enable = true;
           };
 
           console = {
@@ -101,6 +99,8 @@
             enable = true;
             apparmor = if config.security.apparmor.enable then "enabled" else "disabled";
           };
+
+          documentation.doc.enable = false;
 
           networking.firewall.extraPackages = with pkgs; [
             bind

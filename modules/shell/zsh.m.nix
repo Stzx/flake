@@ -17,6 +17,8 @@
     let
       cfg = config.programs.zsh;
 
+      exe = lib.getExe cfg.package;
+
       sysEnv = sysCfg.environment;
     in
     {
@@ -73,13 +75,13 @@
           };
         };
 
-        programs.kitty.extraConfig = "shell ${lib.getExe cfg.package}";
+        programs.kitty.extraConfig = "shell ${exe}";
 
         programs.direnv.enableZshIntegration = true;
 
-        programs.vscode.profiles.default.userSettings."terminal.integrated.defaultProfile.linux" = "zsh";
+        programs.vscode.profiles.default.userSettings."terminal.integrated.defaultProfile.linux" = exe;
 
-        programs.zed-editor.userSettings.terminal.shell.program = "zsh";
+        programs.zed-editor.userSettings.terminal.shell.program = exe;
       };
     };
 }

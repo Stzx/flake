@@ -51,6 +51,7 @@ in
       "input" # waybar, keyboard-state
       "video"
       "audio"
+      "dialout"
     ]
     ++ optional config.programs.wireshark.enable "wireshark"
     ++ optional config.virtualisation.docker.enable "docker"

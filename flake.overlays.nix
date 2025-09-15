@@ -12,6 +12,23 @@ final': prev': {
   #   }
   # );
 
+  monaspace = prev'.monaspace.overrideAttrs (
+    final: _: {
+      installPhase = ''
+        runHook preInstall
+
+        pushd monaspace-v${final.version}/fonts/
+        install -Dm644 otf/MonaspaceRadon*.otf -t $out/share/fonts/opentype
+        install -Dm644 frozen/MonaspaceRadon*.ttf -t $out/share/fonts/truetype
+        install -Dm644 variable/MonaspaceRadon*.ttf -t $out/share/fonts/truetype
+        install -Dm644 webfonts/MonaspaceRadon*.woff -t $woff/share/fonts/woff
+        popd
+
+        runHook postInstall
+      '';
+    }
+  );
+
   papirus-icon-theme = prev'.papirus-icon-theme.overrideAttrs (
     _: prev:
     assert prev.version == "20250501"; # wait release

@@ -28,11 +28,9 @@
   systemd.network = {
     enable = true;
     networks = {
-      "20-wan" = rec {
+      "20-wan" = {
 
         name = "en*";
-        gateway = [ "192.168.254.254" ];
-        ntp = gateway; # timesyncd
         networkConfig = {
           DHCP = "ipv4";
           IPv6AcceptRA = true;

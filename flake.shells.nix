@@ -51,6 +51,33 @@ in
     ];
   };
 
+  wrt = mkShell (
+    {
+      nativeBuildInputs = with pkgs; [
+        wget
+        unzip
+        uftpd
+        minicom
+
+        mtk-uartboot
+
+        git
+
+        pkg-config
+
+        python3
+        python3Packages.setuptools
+
+        swig
+      ];
+
+      buildInputs = [ pkgs.ncurses ];
+
+      hardeningDisable = [ "all" ];
+    }
+    // proxy'
+  );
+
   latex = mkShellNoCC {
     packages = with pkgs; [
       texlab
@@ -94,7 +121,11 @@ in
   };
 
   kernel = mkShell {
-    packages = [ pkgs.dracut ];
+    packages = with pkgs; [
+      git
+
+      dracut
+    ];
 
     nativeBuildInputs = with pkgs; [
       bison
