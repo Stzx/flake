@@ -9,7 +9,6 @@
     {
       environment.systemPackages = with pkgs; [
         lsb-release
-        nix-output-monitor
 
         lsof
         file

@@ -20,15 +20,19 @@
       config = lib.mkMerge [
         {
           nix = {
-            settings.experimental-features = [
-              "nix-command"
-              "flakes"
-            ];
+            settings = {
+              auto-optimise-store = true;
+              experimental-features = [
+                # "pipe-operators"
+                "nix-command"
+                "flakes"
+              ];
+            };
             gc = {
               automatic = true;
               dates = "weekly";
               randomizedDelaySec = "3m";
-              options = "--delete-older-than 9d";
+              options = "--delete-older-than 7d";
             };
           };
 
@@ -109,6 +113,8 @@
             nm-geo = "sudo nmap -n -sn -Pn --traceroute --script traceroute-geolocation";
             nm-kml = "${nm-geo} --script-args traceroute-geolocation.kmlfile=/tmp/geo.kml";
           };
+
+          programs.nh.enable = true;
         }
 
         (mkIf cfg.THP {
