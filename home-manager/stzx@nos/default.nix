@@ -1,54 +1,65 @@
 {
   pkgs,
   lib,
-  wmCfg,
+  config,
+  sysCfg,
   ...
 }:
 
+let
+  email = "silence.m@hotmail.com";
+in
 {
-  imports = [
-    ./mail.nix
-    ./misc.nix
-  ];
+  imports = lib.optional sysCfg.wm.enable ./wm.nix;
 
-  config = lib.mkMerge [
-    {
-      home.packages = with pkgs; [
-        fuse-archive
-        fuse-avfs # original name: avfs
-      ];
+  config = {
+    home.packages = with pkgs; [
+      fuse-archive
+      fuse-avfs # original name: avfs
+    ];
 
-      programs = {
-        ssh.enable = true;
-        direnv.enable = true;
+    programs = {
+      ssh.enable = true;
+      direnv.enable = true;
 
-        scrcpy = true;
+      rmpc.enable = true;
+    };
+
+    accounts.email.accounts.${email} = {
+      realName = "Silence Tai";
+      address = email;
+      primary = true;
+
+      userName = email;
+      imap = {
+        host = "outlook.office365.com";
+        port = 993;
       };
-    }
-
-    (lib.mkIf wmCfg.isEnable {
-      home.packages = with pkgs; [
-        calibre
-        librecad
-        libreoffice
-
-        qbittorrent
-        obs-studio
-        telegram-desktop
-        spotify
-
-        veracrypt
-        keepassxc
-
-        jetbrains-toolbox
-      ];
-
-      programs = {
-        mpv.enable = true;
-        rmpc.enable = true;
-
-        zed-editor.enable = true;
+      smtp = {
+        host = "smtp.office365.com";
+        port = 587;
+        tls.useStartTls = true;
       };
-    })
-  ];
+
+      thunderbird.enable = config.programs.thunderbird.enable;
+    };
+
+    programs.bash = {
+      enable = true;
+      package = null;
+      historyFileSize = 0;
+      historySize = null;
+    };
+
+    programs.git = {
+      userName = "Stzx";
+      userEmail = email;
+      delta.enable = true;
+    };
+
+    programs.thunderbird = {
+      enable = sysCfg.wm.enable;
+      package = pkgs.thunderbird-esr;
+    };
+  };
 }
