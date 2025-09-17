@@ -75,13 +75,17 @@
           };
         };
 
-        programs.kitty.extraConfig = "shell ${exe}";
+        programs = {
+          direnv.enableZshIntegration = true;
 
-        programs.direnv.enableZshIntegration = true;
+          wezterm.enableZshIntegration = true;
 
-        programs.vscode.profiles.default.userSettings."terminal.integrated.defaultProfile.linux" = exe;
+          kitty.extraConfig = "shell ${exe}";
 
-        programs.zed-editor.userSettings.terminal.shell.program = exe;
+          vscode.profiles.default.userSettings."terminal.integrated.defaultProfile.linux" = exe;
+
+          zed-editor.userSettings.terminal.shell.program = exe;
+        };
       };
     };
 }

@@ -10,7 +10,7 @@
   # only startup
   {
     matches = [
-      { app-id = "^kitty$"; at-startup = true; }
+      { app-id = "^(?-x:kitty|org\.wezfurlong\.wezterm)$"; at-startup = true; }
     ];
 
     open-on-workspace = "terminal";

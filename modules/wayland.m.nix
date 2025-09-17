@@ -252,7 +252,7 @@
             platformTheme.name = "gtk3";
           };
 
-          programs.kitty.enable = mkDefault true;
+          programs.wezterm.enable = mkDefault true;
 
           programs.firefox.enable = mkDefault true;
 
