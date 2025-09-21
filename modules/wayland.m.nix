@@ -11,6 +11,7 @@
     let
       inherit (lib)
         types
+
         mkOption
         mkIf
         mkDefault
@@ -18,6 +19,33 @@
         ;
 
       wmCfg = config.wm;
+
+      concatStrings = lib.concatMapStringsSep "\n";
+
+      fontMatch =
+        lang: family: fonts:
+
+        if (fonts != [ ]) then
+          ''
+            <match>
+            <test name="lang"><string>${lang}</string></test>
+            <test name="family"><string>${family}</string></test>
+              <edit name="family" mode="prepend" binding="same">
+            ${concatStrings (f: "<string>${f}</string>") fonts}
+              </edit>
+            </match>
+          ''
+        else
+          "";
+
+      matchesByLang =
+        lang: sansSerif: serif: mono:
+
+        lib.concatStrings [
+          (fontMatch lang "sans-serif" sansSerif)
+          (fontMatch lang "serif" serif)
+          (fontMatch lang "monospace" mono)
+        ];
 
       condOption =
         value:
@@ -76,11 +104,13 @@
                 # source-han-mono
 
                 monaspace
-                comic-mono
+                # comic-mono
                 # victor-mono
-                # maple-mono.CN-unhinted
+                maple-mono.CN-unhinted
 
-                sarasa-gothic
+                # lxgw-wenkai
+                # lxgw-wenkai-tc
+
                 # Gothic, UI = Inter
                 #   Quotes (“”) are full width —— Gothic
                 #   Quotes (“”) are narrow —— UI
@@ -99,6 +129,7 @@
                 # Orthography dimension
                 #   CL: Classical orthography
                 #   SC, TC, J, K, HC: Regional orthography, following Source Han Sans notations.
+                sarasa-gothic
 
                 # noto-fonts-cjk-serif
                 # noto-fonts-cjk-sans
@@ -110,29 +141,22 @@
                 enable = true;
                 includeUserConf = mkDefault false;
                 defaultFonts = mkForce {
-                  serif = [
-                    "Sarasa Fixed Slab SC"
-                    "Sarasa Fixed Slab TC"
-                    "Sarasa Fixed Slab HC"
-                    "Sarasa Fixed Slab J"
-                    "Sarasa Fixed Slab K"
-                  ];
-                  sansSerif = [
-                    "Sarasa Fixed SC"
-                    "Sarasa Fixed TC"
-                    "Sarasa Fixed HC"
-                    "Sarasa Fixed J"
-                    "Sarasa Fixed K"
-                  ];
-                  monospace = [
-                    "Sarasa Mono SC"
-                    "Sarasa Mono TC"
-                    "Sarasa Mono HC"
-                    "Sarasa Mono J"
-                    "Sarasa Mono K"
-                  ];
+                  sansSerif = [ "Sarasa Gothic SC" ];
+                  serif = [ "Sarasa Fixed Slab SC" ];
+                  monospace = [ "Sarasa Mono SC" ];
                   emoji = [ "Noto Color Emoji" ];
                 };
+                localConf = ''
+                  <?xml version="1.0" encoding="UTF-8"?>
+                  <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+                  <fontconfig>
+                  ${matchesByLang "zh-hk" [ "Sarasa Gothic HC" ] [ "Sarasa Fixed Slab HC" ] [ "Sarasa Mono HC" ]}
+                  ${matchesByLang "zh-tw" [ "Sarasa Gothic TC" ] [ "Sarasa Fixed Slab TC" ] [ "Sarasa Mono TC" ]}
+
+                  ${matchesByLang "ja" [ "Sarasa Gothic J" ] [ "Sarasa Fixed Slab J" ] [ "Sarasa Mono J" ]}
+                  ${matchesByLang "ko" [ "Sarasa Gothic K" ] [ "Sarasa Fixed Slab K" ] [ "Sarasa Mono K" ]}
+                  </fontconfig>
+                '';
               };
             };
 

@@ -86,7 +86,7 @@
             "CTRL+0" =
               ''no-osd change-list glsl-shaders clr ""; no-osd set hr-seek-framedrop yes; no-osd vf clr ""; show-text "cleared !"'';
           };
-          config = {
+          config = rec {
             osc = false;
             border = false;
 
@@ -105,7 +105,11 @@
             audio-file-auto = "exact";
 
             slang = "zh-CN,zh-Hans,cmn-Hans,chi,chs,sc,zh,en";
+
+            sub-font = "Maple Mono CN";
             sub-auto = "fuzzy";
+
+            osd-font = sub-font;
           };
           profiles = {
             "unscaled" = {

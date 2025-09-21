@@ -177,7 +177,7 @@
 
               margin: 0;
 
-              font-family: "Sarasa UI SC", "Sarasa UI TC", "Sarasa UI HC", "Sarasa UI J", "Sarasa UI K", sans-serif;
+              font-family: "Sarasa UI SC", "Sarasa UI TC", "Sarasa UI J", "Sarasa UI K", sans-serif;
               font-size: 14px;
             }
 
