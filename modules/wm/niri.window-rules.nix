@@ -84,8 +84,8 @@
   {
     matches = [
       { app-id = "^mpv$"; }
-      {                title = "^(?-x:Counter-Strike|Path of Exile) 2$"; }
-      { app-id = "^$"; title = "^Minecraft"; }
+      { app-id = "exe$"; title = "^(?-x:Counter-Strike|Path of Exile|Hell Let Loose)"; }
+      { app-id = "^$";   title = "^Minecraft"; }
     ];
 
     variable-refresh-rate = true;

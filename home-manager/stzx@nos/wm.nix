@@ -17,7 +17,7 @@ in
     qbittorrent
     obs-studio
     telegram-desktop
-    # spotify
+    spotify
 
     veracrypt
     keepassxc

@@ -103,7 +103,7 @@
           documentation.doc.enable = false;
 
           networking.firewall.extraPackages = with pkgs; [
-            bind
+            dnsutils
             radvd
 
             nmap

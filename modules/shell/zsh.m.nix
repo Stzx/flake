@@ -25,9 +25,9 @@
       config = lib.mkIf cfg.enable {
         programs.zsh = {
           envExtra = ''
-            ZSH_COMPDUMP="/tmp/.zcompdump-$USER";
-
             ${sysEnv.interactiveShellInit or ""}
+
+            ZSH_COMPDUMP="$XDG_RUNTIME_DIR/.zcompdump";
           '';
           shellAliases = sysEnv.shellAliases;
           history = {

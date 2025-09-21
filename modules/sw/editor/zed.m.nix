@@ -40,7 +40,7 @@
             "editor.background" = "#00000070";
             "editor.gutter.background" = "#00000070";
 
-            "panel.background" = "#00000070";
+            # "panel.background" = "#00000070";
             "tab.active_background" = "#000000AF";
             "tab.inactive_background" = "#00000000";
 
@@ -50,7 +50,7 @@
 
             "toolbar.background" = "#000000AF";
             "scrollbar.track.background" = "#000000AF";
-            "terminal.background" = "#00000070";
+            # "terminal.background" = "#00000070";
           };
 
           vim_mode = true;
@@ -85,9 +85,13 @@
 
           file_types = {
             "Shell Script" = [
-              "sh"
-              "source"
-              "src"
+              "*.sh"
+              "*.source"
+              "*.src"
+            ];
+            "XML" = [
+              "*.xml"
+              "**/fontconfig/**/*.conf"
             ];
           };
           file_scan_exclusions = [
@@ -134,8 +138,6 @@
             material-icon-theme = true;
             vscode-monokai-charcoal = true;
           };
-
-          load_direnv = "shell_hook";
 
           disable_ai = true;
 

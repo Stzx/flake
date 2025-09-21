@@ -30,7 +30,7 @@
     };
 
     home-manager = {
-      url = "git+https://github.com/nix-community/home-manager.git?shallow=1";
+      url = "git+https://github.com/nix-community/home-manager.git?ref=master&shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

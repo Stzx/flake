@@ -66,7 +66,8 @@
             sessionVariables = {
               NIXOS_OZONE_WL = "1";
 
-              EGL_PLATFORM = "wayland";
+              # EGL_PLATFORM = "wayland";
+              # QT_QPA_PLATFORM = "wayland";
             };
           };
         })
@@ -86,20 +87,20 @@
 
               rocmPackages.rocminfo
             ];
-            sessionVariables = {
-              # amdvlk: Requested image size 3840x2160x0 exceeds the maximum allowed dimensions 2560x2560x1 for vulkan image format 46
-              AMD_VULKAN_ICD = "RADV";
-            };
+            # sessionVariables = {
+            # amdvlk: Requested image size 3840x2160x0 exceeds the maximum allowed dimensions 2560x2560x1 for vulkan image format 46
+            # AMD_VULKAN_ICD = "RADV";
+            # };
           };
 
           hardware.graphics.extraPackages = with pkgs; [
-            amdvlk
+            # amdvlk
 
             rocmPackages.clr
             rocmPackages.clr.icd
           ];
 
-          services.xserver.videoDrivers = singleton "modesetting";
+          services.xserver.videoDrivers = singleton "amdgpu";
         })
 
         (mkIf gpuCfg.nvidia {
@@ -125,7 +126,7 @@
             MOZ_DISABLE_RDD_SANDBOX = "1";
           };
 
-          services.xserver.videoDrivers = [ "nvidia" ];
+          services.xserver.videoDrivers = singleton "nvidia";
         })
       ];
     };
