@@ -4,53 +4,14 @@
       pkgs,
       lib,
       config,
+      sysCfg,
       ...
     }:
 
     let
-      inherit (pkgs) anime4k fetchurl;
+      inherit (pkgs) anime4k;
 
-      rifeVer = "rife-v4.26";
-      vsrVer = "r9_mod_v33";
-
-      rife' = pkgs.linkFarm rifeVer [
-        {
-          name = "flownet.bin";
-          path = fetchurl {
-            url = "https://github.com/styler00dollar/VapourSynth-RIFE-ncnn-Vulkan/raw/refs/tags/${vsrVer}/models/${rifeVer}_ensembleFalse/flownet.bin";
-            hash = "sha256-lNWOMLddfHYJz6bzva1STe3dFPX3XoXDbS+CfvXGRzE=";
-          };
-        }
-
-        {
-          name = "flownet.param";
-          path = fetchurl {
-            url = "https://github.com/styler00dollar/VapourSynth-RIFE-ncnn-Vulkan/raw/refs/tags/${vsrVer}/models/${rifeVer}_ensembleFalse/flownet.param";
-            hash = "sha256-efFsKJA/k/gwjwxMlH+MfgwX2ZpXuFRz5fKY3VeNE3s=";
-          };
-        }
-      ];
-
-      librife = fetchurl {
-        url = "https://github.com/styler00dollar/VapourSynth-RIFE-ncnn-Vulkan/releases/download/${vsrVer}/librife_linux_x86-64.so";
-        hash = "sha256-l9EVslLVzRKt4a60Y7S5ZSm6xZxfIHPzs38X8OJyTAs=";
-      };
-
-      rife = pkgs.writeText "rife.vpy" ''
-        from vapoursynth import core, RGBS, YUV420P8
-
-        core.std.LoadPlugin(r"${librife}")
-
-        clip = video_in
-
-        clip = core.resize.Point(clip, format=RGBS, matrix_in_s="709")
-
-        clip = core.rife.RIFE(clip, model_path=r"${rife'}", factor_num=2, gpu_thread=2, uhd=False)
-
-        clip = core.resize.Point(clip, format=YUV420P8, matrix_s="709")
-
-        clip.set_output()
-      '';
+      vpy = "${sysCfg.environment.sessionVariables.__FLAKE}/dots/rife.vpy";
 
       glslPrefix = "no-osd change-list glsl-shaders set";
     in
@@ -66,7 +27,8 @@
         programs.mpv = {
           bindings = {
             "CTRL+v" = ''cycle-values vo "gpu-next" "gpu" "dmabuf-wayland"'';
-            "CTRL+f" = ''set hr-seek-framedrop no; vf set "vapoursynth=${rife}"'';
+            "CTRL+f" =
+              ''set hr-seek-framedrop no; vf set "vapoursynth=${config.lib.file.mkOutOfStoreSymlink vpy}"'';
 
             # curl -sL https://github.com/bloc97/Anime4K/raw/master/md/Template/GLSL_Mac_Linux_High-end/input.conf | grep '^CTRL' | sed -r -e '/^$/d' -e 's|~~/shaders/|${anime4k}/|g' -e "s| |\" = ''|" -e "s|$|'';|"
             # curl -sL https://github.com/bloc97/Anime4K/raw/master/md/Template/GLSL_Mac_Linux_Low-end/input.conf | grep '^CTRL' | sed -r -e '/^$/d' -e 's|~~/shaders/|${anime4k}/|g' -e "s| |\" = ''|" -e "s|$|'';|"
@@ -93,7 +55,7 @@
             vo = "gpu-next,gpu,dmabuf-wayland";
             hwdec = "vulkan,vaapi";
             video-sync = "display-resample";
-            interpolation = false;
+            interpolation = true;
             icc-profile-auto = true;
             blend-subtitles = "video";
 

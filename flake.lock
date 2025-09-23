@@ -136,10 +136,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1758375677,
-        "narHash": "sha256-BLtD+6qWz7fQjPk2wpwyXQLGI0E30Ikgf2ppn2nVadI=",
+        "lastModified": 1758593331,
+        "narHash": "sha256-p+904PfmINyekyA/LieX3IYGsiFtExC00v5gSYfJtpM=",
         "ref": "master",
-        "rev": "edc7468e12be92e926847cb02418e649b02b59dd",
+        "rev": "9a2dc0efbc569ce9352a6ffb8e8ec8dbc098e142",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/nix-community/home-manager.git"
@@ -189,11 +189,11 @@
         "xwayland-satellite-unstable": []
       },
       "locked": {
-        "lastModified": 1758445565,
-        "narHash": "sha256-eTC6gRzq1yXYy+HhDJ4IBdOvHCfTBRxMis6AdPCjxUQ=",
+        "lastModified": 1758580724,
+        "narHash": "sha256-dP7oxNQgqnOjM3GPU0GfwYQ1UaPguRhMB43YR2TfgDE=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "b98cd80e3bdd67a636291ce91953eec1c1b25dae",
+        "rev": "537007240b9f9f7800f21f909ba75343a3bc5c5d",
         "type": "github"
       },
       "original": {

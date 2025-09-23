@@ -124,6 +124,7 @@
 
     javascriptSupport = false;
 
+    vapoursynth = final'.vapoursynth.withPlugins [ final'.vs-rife-ncnn-vulkan ];
     vapoursynthSupport = true;
   };
 
