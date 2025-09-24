@@ -193,6 +193,10 @@
                 addons = with pkgs; [
                   fcitx5-material-color
 
+                  fcitx5-pinyin-zhwiki
+                  fcitx5-pinyin-minecraft
+                  fcitx5-pinyin-moegirl
+
                   qt6Packages.fcitx5-chinese-addons
                 ];
               };
