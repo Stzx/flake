@@ -25,6 +25,8 @@ let
       taplo
 
       qt6Packages.qtdeclarative
+
+      basedpyright
       python3Packages.python-lsp-server
 
       nixfmt
@@ -57,7 +59,7 @@ in
         wget
         unzip
         uftpd
-        minicom
+        minicom # prefer wezterm serial
 
         mtk-uartboot
 

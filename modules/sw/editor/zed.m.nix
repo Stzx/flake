@@ -93,6 +93,10 @@
               "*.xml"
               "**/fontconfig/**/*.conf"
             ];
+            "Python" = [
+              "*.py"
+              "*.vpy"
+            ];
           };
           file_scan_exclusions = [
             "**/.git"

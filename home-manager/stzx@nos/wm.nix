@@ -15,7 +15,6 @@ in
     libreoffice
 
     qbittorrent
-    obs-studio
     telegram-desktop
     spotify
 
@@ -29,6 +28,10 @@ in
     scrcpy = true;
 
     mpv.enable = true;
+    obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [ obs-pipewire-audio-capture ];
+    };
 
     zed-editor.enable = true;
   };

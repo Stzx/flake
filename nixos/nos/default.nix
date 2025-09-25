@@ -31,6 +31,20 @@ in
     (import ./overlays.nix { inherit lib wmCfg; })
   ];
 
+  environment.systemPackages = with pkgs; [
+    bat
+
+    nmap
+
+    bpftools
+    bpftrace
+  ];
+
+  environment.shellAliases = rec {
+    nm-geo = "nmap -n -sn -Pn --traceroute --script traceroute-geolocation";
+    nm-kml = "${nm-geo} --script-args traceroute-geolocation.kmlfile=/tmp/geo.kml";
+  };
+
   features = {
     cpu.amd = true;
     gpu.amd = true;

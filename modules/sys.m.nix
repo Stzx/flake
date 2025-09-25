@@ -102,18 +102,6 @@
 
           documentation.doc.enable = false;
 
-          networking.firewall.extraPackages = with pkgs; [
-            dnsutils
-            radvd
-
-            nmap
-          ];
-
-          environment.shellAliases = rec {
-            nm-geo = "sudo nmap -n -sn -Pn --traceroute --script traceroute-geolocation";
-            nm-kml = "${nm-geo} --script-args traceroute-geolocation.kmlfile=/tmp/geo.kml";
-          };
-
           programs.nh.enable = true;
         }
 

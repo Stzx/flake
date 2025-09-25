@@ -13,9 +13,13 @@
         lsof
         file
 
-        bat
         tree
         _7zz
+      ];
+
+      networking.firewall.extraPackages = with pkgs; [
+        dnsutils
+        radvd
       ];
 
       programs.htop = {
@@ -49,8 +53,6 @@
       config = lib.mkMerge [
         {
           xdg.enable = true;
-
-          home.packages = [ pkgs.numbat ];
 
           programs = {
             home-manager.enable = true;

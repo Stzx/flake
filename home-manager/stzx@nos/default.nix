@@ -16,6 +16,8 @@ in
     home.packages = with pkgs; [
       fuse-archive
       fuse-avfs # original name: avfs
+
+      numbat
     ];
 
     programs = {
@@ -34,11 +36,13 @@ in
       imap = {
         host = "outlook.office365.com";
         port = 993;
+        authentication = "xoauth2";
       };
       smtp = {
-        host = "smtp.office365.com";
+        host = "smtp-mail.outlook.com";
         port = 587;
         tls.useStartTls = true;
+        authentication = "xoauth2";
       };
 
       thunderbird.enable = config.programs.thunderbird.enable;
