@@ -76,4 +76,14 @@ in
       ];
     };
   };
+
+  programs.wezterm.userConfig = ''
+    cfg.serial_ports = {
+      {
+        name = 'FT232RL',
+        port = '/dev/ttyUSB0',
+        baud = 115200,
+      },
+    }
+  '';
 }

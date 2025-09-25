@@ -74,10 +74,10 @@
     },
     "flake-secrets": {
       "locked": {
-        "lastModified": 1758348646,
-        "narHash": "sha256-/AZA92xGhKdG2M6gZ75xDiazeOcDuOEn0vIxhxEuZAY=",
+        "lastModified": 1758799489,
+        "narHash": "sha256-xKwZCQ1ggoj3ItsmH6wAZCt4Ef3mzkos/FUYoWvNlqI=",
         "ref": "refs/heads/main",
-        "rev": "85628108126ecbc1c32dc11dcf4378742910b1e7",
+        "rev": "bbb24bd0f77573c33f7dd86cdcff9b4394e5f78f",
         "revCount": 1,
         "type": "git",
         "url": "file:../flake-secrets"
@@ -136,10 +136,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1758593331,
-        "narHash": "sha256-p+904PfmINyekyA/LieX3IYGsiFtExC00v5gSYfJtpM=",
+        "lastModified": 1758786164,
+        "narHash": "sha256-o1WyZI2T7yPywiY06Swt8AZH/ewKU1nLqDw8fw1fwPc=",
         "ref": "master",
-        "rev": "9a2dc0efbc569ce9352a6ffb8e8ec8dbc098e142",
+        "rev": "232454052008027c8e925979d13a951e92729781",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/nix-community/home-manager.git"
@@ -189,11 +189,11 @@
         "xwayland-satellite-unstable": []
       },
       "locked": {
-        "lastModified": 1758580724,
-        "narHash": "sha256-dP7oxNQgqnOjM3GPU0GfwYQ1UaPguRhMB43YR2TfgDE=",
+        "lastModified": 1758697829,
+        "narHash": "sha256-1pO4A16ssvjHNyHilpvxo15mBkAifCSOiLs3hBlrYdU=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "537007240b9f9f7800f21f909ba75343a3bc5c5d",
+        "rev": "9dbeb8f613d2da107bff8375c2db7182a2bb79bb",
         "type": "github"
       },
       "original": {
