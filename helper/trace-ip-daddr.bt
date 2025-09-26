@@ -1,0 +1,30 @@
+#!/usr/bin/env bpftrace
+
+#define IPV4 0x0800
+#define IPV6 0x86DD
+
+BEGIN {
+    if (0 === $1) {
+        print("Invalid PID(0), exit...");
+        exit();
+    }
+
+    printf("Tracking PID %d...\n", $1);
+}
+
+fentry:vmlinux:__dev_queue_xmit
+/pid == $1/{
+    $skb = args.skb;
+    $protocol = bswap($skb->protocol);
+    $hdr = $skb->head+$skb->network_header;
+
+    if ($protocol == IPV4) {
+        $ip4h = (struct iphdr *)$hdr;
+
+        @ips[4, ntop(2, $ip4h->daddr)] = count();
+    } else if ($protocol == IPV6) {
+        $ip6h = (struct ipv6hdr *)$hdr;
+
+        @ips[6, ntop(10, $ip6h->daddr.in6_u.u6_addr8)] = count();
+    }
+}
