@@ -166,6 +166,7 @@
               ];
             };
           }
+          // lib.optionalAttrs (!wmCfg.isNiri) { mode = "dock"; }
           // cfg.extraSettings;
           style = mkDefault ''
             /* Tailwind */
@@ -248,8 +249,7 @@
             #custom-reboot { color: #FF8904; }
             #custom-shutdown { color: #DC143C; }
           '';
-        }
-        // lib.optionalAttrs (!wmCfg.isNiri) { mode = "dock"; };
+        };
       };
     };
 }
