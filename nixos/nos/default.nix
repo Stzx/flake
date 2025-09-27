@@ -41,7 +41,7 @@ in
   ];
 
   environment.shellAliases = rec {
-    nm-geo = "nmap -n -sn -Pn --traceroute --script traceroute-geolocation";
+    nm-geo = "sudo nmap -n -sn -Pn --traceroute --script traceroute-geolocation";
     nm-kml = "${nm-geo} --script-args traceroute-geolocation.kmlfile=/tmp/geo.kml";
   };
 

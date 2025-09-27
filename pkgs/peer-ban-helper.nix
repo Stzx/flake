@@ -32,8 +32,6 @@ let
 
     sourceRoot = "${finalAttrs.src.name}/webui";
 
-    # env.NIX_NPM_REGISTRY = "https://r.cnpmjs.org/";
-
     nativeBuildInputs = [
       nodejs
       pnpm.configHook

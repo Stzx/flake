@@ -25,6 +25,7 @@
 
             cfg.default_cwd = wezterm.home_dir
             cfg.default_prog = { '${lib.getExe config.programs.zsh.package}' }
+            cfg.default_cursor_style = 'BlinkingUnderline'
             cfg.color_scheme = 'Monokai Remastered'
             cfg.font_size = 11
             cfg.font = wezterm.font_with_fallback {

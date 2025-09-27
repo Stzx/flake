@@ -81,6 +81,8 @@ in
   };
 
   programs.wezterm.userConfig = ''
+    cfg.animation_fps = 60
+
     cfg.serial_ports = {
       {
         name = 'FT232RL',

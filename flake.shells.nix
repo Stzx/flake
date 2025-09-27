@@ -38,6 +38,8 @@ let
   proxy' = {
     RUSTUP_DIST_SERVER = "https://mirrors.ustc.edu.cn/rust-static";
     RUSTUP_UPDATE_ROOT = "https://mirrors.ustc.edu.cn/rust-static/rustup";
+
+    NIX_NPM_REGISTRY = "https://r.cnpmjs.org/";
   };
 in
 {
@@ -67,8 +69,7 @@ in
 
         pkg-config
 
-        python3
-        python3Packages.setuptools
+        (python3.withPackages (ps: [ ps.setuptools ]))
 
         swig
       ];

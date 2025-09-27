@@ -74,10 +74,10 @@
     },
     "flake-secrets": {
       "locked": {
-        "lastModified": 1758799489,
-        "narHash": "sha256-xKwZCQ1ggoj3ItsmH6wAZCt4Ef3mzkos/FUYoWvNlqI=",
+        "lastModified": 1758953713,
+        "narHash": "sha256-q2d95VC0koC9Q6awHT6p18J58Am/27NRNfCJzOfyovw=",
         "ref": "refs/heads/main",
-        "rev": "bbb24bd0f77573c33f7dd86cdcff9b4394e5f78f",
+        "rev": "0cf5b4916086ba9c5fe5fa9790c0e972504fc312",
         "revCount": 1,
         "type": "git",
         "url": "file:../flake-secrets"
@@ -136,10 +136,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1758786164,
-        "narHash": "sha256-o1WyZI2T7yPywiY06Swt8AZH/ewKU1nLqDw8fw1fwPc=",
+        "lastModified": 1758928860,
+        "narHash": "sha256-ZqaRdd+KoR54dNJPtd7UX4O0X+02YItnTpQVu28lSVI=",
         "ref": "master",
-        "rev": "232454052008027c8e925979d13a951e92729781",
+        "rev": "bc2afee55bc5d3b825287829d6592b9cc1405aad",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/nix-community/home-manager.git"
@@ -189,11 +189,11 @@
         "xwayland-satellite-unstable": []
       },
       "locked": {
-        "lastModified": 1758697829,
-        "narHash": "sha256-1pO4A16ssvjHNyHilpvxo15mBkAifCSOiLs3hBlrYdU=",
+        "lastModified": 1758901074,
+        "narHash": "sha256-R7XQL6ixYywDsGkorX05KnTlsIeQr9DzQ3geD9Ba6kU=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "9dbeb8f613d2da107bff8375c2db7182a2bb79bb",
+        "rev": "397234705a9fa05464107c58286a8308be0c50c2",
         "type": "github"
       },
       "original": {
@@ -204,10 +204,10 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1758427187,
-        "narHash": "sha256-pHpxZ/IyCwoTQPtFIAG2QaxuSm8jWzrzBGjwQZIttJc=",
+        "lastModified": 1758690382,
+        "narHash": "sha256-NY3kSorgqE5LMm1LqNwGne3ZLMF2/ILgLpFr1fS4X3o=",
         "ref": "nixos-unstable",
-        "rev": "554be6495561ff07b6c724047bdd7e0716aa7b46",
+        "rev": "e643668fd71b949c53f8626614b21ff71a07379d",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/NixOS/nixpkgs.git"
