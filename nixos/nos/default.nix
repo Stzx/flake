@@ -48,6 +48,7 @@ in
   features = {
     cpu.amd = true;
     gpu.amd = true;
+    gpu.amdROCm = true;
 
     THP = true;
 
@@ -67,6 +68,7 @@ in
       "audio"
       "dialout"
     ]
+    ++ optional config.features.gpu.amdROCm "render"
     ++ optional config.programs.wireshark.enable "wireshark"
     ++ optional config.virtualisation.docker.enable "docker"
     ++ optional config.virtualisation.libvirtd.enable "libvirtd"

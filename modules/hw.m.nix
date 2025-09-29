@@ -13,6 +13,7 @@
         mkIf
 
         singleton
+        optional
         ;
 
       cfg = config.features;
@@ -24,7 +25,9 @@
       options.features = {
         cpu.amd = mkEnableOption "AMD CPU";
         cpu.intel = mkEnableOption "Intel CPU";
+
         gpu.amd = mkEnableOption "AMD GPU";
+        gpu.amdROCm = mkEnableOption "AMD GPU ROCm";
         gpu.nvidia = mkEnableOption "NVIDIA GPU";
       };
 
@@ -82,25 +85,29 @@
         (mkIf gpuCfg.amd {
           # :| hardware.amdgpu
           environment = {
-            systemPackages = with pkgs; [
-              amdgpu_top
-
-              rocmPackages.rocminfo
-            ];
+            systemPackages =
+              with pkgs;
+              [
+                amdgpu_top
+              ]
+              ++ optional gpuCfg.amdROCm pkgs.rocmPackages.rocminfo;
             # sessionVariables = {
             # amdvlk: Requested image size 3840x2160x0 exceeds the maximum allowed dimensions 2560x2560x1 for vulkan image format 46
             # AMD_VULKAN_ICD = "RADV";
             # };
           };
 
-          hardware.graphics.extraPackages = with pkgs; [
-            # amdvlk
+          hardware.graphics.extraPackages =
+            with pkgs;
+            [
+              # amdvlk
+            ]
+            ++ lib.optionals gpuCfg.amdROCm [
+              rocmPackages.clr
+              rocmPackages.clr.icd
+            ];
 
-            rocmPackages.clr
-            rocmPackages.clr.icd
-          ];
-
-          services.xserver.videoDrivers = singleton "amdgpu";
+          systemd.tmpfiles.rules = optional gpuCfg.amdROCm "L+ /opt/rocm/hip - - - - ${pkgs.rocmPackages.clr}";
         })
 
         (mkIf gpuCfg.nvidia {
@@ -125,8 +132,6 @@
 
             MOZ_DISABLE_RDD_SANDBOX = "1";
           };
-
-          services.xserver.videoDrivers = singleton "nvidia";
         })
       ];
     };

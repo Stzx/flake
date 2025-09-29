@@ -42,7 +42,7 @@ in
       includeDefaultModules = false;
       availableKernelModules = mkForce [
         "autofs"
-        "amdgpu" # copy firmware (AMDGPU=y)
+        "amdgpu"
       ];
     };
     kernelParams = [
