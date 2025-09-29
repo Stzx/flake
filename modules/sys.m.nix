@@ -63,9 +63,10 @@
             rtkit.enable = true;
           };
 
+          # FIXME: setfont: ERROR kdfontop.c:212 put_font_kdfontop: Unable to load such font with such kernel version
           console = {
             font = mkDefault "LatGrkCyr-8x16";
-            earlySetup = true;
+            earlySetup = mkDefault true;
           };
 
           systemd.settings.Manager = {
@@ -110,7 +111,7 @@
 
           systemd.tmpfiles.rules = [
             "w /sys/kernel/mm/transparent_hugepage/enabled - - - - madvise"
-            "w /sys/kernel/mm/transparent_hugepage/shmem_enabled - - - - advise"
+            "w /sys/kernel/mm/transparent_hugepage/shmem_enabled - - - - within_size"
           ];
         })
 

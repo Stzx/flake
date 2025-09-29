@@ -84,7 +84,7 @@
   {
     matches = [
       { app-id = "^mpv$"; }
-      { app-id = "exe$"; title = "^(?-x:Counter-Strike|Path of Exile|Hell Let Loose)"; }
+      { app-id = "exe$"; title = "^(?-x:Counter-Strike|Path of Exile|Hell Let Loose|GWZ)"; }
       { app-id = "^$";   title = "^Minecraft"; }
     ];
 

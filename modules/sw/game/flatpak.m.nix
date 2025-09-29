@@ -91,6 +91,7 @@
             filesystems=${font'}:ro;${mangohud'}:ro;xdg-config/MangoHud:ro;
 
             [Environment]
+            vblank_mode=1
             PROTON_USE_WAYLAND=1
             MANGOHUD=1
             MANGOHUD_CONFIGFILE=${mangohud'}

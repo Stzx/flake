@@ -7,6 +7,11 @@
 {
   imports = [ ./kernel.nix ];
 
+  environment.sessionVariables = {
+    RADV_PERFTEST = "cswave32,gewave32,pswave32,localbos,sam,nggc";
+    # RADV_DEBUG = "startup,info";
+  };
+
   zramSwap.enable = true;
 
   systemd.oomd.enable = false;
