@@ -4,7 +4,7 @@
 #define IPV6 0x86DD
 
 BEGIN {
-    if (0 === $1) {
+    if (0 == $1) {
         print("Invalid PID(0), exit...");
         exit();
     }
