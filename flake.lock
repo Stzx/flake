@@ -18,7 +18,7 @@
     "disko": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
+          "unstable"
         ]
       },
       "locked": {
@@ -74,10 +74,10 @@
     },
     "flake-secrets": {
       "locked": {
-        "lastModified": 1758953713,
-        "narHash": "sha256-q2d95VC0koC9Q6awHT6p18J58Am/27NRNfCJzOfyovw=",
+        "lastModified": 1760424633,
+        "narHash": "sha256-P+pnwUOJxRKLzoV5t21b8XSUPllqg0FyY2jpHBcakiY=",
         "ref": "refs/heads/main",
-        "rev": "0cf5b4916086ba9c5fe5fa9790c0e972504fc312",
+        "rev": "1a3ee4dfdb90c54404de6b1e9709d99b9fad4a0f",
         "revCount": 1,
         "type": "git",
         "url": "file:../flake-secrets"
@@ -132,14 +132,14 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
+          "unstable"
         ]
       },
       "locked": {
-        "lastModified": 1759106866,
-        "narHash": "sha256-GjLvAl7qxGxKtop6ghasxjQ1biTT7pA+WU45byzMl/4=",
+        "lastModified": 1760312644,
+        "narHash": "sha256-U9SkK45314urw9P7MmjhEgiQwwD/BTj+T3HTuz1JU1Q=",
         "ref": "master",
-        "rev": "619ae569293b6427d23cce4854eb4f3c33af3eec",
+        "rev": "e121f3773fa596ecaba5b22e518936a632d72a90",
         "shallow": true,
         "type": "git",
         "url": "https://github.com/nix-community/home-manager.git"
@@ -157,7 +157,7 @@
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
         "nixpkgs": [
-          "nixpkgs"
+          "unstable"
         ],
         "pre-commit-hooks-nix": "pre-commit-hooks-nix",
         "rust-overlay": "rust-overlay"
@@ -182,41 +182,26 @@
         "niri-stable": [],
         "niri-unstable": [],
         "nixpkgs": [
-          "nixpkgs"
+          "unstable"
         ],
-        "nixpkgs-stable": [],
+        "nixpkgs-stable": [
+          "stable"
+        ],
         "xwayland-satellite-stable": [],
         "xwayland-satellite-unstable": []
       },
       "locked": {
-        "lastModified": 1758901074,
-        "narHash": "sha256-R7XQL6ixYywDsGkorX05KnTlsIeQr9DzQ3geD9Ba6kU=",
+        "lastModified": 1760376620,
+        "narHash": "sha256-wx2gkuQcEm4VAVn4YHLMHinyzbSKj669zk60gEuIEHc=",
         "owner": "sodiboo",
         "repo": "niri-flake",
-        "rev": "397234705a9fa05464107c58286a8308be0c50c2",
+        "rev": "d704fb90b155dcd19311fc42e21b9d1739b17a09",
         "type": "github"
       },
       "original": {
         "owner": "sodiboo",
         "repo": "niri-flake",
         "type": "github"
-      }
-    },
-    "nixpkgs": {
-      "locked": {
-        "lastModified": 1758690382,
-        "narHash": "sha256-NY3kSorgqE5LMm1LqNwGne3ZLMF2/ILgLpFr1fS4X3o=",
-        "ref": "nixos-unstable",
-        "rev": "e643668fd71b949c53f8626614b21ff71a07379d",
-        "shallow": true,
-        "type": "git",
-        "url": "https://github.com/NixOS/nixpkgs.git"
-      },
-      "original": {
-        "ref": "nixos-unstable",
-        "shallow": true,
-        "type": "git",
-        "url": "https://github.com/NixOS/nixpkgs.git"
       }
     },
     "nixpkgs-stable": {
@@ -270,8 +255,9 @@
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
         "niri": "niri",
-        "nixpkgs": "nixpkgs",
-        "systems": "systems"
+        "stable": "stable",
+        "systems": "systems",
+        "unstable": "unstable"
       }
     },
     "rust-overlay": {
@@ -295,6 +281,23 @@
         "type": "github"
       }
     },
+    "stable": {
+      "locked": {
+        "lastModified": 1760139962,
+        "narHash": "sha256-4xggC56Rub3WInz5eD7EZWXuLXpNvJiUPahGtMkwtuc=",
+        "ref": "nixos-25.05",
+        "rev": "7e297ddff44a3cc93673bb38d0374df8d0ad73e4",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/NixOS/nixpkgs.git"
+      },
+      "original": {
+        "ref": "nixos-25.05",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/NixOS/nixpkgs.git"
+      }
+    },
     "systems": {
       "locked": {
         "lastModified": 1689347949,
@@ -308,6 +311,23 @@
         "owner": "nix-systems",
         "repo": "default-linux",
         "type": "github"
+      }
+    },
+    "unstable": {
+      "locked": {
+        "lastModified": 1760284886,
+        "narHash": "sha256-TK9Kr0BYBQ/1P5kAsnNQhmWWKgmZXwUQr4ZMjCzWf2c=",
+        "ref": "nixos-unstable",
+        "rev": "cf3f5c4def3c7b5f1fc012b3d839575dbe552d43",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/NixOS/nixpkgs.git"
+      },
+      "original": {
+        "ref": "nixos-unstable",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/NixOS/nixpkgs.git"
       }
     }
   },

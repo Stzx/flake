@@ -6,7 +6,8 @@
 
     systems.url = "github:nix-systems/default-linux";
 
-    nixpkgs.url = "git+https://github.com/NixOS/nixpkgs.git?ref=nixos-unstable&shallow=1";
+    stable.url = "git+https://github.com/NixOS/nixpkgs.git?ref=nixos-25.05&shallow=1";
+    unstable.url = "git+https://github.com/NixOS/nixpkgs.git?ref=nixos-unstable&shallow=1";
 
     # nix = {
     #   url = "git+https://github.com/DeterminateSystems/nix-src.git?ref=refs/tags/v3.11.1&shallow=1";
@@ -21,17 +22,17 @@
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
 
     disko = {
       url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
 
     home-manager = {
       url = "git+https://github.com/nix-community/home-manager.git?ref=master&shallow=1";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
 
     flake-utils = {
@@ -44,8 +45,8 @@
     niri = {
       url = "github:sodiboo/niri-flake";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "";
+        nixpkgs.follows = "unstable";
+        nixpkgs-stable.follows = "stable";
 
         niri-stable.follows = "";
         niri-unstable.follows = "";
@@ -59,7 +60,7 @@
   outputs =
     {
       self,
-      nixpkgs,
+      unstable,
       home-manager,
       flake-utils,
       flake-secrets,
@@ -75,7 +76,7 @@
 
       mkPkgs =
         system:
-        import nixpkgs {
+        import unstable {
           localSystem = { inherit system; };
           config = {
             allowAliases = false;
@@ -94,21 +95,18 @@
       mkSystem =
         hostName:
         {
+          pkgs ? (mkPkgs system),
           system ? "x86_64-linux",
           secrets ? (flake-secrets.lib.nixosModule hostName),
           modules ? [
             args.lanzaboote.nixosModules.lanzaboote
 
             (./. + "/nixos/${hostName}")
-
-            secrets.module
           ],
         }:
-        let
-          pkgs = (mkPkgs system);
-        in
+
         {
-          "${hostName}" = nixpkgs.lib.nixosSystem {
+          "${hostName}" = unstable.lib.nixosSystem {
             specialArgs = {
               inherit self dots;
               inherit (secrets) values;
@@ -119,19 +117,18 @@
               {
                 nixpkgs = {
                   inherit pkgs;
+
                   overlays = [
                     (_: _: self.packages.${system}) # fix INF
                   ];
                 };
 
-                system = {
-                  inherit stateVersion;
-                };
+                system = { inherit stateVersion; };
 
-                networking = {
-                  inherit hostName;
-                };
+                networking = { inherit hostName; };
               }
+
+              secrets.module
             ]
             ++ modules
             ++ modules'.sys;
@@ -145,8 +142,6 @@
           secrets ? (flake-secrets.lib.hmModule username hostName),
           modules ? [
             (./. + "/home-manager/${mark}")
-
-            secrets.module
           ],
         }:
         let
@@ -172,6 +167,8 @@
                   homeDirectory = "/home/${username}";
                 };
               }
+
+              secrets.module
             ]
             ++ modules
             ++ modules'.home;
@@ -187,14 +184,13 @@
           mkSystem
           mkHomeManager
           ;
-        inherit (nixpkgs) lib;
+
+        inherit (unstable) lib;
       };
 
-      nixosConfigurations =
-        (mkSystem "nos" { }) // (flake-secrets.nixosConfigurations { inherit (self) lib; });
+      nixosConfigurations = (mkSystem "nos" { }) // (flake-secrets.nixos args);
 
-      homeConfigurations =
-        (mkHomeManager "stzx" "nos" { }) // (flake-secrets.homeConfigurations { inherit (self) lib; });
+      homeConfigurations = (mkHomeManager "stzx" "nos" { }) // (flake-secrets.home args);
     }
     // flake-utils.lib.eachDefaultSystem (
       system:
