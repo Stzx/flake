@@ -57,12 +57,14 @@ in
 
   wrt = mkShell (
     {
-      nativeBuildInputs = with pkgs; [
+      packages = with pkgs; [
         wget
         unzip
         uftpd
         minicom # prefer wezterm serial
 
+        binwalk
+        ubootTools
         mtk-uartboot
 
         git
