@@ -18,6 +18,8 @@
       config = lib.mkIf config.programs.wezterm.enable {
         programs.wezterm = {
           extraConfig = ''
+            local act = wezterm.action
+
             local cfg = wezterm.config_builder()
 
             cfg.front_end = "WebGpu"
@@ -42,6 +44,10 @@
             cfg.window_background_opacity = 0.85
 
             cfg.check_for_updates = false
+
+            cfg.keys = {
+              { key = 'd', mods = 'ALT', action = act.SendString 'cd ..\n', },
+            }
 
             ${cfg.userConfig}
             return cfg
