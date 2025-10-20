@@ -69,8 +69,6 @@ in
 
   services.ollama.enable = false;
 
-  environment.etc."waydroid-extra/images".source = "/var/cache/waydroid-images";
-
   virtualisation.waydroid.enable = true;
 
   virtualisation.docker = {

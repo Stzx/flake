@@ -55,10 +55,10 @@ in
       historySize = null;
     };
 
-    programs.git = {
-      userName = "Stzx";
-      userEmail = email;
-      delta.enable = true;
+    programs.git.settings.user = {
+      inherit email;
+
+      name = "Stzx";
     };
 
     programs.thunderbird = {

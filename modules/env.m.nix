@@ -59,15 +59,18 @@
 
             zsh.enable = true;
 
-            git = {
-              enable = true;
-              delta.options = {
-                line-numbers = true;
-                side-by-side = true;
-              };
-            };
+            git.enable = true;
 
             neovim.enable = true;
+          };
+
+          programs.delta = {
+            enable = true;
+            enableGitIntegration = config.programs.git.enable;
+            options = {
+              line-numbers = true;
+              side-by-side = true;
+            };
           };
         }
 
@@ -77,7 +80,7 @@
             config.global.warn_timeout = "30s";
           };
 
-          programs.git.extraConfig = {
+          programs.git.settings = {
             init.defaultBranch = "main";
             fetch = {
               prune = true;
