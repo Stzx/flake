@@ -16,13 +16,14 @@
     #
     # org.prismlauncher.PrismLauncher
     #
-    # flatpak override --user --env=PRISMLAUNCHER_JAVA_PATHS=$JAVA_HOME/bin/java --filesystem=/nix/store:ro org.prismlauncher.PrismLauncher
+    # flatpak override --user \
+    # --env=PRISMLAUNCHER_JAVA_PATHS=$JAVA_HOME/bin/java \
+    # --filesystem=/nix/store:ro \
+    # org.prismlauncher.PrismLauncher
     #
     # :< If passing the JRE, this issue needs to be fixed:
     # https://github.com/PrismLauncher/PrismLauncher/blob/af73cfa20f5551ad6ffc5d64379490cd55f87ac6/launcher/java/JavaUtils.cpp#L158
     # https://github.com/NixOS/nixpkgs/blob/6e987485eb2c77e5dcc5af4e3c70843711ef9251/pkgs/by-name/pr/prismlauncher/package.nix#L79-L107
-    #
-    # https://github.com/BoyOrigin/glfw-wayland
 
     let
       # To prevent infinite recursion caused by xdg-{config,dataFile} cross-references (
@@ -75,6 +76,15 @@
       '';
 
       # MangoHud/presets.conf
+
+      fs = lib.concatMapStrings (path: path + ":ro;") (
+        [
+          font'
+          mangohud'
+
+          "xdg-config/MangiHud"
+        ]
+      );
     in
     {
       config = lib.mkIf sysCfg.services.flatpak.enable {
@@ -88,7 +98,7 @@
           # DXVK_FRAME_RATE / VKD3D_FRAME_RATE
           "flatpak/overrides/com.valvesoftware.Steam".text = ''
             [Context]
-            filesystems=${font'}:ro;${mangohud'}:ro;xdg-config/MangoHud:ro;
+            filesystems=${fs}
 
             [Environment]
             vblank_mode=1
