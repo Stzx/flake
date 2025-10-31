@@ -55,10 +55,6 @@ in
         { command = singleton "firefox"; }
         { command = singleton "thunderbird"; }
       ];
-      input = {
-        touchpad.enable = false;
-        keyboard.numlock = true;
-      };
       outputs = {
         "DP-1" = {
           focus-at-startup = true;

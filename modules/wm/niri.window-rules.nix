@@ -1,16 +1,19 @@
 [
   {
-    matches = [
-      { is-focused = true; }
-    ];
-
+    geometry-corner-radius = {
+      top-left = 3.0;
+      top-right = 3.0;
+      bottom-left = 3.0;
+      bottom-right = 3.0;
+    };
     clip-to-geometry = true;
+    draw-border-with-background = false;
   }
 
   # only startup
   {
     matches = [
-      { app-id = "^(?-x:kitty|org\.wezfurlong\.wezterm)$"; at-startup = true; }
+      { app-id = "^(?-x:org\\.wezfurlong\\.wezterm)$"; at-startup = true; }
     ];
 
     open-on-workspace = "terminal";
@@ -18,7 +21,7 @@
   }
   {
     matches = [
-      { app-id = "^firefox$"; at-startup = true; }
+      { app-id = "^(?-x:kitty|firefox)$"; at-startup = true; }
     ];
 
     open-on-workspace = "sea";
@@ -35,12 +38,12 @@
   }
   {
     matches = [
-      { app-id = "^org\.telegram\.desktop$"; }
+      { app-id = "^org\\.telegram\\.desktop$"; }
       { app-id = "^thunderbird$"; }
       { app-id = "^calibre-gui$"; }
     ];
     excludes = [
-      { app-id = "^org\.telegram\.desktop$"; title = "^Media viewer$"; }
+      { app-id = "^org\\.telegram\\.desktop$"; title = "^Media viewer$"; }
       { app-id = "^calibre-gui$";            title = "^calibre - Preferences$"; }
     ];
 
@@ -50,11 +53,11 @@
   }
   {
     matches = [
-      { app-id = "^org\.(?-x:qbittorrent|prismlauncher)\.(?-x:qBittorrent|PrismLauncher)$"; }
+      { app-id = "^org\\.(?-x:qbittorrent|prismlauncher)\\.(?-x:qBittorrent|PrismLauncher)$"; }
       { app-id = "^steam$"; }
     ];
     excludes = [
-      { app-id = "^org\.qbittorrent\.qBittorrent$"; title = "^(?-x:Preferences|Rename|Renaming)$"; }
+      { app-id = "^org\\.qbittorrent\\.qBittorrent$"; title = "^(?-x:Preferences|Rename|Renaming)$"; }
     ];
 
     open-on-workspace = "run";
@@ -64,7 +67,7 @@
   }
   {
     matches = [
-      { app-id = "^dev\.zed\.Zed$"; }
+      { app-id = "^dev\\.zed\\.Zed$"; }
     ];
 
     open-on-workspace = "anvil";
@@ -72,8 +75,8 @@
   }
   {
     matches = [
-      { app-id = "^org\.keepassxc\.KeePassXC$"; }
-      { app-id = "^com\.obsproject\.Studio$"; }
+      { app-id = "^org\\.keepassxc\\.KeePassXC$"; }
+      { app-id = "^com\\.obsproject\\.Studio$"; }
       { app-id = "^veracrypt$"; }
     ];
 
@@ -84,17 +87,19 @@
   {
     matches = [
       { app-id = "^mpv$"; }
-      { app-id = "exe$"; title = "^(?-x:Counter-Strike|Path of Exile|Hell Let Loose|GWZ)"; }
-      { app-id = "^$";   title = "^Minecraft"; }
+      { app-id = "\\.exe$"; }
+      { title = "Minecraft\\* [\\w\\.]{3,}"; }
     ];
 
     variable-refresh-rate = true;
+    open-floating = false;
   }
 
   # floating window rules
   {
     matches = [
       { app-id = "^thunderbird$"; title = "^Password Required"; }
+      { app-id = "cheatengine-x86_64.exe"; }
     ];
 
     open-fullscreen = false;
@@ -102,12 +107,8 @@
   }
   {
     matches = [
-      { app-id = "^firefox$";
-        title = "^(?-x:Picture-in-Picture|Library|About Mozilla Firefox|画中画|我的足迹|关于 Mozilla Firefox)$";
-      }
-      { app-id = "^org\.(?-x:qbittorrent|telegram)\.(?-x:qBittorrent|desktop)$";
-        title = "^(?-x:Preferences|Rename|Renaming|Media viewer)$";
-      }
+      { app-id = "^org\\.(?-x:qbittorrent|telegram)\\.(?-x:qBittorrent|desktop)$"; title = "^(?-x:Preferences|Rename|Renaming|Media viewer)$"; }
+      { app-id = "^firefox$";     title = "^(?-x:Picture-in-Picture|Library|About Mozilla Firefox|画中画|我的足迹|关于 Mozilla Firefox)$"; }
       { app-id = "^veracrypt$";   title = "^Select (?-x:a|Keyfile)"; }
       { app-id = "^calibre-gui$"; title = "^calibre - Preferences$"; }
     ];

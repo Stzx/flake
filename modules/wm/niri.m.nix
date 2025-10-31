@@ -31,7 +31,12 @@
     }:
 
     let
-      inherit (lib) mkOption mkAfter types;
+      inherit (lib)
+        mkOption
+        mkDefault
+        mkAfter
+        types
+        ;
 
       cfg = config.programs.niri;
 
@@ -89,6 +94,13 @@
               backdrop-color = "#808080";
               workspace-shadow.enable = false;
             };
+            input = {
+              touchpad.enable = mkDefault false;
+              keyboard = {
+                repeat-delay = mkDefault 5000;
+                numlock = mkDefault true;
+              };
+            };
             layout = {
               gaps = 4;
               default-column-width = { };
@@ -102,7 +114,13 @@
                 inactive.color = "#000000";
                 urgent.color = "#F54927";
               };
-              focus-ring.enable = false;
+              focus-ring = {
+                width = 2;
+
+                active.color = "#000000";
+                inactive.color = "transparent";
+                urgent.color = "#9B0000";
+              };
             };
             layer-rules = [
               {
@@ -126,21 +144,33 @@
               wsBinds
               // (with config.lib.niri.actions; {
                 "Mod+Prior".action = focus-workspace-up; # PAGE UP
-                "Mod+Shift+WheelScrollUp".action = focus-workspace-up;
+                "Mod+Shift+WheelScrollUp" = {
+                  cooldown-ms = 200;
+                  action = focus-workspace-up;
+                };
                 "Mod+Next".action = focus-workspace-down; # PAGE DOWN
-                "Mod+Shift+WheelScrollDown".action = focus-workspace-down;
+                "Mod+Shift+WheelScrollDown" = {
+                  cooldown-ms = 200;
+                  action = focus-workspace-down;
+                };
+
+                "Mod+Tab".action = focus-window-down-or-column-right;
+                "Mod+Shift+Tab".action = focus-window-up-or-column-left;
 
                 "Mod+Home".action = focus-column-first;
-                "Mod+WheelScrollUp".action = focus-column-left;
+                "Mod+WheelScrollUp" = {
+                  cooldown-ms = 200;
+                  action = focus-column-left;
+                };
                 "Mod+H".action = focus-column-left;
                 "Mod+J".action = focus-window-down;
                 "Mod+K".action = focus-window-up;
                 "Mod+L".action = focus-column-right;
-                "Mod+WheelScrollDown".action = focus-column-right;
+                "Mod+WheelScrollDown" = {
+                  cooldown-ms = 200;
+                  action = focus-column-right;
+                };
                 "Mod+End".action = focus-column-last;
-
-                "Mod+Tab".action = focus-window-down-or-column-right;
-                "Mod+Shift+Tab".action = focus-window-up-or-column-left;
 
                 "Mod+Shift+Home".action = move-column-to-first;
                 "Mod+Shift+H".action = move-column-left;
@@ -159,19 +189,22 @@
                 "Mod+Shift+Up".action = move-column-to-monitor-up;
                 "Mod+Shift+Right".action = move-column-to-monitor-right;
 
-                "Mod+Shift+KP_Left".action = move-workspace-to-monitor-left;
-                "Mod+Shift+KP_Down".action = move-workspace-to-monitor-down;
-                "Mod+Shift+KP_Up".action = move-workspace-to-monitor-up;
-                "Mod+Shift+KP_Right".action = move-workspace-to-monitor-right;
+                "Mod+Shift+Ctrl+Left".action = move-workspace-to-monitor-left;
+                "Mod+Shift+Ctrl+Down".action = move-workspace-to-monitor-down;
+                "Mod+Shift+Ctrl+Up".action = move-workspace-to-monitor-up;
+                "Mod+Shift+Ctrl+Right".action = move-workspace-to-monitor-right;
 
                 "Mod+E".action = expand-column-to-available-width;
                 "Mod+Ctrl+W".action = toggle-windowed-fullscreen;
                 "Mod+Ctrl+F".action = toggle-window-floating;
 
                 "Mod+W".action = switch-preset-column-width;
-                "Mod+bracketleft".action = switch-preset-window-width; # [
-                "Mod+bracketright".action = switch-preset-window-height; # ]
-                "Mod+Ctrl+bracketright".action = reset-window-height;
+                "Mod+Shift+Ctrl+W".action = switch-preset-window-width;
+                "Mod+Shift+Ctrl+H".action = switch-preset-window-height;
+                "Mod+R".action = reset-window-height;
+
+                "Mod+BracketLeft".action = consume-or-expel-window-left;
+                "Mod+BracketRight".action = consume-or-expel-window-right;
 
                 "Mod+M".action = maximize-column;
                 "Mod+X".action = close-window;
@@ -198,11 +231,16 @@
                 "Mod+D".action = set-dynamic-cast-window;
                 "Mod+Shift+D".action = clear-dynamic-cast-target;
 
-                "Mod+S".action = screenshot;
-                "Mod+Shift+S".action.screenshot-screen = [ ]; # FIXME: https://github.com/sodiboo/niri-flake/issues/1018
-                "Mod+Print".action = screenshot-window { write-to-disk = false; };
+                "Mod+Print".action.screenshot = [ ];
+                "Mod+Shift+Print".action.screenshot-screen = [ ]; # FIXME: https://github.com/sodiboo/niri-flake/issues/1018
+                "Mod+Alt+Print".action.screenshot-window.write-to-disk = false;
 
-                "Mod+grave".action = spawn "pkill" "-SIGUSR1" "waybar"; # `
+                "Mod+Escape" = {
+                  allow-inhibiting = false;
+                  action = toggle-keyboard-shortcuts-inhibit;
+                };
+
+                "Mod+Grave".action = spawn "pkill" "-SIGUSR1" "waybar";
 
                 "XF86AudioMute".action = spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle";
                 "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "-l" "1.0" "@DEFAULT_AUDIO_SINK@" "1%-";
