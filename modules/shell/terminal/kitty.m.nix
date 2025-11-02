@@ -7,8 +7,12 @@
       dots,
       ...
     }:
+
+    let
+      cfg = config.programs.kitty;
+    in
     {
-      config = lib.mkIf config.programs.kitty.enable {
+      config = lib.mkIf cfg.enable {
         programs.kitty = {
           themeFile = "Monokai";
           extraConfig = ''
@@ -33,6 +37,8 @@
           icat = "kitty +kitten icat";
           kssh = "kitty +kitten ssh";
         };
+
+        programs.fuzzel.settings.main.terminal = "${lib.getExe cfg.package} {cmd}";
 
         home.packages = [
           (pkgs.writeShellScriptBin "dicat" (builtins.readFile ./dicat.src))

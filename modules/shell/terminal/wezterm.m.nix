@@ -15,7 +15,7 @@
         };
       };
 
-      config = lib.mkIf config.programs.wezterm.enable {
+      config = lib.mkIf cfg.enable {
         programs.wezterm = {
           extraConfig = ''
             local act = wezterm.action
@@ -53,6 +53,8 @@
             return cfg
           '';
         };
+
+        programs.fuzzel.settings.main.terminal = "${lib.getExe cfg.package} start -- {cmd}";
       };
     };
 }

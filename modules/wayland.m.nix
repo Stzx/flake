@@ -229,32 +229,7 @@
           };
 
           # launcher
-          programs.fuzzel = {
-            enable = true;
-            settings = {
-              main = {
-                font = "Monaspace Radon Frozen";
-                icon-theme = config.gtk.iconTheme.name;
-                prompt = "'!!! '";
-
-                line-height = 24;
-                vertical-pad = 16;
-                horizontal-pad = 32;
-              };
-              colors = rec {
-                background = "161b22cc";
-                text = "f5f5f5ff";
-                selection = "30563fcc";
-                selection-text = "3fb950ff";
-
-                match = "c38000ff";
-                selection-match = match;
-
-                border = "0088ffff";
-              };
-              border.radius = 0;
-            };
-          };
+          programs.fuzzel.enable = true;
 
           # launcher
           programs.tofi.settings = {
