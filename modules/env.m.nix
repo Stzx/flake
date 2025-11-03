@@ -25,13 +25,16 @@
       programs.htop = {
         enable = true;
         settings = {
-          hide_userland_threads = true;
-          show_thread_names = true;
-          show_merged_command = true;
           shadow_other_users = true;
+          show_merged_command = true;
+          detailed_cpu_time = true;
+
           highlight_base_name = true;
-          highlight_threads = true;
           highlight_changes = true;
+          highlight_deleted_exe = true;
+          highlight_threads = true;
+          highlight_megabytes = false;
+
           tree_view = true;
           tree_view_always_by_pid = true;
         };
