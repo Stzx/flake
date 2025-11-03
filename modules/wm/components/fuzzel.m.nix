@@ -32,7 +32,7 @@
             horizontal-pad = 32;
           }
           // lib.optionalAttrs (cfg.wrapper != null) {
-            launch-prefix = "${cfg.wrapper}";
+            launch-prefix = "${pkgs.writeShellScript "fuzzel-wrapper" cfg.wrapper}";
           };
           colors = rec {
             background = "161b22cc";

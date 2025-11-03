@@ -74,10 +74,10 @@
     },
     "flake-secrets": {
       "locked": {
-        "lastModified": 1762089401,
-        "narHash": "sha256-L/2fF3iRQyLBsmLyG5NXbZYYGo8ATzycDMUfTlAfa5s=",
+        "lastModified": 1762136395,
+        "narHash": "sha256-49frpTv9qetCyAEZvFjsyZYajFpiWSTeeQYusdHOhAg=",
         "ref": "refs/heads/main",
-        "rev": "fe750b372ee2e78941390bafe39c38f83d2321ce",
+        "rev": "87463fb06c3c4044e88b3a32008a8f60a735c26f",
         "revCount": 1,
         "type": "git",
         "url": "file:../flake-secrets"
