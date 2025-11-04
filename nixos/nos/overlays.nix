@@ -60,6 +60,11 @@
     }
   );
 
+  libvirt = prev'.libvirt.override {
+    enableXen = false;
+    enableZfs = false;
+  };
+
   qt6Packages = prev'.qt6Packages.overrideScope (
     fs: ps: rec {
       fcitx5-configtool = ps.fcitx5-configtool.override { kcmSupport = wmCfg.isKDE; };

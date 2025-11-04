@@ -18,6 +18,7 @@
 
   networking = {
     useDHCP = lib.mkForce false;
+    useNetworkd = true;
     nftables.enable = true;
     firewall = {
       enable = true;
