@@ -20,6 +20,10 @@
     enable = true;
     package = pkgs.scx.rustscheds;
     scheduler = "scx_bpfland";
+    extraArgs = [
+      "--local-pcpu"
+      "--cpufreq"
+    ];
   };
 
   # ACTION=="add", KERNEL=="0000:08:00.0", SUBSYSTEM=="pci", ATTR{remove}="1"
