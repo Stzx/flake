@@ -12,16 +12,15 @@
     "net.ipv4.tcp_mtu_probing" = 1;
   };
 
-  # environment.etc."gai.conf".text = ''
-  #   precedence ::ffff:0:0/96 100
-  # '';
-
   networking = {
     useDHCP = lib.mkForce false;
     useNetworkd = true;
     nftables.enable = true;
     firewall = {
       enable = true;
+    };
+    getaddrinfo.precedence = {
+      "::ffff:0:0/96" = 100;
     };
   };
 
