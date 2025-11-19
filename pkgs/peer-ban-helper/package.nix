@@ -1,28 +1,34 @@
 {
   lib,
   stdenvNoCC,
-  fetchgit,
+  fetchFromGitHub,
   nodejs,
   pnpm,
-  maven,
+  gradle_9,
   makeWrapper,
-  temurin-jre-bin,
-  pbhJre ? temurin-jre-bin,
-  vmOpts ? "-XX:+UseZGC -XX:+ZGenerational",
+  temurin-bin-25,
+  pbhJre ? temurin-bin-25, # temurin-jre-bin-25 = size++
+  vmOpts ? "-XX:+UseZGC -XX:+ZGenerational -Dpbh.usePlatformConfigLocation=true -Dpbh.nogui=true",
 }:
 
-assert lib.versionAtLeast (lib.getVersion pbhJre) "21";
+assert lib.versionAtLeast (lib.getVersion pbhJre) "25";
 
 let
+  jdk' = temurin-bin-25;
+  gradle' = gradle_9;
+
+  # 有些“可疑”的 repository URLs (应该没问题)
+  # 我虽然打包了，但并没有使用该软件
   pname = "peer-ban-helper";
 
-  version = "8.0.12";
+  version = "9.1.0-alpha5";
 
-  src = fetchgit {
-    url = "https://github.com/PBH-BTN/PeerBanHelper.git";
+  src = fetchFromGitHub {
+    owner = "PBH-BTN";
+    repo = "PeerBanHelper";
     tag = "v${version}";
-    hash = "sha256-iRf4eH8zGI+ixJAjMLB4FR7sz+hTsfECit+pFvgol3k=";
-    leaveDotGit = true; # git-commit-id-maven-plugin
+    hash = "sha256-PI0sRk2iZm53I9cc/NeJJCBwy2zpQHeA2RyDtgriNCE=";
+    leaveDotGit = true; # gen UI version
   };
 
   webui = stdenvNoCC.mkDerivation (finalAttrs: {
@@ -48,7 +54,7 @@ let
         ;
 
       fetcherVersion = 2;
-      hash = "sha256-WYgyBEEsn3WjIaG0eJE2ymqOsXKULrHkNtImYVMGXLk=";
+      hash = "sha256-CEqnFRjckEDguX16yJbYfdc47eW4q52I4g6MZ5SGprA=";
     };
 
     buildPhase = ''
@@ -68,42 +74,56 @@ let
     '';
   });
 in
-maven.buildMavenPackage rec {
+stdenvNoCC.mkDerivation (finalAttrs: rec {
   inherit pname version src;
 
-  outputs = [
-    "out"
-    "doc"
+  nativeBuildInputs = [
+    gradle'
+    makeWrapper
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  mitmCache = gradle'.fetchDeps {
+    # inherit (finalAttrs) pname;
 
-  # 有些可疑的 repository URLs
-  # 我虽然打包了，但并没有使用该软件
-  mvnHash = "sha256-a4ODvFRIuiHA7BbyIk67OjMlrMQHCdDXsOvVntN6EMM=";
+    pkg = finalAttrs.finalPackage;
+    data = ./deps.json;
+  };
+
+  __darwinAllowLocalNetworking = true;
+
+  gradleFlags = [
+    "-x"
+    "distTar"
+    "-x"
+    "distZip"
+    "-Dorg.gradle.java.home=${jdk'}"
+  ];
 
   preBuild = ''
-    cp -r ${webui}/ src/main/resources/static/
+    cp -rv ${webui}/ src/main/resources/static/ \
+    && chmod -R u+w src/main/resources/static/
   '';
 
   # PACKAGING.md
   #
   # pbh.datadir, pbh.configdir, pbh.logsdir
   #
-  # swing, swt, qt, nogui, silent
+  # swing, swt, nogui, silent
   installPhase = ''
     runHook preInstall
 
-    install -Dm644 -t $out/share/${pname}/ ./target/*.jar
-    install -Dm644 -t $out/share/${pname}/libraries/ ./target/libraries/*
-
-    install -Dm444 -t $doc/share/doc/${pname}/ ./pkg/deb/usr/share/doc/peerbanhelper/*
+    install -Dm644 -t $out/share/${pname}/ ./build/libs/*.jar
+    install -Dm644 -t $out/share/${pname}/libraries/ ./build/libraries/*
 
     makeWrapper ${lib.getExe pbhJre} $out/bin/${meta.mainProgram} \
       --add-flags "${vmOpts} -Dpbh.release=nixos -jar $out/share/${pname}/PeerBanHelper.jar"
 
     runHook postInstall
   '';
+
+  passthru = {
+    inherit webui;
+  };
 
   meta = {
     description = "自动封禁不受欢迎、吸血和异常的 BT 客户端";
@@ -112,4 +132,4 @@ maven.buildMavenPackage rec {
     mainProgram = "peer-ban-helper";
     platforms = lib.platforms.all;
   };
-}
+})
