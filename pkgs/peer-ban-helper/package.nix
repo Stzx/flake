@@ -8,7 +8,18 @@
   makeWrapper,
   temurin-bin-25,
   pbhJre ? temurin-bin-25, # temurin-jre-bin-25 = size++
-  vmOpts ? "-XX:+UseZGC -XX:+ZGenerational -Dpbh.usePlatformConfigLocation=true -Dpbh.nogui=true",
+  vmOpts ? (
+    lib.concatStringsSep " " [
+      "--enable-native-access=ALL-UNNAMED"
+      "-XX:+UseCompactObjectHeaders"
+      "-XX:+UseStringDeduplication"
+      "-XX:+UseZGC"
+      "-Djdk.attach.allowAttachSelf=true"
+      "-Dsun.net.useExclusiveBind=false"
+      "-Dpbh.usePlatformConfigLocation=true"
+      "-Dpbh.nogui=true"
+    ]
+  ),
 }:
 
 assert lib.versionAtLeast (lib.getVersion pbhJre) "25";
@@ -27,7 +38,7 @@ let
     owner = "PBH-BTN";
     repo = "PeerBanHelper";
     tag = "v${version}";
-    hash = "sha256-PI0sRk2iZm53I9cc/NeJJCBwy2zpQHeA2RyDtgriNCE=";
+    hash = "sha256-3UyihIqk+UIQchlON0v+1026x4OMqDXtYc8QQqqus5E=";
     leaveDotGit = true; # gen UI version
   };
 
@@ -122,7 +133,7 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
   '';
 
   passthru = {
-    inherit webui;
+    inherit webui vmOpts;
   };
 
   meta = {
