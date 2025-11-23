@@ -32,13 +32,13 @@ let
   # 我虽然打包了，但并没有使用该软件
   pname = "peer-ban-helper";
 
-  version = "9.1.0-alpha5";
+  version = "9.1.2";
 
   src = fetchFromGitHub {
     owner = "PBH-BTN";
     repo = "PeerBanHelper";
     tag = "v${version}";
-    hash = "sha256-3UyihIqk+UIQchlON0v+1026x4OMqDXtYc8QQqqus5E=";
+    hash = "sha256-xZU8U7z73CFONsS9Q/7DWP8x3vDjw6Jk1+afqiuB1OE=";
     leaveDotGit = true; # gen UI version
   };
 

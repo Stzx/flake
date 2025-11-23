@@ -768,9 +768,9 @@
   "org/testcontainers#testcontainers-bom/1.20.3": {
    "pom": "sha256-BWEzNHbDyi+8AUlkutrn6gXjowtV0aBrbfDdidIlmPs="
   },
-  "org/tukaani#xz/1.10": {
-   "jar": "sha256-lcY8GlWyLdZFOJCkGcwaZA95C799iugtseMK7++wiIg=",
-   "pom": "sha256-72CLg8O7bI4+azvqo4hCuhWWO0ZJXkr5GwdGyLdQ87k="
+  "org/tukaani#xz/1.11": {
+   "jar": "sha256-CkB39q6uKGVTKlZIB6+NMMJqzG9jt5KNk716sfIZBEk=",
+   "pom": "sha256-e9L+LxRchHmCR1erdhMMCBWntVhQcU7wwos5vV1pLKQ="
   },
   "org/xerial#sqlite-jdbc/3.47.0.0": {
    "jar": "sha256-k9R8AGN3xHb497RdANIGBrd9WVFCPzRu9WtbCBNhwtM=",
