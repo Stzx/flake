@@ -6,7 +6,7 @@
 
     systems.url = "github:nix-systems/default-linux";
 
-    stable.url = "git+https://github.com/NixOS/nixpkgs.git?ref=nixos-25.05&shallow=1";
+    stable.url = "git+https://github.com/NixOS/nixpkgs.git?ref=nixos-25.11&shallow=1";
     unstable.url = "git+https://github.com/NixOS/nixpkgs.git?ref=nixos-unstable&shallow=1";
 
     # nix = {
@@ -21,7 +21,7 @@
     # };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote/v0.4.3";
       inputs.nixpkgs.follows = "unstable";
     };
 
@@ -68,7 +68,7 @@
       ...
     }@args:
     let
-      stateVersion = "25.11";
+      stateVersion = "26.05";
 
       dots = ./. + "/dots";
 

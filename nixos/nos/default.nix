@@ -31,8 +31,7 @@ in
   ];
 
   environment.systemPackages = with pkgs; [
-    bat
-
+    vmtouch
     nmap
 
     bpftools

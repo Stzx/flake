@@ -1,15 +1,9 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 
 let
   cfg = config.services.pipewire;
 in
 {
-  environment.systemPackages = with pkgs; [
-    # qpwgraph
-
-    helvum
-  ];
-
   services.pipewire = {
     extraConfig = {
       pipewire = {

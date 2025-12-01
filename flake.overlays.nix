@@ -17,12 +17,17 @@ final': prev': {
       installPhase = ''
         runHook preInstall
 
-        pushd monaspace-v${final.version}/fonts/
-        install -Dm644 otf/MonaspaceRadon*.otf -t $out/share/fonts/opentype
-        install -Dm644 frozen/MonaspaceRadon*.ttf -t $out/share/fonts/truetype
-        install -Dm644 variable/MonaspaceRadon*.ttf -t $out/share/fonts/truetype
-        install -Dm644 webfonts/MonaspaceRadon*.woff -t $woff/share/fonts/woff
-        popd
+        # Install TrueType fonts
+        install -Dm644 -t $out/share/fonts/truetype fonts/Frozen\ Fonts/Monaspace\ Radon/*.ttf
+        install -Dm644 -t $out/share/fonts/truetype fonts/Variable\ Fonts/Monaspace\ Radon/*.ttf
+
+        # Install OpenType fonts
+        install -Dm644 -t $out/share/fonts/opentype fonts/Static\ Fonts/Monaspace\ Radon/*.otf
+        # install -Dm644 -t $out/share/fonts/opentype fonts/NerdFonts/*/*.otf
+
+        # Install Web fonts
+        # install -Dm644 -t $woff/share/fonts/woff fonts/Web\ Fonts/*/*/*.woff
+        install -Dm644 -t $woff/share/fonts/woff fonts/Web\ Fonts/*/*/*.woff2
 
         runHook postInstall
       '';

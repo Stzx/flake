@@ -14,6 +14,7 @@
 
         singleton
         optional
+        optionals
         ;
 
       cfg = config.features;
@@ -88,9 +89,13 @@
             systemPackages =
               with pkgs;
               [
-                amdgpu_top
+                # amdgpu_top
               ]
-              ++ optional gpuCfg.amdROCm pkgs.rocmPackages.rocminfo;
+              ++ optionals gpuCfg.amdROCm [
+                rocmPackages.rocminfo
+                rocmPackages.rocm-smi
+              ];
+
             # sessionVariables = {
             # amdvlk: Requested image size 3840x2160x0 exceeds the maximum allowed dimensions 2560x2560x1 for vulkan image format 46
             # AMD_VULKAN_ICD = "RADV";

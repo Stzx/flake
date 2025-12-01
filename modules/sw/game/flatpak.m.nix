@@ -14,7 +14,11 @@
     # com.valvesoftware.Steam
     # com.valvesoftware.Steam.CompatibilityTool.Proton-GE
     #
+    # com.github.Matoking.protontricks
+    #
     # org.prismlauncher.PrismLauncher
+    #
+    # org.gnome.Mahjongg
     #
     # flatpak override --user \
     # --env=PRISMLAUNCHER_JAVA_PATHS=$JAVA_HOME/bin/java \
@@ -35,7 +39,7 @@
       # > MANGOHUD
       # Use `MANGOHUD_CONFIGFILE` to prevent infinite recursion
 
-      font' = "${pkgs.monaspace}/share/fonts/opentype/MonaspaceRadon-Regular.otf";
+      font' = "${pkgs.monaspace}/share/fonts/opentype/MonaspaceRadon-MediumItalic.otf";
 
       # MangoHud/MangoHud.conf
       mangohud' = pkgs.writeText "MangoHud.conf" ''
@@ -46,10 +50,12 @@
 
         position=top-center
         background_alpha=0
-        text_outline=0
         hud_compact
 
+        vram
+
         engine_short_names
+        dx_api
 
         fps_limit=0,141,97,60
         fps_color_change
@@ -71,8 +77,10 @@
         # gl_vsync=0
 
         present_mode
-        winesync
         display_server
+
+        winesync
+        wine_color
       '';
 
       # MangoHud/presets.conf

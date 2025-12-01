@@ -114,8 +114,6 @@
 
             environment.etc."xdg/fcitx5".source = dots + "/fcitx5";
           }
-
-          (mkIf (wmCfg.isNiri) { xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; })
         ]
       );
     };
@@ -194,7 +192,7 @@
 
           services.playerctld.enable = true;
 
-          systemd.user.services.playerctld.Service.StandardOutput = "file:%t/playerctld.log";
+          systemd.user.services.playerctld.Service.StandardOutput = "truncate:%t/playerctld.log";
         })
 
         (mkIf (config.programs.quickshell.mode == "supplemental" && wmCfg.isNiri) {

@@ -10,6 +10,10 @@ let
 in
 {
   home.packages = with pkgs; [
+    # qpwgraph
+
+    helvum
+
     calibre
     librecad
     libreoffice
@@ -36,8 +40,10 @@ in
     zed-editor.enable = true;
   };
 
-  systemd.user.services.fetch-ipfilter.Service.ExecStart =
-    "${lib.getExe pkgs.curl} -o ${config.xdg.cacheHome}/ipfilter.p2p https://blocklist.binac.org/btn-all.p2p";
+  systemd.user.services.fetch-ipfilter.Service = {
+    Type = "oneshot";
+    ExecStart = "${lib.getExe pkgs.curl} -v -o ${config.xdg.cacheHome}/ipfilter.p2p https://blocklist.binac.org/btn-all.p2p";
+  };
 
   systemd.user.timers.fetch-ipfilter.Timer = {
     OnCalendar = "*-*-* 21:00:00";

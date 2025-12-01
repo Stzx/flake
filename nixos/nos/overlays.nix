@@ -81,7 +81,7 @@
         in
         fca'.overrideAttrs (
           _: prev:
-          assert prev.version == "5.1.9"; # wait release
+          assert prev.version == "5.1.10"; # wait fix
           {
             # FIXME: https://github.com/fcitx/fcitx5-chinese-addons/issues/233
             postPatch = ''

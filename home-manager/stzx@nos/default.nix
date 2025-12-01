@@ -17,6 +17,7 @@ in
       fuse-archive
       fuse-avfs # original name: avfs
 
+      bat
       numbat
     ];
 

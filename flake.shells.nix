@@ -36,8 +36,11 @@ let
   };
 
   proxy' = {
-    RUSTUP_DIST_SERVER = "https://mirrors.ustc.edu.cn/rust-static";
-    RUSTUP_UPDATE_ROOT = "https://mirrors.ustc.edu.cn/rust-static/rustup";
+    # RUSTUP_DIST_SERVER = "https://mirrors.ustc.edu.cn/rust-static";
+    # RUSTUP_UPDATE_ROOT = "https://mirrors.ustc.edu.cn/rust-static/rustup";
+
+    # PUB_HOSTED_URL = "https://pub.flutter-io.cn";
+    # FLUTTER_STORAGE_BASE_URL = "https://storage.flutter-io.cn";
 
     NIX_NPM_REGISTRY = "https://r.cnpmjs.org/";
   };

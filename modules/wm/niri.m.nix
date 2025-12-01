@@ -13,7 +13,14 @@
     {
       config = mkIf config.wm.isNiri (
         lib.mkMerge [
-          { programs.niri.enable = true; }
+          {
+            programs.niri = {
+              enable = true;
+              useNautilus = lib.mkDefault false;
+            };
+
+            xdg.portal.config = lib.mkForce { };
+          }
 
           (mkIf config.services.flatpak.enable {
             environment.systemPackages = [ pkgs.xwayland-satellite ]; # Steam
