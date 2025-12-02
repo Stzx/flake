@@ -1,0 +1,39 @@
+layout {
+    struts {
+        left 0
+        right 0
+        top 0
+        bottom 0
+    }
+
+    focus-ring {
+        width 2
+        urgent-color "#9B0000"
+        active-color "#000000"
+        inactive-color "transparent"
+    }
+
+    tab-indicator {
+        width 4.0
+        gap 5.0
+        gaps-between-tabs 0.0
+        corner-radius 0.0
+        length total-proportion=0.5
+        position "left"
+        place-within-column
+        urgent-color "#F54927"
+        active-color "#FF1493"
+        inactive-color "#000000"
+    }
+
+    border { off; }
+    default-column-width {}
+
+    gaps 4
+
+    background-color "transparent"
+
+    center-focused-column "never"
+
+    always-center-single-column
+}

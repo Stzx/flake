@@ -1,0 +1,5 @@
+overview {
+    backdrop-color "#808080"
+
+    workspace-shadow { off; }
+}

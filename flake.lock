@@ -74,10 +74,10 @@
     },
     "flake-secrets": {
       "locked": {
-        "lastModified": 1763529193,
-        "narHash": "sha256-/0j4k5mOwJtGZ2wJgyvfjeUDzdtGytYVjtwPQwfRi80=",
+        "lastModified": 1764583993,
+        "narHash": "sha256-VNl+s4eEwPILY3xxXot7jjbnGbs25kcjfbDg3pBp97w=",
         "ref": "refs/heads/main",
-        "rev": "2485efc0ddd0e3cf989b15f0c9238db051efe217",
+        "rev": "35bdeab3a161aa3ffec379af3031ebfdee5461a6",
         "revCount": 1,
         "type": "git",
         "url": "file:../flake-secrets"
@@ -177,33 +177,6 @@
         "type": "github"
       }
     },
-    "niri": {
-      "inputs": {
-        "niri-stable": [],
-        "niri-unstable": [],
-        "nixpkgs": [
-          "unstable"
-        ],
-        "nixpkgs-stable": [
-          "stable"
-        ],
-        "xwayland-satellite-stable": [],
-        "xwayland-satellite-unstable": []
-      },
-      "locked": {
-        "lastModified": 1764563982,
-        "narHash": "sha256-6pB9TEo5++jkowiajprT6kqDuEYlGrvyIjTc86hZn2M=",
-        "owner": "sodiboo",
-        "repo": "niri-flake",
-        "rev": "9b1ac5828fc04bd7b07f147f26908eeaebb31ca7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "sodiboo",
-        "repo": "niri-flake",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
@@ -237,7 +210,6 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
-        "niri": "niri",
         "stable": "stable",
         "systems": "systems",
         "unstable": "unstable"

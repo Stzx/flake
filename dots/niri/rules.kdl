@@ -1,0 +1,104 @@
+layer-rule {
+    match namespace="(?-x:bg|background|wallpaper)$"
+
+    place-within-backdrop true
+}
+
+layer-rule {
+    match namespace="^notifications$"
+
+    block-out-from "screencast"
+}
+
+window-rule {
+    draw-border-with-background false
+    geometry-corner-radius 3.0
+    clip-to-geometry true
+}
+
+// startup
+window-rule {
+    match app-id=r#"^(?-x:org|com)\.(?-x:wezfurlong|mitchellh)\.(?-x:wezterm|ghostty)$"# at-startup=true
+
+    open-on-workspace "terminal"
+    open-maximized true
+}
+
+window-rule {
+    match app-id="^(?-x:kitty|firefox|spotify)$" at-startup=true
+
+    open-on-workspace "sea"
+    open-maximized true
+}
+
+// non-floating
+window-rule {
+    match app-id=r#"^org\.telegram\.desktop$"#
+    match app-id="^(?-x:thunderbird|calibre-gui)$"
+
+    exclude app-id=r#"^org\.telegram\.desktop$"# title="^Media viewer$"
+    exclude app-id="^calibre-gui$" title="^calibre - Preferences$"
+
+    default-column-width { proportion 0.5; }
+
+    open-on-workspace "chat"
+}
+
+window-rule {
+    match app-id=r#"^org\.(?-x:qbittorrent|prismlauncher)\.(?-x:qBittorrent|PrismLauncher)$"#
+    match app-id="^steam$"
+
+    exclude app-id=r#"^org\.qbittorrent\.qBittorrent$"# title="^(?-x:Preferences|Rename|Renaming)$"
+
+    default-column-display "tabbed"
+
+    open-on-workspace "run"
+    open-maximized true
+}
+
+window-rule {
+    match app-id=r#"^dev\.zed\.Zed$"#
+
+    open-on-workspace "anvil"
+    open-maximized true
+}
+
+window-rule {
+    match app-id=r#"^(?-x:org|com)\.(?-x:keepassxc|obsproject)\.(?-x:KeePassXC|Studio)$"#
+    match app-id="^veracrypt$"
+
+    block-out-from "screen-capture"
+
+    open-on-workspace "magic"
+}
+
+// floating
+window-rule {
+    match app-id="^mpv$"
+    match app-id=r#"\.exe$"#
+    match title=r#"Minecraft\* [\w\.]{3,}"#
+
+    variable-refresh-rate true
+
+    open-floating false
+}
+
+window-rule {
+    match app-id="^thunderbird$" title="^Password Required"
+    match app-id="^(?-x:cheatengine|.+eac).*exe$"
+
+    open-fullscreen false
+    open-floating true
+}
+window-rule {
+    match app-id=r#"^org\.(?-x:qbittorrent|telegram)\.(?-x:qBittorrent|desktop)$"# title="^(?-x:Preferences|Rename|Renaming|Media viewer)$"
+    match app-id="^firefox$" title="^(?-x:Picture-in-Picture|Library|About Mozilla Firefox|画中画|我的足迹|关于 Mozilla Firefox)$"
+    match app-id="^veracrypt$" title="^Select (?-x:a|Keyfile)"
+    match app-id="^calibre-gui$" title="^calibre - Preferences$"
+
+    default-column-width { fixed 1280; }
+    default-window-height { proportion 0.75; }
+
+    open-fullscreen false
+    open-floating true
+}

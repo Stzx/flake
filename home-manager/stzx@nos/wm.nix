@@ -5,9 +5,6 @@
   ...
 }:
 
-let
-  inherit (lib) singleton;
-in
 {
   home.packages = with pkgs; [
     # qpwgraph
@@ -55,31 +52,19 @@ in
       primary = "DP-1";
       secondary = "DP-2";
     };
-    settings = {
-      spawn-at-startup = [
-        { command = singleton "wezterm"; }
-        { command = singleton "firefox"; }
-        { command = singleton "thunderbird"; }
-      ];
-      outputs = {
-        "DP-1" = {
-          focus-at-startup = true;
-          variable-refresh-rate = "on-demand";
-        };
-        "DP-2".transform.rotation = 270;
-      };
-      window-rules = [
-        {
-          matches = [
-            { app-id = "^Waydroid$"; }
-            { app-id = "^calibre-ebook-viewer$"; }
-          ];
+    spawn-at-startup = ''
+      spawn-at-startup "firefox"
+      spawn-at-startup "thunderbird"
+    '';
+    window-rule = ''
+      window-rule {
+          match app-id="^Waydroid$"
+          match app-id="^calibre-ebook-viewer$"
 
-          open-on-output = "DP-2";
-          open-fullscreen = true;
-        }
-      ];
-    };
+          open-on-output "DP-2"
+          open-fullscreen true
+      }
+    '';
   };
 
   programs.wezterm.userConfig = ''

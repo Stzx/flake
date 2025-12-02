@@ -1,0 +1,83 @@
+binds {
+    // Mod+Tab { focus-window-down-or-column-right; }
+    // Mod+Shift+Tab { focus-window-up-or-column-left; }
+
+// --
+    Mod+H { focus-column-left; }
+    Mod+J { focus-window-down; }
+    Mod+K { focus-window-up; }
+    Mod+L { focus-column-right; }
+
+    Mod+Home { focus-column-first; }
+    Mod+End { focus-column-last; }
+
+    Mod+WheelScrollUp cooldown-ms=200 { focus-column-left; }
+    Mod+WheelScrollDown cooldown-ms=200 { focus-column-right; }
+
+// --
+    Mod+Next { focus-workspace-down; }
+    Mod+Prior { focus-workspace-up; }
+
+    Mod+Shift+WheelScrollDown cooldown-ms=200 { focus-workspace-down; }
+    Mod+Shift+WheelScrollUp cooldown-ms=200 { focus-workspace-up; }
+
+// --
+    Mod+Left { focus-monitor-left; }
+    Mod+Down { focus-monitor-down; }
+    Mod+Up { focus-monitor-up; }
+    Mod+Right { focus-monitor-right; }
+
+// --
+    Mod+Shift+H { move-column-left; }
+    Mod+Shift+J { move-window-down; }
+    Mod+Shift+K { move-window-up; }
+    Mod+Shift+L { move-column-right; }
+
+    Mod+Shift+Home { move-column-to-first; }
+    Mod+Shift+End { move-column-to-last; }
+
+// --
+    Mod+Shift+Left { move-column-to-monitor-left; }
+    Mod+Shift+Down { move-column-to-monitor-down; }
+    Mod+Shift+Up { move-column-to-monitor-up; }
+    Mod+Shift+Right { move-column-to-monitor-right; }
+
+    Mod+Shift+Ctrl+Left { move-workspace-to-monitor-left; }
+    Mod+Shift+Ctrl+Down { move-workspace-to-monitor-down; }
+    Mod+Shift+Ctrl+Up { move-workspace-to-monitor-up; }
+    Mod+Shift+Ctrl+Right { move-workspace-to-monitor-right; }
+
+// --
+    Mod+BracketLeft { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+Space { consume-window-into-column; }
+    Mod+Shift+Space { expel-window-from-column; }
+    Mod+Ctrl+Space { toggle-column-tabbed-display; }
+
+    Mod+W { switch-preset-column-width; }
+    Mod+R { reset-window-height; }
+    Mod+E { expand-column-to-available-width; }
+    Mod+Shift+Ctrl+H { switch-preset-window-height; }
+    Mod+Shift+Ctrl+W { switch-preset-window-width; }
+
+    Mod+C { center-column; }
+    Mod+M { maximize-column; }
+    Mod+X { close-window; }
+    Mod+Shift+C { center-window; }
+    Mod+Ctrl+Return { fullscreen-window; }
+
+    Mod+Ctrl+F { toggle-window-floating; }
+    Mod+Ctrl+W { toggle-windowed-fullscreen; }
+
+    Mod+D { set-dynamic-cast-window; }
+    Mod+Shift+D { clear-dynamic-cast-target; }
+
+    Mod+Print { screenshot; }
+    Mod+Shift+Print { screenshot-screen; }
+    Mod+Alt+Print { screenshot-window write-to-disk=false; }
+
+    Mod+O { toggle-overview; }
+    Mod+P { power-off-monitors; }
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+    Mod+Shift+Q { quit; }
+}

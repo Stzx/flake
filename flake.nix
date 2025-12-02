@@ -41,20 +41,6 @@
     };
 
     flake-secrets.url = "git+file:../flake-secrets";
-
-    niri = {
-      url = "github:sodiboo/niri-flake";
-      inputs = {
-        nixpkgs.follows = "unstable";
-        nixpkgs-stable.follows = "stable";
-
-        niri-stable.follows = "";
-        niri-unstable.follows = "";
-
-        xwayland-satellite-stable.follows = "";
-        xwayland-satellite-unstable.follows = "";
-      };
-    };
   };
 
   outputs =
@@ -64,7 +50,6 @@
       home-manager,
       flake-utils,
       flake-secrets,
-      niri,
       ...
     }@args:
     let
@@ -159,8 +144,6 @@
             };
             modules = [
               {
-                imports = [ niri.homeModules.config ];
-
                 home = {
                   inherit stateVersion username;
 

@@ -248,10 +248,12 @@
         })
 
         (mkIf wmCfg.isNiri {
-          programs.niri.settings.cursor = {
-            theme = cursor.name;
-            size = cursor.size;
-          };
+          programs.niri.cursor = ''
+            cursor {
+                xcursor-theme "${cursor.name}"
+                xcursor-size ${builtins.toString cursor.size}
+            }
+          '';
         })
       ];
     };

@@ -1,0 +1,9 @@
+input {
+    keyboard {
+        repeat-delay 5000
+
+        numlock
+    }
+
+    touchpad { off; }
+}
