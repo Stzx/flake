@@ -142,7 +142,8 @@
             include "binds.kdl"
             binds {
                 Mod+Q { spawn "fuzzel"; }
-                Mod+T { spawn "ghostty" "+new-window"; }
+                // Mod+T { spawn "ghostty" "+new-window"; }
+                Mod+T { spawn "wezterm"; }
 
                 Mod+Grave { spawn "pkill" "-SIGUSR1" "waybar"; }
 

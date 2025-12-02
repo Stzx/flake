@@ -186,6 +186,12 @@
             platformTheme.name = "gtk3";
           };
 
+          home.shell = {
+            enableIonIntegration = mkDefault false;
+            enableNushellIntegration = mkDefault false;
+            enableFishIntegration = mkDefault config.programs.fish.enable;
+          };
+
           programs.wezterm.enable = mkDefault true;
 
           programs.firefox.enable = mkDefault true;

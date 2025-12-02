@@ -18,12 +18,13 @@
           extraConfig = ''
             font_family Sarasa Term Slab SC
 
-            background_opacity 0.75
+            background_opacity 0.8
             background_blur 128
 
             cursor_shape underline
 
             window_padding_width 8
+
             tab_bar_align center
             tab_bar_edge bottom
 
