@@ -52,46 +52,48 @@
 
       ds = cfg.display;
 
-      open-on-output' = ds: mapAttrsToList (n: _: "workspace \"${n}\" { open-on-output \"${ds}\"; }");
+      open-on-output' = ds: lib.mapAttrs (_: v: "workspace \"${v.name}\" { open-on-output \"${ds}\"; }");
 
       horizontal = {
-        "chat" = {
-          idx = "3";
+        "3" = {
+          name = "chat";
           icon = "󱧎"; # nf-md-message_text_fast
         };
 
-        "run" = {
-          idx = "8";
-          icon = "󰜎"; # nf-md-run
-        };
-        "anvil" = {
-          idx = "9";
+        "8" = {
+          name = "anvil";
           icon = "󰢛"; # nf-md-anvil
         };
-        "magic" = {
-          idx = "0";
+        "9" = {
+          name = "magic";
           icon = "󰄛"; # nf-md-cat
+        };
+        "0" = {
+          name = "run";
+          icon = "󰜎"; # nf-md-run
         };
       };
       vertical = {
-        "terminal" = {
-          idx = "1";
+        "1" = {
+          name = "terminal";
           icon = "󱆃"; # nf-md-bash
         };
-        "sea" = {
-          idx = "2";
+        "2" = {
+          name = "sea";
           icon = "󱝆"; # nf-md-surfing
         };
       };
 
       ws = concatLines (
-        (open-on-output' ds.primary horizontal) ++ (open-on-output' ds.secondary vertical)
+        mapAttrsToList (n: v: v) (
+          (open-on-output' ds.primary horizontal) // (open-on-output' ds.secondary vertical)
+        )
       );
 
       wsBinds = concatLines (
         mapAttrsToList (n: v: ''
-          Mod+${v.idx} { focus-workspace "${n}"; }
-          Mod+Ctrl+${v.idx} { move-column-to-workspace "${n}"; }
+          Mod+${n} { focus-workspace "${v.name}"; }
+          Mod+Ctrl+${n} { move-column-to-workspace "${v.name}"; }
         '') (horizontal // vertical)
       );
 
@@ -196,7 +198,7 @@
               format-icons = {
                 default = "󰋦"; # nf-md-human
               }
-              // lib.mapAttrs (_: v: v.icon) (horizontal // vertical);
+              // lib.mapAttrs' (_: v: lib.nameValuePair v.name v.icon) (horizontal // vertical);
             };
 
             "niri/window".icon = true;
