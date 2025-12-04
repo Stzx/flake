@@ -12,27 +12,31 @@ final': prev': {
   #   }
   # );
 
-  monaspace = prev'.monaspace.overrideAttrs (
-    final: _: {
-      installPhase = ''
-        runHook preInstall
+  monaspace = prev'.monaspace // {
+    # static = prev'.monaspace.static.overrideAttrs (
+    #   _: _: {
+    #     installPhase = ''
+    #       runHook preInstall
 
-        # Install TrueType fonts
-        install -Dm644 -t $out/share/fonts/truetype fonts/Frozen\ Fonts/Monaspace\ Radon/*.ttf
-        install -Dm644 -t $out/share/fonts/truetype fonts/Variable\ Fonts/Monaspace\ Radon/*.ttf
+    #       install -Dm644 -t $out/share/fonts/opentype ./Monaspace\ {Neon,Radon}/*.otf
 
-        # Install OpenType fonts
-        install -Dm644 -t $out/share/fonts/opentype fonts/Static\ Fonts/Monaspace\ Radon/*.otf
-        # install -Dm644 -t $out/share/fonts/opentype fonts/NerdFonts/*/*.otf
+    #       runHook postInstall
+    #     '';
+    #   }
+    # );
 
-        # Install Web fonts
-        # install -Dm644 -t $woff/share/fonts/woff fonts/Web\ Fonts/*/*/*.woff
-        install -Dm644 -t $woff/share/fonts/woff fonts/Web\ Fonts/*/*/*.woff2
+    variable = prev'.monaspace.variable.overrideAttrs (
+      _: _: {
+        installPhase = ''
+          runHook preInstall
 
-        runHook postInstall
-      '';
-    }
-  );
+          install -Dm644 -t $out/share/fonts/truetype ./Monaspace\ {Neon,Radon}/*.ttf
+
+          runHook postInstall
+        '';
+      }
+    );
+  };
 
   papirus-icon-theme = prev'.papirus-icon-theme.overrideAttrs (
     _: prev:

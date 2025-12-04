@@ -39,7 +39,7 @@
       # > MANGOHUD
       # Use `MANGOHUD_CONFIGFILE` to prevent infinite recursion
 
-      font' = "${pkgs.monaspace}/share/fonts/opentype/MonaspaceRadon-MediumItalic.otf";
+      font' = "${pkgs.monaspace.variable}/share/fonts/truetype/Monaspace Radon Var.ttf";
 
       # MangoHud/MangoHud.conf
       mangohud' = pkgs.writeText "MangoHud.conf" ''

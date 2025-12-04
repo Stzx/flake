@@ -9,7 +9,7 @@
       config = lib.mkIf cfg.enable {
         programs.zed-editor.userSettings = {
           ui_font_size = 16;
-          ui_font_family = "Monaspace Radon Frozen";
+          ui_font_family = "Monaspace Radon Var";
           ui_font_fallbacks = [ "Symbols Nerd Font Mono" ];
 
           buffer_font_size = 14;

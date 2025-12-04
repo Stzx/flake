@@ -22,7 +22,7 @@
       config = lib.mkIf cfg.enable {
         programs.fuzzel.settings = {
           main = {
-            font = "Monaspace Radon Frozen";
+            font = "Monaspace Radon Var";
             icon-theme = config.gtk.iconTheme.name;
 
             hide-prompt = true;

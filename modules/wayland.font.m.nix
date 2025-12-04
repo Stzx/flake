@@ -40,7 +40,7 @@
           # source-han-sans
           # source-han-mono
 
-          monaspace
+          monaspace.variable
           # comic-mono
           # victor-mono
           maple-mono.CN-unhinted
