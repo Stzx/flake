@@ -20,37 +20,54 @@
           extraConfig = ''
             local act = wezterm.action
 
-            local cfg = wezterm.config_builder()
+            local opt = wezterm.config_builder()
 
-            cfg.front_end = "WebGpu"
-            cfg.unicode_version = 14
+            opt.front_end = "WebGpu"
+            opt.unicode_version = 14
+            opt.freetype_interpreter_version = 40
 
-            cfg.default_cwd = wezterm.home_dir
-            cfg.default_prog = { '${lib.getExe config.programs.zsh.package}' }
-            cfg.default_cursor_style = 'BlinkingUnderline'
-            cfg.color_scheme = 'Monokai Remastered'
-            cfg.font_size = 11
-            cfg.font = wezterm.font_with_fallback {
+            opt.default_cwd = wezterm.home_dir
+            opt.default_prog = { '${lib.getExe config.programs.zsh.package}' }
+            opt.default_cursor_style = 'BlinkingUnderline'
+
+            opt.color_scheme = 'Monokai Remastered'
+
+            opt.font_size = 11
+            opt.font = wezterm.font_with_fallback {
                 'Sarasa Term Slab SC',
                 'Sarasa Term Slab TC',
                 'Sarasa Term Slab J',
                 'Sarasa Term Slab K',
+                'Symbols Nerd Font Mono',
             }
 
-            cfg.show_new_tab_button_in_tab_bar = false
-            cfg.show_close_tab_button_in_tabs = false
-            cfg.show_tab_index_in_tab_bar = false
-            cfg.tab_bar_at_bottom = true
-            cfg.window_background_opacity = 0.85
+            -- opt.show_close_tab_button_in_tabs = false
+            -- opt.show_new_tab_button_in_tab_bar = false
+            opt.show_tab_index_in_tab_bar = false
 
-            cfg.check_for_updates = false
+            opt.tab_bar_at_bottom = true
+            opt.enable_scroll_bar = true -- not work ???
 
-            cfg.keys = {
+            opt.window_background_opacity = 0.90
+            opt.kde_window_background_blur = true
+
+            -- opt.hyperlink_rules = wezterm.default_hyperlink_rules()
+
+            -- table.insert(opt.hyperlink_rules, {
+            --   regex = [[]],
+            --   format = '\',
+            -- })
+
+            opt.check_for_updates = false
+
+            ${cfg.userConfig}
+
+            opt.keys = {
+              { key = 'e', mods = 'ALT', action = act.SendString 'cd -\n', },
               { key = 'd', mods = 'ALT', action = act.SendString 'cd ..\n', },
             }
 
-            ${cfg.userConfig}
-            return cfg
+            return opt
           '';
         };
 
