@@ -20,6 +20,7 @@
       config = lib.mkMerge [
         {
           nix = {
+            channel.enable = mkDefault false;
             settings = {
               auto-optimise-store = true;
               experimental-features = [
@@ -42,6 +43,7 @@
               efi.canTouchEfiVariables = true;
               systemd-boot = {
                 consoleMode = "max";
+                memtest86.enable = mkDefault true;
                 edk2-uefi-shell.enable = true;
               };
             };
