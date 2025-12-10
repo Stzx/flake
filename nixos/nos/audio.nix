@@ -95,8 +95,10 @@ in
       "99-disabled" = {
         "wireplumber.profiles" = {
           main = {
+            "hardware.bluetooth" = "disabled";
+            "hardware.video-capture" = "disabled";
+
             "monitor.alsa-midi" = "disabled";
-            "monitor.bluez-midi" = "disabled";
           };
         };
       };
