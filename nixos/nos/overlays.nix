@@ -5,20 +5,19 @@
 }:
 
 (final': prev': {
-  linuxManualConfig = prev'.linuxManualConfig.override {
-    # FIXME: https://github.com/NixOS/nixpkgs/issues/49894
-    # see https://github.com/NixOS/nixpkgs/issues/142901
-    # stdenv = with pkgs; overrideCC clangStdenv (
-    #   clangStdenv.cc.override {
-    #     inherit (llvmPackages) bintools;
-    #     # LTO: override bintools sharedLibraryLoader = null;
-    #   }
-    # );
-    # LTO: extraMakeFlags = [ "LLVM=1" ];
-
-    stdenv = final'.ccacheStdenv;
+  linuxManualConfig = prev'.linuxManualConfig.override rec {
+    # TRACK:
+    # - https://github.com/NixOS/nixpkgs/issues/142901
+    # - https://github.com/NixOS/nixpkgs/issues/49894
+    stdenv = prev'.ccacheStdenv.override {
+      stdenv = final'.overrideCC prev'.clangStdenv (
+        prev'.clangStdenv.cc.override {
+          inherit (final'.llvmPackages) bintools;
+        }
+      );
+    };
     buildPackages = final'.buildPackages // {
-      stdenv = final'.ccacheStdenv;
+      inherit stdenv;
     };
   };
 
@@ -43,6 +42,9 @@
         allowImportFromDerivation = true;
 
         configfile = ./core/kernel-configuration;
+        extraMakeFlags = [
+          "LLVM=1"
+        ];
       };
     }
   );

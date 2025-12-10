@@ -6,8 +6,7 @@ let
     mkShellNoCC
     ;
 
-  # FIXME: https://github.com/NixOS/nixpkgs/issues/49894
-  _llvmShell = mkShell.override {
+  mkLLVMShell = mkShell.override {
     stdenv = pkgs.overrideCC pkgs.clangStdenv (
       pkgs.clangStdenv.cc.override {
         inherit (pkgs.llvmPackages) bintools;
@@ -128,7 +127,7 @@ in
     ];
   };
 
-  kernel = mkShell {
+  kernel = mkLLVMShell {
     packages = with pkgs; [
       git
 
@@ -139,8 +138,8 @@ in
       bison
       flex
       pahole
-      rustc
-      rust-bindgen
+      rustc-unwrapped
+      rust-bindgen-unwrapped
 
       pkg-config
     ];
@@ -149,7 +148,8 @@ in
 
     shellHook = ''
       export ARCH="$(uname --machine)" \
-      && git fetch origin tag "$(uname --kernel-release)" --depth=1 \
+      && export LLVM=1 \
+      && git fetch -v --shallow-exclude=* --depth=1 origin tag "$(uname --kernel-release)" \
       && git checkout "tags/$(uname --kernel-release)" \
       && (make helpnewconfig | less -F)
     '';

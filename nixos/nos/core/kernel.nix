@@ -41,7 +41,6 @@ in
       systemd.enable = true;
       includeDefaultModules = false;
       availableKernelModules = mkForce [
-        "autofs"
         "amdgpu"
       ];
     };
