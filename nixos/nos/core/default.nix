@@ -16,15 +16,7 @@
 
   systemd.oomd.enable = false;
 
-  services.scx = {
-    enable = true;
-    package = pkgs.scx.rustscheds;
-    scheduler = "scx_bpfland";
-    extraArgs = [
-      "--local-pcpu"
-      "--cpufreq"
-    ];
-  };
+  services.scx.enable = true;
 
   # ACTION=="add", KERNEL=="0000:08:00.0", SUBSYSTEM=="pci", ATTR{remove}="1"
   # KERNEL=="ttyUSB[0-9]", SUBSYSTEM=="tty", MODE="0666"

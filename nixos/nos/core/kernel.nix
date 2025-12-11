@@ -7,6 +7,10 @@
 
 let
   inherit (lib) mkForce;
+
+  scxScheduler = config.services.scx.scheduler;
+
+  needIkconfig = scxScheduler == "scx_flash" || scxScheduler == "scx_lavd";
 in
 {
   environment.systemPackages = [
@@ -48,9 +52,12 @@ in
       "libahci.ignore_sss=1"
       "amdgpu.ppfeaturemask=0xfff7ffff"
     ];
-    kernelModules = mkForce [
-      "ntsync"
-    ];
+    kernelModules = mkForce (
+      [
+        "ntsync"
+      ]
+      ++ lib.optional needIkconfig "configs" # I didn't expect any software to need it; thankfully it's [M].
+    );
     supportedFilesystems = [
       "f2fs"
       "xfs"
