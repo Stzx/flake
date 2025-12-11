@@ -12,6 +12,18 @@ final': prev': {
   #   }
   # );
 
+  scx = prev'.scx // {
+    rustscheds = prev'.scx.rustscheds.overrideAttrs (
+      _: prev: {
+        cargoBuildFlags = (prev.cargoBuildFlags or [ ]) ++ [
+          "-p scx_flash"
+          "-p scx_bpfland"
+          "-p scx_lavd"
+        ];
+      }
+    );
+  };
+
   monaspace = prev'.monaspace // {
     # static = prev'.monaspace.static.overrideAttrs (
     #   _: _: {
