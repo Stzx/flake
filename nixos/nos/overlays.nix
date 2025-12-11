@@ -4,6 +4,24 @@
   ...
 }:
 
+let
+  rustFlags' =
+    _: prev:
+    let
+      env' = prev.env or { };
+    in
+    {
+      env = env' // {
+        NIX_RUSTFLAGS = builtins.toString (
+          (env'.NIX_RUSTFLAGS or [ ])
+          ++ [
+            "-C target-cpu=x86-64-v3"
+            "-C codegen-units=1"
+          ]
+        );
+      };
+    };
+in
 (final': prev': {
   linuxManualConfig = prev'.linuxManualConfig.override rec {
     # TRACK:
@@ -49,18 +67,11 @@
     }
   );
 
-  niri = prev'.niri.overrideAttrs (
-    _: prev:
-    let
-      env' = prev.env or { };
-      NIX_RUSTFLAGS' = env'.NIX_RUSTFLAGS or [ ];
-    in
-    {
-      env = env' // {
-        NIX_RUSTFLAGS = builtins.toString ([ NIX_RUSTFLAGS' ] ++ [ "-C target-cpu=x86-64-v3" ]);
-      };
-    }
-  );
+  scx = prev'.scx // {
+    rustscheds = prev'.scx.rustscheds.overrideAttrs rustFlags';
+  };
+
+  niri = prev'.niri.overrideAttrs rustFlags';
 
   libvirt = prev'.libvirt.override {
     enableXen = false;
@@ -141,11 +152,9 @@
   };
 
   keepassxc = prev'.keepassxc.override {
-    withKeePassBrowser = false;
-    withKeePassBrowserPasskeys = false;
     withKeePassFDOSecrets = false;
+    withKeePassKeeShare = false;
     withKeePassNetworking = false;
-    withKeePassSSHAgent = false;
     withKeePassX11 = false;
   };
 })
