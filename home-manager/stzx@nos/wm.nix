@@ -23,6 +23,8 @@
     keepassxc
 
     jetbrains-toolbox
+
+    global-quake-bin
   ];
 
   programs = {

@@ -84,6 +84,7 @@ window-rule {
 }
 
 window-rule {
+    match app-id="net-globalquake-client-main-Main"
     match app-id="^thunderbird$" title="^Password Required"
     match app-id="^(?-x:cheatengine|.+eac).*exe$"
 
