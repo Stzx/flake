@@ -1,8 +1,8 @@
-final': prev': {
-  # _ = prev'._.overrideAttrs (
-  #   _: prev:
+final: prev: {
+  # _ = prev._.overrideAttrs (
+  #   _: prev':
   #   let
-  #     env' = prev.env or { };
+  #     env' = prev'.env or { };
   #     NIX_CFLAGS_COMPILE' = env'.NIX_CFLAGS_COMPILE or [ ];
   #   in
   #   {
@@ -12,10 +12,10 @@ final': prev': {
   #   }
   # );
 
-  scx = prev'.scx // {
-    rustscheds = prev'.scx.rustscheds.overrideAttrs (
-      _: prev: {
-        cargoBuildFlags = (prev.cargoBuildFlags or [ ]) ++ [
+  scx = prev.scx // {
+    rustscheds = prev.scx.rustscheds.overrideAttrs (
+      _: prev': {
+        cargoBuildFlags = (prev'.cargoBuildFlags or [ ]) ++ [
           "-p scx_flash"
           "-p scx_bpfland"
           "-p scx_lavd"
@@ -24,8 +24,8 @@ final': prev': {
     );
   };
 
-  monaspace = prev'.monaspace // {
-    # static = prev'.monaspace.static.overrideAttrs (
+  monaspace = prev.monaspace // {
+    # static = prev.monaspace.static.overrideAttrs (
     #   _: _: {
     #     installPhase = ''
     #       runHook preInstall
@@ -37,7 +37,7 @@ final': prev': {
     #   }
     # );
 
-    variable = prev'.monaspace.variable.overrideAttrs (
+    variable = prev.monaspace.variable.overrideAttrs (
       _: _: {
         installPhase = ''
           runHook preInstall
@@ -50,13 +50,13 @@ final': prev': {
     );
   };
 
-  papirus-icon-theme = prev'.papirus-icon-theme.overrideAttrs (
-    _: prev:
-    assert prev.version == "20250501"; # wait release
+  papirus-icon-theme = prev.papirus-icon-theme.overrideAttrs (
+    _: prev':
+    assert prev'.version == "20250501"; # wait release
     {
       version = "git";
 
-      src = final'.fetchFromGitHub {
+      src = final.fetchFromGitHub {
         owner = "PapirusDevelopmentTeam";
         repo = "papirus-icon-theme";
         rev = "3aa364b35784ccf5f38e52081f92839ce6ab67a1";
@@ -65,23 +65,23 @@ final': prev': {
     }
   );
 
-  _7zz = final'.symlinkJoin {
+  _7zz = final.symlinkJoin {
     name = "7z";
-    paths = [ prev'._7zz ];
+    paths = [ prev._7zz ];
     postBuild = ''
-      ln -s ${prev'._7zz}/bin/7zz $out/bin/7z
+      ln -s ${prev._7zz}/bin/7zz $out/bin/7z
     '';
   };
 
-  niri = prev'.niri.overrideAttrs (
-    _: prev: {
-      preInstall = (prev.preInstall or "") + ''
+  niri = prev.niri.overrideAttrs (
+    _: prev': {
+      preInstall = (prev'.preInstall or "") + ''
         echo "org.freedesktop.impl.portal.FileChooser=gtk;" >> resources/niri-portals.conf
       '';
     }
   );
 
-  wrapFirefox = prev'.wrapFirefox.override {
+  wrapFirefox = prev.wrapFirefox.override {
     config = rec {
       firefox = {
         enableQuakeLive = false;
@@ -91,11 +91,11 @@ final': prev': {
     };
   };
 
-  htop = prev'.htop.override {
+  htop = prev.htop.override {
     sensorsSupport = false;
   };
 
-  mpd = prev'.mpd.override {
+  mpd = prev.mpd.override {
     features = [
       "io_uring"
 
@@ -133,13 +133,13 @@ final': prev': {
         -XX:MaxMetaspaceSize=1024m
       '';
     in
-    prev'.jetbrains
+    prev.jetbrains
     // {
-      idea-community = prev'.jetbrains.idea-community.override { inherit vmopts; };
-      rust-rover = prev'.jetbrains.rust-rover.override { inherit vmopts; };
+      idea-community = prev.jetbrains.idea-community.override { inherit vmopts; };
+      rust-rover = prev.jetbrains.rust-rover.override { inherit vmopts; };
     };
 
-  fluent-gtk-theme = prev'.fluent-gtk-theme.override {
+  fluent-gtk-theme = prev.fluent-gtk-theme.override {
     themeVariants = [
       "purple"
       "grey"
@@ -148,7 +148,7 @@ final': prev': {
     tweaks = [ "blur" ];
   };
 
-  bibata-cursors = prev'.bibata-cursors.overrideAttrs {
+  bibata-cursors = prev.bibata-cursors.overrideAttrs {
     buildPhase = ''
       runHook preBuild
 
@@ -178,11 +178,11 @@ final': prev': {
   #10 0x000077d2dc13dac2 fuse_do_work (libfuse.so.2 + 0x16ac2)
   #11 0x000077d2dbe97e63 start_thread (libc.so.6 + 0x97e63)
   #12 0x000077d2dbf1bdbc __clone3 (libc.so.6 + 0x11bdbc)
-  fuse-avfs = prev'.avfs.overrideAttrs (
-    _: prev: {
+  fuse-avfs = prev.avfs.overrideAttrs (
+    _: prev': {
       pname = "fuse-avfs"; # I prefer the package name fuse-avfs.
-      buildInputs = (prev.buildInputs or [ ]) ++ [ final'.zstd ];
-      configureFlags = (prev.configureFlags or [ ]) ++ [ "--with-zstd=yes" ];
+      buildInputs = (prev'.buildInputs or [ ]) ++ [ final.zstd ];
+      configureFlags = (prev'.configureFlags or [ ]) ++ [ "--with-zstd=yes" ];
     }
   );
 }

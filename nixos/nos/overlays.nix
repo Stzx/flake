@@ -5,42 +5,37 @@
 }:
 
 let
-  rustFlags' =
-    _: prev:
-    let
-      env' = prev.env or { };
-    in
-    {
-      env = env' // {
-        NIX_RUSTFLAGS = builtins.toString (
-          (env'.NIX_RUSTFLAGS or [ ])
-          ++ [
-            "-C target-cpu=x86-64-v3"
-            "-C codegen-units=1"
-          ]
-        );
-      };
+  rustFlags' = _: prev: {
+    env = (prev.env or { }) // {
+      NIX_RUSTFLAGS = builtins.toString (
+        (prev.env.NIX_RUSTFLAGS or [ ])
+        ++ [
+          "-C target-cpu=x86-64-v3"
+          "-C codegen-units=1"
+        ]
+      );
     };
+  };
 in
-(final': prev': {
-  linuxManualConfig = prev'.linuxManualConfig.override rec {
+(final: prev: {
+  linuxManualConfig = prev.linuxManualConfig.override rec {
     # TRACK:
     # - https://github.com/NixOS/nixpkgs/issues/142901
     # - https://github.com/NixOS/nixpkgs/issues/49894
-    stdenv = prev'.ccacheStdenv.override {
-      stdenv = final'.overrideCC prev'.clangStdenv (
-        prev'.clangStdenv.cc.override {
-          inherit (final'.llvmPackages) bintools;
+    stdenv = prev.ccacheStdenv.override {
+      stdenv = final.overrideCC prev.clangStdenv (
+        prev.clangStdenv.cc.override {
+          inherit (final.llvmPackages) bintools;
         }
       );
     };
-    buildPackages = final'.buildPackages // {
+    buildPackages = final.buildPackages // {
       inherit stdenv;
     };
   };
 
   # https://wiki.gentoo.org/wiki/AMDGPU#Firmware_blobs_for_a_known_card_model
-  linux-firmware = prev'.linux-firmware.overrideAttrs {
+  linux-firmware = prev.linux-firmware.overrideAttrs {
     postInstall = ''
       find $out/lib/firmware/amdgpu -type f ! \( \
       -name 'sienna_cichlid_*.bin' \
@@ -53,10 +48,20 @@ in
     '';
   };
 
-  linuxPackages_xanmod_stable = prev'.linuxPackages_xanmod_stable.extend (
-    _: prev: {
-      kernel = final'.linuxManualConfig {
-        inherit (prev.kernel) src version modDirVersion;
+  linuxPackages_xanmod_stable = prev.linuxPackages_xanmod_stable.extend (
+    _: prev': {
+      kernel = final.linuxManualConfig rec {
+        # inherit (prev'.kernel) src version modDirVersion;
+
+        version = "6.17.11";
+        modDirVersion = "${version}-xanmod1";
+        src = final.fetchFromGitLab {
+          owner = "xanmod";
+          repo = "linux";
+          rev = modDirVersion;
+          hash = "sha256-NJQ67MOjFMScwECxQd00F3SZ+kITbuBp/3imNXdUqlQ=";
+        };
+
         allowImportFromDerivation = true;
 
         configfile = ./core/kernel-configuration;
@@ -67,24 +72,24 @@ in
     }
   );
 
-  scx = prev'.scx // {
-    rustscheds = prev'.scx.rustscheds.overrideAttrs rustFlags';
+  scx = prev.scx // {
+    rustscheds = prev.scx.rustscheds.overrideAttrs rustFlags';
   };
 
-  niri = prev'.niri.overrideAttrs rustFlags';
+  niri = prev.niri.overrideAttrs rustFlags';
 
-  libvirt = prev'.libvirt.override {
+  libvirt = prev.libvirt.override {
     enableXen = false;
     enableZfs = false;
   };
 
-  qt6Packages = prev'.qt6Packages.overrideScope (
+  qt6Packages = prev.qt6Packages.overrideScope (
     fs: ps: rec {
       fcitx5-configtool = ps.fcitx5-configtool.override { kcmSupport = wmCfg.isKDE; };
 
       fcitx5-chinese-addons =
         let
-          cmb = final'.lib.cmakeBool;
+          cmb = final.lib.cmakeBool;
 
           fca' = ps.fcitx5-chinese-addons.override {
             curl = null;
@@ -93,8 +98,8 @@ in
           };
         in
         fca'.overrideAttrs (
-          _: prev:
-          assert prev.version == "5.1.10"; # wait fix
+          _: prev':
+          assert prev'.version == "5.1.10"; # wait fix
           {
             # FIXME: https://github.com/fcitx/fcitx5-chinese-addons/issues/233
             postPatch = ''
@@ -102,7 +107,7 @@ in
                 --replace-fail '    cloudpinyin.conf.in-fmt' ' '
             '';
 
-            cmakeFlags = (prev.cmakeFlags or [ ]) ++ [
+            cmakeFlags = (prev'.cmakeFlags or [ ]) ++ [
               (cmb "ENABLE_BROWSER" false)
               (cmb "ENABLE_CLOUDPINYIN" false)
               (cmb "ENABLE_OPENCC" false)
@@ -114,7 +119,7 @@ in
     }
   );
 
-  waybar = prev'.waybar.override {
+  waybar = prev.waybar.override {
     evdevSupport = false;
     cavaSupport = false;
     jackSupport = false;
@@ -128,7 +133,7 @@ in
     niriSupport = wmCfg.isNiri;
   };
 
-  mpv-unwrapped = prev'.mpv-unwrapped.override {
+  mpv-unwrapped = prev.mpv-unwrapped.override {
     x11Support = false;
     sdl2Support = false;
     cacaSupport = false;
@@ -142,16 +147,16 @@ in
 
     javascriptSupport = false;
 
-    vapoursynth = final'.vapoursynth.withPlugins [ final'.vs-rife-ncnn-vulkan ];
+    vapoursynth = final.vapoursynth.withPlugins [ final.vs-rife-ncnn-vulkan ];
     vapoursynthSupport = true;
   };
 
-  qbittorrent = prev'.qbittorrent.override {
+  qbittorrent = prev.qbittorrent.override {
     trackerSearch = false;
     webuiSupport = false;
   };
 
-  keepassxc = prev'.keepassxc.override {
+  keepassxc = prev.keepassxc.override {
     withKeePassFDOSecrets = false;
     withKeePassKeeShare = false;
     withKeePassNetworking = false;
