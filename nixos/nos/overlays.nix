@@ -76,6 +76,12 @@ in
     rustscheds = prev.scx.rustscheds.overrideAttrs rustFlags';
   };
 
+  kcptun = prev.kcptun.overrideAttrs {
+    env = {
+      GOAMD64 = "v3";
+    };
+  };
+
   niri = prev.niri.overrideAttrs rustFlags';
 
   libvirt = prev.libvirt.override {
