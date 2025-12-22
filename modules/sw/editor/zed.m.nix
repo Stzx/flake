@@ -12,12 +12,12 @@
           ui_font_family = "Monaspace Radon Var";
           ui_font_fallbacks = [ "Symbols Nerd Font Mono" ];
 
-          buffer_font_size = 14;
-          buffer_font_family = "Sarasa Mono Slab SC";
+          buffer_font_size = 15;
+          buffer_font_family = "Sarasa Mono SC";
           buffer_font_fallbacks = [
-            "Sarasa Mono Slab TC"
-            "Sarasa Mono Slab J"
-            "Sarasa Mono Slab K"
+            "Sarasa Mono TC"
+            "Sarasa Mono J"
+            "Sarasa Mono K"
             "Symbols Nerd Font Mono"
           ];
 
@@ -54,15 +54,14 @@
           };
 
           vim_mode = true;
-          relative_line_numbers = true;
+          relative_line_numbers = "enabled";
 
           inlay_hints.enabled = true;
           minimap.show = "auto";
-          preview_tabs.enable_preview_from_code_navigation = true;
 
           terminal = {
             dock = "bottom";
-            font_size = 14;
+            font_size = 15;
             font_family = "Sarasa Term Slab SC";
             font_fallbacks = [
               "Sarasa Term Slab TC"
@@ -88,6 +87,7 @@
               "*.sh"
               "*.source"
               "*.src"
+              ".envrc"
             ];
             "XML" = [
               "*.xml"
@@ -124,6 +124,7 @@
           auto_install_extensions = {
             html = false; # FIXME: https://github.com/zed-industries/zed/issues/16703
 
+            kotlin = true;
             java = true;
             lua = true;
             dart = true;
@@ -134,6 +135,7 @@
             toml = true;
             ini = true;
             xml = true;
+            kdl = true;
             qml = true;
             proto = true;
             dockerfile = true;
@@ -143,7 +145,7 @@
             vscode-monokai-charcoal = true;
           };
 
-          disable_ai = true;
+          # disable_ai = true;
 
           telemetry = {
             diagnostics = false;
