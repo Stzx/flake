@@ -4,23 +4,31 @@
   requireFile,
   unzip,
   makeWrapper,
+  libGL,
   temurin-jre-bin,
   rtJre ? temurin-jre-bin,
+  openGLBackend ? true,
   vmOpts ? (
-    lib.concatStringsSep " " [
-      "-Xmx1G"
-      "-XX:+UseZGC"
-      # "-Dsun.java2d.vulkan=True"
-      # "-Dawt.toolkit.name=WLToolkit"
-      "-Dawt.useSystemAAFontSettings=gasp"
-      "-Dswing.defaultlaf=javax.swing.plaf.nimbus.NimbusLookAndFeel"
-      # "-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
-    ]
+    lib.concatStringsSep " " (
+      [
+        "-Xmx1G"
+        "-XX:+UseZGC"
+        # "-Dsun.java2d.vulkan=true" # WAIT: wakefield release
+        # "-Dawt.toolkit.name=WLToolkit" # WAIT: wakefield release
+        "-Dawt.useSystemAAFontSettings=gasp"
+        "-Dswing.defaultlaf=javax.swing.plaf.nimbus.NimbusLookAndFeel"
+        # "-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
+      ]
+      ++ lib.optional openGLBackend "-Dsun.java2d.opengl=true"
+    )
   ),
 }:
 
 assert lib.versionAtLeast (lib.getVersion rtJre) "17";
 
+let
+  libPath = lib.makeLibraryPath ([ ] ++ lib.optional openGLBackend libGL);
+in
 stdenvNoCC.mkDerivation (finalAttrs: rec {
   pname = "global-quake-bin";
 
@@ -84,6 +92,7 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
     # --run "mkdir -p \$XDG_RUNTIME_DIR/global-quake/ && cd \$XDG_RUNTIME_DIR/global-quake/" \
     makeWrapper ${lib.getExe rtJre} $out/bin/${meta.mainProgram} \
       --set _JAVA_AWT_WM_NONREPARENTING 1 \
+      --prefix LD_LIBRARY_PATH : "${libPath}" \
       --run "mkdir -p \$XDG_CACHE_HOME/global-quake/ && cd \$XDG_CACHE_HOME/global-quake/" \
       --add-flags "${vmOpts} -cp $out/share/${pname}/GlobalQuake.jar:$out/share/${pname}/libs/* net.globalquake.client.main.Main"
 
