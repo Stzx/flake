@@ -16,6 +16,8 @@ in
 
   services.flatpak.enable = true;
 
+  # services.fwupd.enable = false;
+
   systemd = {
     mounts = [
       rec {

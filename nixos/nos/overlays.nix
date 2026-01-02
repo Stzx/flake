@@ -50,17 +50,8 @@ in
 
   linuxPackages_xanmod_stable = prev.linuxPackages_xanmod_stable.extend (
     _: prev': {
-      kernel = final.linuxManualConfig rec {
-        # inherit (prev'.kernel) src version modDirVersion;
-
-        version = "6.17.11";
-        modDirVersion = "${version}-xanmod1";
-        src = final.fetchFromGitLab {
-          owner = "xanmod";
-          repo = "linux";
-          rev = modDirVersion;
-          hash = "sha256-NJQ67MOjFMScwECxQd00F3SZ+kITbuBp/3imNXdUqlQ=";
-        };
+      kernel = final.linuxManualConfig {
+        inherit (prev'.kernel) src version modDirVersion;
 
         allowImportFromDerivation = true;
 

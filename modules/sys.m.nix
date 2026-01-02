@@ -33,7 +33,7 @@
               automatic = true;
               dates = "weekly";
               randomizedDelaySec = "3m";
-              options = "--delete-older-than 7d";
+              options = "--delete-older-than 14d";
             };
           };
 

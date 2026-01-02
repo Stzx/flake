@@ -18,8 +18,6 @@
               enable = true;
               useNautilus = lib.mkDefault false;
             };
-
-            xdg.portal.config = lib.mkForce { };
           }
 
           (mkIf config.services.flatpak.enable {

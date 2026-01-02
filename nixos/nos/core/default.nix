@@ -14,8 +14,6 @@
 
   zramSwap.enable = true;
 
-  systemd.oomd.enable = false;
-
   services.scx.enable = true;
 
   # ACTION=="add", KERNEL=="0000:08:00.0", SUBSYSTEM=="pci", ATTR{remove}="1"
