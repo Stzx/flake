@@ -15,17 +15,15 @@
       args = {
         scx_bpfland = [
           "--local-pcpu"
-          "--local-kthreads"
+          # "--local-kthreads"
           "--sticky-tasks"
-          # "--cpufreq"
         ];
 
         scx_flash = [
-          "--slice-lag-scaling"
           "--local-pcpu"
-          "--local-kthreads"
+          # "--local-kthreads"
           "--sticky-cpu"
-          # "--cpufreq"
+          # "--direct-dispatch"
         ];
       };
     in

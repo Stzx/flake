@@ -14,7 +14,17 @@
 
   zramSwap.enable = true;
 
-  services.scx.enable = true;
+  services.scx = {
+    enable = true;
+    userArgs = [
+      # "--slice-lag-scaling"
+      "--cpufreq"
+
+      # FIXME, TRACK: https://github.com/NixOS/nixpkgs/pull/453196
+      "--max-avg-nvcsw"
+      "192"
+    ];
+  };
 
   # ACTION=="add", KERNEL=="0000:08:00.0", SUBSYSTEM=="pci", ATTR{remove}="1"
   # KERNEL=="ttyUSB[0-9]", SUBSYSTEM=="tty", MODE="0666"
