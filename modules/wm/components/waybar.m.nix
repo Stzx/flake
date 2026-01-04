@@ -130,7 +130,19 @@
             };
 
             systemd-failed-units = {
-              format = nerd "󱡍" "{nr_failed_system} ⚞ S ☯ U ⚟ {nr_failed_user}";
+              format = "{nr_failed_system} ⚞ S ☯ U ⚟ {nr_failed_user}";
+            };
+
+            idle_inhibitor = {
+              format = nerd' "{icon}";
+              format-icons = {
+                activated = ""; # nf-cod-eye
+                deactivated = ""; # nf-cod-eye_closed
+              };
+            };
+
+            privacy = {
+              icon-size = iconSize;
             };
 
             "wlr/taskbar" = {
@@ -224,6 +236,28 @@
             }
 
             /* RIGHT */
+            #privacy {
+              border-top: 3px solid #FF4500;
+
+              padding: 0 3px;
+            }
+
+            #privacy-item {
+              padding: 0px 4px;
+            }
+
+            #privacy-item.screenshare {
+              color: #7C3AED;
+            }
+
+            #privacy-item.audio-in {
+              color: #3B82F6;
+            }
+
+            #privacy-item.audio-out {
+              color: #008000;
+            }
+
             #systemd-failed-units.degraded {
               color: yellow;
             }

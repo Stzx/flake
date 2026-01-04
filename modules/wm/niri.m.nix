@@ -184,9 +184,11 @@
           ];
           right = mkAfter [
             "systemd-failed-units"
+            "privacy"
             "network"
             "load"
             "pulseaudio"
+            "idle_inhibitor"
             "tray"
             "group/power"
           ];
