@@ -12,8 +12,6 @@ let
   varPrometheus = config.systemd.services.prometheus.serviceConfig.WorkingDirectory;
 in
 {
-  programs.adb.enable = true;
-
   services.flatpak.enable = true;
 
   # services.fwupd.enable = false;

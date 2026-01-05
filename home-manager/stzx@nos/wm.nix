@@ -25,11 +25,10 @@
     jetbrains-toolbox
 
     global-quake-bin
+    scrcpy
   ];
 
   programs = {
-    scrcpy = true;
-
     mpv.enable = true;
     obs-studio = {
       enable = true;

@@ -19,6 +19,8 @@ in
 
       bat
       numbat
+
+      android-tools
     ];
 
     programs = {

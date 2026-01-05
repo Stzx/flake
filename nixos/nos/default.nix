@@ -69,8 +69,7 @@ in
     ++ optional config.features.gpu.amdROCm "render"
     ++ optional config.programs.wireshark.enable "wireshark"
     ++ optional config.virtualisation.docker.enable "docker"
-    ++ optional config.virtualisation.libvirtd.enable "libvirtd"
-    ++ optional config.programs.adb.enable "adbusers";
+    ++ optional config.virtualisation.libvirtd.enable "libvirtd";
   };
 
   programs.nix-ld.enable = true;
