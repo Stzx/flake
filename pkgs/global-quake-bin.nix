@@ -3,6 +3,8 @@
   stdenvNoCC,
   requireFile,
   unzip,
+  copyDesktopItems,
+  makeDesktopItem,
   makeWrapper,
   libGL,
   temurin-jre-bin,
@@ -44,10 +46,20 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
 
   nativeBuildInputs = [
     unzip
+    copyDesktopItems
     makeWrapper
   ];
 
   dontBuild = true;
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = finalAttrs.pname;
+      desktopName = "Global Quake";
+      exec = "global-quake";
+      terminal = false;
+    })
+  ];
 
   # Um..., I really don't want to waste my energy.
   #
