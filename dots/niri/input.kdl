@@ -1,6 +1,6 @@
 input {
     keyboard {
-        repeat-delay 5000
+        // repeat-delay 5000
 
         numlock
     }

@@ -61,13 +61,14 @@ binds {
     Mod+Shift+Ctrl+W { switch-preset-window-width; }
 
     Mod+C { center-column; }
-    Mod+M { maximize-column; }
     Mod+X { close-window; }
     Mod+Shift+C { center-window; }
-    Mod+Ctrl+Return { fullscreen-window; }
 
+    Mod+F { maximize-column; }
+    Mod+Shift+F { maximize-window-to-edges; }
     Mod+Ctrl+F { toggle-window-floating; }
-    Mod+Ctrl+W { toggle-windowed-fullscreen; }
+    Mod+Ctrl+Return { fullscreen-window; }
+    Mod+Shift+Ctrl+Return { toggle-windowed-fullscreen; }
 
     Mod+D { set-dynamic-cast-window; }
     Mod+Shift+D { clear-dynamic-cast-target; }

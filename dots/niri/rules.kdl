@@ -16,22 +16,39 @@ window-rule {
     clip-to-geometry true
 }
 
+window-rule {
+    match app-id="^mpv$"
+    match app-id=r#"\.exe$"#
+    match title=r#"Minecraft\* [\w\.]{3,}"#
+
+    variable-refresh-rate true
+}
+
 // startup
 window-rule {
+    match app-id=r#"^kitty$"# at-startup=true
     match app-id=r#"^(?-x:org|com)\.(?-x:wezfurlong|mitchellh)\.(?-x:wezterm|ghostty)$"# at-startup=true
 
     open-on-workspace "terminal"
-    open-maximized true
+    open-maximized-to-edges true
 }
 
 window-rule {
-    match app-id="^(?-x:kitty|firefox|spotify)$" at-startup=true
+    match app-id="^firefox$" at-startup=true
 
     open-on-workspace "sea"
-    open-maximized true
+    open-maximized-to-edges true
 }
 
 // non-floating
+window-rule {
+    match app-id="spotify"
+    match app-id="^net-globalquake-client-main-Main$" title="^GlobalQuake"
+
+    open-on-workspace "sea"
+    open-maximized-to-edges true
+}
+
 window-rule {
     match app-id=r#"^org\.telegram\.desktop$"#
     match app-id="^(?-x:thunderbird|calibre-gui)$"
@@ -53,7 +70,6 @@ window-rule {
     default-column-display "tabbed"
 
     open-on-workspace "run"
-    open-maximized true
 }
 
 window-rule {
@@ -64,33 +80,34 @@ window-rule {
 }
 
 window-rule {
+    match title="^KeePassXC - (?-x:Browser Access Request|浏览器访问请求|Passkey credentials|通行密钥凭据)$"
+
+    block-out-from "screen-capture"
+
+    open-focused true
+}
+
+window-rule {
     match app-id=r#"^(?-x:org|com)\.(?-x:keepassxc|obsproject)\.(?-x:KeePassXC|Studio)$"#
     match app-id="^veracrypt$"
 
     block-out-from "screen-capture"
 
     open-on-workspace "magic"
+    open-maximized true
 }
 
 // floating
 window-rule {
-    match app-id="^mpv$"
-    match app-id=r#"\.exe$"#
-    match title=r#"Minecraft\* [\w\.]{3,}"#
-
-    variable-refresh-rate true
-
-    open-floating false
-}
-
-window-rule {
-    match app-id="net-globalquake-client-main-Main"
     match app-id="^thunderbird$" title="^Password Required"
-    match app-id="^(?-x:cheatengine|.+eac).*exe$"
+    match app-id="^(?-x:cheatengine|.+eac|launch_hll).*exe$"
+    match app-id=r#"^cookie clicker\.exe$"# title="^cookie-electron$"
+    match app-id="jadx-gui-JadxGUI"
 
     open-fullscreen false
     open-floating true
 }
+
 window-rule {
     match app-id=r#"^org\.(?-x:qbittorrent|telegram)\.(?-x:qBittorrent|desktop)$"# title="^(?-x:Preferences|Rename|Renaming|Media viewer)$"
     match app-id="^firefox$" title="^(?-x:Picture-in-Picture|Library|About Mozilla Firefox|画中画|我的足迹|关于 Mozilla Firefox)$"
