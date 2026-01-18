@@ -25,18 +25,17 @@ let
 
       qt6Packages.qtdeclarative
 
-      basedpyright
-      python3Packages.python-lsp-server
-
       nixfmt
 
       treefmt
+
+      sops
     ];
   };
 
-  proxy' = {
-    # RUSTUP_DIST_SERVER = "https://mirrors.ustc.edu.cn/rust-static";
-    # RUSTUP_UPDATE_ROOT = "https://mirrors.ustc.edu.cn/rust-static/rustup";
+  mirror' = {
+    # RUSTUP_DIST_SERVER = "https://mirrors.cernet.edu.cn/rustup";
+    # RUSTUP_UPDATE_ROOT = "https://mirrors.cernet.edu.cn/rustup/rustup";
 
     # PUB_HOSTED_URL = "https://pub.flutter-io.cn";
     # FLUTTER_STORAGE_BASE_URL = "https://storage.flutter-io.cn";
@@ -45,7 +44,7 @@ let
   };
 in
 {
-  default = mkShellNoCC (default' // proxy');
+  default = mkShellNoCC (default' // mirror');
 
   noProxy = mkShellNoCC default';
 
@@ -63,7 +62,7 @@ in
         wget
         unzip
         uftpd
-        minicom # prefer wezterm serial
+        # minicom # prefer wezterm serial
 
         binwalk
         ubootTools
@@ -82,7 +81,7 @@ in
 
       hardeningDisable = [ "all" ];
     }
-    // proxy'
+    // mirror'
   );
 
   latex = mkShellNoCC {
