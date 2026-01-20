@@ -40,7 +40,10 @@
       inputs.systems.follows = "systems";
     };
 
-    flake-secrets.url = "git+file:../flake-secrets";
+    flake-secrets = {
+      url = "git+file:../flake-secrets";
+      inputs.nixpkgs.follows = "unstable";
+    };
   };
 
   outputs =
@@ -66,9 +69,7 @@
           config = {
             allowAliases = false;
             allowUnfree = true;
-            permittedInsecurePackages = [
-              "python-2.7.18.8"
-            ];
+            permittedInsecurePackages = [ ];
           };
           overlays = [
             self.overlays.default
