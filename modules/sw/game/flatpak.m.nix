@@ -45,17 +45,15 @@
       mangohud' = pkgs.writeText "MangoHud.conf" ''
         horizontal
         horizontal_stretch=0
-
-        font_file=${font'}
-
         position=top-center
         background_alpha=0
         hud_compact
 
+        font_file=${font'}
+
         vram
 
         engine_short_names
-        dx_api
 
         fps_limit=0,141,97,60
         fps_color_change
@@ -70,6 +68,7 @@
         gpu_load_change
 
         frame_timing=0
+        # frame_timing_detailed
         # dynamic_frame_timing
         # histogram
 
@@ -81,6 +80,8 @@
 
         winesync
         wine_color
+
+        # blacklist=
       '';
 
       # MangoHud/presets.conf
@@ -109,10 +110,12 @@
             filesystems=${fs}
 
             [Environment]
-            vblank_mode=1
-            PROTON_USE_WAYLAND=1
             MANGOHUD=1
             MANGOHUD_CONFIGFILE=${mangohud'}
+            PROTON_USE_WAYLAND=1
+          ''
+          + lib.optionalString (!sysCfg.features.gpu.nvidia) ''
+            PROTON_DISABLE_NVAPI=1
           '';
         };
       };
