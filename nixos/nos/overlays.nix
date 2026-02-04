@@ -95,15 +95,7 @@ in
           };
         in
         fca'.overrideAttrs (
-          _: prev':
-          assert prev'.version == "5.1.10"; # wait fix
-          {
-            # FIXME: https://github.com/fcitx/fcitx5-chinese-addons/issues/233
-            postPatch = ''
-              substituteInPlace test/addon/CMakeLists.txt \
-                --replace-fail '    cloudpinyin.conf.in-fmt' ' '
-            '';
-
+          _: prev': {
             cmakeFlags = (prev'.cmakeFlags or [ ]) ++ [
               (cmb "ENABLE_BROWSER" false)
               (cmb "ENABLE_CLOUDPINYIN" false)
