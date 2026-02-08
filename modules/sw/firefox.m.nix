@@ -39,13 +39,31 @@
                   "dom.security.https_only_mode" = true;
                   "dom.security.https_only_mode_error_page_user_suggestions" = true;
 
+                  "gfx.content.skia-font-cache-size" = 32;
+                  "gfx.webrender.layer-compositor" = true;
+
+                  # "layout.frame_rate" = 60;
+                  "layout.spellcheckDefault" = 0;
+
+                  "media.memory_cache_max_size" = 262144;
+                  "media.memory_caches_combined_limit_kb" = 1048576;
+                  "media.eme.enabled" = true;
+                  "media.ffmpeg.vaapi.enabled" = true;
+
+                  "media.webspeech.recognition.enable" = false;
+                  "media.webspeech.synth.enabled" = false;
+
+                  "image.cache.size" = 10485760;
+                  "image.mem.decode_bytes_at_a_time" = 65536;
+
                   "browser.aboutConfig.showWarning" = false;
 
                   "browser.cache.disk.enable" = false;
                   "browser.cache.disk_cache_ssl" = false;
                   "browser.cache.memory.capacity" = 1048576;
+                  "browser.cache.memory.max_entry_size" = 32768;
 
-                  "browser.sessionstore.interval" = 60000;
+                  "browser.sessionstore.interval" = 300000;
                   "browser.bookmarks.max_backups" = 3;
 
                   "browser.contentblocking.category" = "standard";
@@ -101,7 +119,7 @@
                   "network.connectivity-service.enabled" = false;
                   "network.captive-portal-service.enabled" = false;
 
-                  "sidebar.visibility" = "always-show"; # expand-on-hover ?
+                  "sidebar.visibility" = "expand-on-hover";
                   "sidebar.position_start" = false;
                   "sidebar.main.tools" = "history,bookmarks";
                   "sidebar.verticalTabs" = true;
@@ -131,24 +149,16 @@
                   "app.normandy.enabled" = false;
                   "app.normandy.first_run" = false;
 
-                  "pdfjs.enabledCache.state" = true;
                   "pdfjs.defaultZoomValue" = "page-fit";
+                  "pdfjs.enabledCache.state" = true;
+                  "pdfjs.disableFontFace" = true;
                   "pdfjs.sidebarViewOnLoad" = 0;
                   "pdfjs.spreadModeOnLoad" = 0;
 
                   "full-screen-api.warning.timeout" = 0;
 
-                  "layout.frame_rate" = 120;
-                  "layout.spellcheckDefault" = 0;
-
                   "trailhead.firstrun.branches" = "nofirstrun-empty";
                   "trailhead.firstrun.didSeeAboutWelcome" = true;
-
-                  "media.eme.enabled" = true;
-                  "media.ffmpeg.vaapi.enabled" = true;
-
-                  "media.webspeech.recognition.enable" = false;
-                  "media.webspeech.synth.enabled" = false;
 
                   "toolkit.telemetry.enabled" = false;
                   "toolkit.telemetry.archive.enabled" = false;
