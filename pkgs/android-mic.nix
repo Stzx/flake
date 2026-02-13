@@ -4,13 +4,13 @@
   fetchgit,
   libcosmicAppHook,
   protobuf,
-  jack2,
+  libjack2,
   alsa-lib,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "android-mic";
-  version = "2.2.3";
+  version = "2.2.4";
 
   src = fetchgit {
     url = "https://github.com/teamclouday/AndroidMic.git";
@@ -19,15 +19,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
       "RustApp"
       "Assets"
     ];
-    hash = "sha256-OJzilL5PeQp8hnFChtZjcQBmJQeIZ0O2WTRbgw1St4k=";
+    hash = "sha256-byVuodMY/eCmj/v+2kwx6i1DB0u1ktgIAtw/81Cn5IU=";
   };
 
   cargoRoot = "RustApp";
 
-  cargoHash = "sha256-K0Uk5Ndxi8GSyWIKJ/BnARFal4qosdWAoGfL2ZoOGVs=";
+  cargoHash = "sha256-x6OhP72EIdTx3ptx1AIkJc6Ea70KkzPM1btYydhH7EA=";
 
   buildInputs = [
-    jack2
+    libjack2
+
     alsa-lib
   ];
 
