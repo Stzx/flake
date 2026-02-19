@@ -53,26 +53,26 @@ in
             }
           ];
         };
-        "10-virtual-mic-sink-link" = {
-          "context.exec" = [
-            {
-              path = "${cfg.package}/bin/pw-link";
-              args = [
-                "-w"
-                "virtual-sink:monitor_FL"
-                "virtual-mic:input_FL"
-              ];
-            }
-            {
-              path = "${cfg.package}/bin/pw-link";
-              args = [
-                "-w"
-                "virtual-sink:monitor_FR"
-                "virtual-mic:input_FR"
-              ];
-            }
-          ];
-        };
+        # "10-virtual-mic-sink-link" = {
+        #   "context.exec" = [
+        #     {
+        #       path = "${cfg.package}/bin/pw-link";
+        #       args = [
+        #         "-w"
+        #         "virtual-sink:monitor_FL"
+        #         "virtual-mic:input_FL"
+        #       ];
+        #     }
+        #     {
+        #       path = "${cfg.package}/bin/pw-link";
+        #       args = [
+        #         "-w"
+        #         "virtual-sink:monitor_FR"
+        #         "virtual-mic:input_FR"
+        #       ];
+        #     }
+        #   ];
+        # };
 
         "99-hw" = {
           "context.properties" = {

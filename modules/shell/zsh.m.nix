@@ -33,8 +33,8 @@
           history = {
             ignoreAllDups = true;
             ignorePatterns = [
-              "l"
-              "ls"
+              "l *"
+              "ls *"
               "cp *"
               "rm *"
               "cat *"
@@ -76,11 +76,9 @@
         };
 
         programs = {
-          direnv.enableZshIntegration = true;
-
-          wezterm.enableZshIntegration = true;
-
           kitty.extraConfig = "shell ${exe}";
+
+          ghostty.settings.command = exe;
 
           vscode.profiles.default.userSettings."terminal.integrated.defaultProfile.linux" = exe;
 

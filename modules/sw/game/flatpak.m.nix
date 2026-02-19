@@ -15,6 +15,7 @@
     # com.valvesoftware.Steam.CompatibilityTool.Proton-GE
     #
     # com.github.Matoking.protontricks
+    # com.vysp3r.ProtonPlus
     #
     # org.prismlauncher.PrismLauncher
     #

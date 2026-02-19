@@ -72,12 +72,12 @@ in
   virtualisation.waydroid.enable = true;
 
   virtualisation.docker = {
-    enable = true;
+    enable = false;
     enableOnBoot = false;
   };
 
   virtualisation.libvirtd = {
-    enable = true;
+    enable = false;
     onBoot = "ignore";
     qemu.swtpm.enable = true;
   };

@@ -69,9 +69,7 @@
   };
 
   programs.wezterm.userConfig = ''
-    cfg.animation_fps = 60
-
-    cfg.serial_ports = {
+    opt.serial_ports = {
       {
         name = 'FT232RL',
         port = '/dev/ttyUSB0',

@@ -148,7 +148,7 @@ in
     shellHook = ''
       export ARCH="$(uname --machine)" \
       && export LLVM=1 \
-      && git fetch -v --shallow-exclude=* --depth=1 origin tag "$(uname --kernel-release)" \
+      && git fetch --depth=1 origin tag "$(uname --kernel-release)" \
       && git checkout "tags/$(uname --kernel-release)" \
       && (make helpnewconfig | less -F)
     '';

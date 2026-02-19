@@ -25,6 +25,10 @@
               settings = {
                 "browser.region.update.enabled" = false;
 
+                "browser.cache.memory.capacity" = 1048576;
+                "browser.cache.memory.max_entry_size" = 32768;
+                "browser.cache.disk.enable" = false;
+
                 "toolkit.telemetry.enabled" = false;
                 "toolkit.telemetry.archive.enabled" = false;
                 "toolkit.telemetry.unified" = false;

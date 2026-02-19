@@ -17,7 +17,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="^mpv$"
+    match app-id=r#"^(?-x:mpv|steam_app_\d+)$"#
     match app-id=r#"\.exe$"#
     match title=r#"Minecraft\* [\w\.]{3,}"#
 
