@@ -16,13 +16,15 @@
 
   services.scx = {
     enable = true;
+    # FIXME, TRACK: https://github.com/NixOS/nixpkgs/pull/453196
     userArgs = [
-      # "--slice-lag-scaling"
-      "--cpufreq"
+      "--per-cpu-dsq"
 
-      # FIXME, TRACK: https://github.com/NixOS/nixpkgs/pull/453196
-      "--max-avg-nvcsw"
-      "192"
+      "--preempt-shift"
+      "5"
+
+      "--mig-delta-pct"
+      "10"
     ];
   };
 

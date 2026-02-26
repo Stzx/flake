@@ -25,6 +25,8 @@
           "--sticky-cpu"
           # "--direct-dispatch"
         ];
+
+        scx_lavd = [ ];
       };
     in
     {
@@ -38,7 +40,7 @@
       config = lib.mkIf cfg.enable {
         services.scx = {
           package = mkDefault pkgs.scx.rustscheds;
-          scheduler = mkDefault "scx_flash";
+          scheduler = mkDefault "scx_lavd";
           extraArgs = (args."${cfg.scheduler}" or [ ]) ++ cfg.userArgs;
         };
       };
