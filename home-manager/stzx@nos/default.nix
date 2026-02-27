@@ -39,16 +39,20 @@ in
       imap = {
         host = "outlook.office365.com";
         port = 993;
-        authentication = "xoauth2";
       };
       smtp = {
-        host = "smtp-mail.outlook.com";
+        host = "smtp.office365.com";
         port = 587;
         tls.useStartTls = true;
-        authentication = "xoauth2";
       };
 
-      thunderbird.enable = config.programs.thunderbird.enable;
+      thunderbird = {
+        enable = config.programs.thunderbird.enable;
+        settings = id: {
+          # 1 = No authentication, 3(default) = Normal pwd, 4 = Encrypted pwd, 5 = Kerberos / GSSAPI, 6 = NTLM, 10 = OAuth2
+          "mail.smtpserver.smtp_${id}.authMethod" = 10;
+        };
+      };
     };
 
     programs.bash = {

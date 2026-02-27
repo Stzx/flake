@@ -17,7 +17,7 @@
           {
             programs.thunderbird.profiles."${profile}" = {
               isDefault = true;
-              feedAccounts."${profile}" = { };
+              feedAccounts."${profile}.feed" = { };
               search = {
                 default = "bing";
                 force = true;
