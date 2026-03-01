@@ -20,11 +20,7 @@
     userArgs = [
       "--per-cpu-dsq"
 
-      "--preempt-shift"
-      "5"
-
-      "--mig-delta-pct"
-      "10"
+      "--no-wake-sync"
     ];
   };
 
