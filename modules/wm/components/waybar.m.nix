@@ -83,6 +83,10 @@
               tooltip = false;
             };
 
+            memory = {
+              format = nerd "󱅗" "{used} + {swapUsed} GiB / {total} + {swapTotal} GiB"; # nf-md-paper_roll, nf-fa-memory
+            };
+
             network = {
               interval = 3;
               format-ethernet = "${var' "{bandwidthUpBits}"} ${nerd' "󰚮"} ${var' "{bandwidthDownBits}"}"; # nf-md-transit_transfer
@@ -195,7 +199,7 @@
             }
 
             window#waybar {
-              background: rgba(0, 0, 0, 0.25);
+              background: rgba(0, 0, 0, 0.5);
 
               border-radius: 0 3px;
             }

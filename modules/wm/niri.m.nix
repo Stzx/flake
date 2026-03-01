@@ -187,6 +187,7 @@
             "privacy"
             "network"
             "load"
+            "memory"
             "pulseaudio"
             "idle_inhibitor"
             "tray"
