@@ -106,6 +106,11 @@
           # com.valvesoftware.Steam
           #
           # DXVK_FRAME_RATE / VKD3D_FRAME_RATE
+          #
+          # see: https://github.com/libsdl-org/SDL/issues/13827
+          # 2.x:
+          #   - SDL_VIDEODRIVER
+          #   - SDL_AUDIODRIVER
           "flatpak/overrides/com.valvesoftware.Steam".text = ''
             [Context]
             filesystems=${fs}
@@ -113,6 +118,8 @@
             [Environment]
             MANGOHUD=1
             MANGOHUD_CONFIGFILE=${mangohud'}
+            SDL_VIDEO_DRIVER=wayland
+            SDL_AUDIO_DRIVER=pipewire
             PROTON_USE_WAYLAND=1
           ''
           + lib.optionalString (!sysCfg.features.gpu.nvidia) ''
