@@ -12,6 +12,42 @@ final: prev: {
   #   }
   # );
 
+  # fix https://github.com/NixOS/nixpkgs/pull/311003
+  flutter = prev.flutter.overrideAttrs (
+    final': prev':
+    let
+      cacheDir = prev'.passthru.cacheDir.overrideAttrs (
+        _: cacheDirPrev':
+        let
+          passthru' = cacheDirPrev'.passthru;
+
+          flutterPlatform = passthru'.flutterPlatform // {
+            linux = passthru'.flutterPlatform.linux.overrideAttrs (
+              _: _: {
+                appendRunpaths = [ "$ORIGIN" ];
+              }
+            );
+          };
+        in
+        {
+          paths = builtins.attrValues flutterPlatform;
+          passthru = passthru' // {
+            inherit flutterPlatform;
+          };
+        }
+      );
+    in
+    {
+      paths = map (
+        d: if final.lib.strings.hasSuffix "flutter-cache-dir" d then cacheDir else d
+      ) prev'.paths;
+
+      passthru = prev'.passthru // {
+        inherit cacheDir;
+      };
+    }
+  );
+
   scx = prev.scx // {
     rustscheds = prev.scx.rustscheds.overrideAttrs (
       _: prev': {
