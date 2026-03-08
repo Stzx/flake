@@ -119,10 +119,10 @@
                   "network.connectivity-service.enabled" = false;
                   "network.captive-portal-service.enabled" = false;
 
-                  "sidebar.visibility" = "expand-on-hover";
+                  # "sidebar.visibility" = "expand-on-hover";
                   "sidebar.position_start" = false;
                   "sidebar.main.tools" = "history,bookmarks";
-                  "sidebar.verticalTabs" = true;
+                  # "sidebar.verticalTabs" = true;
 
                   "privacy.partition.serviceWorkers" = true;
 
