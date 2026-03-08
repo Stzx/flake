@@ -2,6 +2,8 @@
 
 let
   inherit (pkgs)
+    lib
+
     mkShell
     mkShellNoCC
     ;
@@ -34,19 +36,43 @@ let
   };
 
   mirror' = {
-    # RUSTUP_DIST_SERVER = "https://mirrors.cernet.edu.cn/rustup";
-    # RUSTUP_UPDATE_ROOT = "https://mirrors.cernet.edu.cn/rustup/rustup";
+    RUSTUP_DIST_SERVER = "https://mirrors.cernet.edu.cn/rustup";
+    RUSTUP_UPDATE_ROOT = "https://mirrors.cernet.edu.cn/rustup/rustup";
 
-    # PUB_HOSTED_URL = "https://pub.flutter-io.cn";
-    # FLUTTER_STORAGE_BASE_URL = "https://storage.flutter-io.cn";
+    PUB_HOSTED_URL = "https://pub.flutter-io.cn";
+    FLUTTER_STORAGE_BASE_URL = "https://storage.flutter-io.cn";
 
     NIX_NPM_REGISTRY = "https://r.cnpmjs.org/";
+
+    no_proxy = "127.0.0.1,::1,localhost,cn";
   };
 in
 {
   default = mkShellNoCC (default' // mirror');
 
-  noProxy = mkShellNoCC default';
+  # rustup + binstall + frb
+  frb = mkShell (
+    rec {
+      packages = with pkgs; [
+        rustup
+
+        flutter
+      ];
+
+      buildInputs = with pkgs; [
+        vulkan-loader
+
+        wayland
+
+        libxkbcommon
+      ];
+
+      shellHook = ''
+        export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${builtins.toString (lib.makeLibraryPath buildInputs)}"
+      '';
+    }
+    // mirror'
+  );
 
   java = mkShellNoCC {
     packages = with pkgs; [
