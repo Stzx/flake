@@ -46,7 +46,7 @@
             opt.show_tab_index_in_tab_bar = false
 
             opt.tab_bar_at_bottom = true
-            opt.enable_scroll_bar = true -- not work ???
+            opt.enable_scroll_bar = true
 
             opt.window_background_opacity = 0.90
             opt.kde_window_background_blur = true

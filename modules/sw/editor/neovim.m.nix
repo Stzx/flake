@@ -92,7 +92,7 @@
           withRuby = false;
           extraPackages = with pkgs; [ nil ];
           extraLuaPackages = _: [ ];
-          extraLuaConfig = ''
+          initLua = ''
             local opt = vim.opt
 
             opt.number = true
