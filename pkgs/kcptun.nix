@@ -4,15 +4,17 @@
   fetchFromGitHub,
 }:
 
+# https://github.com/xtaci/kcptun/tree/v20260314
+# This project is archived and no longer maintained.
 buildGoModule (finalAttrs: rec {
   pname = "kcptun";
-  version = "20251212";
+  version = "20260314";
 
   src = fetchFromGitHub {
     owner = "xtaci";
     repo = "kcptun";
     rev = "v${version}";
-    hash = "sha256-vJ6o6OlyYHLow4utoGIvyORZE5Te0vC6OPA3o9EuAl8=";
+    hash = "sha256-vTJwB+2YOCxqvN9qjjGhfwCbxlLPzSW3kTvlaeFvOMk=";
   };
 
   vendorHash = null;
