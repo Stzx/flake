@@ -10,7 +10,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "android-mic";
-  version = "2.2.4";
+  version = "2.2.6";
 
   src = fetchgit {
     url = "https://github.com/teamclouday/AndroidMic.git";
@@ -19,12 +19,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
       "RustApp"
       "Assets"
     ];
-    hash = "sha256-byVuodMY/eCmj/v+2kwx6i1DB0u1ktgIAtw/81Cn5IU=";
+    hash = "sha256-EaVaQI3oxRTolSuFrz0cqkX2edYl7HiDtzNWTtiOA3k=";
   };
 
   cargoRoot = "RustApp";
 
-  cargoHash = "sha256-x6OhP72EIdTx3ptx1AIkJc6Ea70KkzPM1btYydhH7EA=";
+  cargoHash = "sha256-GechoFPC6N+oJvuDDtYj6wb3sKcam1I/T1z2VsrPCmk=";
 
   buildInputs = [
     libjack2
