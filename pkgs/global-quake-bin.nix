@@ -6,6 +6,9 @@
   copyDesktopItems,
   makeDesktopItem,
   makeWrapper,
+  libx11,
+  libxext,
+  libxcursor,
   libGL,
   temurin-jre-bin,
   rtJre ? temurin-jre-bin,
@@ -13,15 +16,15 @@
   vmOpts ? (
     lib.concatStringsSep " " (
       [
-        "-Xmx1G"
+        "-Xmx384m"
         "-XX:+UseZGC"
         # "-Dsun.java2d.vulkan=true" # WAIT: wakefield release
         # "-Dawt.toolkit.name=WLToolkit" # WAIT: wakefield release
-        "-Dawt.useSystemAAFontSettings=gasp"
+        "-Dawt.useSystemAAFontSettings=on"
         "-Dswing.defaultlaf=javax.swing.plaf.nimbus.NimbusLookAndFeel"
         # "-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
       ]
-      ++ lib.optional openGLBackend "-Dsun.java2d.opengl=true"
+      ++ lib.optional openGLBackend "-Dsun.java2d.opengl=True"
     )
   ),
 }:
@@ -29,17 +32,25 @@
 assert lib.versionAtLeast (lib.getVersion rtJre) "17";
 
 let
-  libPath = lib.makeLibraryPath ([ ] ++ lib.optional openGLBackend libGL);
+  libPath = lib.makeLibraryPath (
+    [ ]
+    ++ lib.optionals openGLBackend [
+      libx11
+      libxext
+      libxcursor
+      libGL
+    ]
+  );
 in
 stdenvNoCC.mkDerivation (finalAttrs: rec {
   pname = "global-quake-bin";
 
-  version = "1.0.1";
+  version = "1.1.0";
 
   src = requireFile rec {
     name = "GlobalQuake-${version}.zip";
     url = "https://files.globalquake.net/${name}";
-    hash = "sha256-0U/YKudTT2xYG07Pf2CiiY/ZWUcAxKlp7kU73LjsTsQ=";
+    hash = "sha256-PTWum0YC0KBhlPaBlLxKEjqTtp22higWCYjH+vtd/40="; # nix hash file
   };
 
   sourceRoot = "./";
