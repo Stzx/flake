@@ -58,6 +58,7 @@
 
         amd = {
           rocm = mkEnableOption "AMD GPU ROCm";
+          antiLag = mkEnableOption "AMD GPU Anti Lag";
           shaderCacheMaxSize = mkOption {
             type = types.nullOr (
               types.str
@@ -132,6 +133,12 @@
               # amdvlk: Requested image size 3840x2160x0 exceeds the maximum allowed dimensions 2560x2560x1 for vulkan image format 46
               # AMD_VULKAN_ICD = "RADV";
             }
+            // (
+              if cfg.amd.antiLag then
+              { ENABLE_LAYER_MESA_ANTI_LAG = "1"; }
+              else
+              { DISABLE_LAYER_MESA_ANTI_LAG = "1"; }
+            )
             // (
               if cfg.amd.shaderCacheMaxSize != null then
                 { MESA_SHADER_CACHE_MAX_SIZE = cfg.amd.shaderCacheMaxSize; }

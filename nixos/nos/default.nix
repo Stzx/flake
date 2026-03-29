@@ -48,6 +48,7 @@ in
     gpu.vendor = "AMD";
     amd = {
       rocm = true;
+      antiLag = true;
       shaderCacheMaxSize = "12G";
     };
 
