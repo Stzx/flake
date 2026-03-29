@@ -29,6 +29,9 @@
     # :< If passing the JRE, this issue needs to be fixed:
     # https://github.com/PrismLauncher/PrismLauncher/blob/af73cfa20f5551ad6ffc5d64379490cd55f87ac6/launcher/java/JavaUtils.cpp#L158
     # https://github.com/NixOS/nixpkgs/blob/6e987485eb2c77e5dcc5af4e3c70843711ef9251/pkgs/by-name/pr/prismlauncher/package.nix#L79-L107
+    #
+    # ? mesa-git
+    # https://gitlab.com/freedesktop-sdk/freedesktop-sdk/-/wikis/mesa-git
 
     let
       # To prevent infinite recursion caused by xdg-{config,dataFile} cross-references (
@@ -98,6 +101,10 @@
     in
     {
       config = lib.mkIf sysCfg.services.flatpak.enable {
+        home.sessionVariables = {
+          FLATPAK_GL_DRIVERS = "mesa-git";
+        };
+
         xdg.dataFile = {
           # flatpak override --user \
           # --env=PROTON_USE_WAYLAND=1 \
