@@ -46,7 +46,7 @@ in
     exporters.node = {
       enable = true;
       listenAddress = "127.0.0.1";
-      enabledCollectors = lib.optional config.features.gpu.amd "drm";
+      enabledCollectors = lib.optional config.features.gpu.isAMD "drm";
       disabledCollectors = [
         "bcache"
         "zfs"

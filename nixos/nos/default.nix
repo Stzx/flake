@@ -44,9 +44,12 @@ in
   };
 
   features = {
-    cpu.amd = true;
-    gpu.amd = true;
-    gpu.amdROCm = true;
+    cpu.vendor = "AMD";
+    gpu.vendor = "AMD";
+    amd = {
+      rocm = true;
+      shaderCacheMaxSize = "12G";
+    };
 
     THP = true;
 
@@ -66,7 +69,7 @@ in
       "audio"
       "dialout" # tty
     ]
-    ++ optional config.features.gpu.amdROCm "render"
+    ++ optional config.features.amd.rocm "render"
     ++ optional config.programs.wireshark.enable "wireshark"
     ++ optional config.virtualisation.docker.enable "docker"
     ++ optional config.virtualisation.libvirtd.enable "libvirtd";

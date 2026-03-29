@@ -9,27 +9,65 @@
 
     let
       inherit (lib)
+        mkOption
         mkEnableOption
         mkIf
 
+        types
         singleton
-        optional
-        optionals
+        listToAttrs
         ;
 
       cfg = config.features;
 
-      cpuCfg = cfg.cpu;
-      gpuCfg = cfg.gpu;
+      cpuVendors = [
+        "AMD"
+        "Intel"
+      ];
+
+      gpuVendors = [
+        "AMD"
+        "NVIDIA"
+      ];
+
+      mkVendorOption = cfg: vendor: {
+        name = "is${vendor}";
+        value = mkOption {
+          type = types.bool;
+          default = cfg.vendor == vendor;
+          readOnly = true;
+        };
+      };
     in
     {
-      options.features = {
-        cpu.amd = mkEnableOption "AMD CPU";
-        cpu.intel = mkEnableOption "Intel CPU";
+      options.features = with types; {
+        cpu = {
+          vendor = mkOption {
+            type = nullOr (enum cpuVendors);
+            default = null;
+          };
+        }
+        // (listToAttrs (map (mkVendorOption cfg.cpu) cpuVendors));
+        gpu = {
+          vendor = mkOption {
+            type = nullOr (enum gpuVendors);
+            default = null;
+          };
+        }
+        // (listToAttrs (map (mkVendorOption cfg.gpu) gpuVendors));
 
-        gpu.amd = mkEnableOption "AMD GPU";
-        gpu.amdROCm = mkEnableOption "AMD GPU ROCm";
-        gpu.nvidia = mkEnableOption "NVIDIA GPU";
+        amd = {
+          rocm = mkEnableOption "AMD GPU ROCm";
+          shaderCacheMaxSize = mkOption {
+            type = types.nullOr (
+              types.str
+              // {
+                check = x: types.str.check x && builtins.isList (builtins.match "^[0-9]+[KMG]$" x);
+              }
+            );
+            default = "1G";
+          };
+        };
       };
 
       config = lib.mkMerge [
@@ -76,46 +114,57 @@
           };
         })
 
-        (mkIf cpuCfg.amd {
+        (mkIf cfg.cpu.isAMD {
           hardware.cpu.amd = {
             updateMicrocode = true;
             sev.enable = true;
           };
         })
 
-        (mkIf gpuCfg.amd {
+        (mkIf cfg.gpu.isAMD {
           # :| hardware.amdgpu
           environment = {
-            systemPackages =
-              with pkgs;
-              [
-                # amdgpu_top
-              ]
-              ++ optionals gpuCfg.amdROCm [
-                rocmPackages.rocminfo
-                rocmPackages.rocm-smi
-              ];
-
-            # sessionVariables = {
-            # amdvlk: Requested image size 3840x2160x0 exceeds the maximum allowed dimensions 2560x2560x1 for vulkan image format 46
-            # AMD_VULKAN_ICD = "RADV";
-            # };
-          };
-
-          hardware.graphics.extraPackages =
-            with pkgs;
-            [
-              # amdvlk
-            ]
-            ++ lib.optionals gpuCfg.amdROCm [
-              rocmPackages.clr
-              rocmPackages.clr.icd
+            systemPackages = [
+              # amdgpu_top
             ];
 
-          systemd.tmpfiles.rules = optional gpuCfg.amdROCm "L+ /opt/rocm/hip - - - - ${pkgs.rocmPackages.clr}";
+            sessionVariables = {
+              # amdvlk: Requested image size 3840x2160x0 exceeds the maximum allowed dimensions 2560x2560x1 for vulkan image format 46
+              # AMD_VULKAN_ICD = "RADV";
+            }
+            // (
+              if cfg.amd.shaderCacheMaxSize != null then
+                { MESA_SHADER_CACHE_MAX_SIZE = cfg.amd.shaderCacheMaxSize; }
+              else
+                { MESA_SHADER_CACHE_DISABLE = true; }
+            );
+          };
+
+          hardware.graphics.extraPackages = [
+            # amdvlk
+          ];
         })
 
-        (mkIf gpuCfg.nvidia {
+        (mkIf (cfg.gpu.isAMD && cfg.amd.rocm) (
+          let
+            rocmPkgs = pkgs.rocmPackages;
+          in
+          {
+            environment.systemPackages = [
+              rocmPkgs.rocminfo
+              rocmPkgs.rocm-smi
+            ];
+
+            hardware.graphics.extraPackages = [
+              rocmPkgs.clr
+              rocmPkgs.clr.icd
+            ];
+
+            systemd.tmpfiles.rules = singleton "L+ /opt/rocm/hip - - - - ${rocmPkgs.clr}";
+          }
+        ))
+
+        (mkIf cfg.gpu.isNVIDIA {
           hardware.nvidia = {
             package = config.boot.kernelPackages.nvidiaPackages.production;
             nvidiaSettings = false;

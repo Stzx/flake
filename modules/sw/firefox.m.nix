@@ -172,7 +172,7 @@
             };
           }
 
-          (mkIf sysCfg.features.gpu.nvidia {
+          (mkIf sysCfg.features.gpu.isNVIDIA {
             programs.firefox.profiles."${profile}".settings = {
               # FIXME: https://github.com/elFarto/nvidia-vaapi-driver
               "gfx.x11-egl.force-enabled" = true;

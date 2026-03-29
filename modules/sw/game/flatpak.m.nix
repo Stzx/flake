@@ -122,7 +122,7 @@
             SDL_AUDIO_DRIVER=pipewire
             PROTON_USE_WAYLAND=1
           ''
-          + lib.optionalString (!sysCfg.features.gpu.nvidia) ''
+          + lib.optionalString (!sysCfg.features.gpu.isNVIDIA) ''
             PROTON_DISABLE_NVAPI=1
           '';
         };
