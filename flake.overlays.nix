@@ -50,11 +50,24 @@ final: prev: {
 
   scx = prev.scx // {
     rustscheds = prev.scx.rustscheds.overrideAttrs (
-      _: prev': {
+      _: prev':
+      assert prev'.postInstall == "rm $out/bin/{scx_arena_selftests,vmlinux_docify,xtask}\n";
+      {
+        postInstall = "";
+
         cargoBuildFlags = (prev'.cargoBuildFlags or [ ]) ++ [
-          "-p scx_flash"
-          "-p scx_bpfland"
-          "-p scx_lavd"
+          "-p"
+          "scx_flash"
+          "-p"
+          "scx_bpfland"
+          "-p"
+          "scx_lavd"
+        ];
+
+        passthru.schedulers = [
+          "scx_bpfland"
+          "scx_flash"
+          "scx_lavd"
         ];
       }
     );
