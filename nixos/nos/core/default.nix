@@ -8,7 +8,7 @@
   imports = [ ./kernel.nix ];
 
   environment.sessionVariables = {
-    RADV_PERFTEST = "cswave32,gewave32,pswave32,localbos,sam,nggc";
+    RADV_PERFTEST = "cswave32,gewave32,pswave32,sam,nggc,dccmsaa,localbos,nircache,lowlatencydec,lowlatencyenc";
     # RADV_DEBUG = "startup,info";
   };
 
