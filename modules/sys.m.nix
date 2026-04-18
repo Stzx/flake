@@ -125,6 +125,8 @@
             "vm.page-cluster" = 0;
           };
         })
+
+        (mkIf config.wm.enable { programs.gnupg.agent.pinentryPackage = pkgs.pinentry-gnome3; })
       ];
     };
 
