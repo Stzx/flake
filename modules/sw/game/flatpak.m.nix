@@ -85,7 +85,7 @@
         winesync
         wine_color
 
-        # blacklist=
+        blacklist=Launcher.exe,Games.exe,QtWebEngineProcess.exe
       '';
 
       # MangoHud/presets.conf
@@ -125,9 +125,11 @@
             [Environment]
             MANGOHUD=1
             MANGOHUD_CONFIGFILE=${mangohud'}
-            SDL_VIDEO_DRIVER=wayland
+            SDL_VIDEO_DRIVER=wayland,x11
             SDL_AUDIO_DRIVER=pipewire
             PROTON_USE_WAYLAND=1
+            PROTON_HEAP_DELAY_FREE=1
+            PROTON_NO_WM_DECORATION=1
           ''
           + lib.optionalString (!sysCfg.features.gpu.isNVIDIA) ''
             PROTON_DISABLE_NVAPI=1
