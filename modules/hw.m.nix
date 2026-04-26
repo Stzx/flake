@@ -135,9 +135,9 @@
             }
             // (
               if cfg.amd.antiLag then
-              { ENABLE_LAYER_MESA_ANTI_LAG = "1"; }
+                { ENABLE_LAYER_MESA_ANTI_LAG = "1"; }
               else
-              { DISABLE_LAYER_MESA_ANTI_LAG = "1"; }
+                { DISABLE_LAYER_MESA_ANTI_LAG = "1"; }
             )
             // (
               if cfg.amd.shaderCacheMaxSize != null then

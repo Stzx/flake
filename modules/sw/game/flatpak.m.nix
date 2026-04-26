@@ -90,14 +90,12 @@
 
       # MangoHud/presets.conf
 
-      fs = lib.concatMapStrings (path: path + ":ro;") (
-        [
-          font'
-          mangohud'
+      fs = lib.concatMapStrings (path: path + ":ro;") [
+        font'
+        mangohud'
 
-          "xdg-config/MangiHud"
-        ]
-      );
+        "xdg-config/MangiHud"
+      ];
     in
     {
       config = lib.mkIf sysCfg.services.flatpak.enable {
