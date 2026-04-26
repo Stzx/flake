@@ -7,9 +7,7 @@
 
 {
   home.packages = with pkgs; [
-    # qpwgraph
-
-    helvum
+    qpwgraph
 
     calibre
     librecad
