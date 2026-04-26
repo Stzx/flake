@@ -28,12 +28,14 @@
             hide-prompt = true;
 
             line-height = 24;
-            vertical-pad = 16;
+
             horizontal-pad = 32;
+            vertical-pad = 16;
           }
           // lib.optionalAttrs (cfg.wrapper != null) {
             launch-prefix = "${pkgs.writeShellScript "fuzzel-wrapper" cfg.wrapper}";
           };
+          border.radius = 0;
           colors = rec {
             background = "161b22cc";
             text = "f5f5f5ff";
@@ -45,7 +47,6 @@
 
             border = "0088ffff";
           };
-          border.radius = 0;
         };
       };
     };

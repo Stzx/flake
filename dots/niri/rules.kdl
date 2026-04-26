@@ -20,7 +20,9 @@ layer-rule {
 
 window-rule {
     draw-border-with-background false
-    geometry-corner-radius 3.0
+
+    geometry-corner-radius 2.0
+
     clip-to-geometry true
 }
 

@@ -62,8 +62,8 @@
             layer = "top";
             height = 36;
             margin-top = 4;
-            margin-left = 8;
-            margin-right = 8;
+            margin-left = 4;
+            margin-right = 4;
             spacing = 4;
 
             modules-left = cfg.left;
@@ -201,13 +201,13 @@
             window#waybar {
               background: rgba(0, 0, 0, 0.5);
 
-              border-radius: 0 3px;
+              border-radius: 0 2px;
             }
 
             window#waybar .module {
-              border-top: 3px solid @theme-color;
+              border-top: 4px solid @theme-color;
 
-              padding: 0 3px;
+              padding: 0 4px;
             }
 
             #window {
@@ -241,9 +241,9 @@
 
             /* RIGHT */
             #privacy {
-              border-top: 3px solid #FF4500;
+              border-top: 4px solid #FF4500;
 
-              padding: 0 3px;
+              padding: 0 4px;
             }
 
             #privacy-item {
@@ -267,7 +267,7 @@
             }
 
             #tray decoration, menu, menuitem {
-              border-radius: 6px;
+              border-radius: 4px;
             }
 
             #tray menu {
@@ -275,7 +275,7 @@
             }
 
             #tray menu > * {
-              margin: 3px;
+              margin: 4px;
             }
 
             #tray menuitem > :last-child {
