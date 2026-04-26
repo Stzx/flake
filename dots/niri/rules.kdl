@@ -5,6 +5,14 @@ layer-rule {
 }
 
 layer-rule {
+    match namespace="^launcher$"
+
+    background-effect {
+        blur true
+    }
+}
+
+layer-rule {
     match namespace="^notifications$"
 
     block-out-from "screencast"
@@ -16,6 +24,17 @@ window-rule {
     clip-to-geometry true
 }
 
+// Blur
+window-rule {
+    match app-id=r#"^kitty$"#
+    match app-id=r#"^(?-x:org|dev|com)\.(?-x:wezfurlong|zed|mitchellh)\.(?-x:wezterm|Zed|ghostty)$"#
+
+    background-effect {
+        blur true
+    }
+}
+
+// VRR
 window-rule {
     match app-id=r#"^(?-x:mpv|steam_app_\d+)$"#
     match app-id=r#"\.exe$"#

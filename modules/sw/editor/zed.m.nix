@@ -34,23 +34,30 @@
             };
 
             # transparent / blur - base `Monokai Charcoal`
-            "background" = "#4c464290";
+            "background" = "#000000CC";
             "background.appearance" = "blurred";
 
-            "editor.background" = "#00000070";
-            "editor.gutter.background" = "#00000070";
+            "element.background" = "#0000007F";
+            "surface.background" = "#0000007F";
+            # "elevated_surface.background"= "#000000FC";
 
-            # "panel.background" = "#00000070";
-            "tab.active_background" = "#000000AF";
-            "tab.inactive_background" = "#00000000";
+            "editor.background" = "#00000000";
+            "editor.gutter.background" = "#00000000";
 
-            "tab_bar.background" = "#00000070";
-            "title_bar.background" = "#00000070";
-            "status_bar.background" = "#00000070";
+            "panel.background" = "#00000000";
+            # "panel.overlay_background"= "#000000FC";
 
-            "toolbar.background" = "#000000AF";
-            "scrollbar.track.background" = "#000000AF";
-            # "terminal.background" = "#00000070";
+            "terminal.background" = "#00000000";
+
+            # "tab.active_background" = "#00000000";
+            # "tab.inactive_background" = "#000000FF";
+
+            "tab_bar.background" = "#00000000";
+            "title_bar.background" = "#000000CC";
+            "status_bar.background" = "#000000CC";
+
+            # "toolbar.background" = "#00000000";
+            "scrollbar.track.background" = "#000000BF";
           };
 
           vim_mode = true;
