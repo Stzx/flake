@@ -165,6 +165,9 @@
             ${cfg.spawn-at-startup}
 
             include "rules.kdl"
+            include "rules_startup.kdl"
+            include "rules_non_floating.kdl"
+            include "rules_floating.kdl"
 
             ${cfg.window-rule}
 

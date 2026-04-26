@@ -1,0 +1,23 @@
+// floating
+window-rule {
+    match app-id="^thunderbird$" title="^Password Required"
+    match app-id=r#"^dev\.zed\.Zed$"# title=".* Settings$"
+    match app-id=r#"^cookie clicker\.exe$"# title="^cookie-electron$"
+    match app-id=r#"^(?-x:cheatengine|.+eac|platformprocess)\.exe$"#
+
+    open-fullscreen false
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^org\.(?-x:qbittorrent|telegram)\.(?-x:qBittorrent|desktop)$"# title="^(?-x:Preferences|Rename|Renaming|Media viewer)$"
+    match app-id="^firefox$" title="^(?-x:Picture-in-Picture|Library|About Mozilla Firefox|画中画|我的足迹|关于 Mozilla Firefox)$"
+    match app-id="^veracrypt$" title="^Select (?-x:a|Keyfile)"
+    match app-id="^calibre-gui$" title="^calibre - Preferences$"
+
+    default-column-width { fixed 1280; }
+    default-window-height { proportion 0.75; }
+
+    open-fullscreen false
+    open-floating true
+}
