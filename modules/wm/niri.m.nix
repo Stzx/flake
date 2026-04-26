@@ -120,26 +120,26 @@
 
       config = lib.mkIf (sysCfg.wm.isNiri) {
         xdg.configFile = {
-          "niri" = {
-            source = dots + "/niri";
+          "niri/includes" = {
+            source = config.lib.file.mkOutOfStoreSymlink "${sysCfg.environment.sessionVariables.__FLAKE}/dots/niri";
             recursive = true;
           };
           "niri/config.kdl".text = ''
             prefer-no-csd
 
-            include "overview.kdl"
-            include "layout.kdl"
+            include "includes/overview.kdl"
+            include "includes/layout.kdl"
 
             ${cfg.cursor}
 
-            include "input.kdl"
+            include "includes/input.kdl"
             input {
             ${cfg.input}
             }
 
             ${cfg.output}
 
-            include "binds.kdl"
+            include "includes/binds.kdl"
             binds {
                 Mod+Q { spawn "fuzzel"; }
                 // Mod+T { spawn "ghostty" "+new-window"; }
@@ -164,10 +164,10 @@
 
             ${cfg.spawn-at-startup}
 
-            include "rules.kdl"
-            include "rules_startup.kdl"
-            include "rules_non_floating.kdl"
-            include "rules_floating.kdl"
+            include "includes/rules.kdl"
+            include "includes/rules_startup.kdl"
+            include "includes/rules_non_floating.kdl"
+            include "includes/rules_floating.kdl"
 
             ${cfg.window-rule}
 
