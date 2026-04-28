@@ -21,11 +21,15 @@
             "Symbols Nerd Font Mono"
           ];
 
-          theme = {
-            mode = "system";
-            light = "Monokai Charcoal (green)";
-            dark = "Monokai Charcoal (purple)";
-          };
+          # Static
+          "theme" = "Monokai Charcoal (purple)";
+          # Dynamic
+          # theme = {
+          #   mode = "system";
+          #   light = "Monokai Charcoal (green)";
+          #   dark = "Monokai Charcoal (purple)";
+          # };
+
           icon_theme = "Material Icon Theme";
           "experimental.theme_overrides" = {
             syntax = {
@@ -43,8 +47,11 @@
 
             "editor.background" = "#00000000";
             "editor.gutter.background" = "#00000000";
+            "editor.indent_guide_active" = "#AE81FF7F";
+            # "editor.invisible" = null;
 
             "panel.background" = "#00000000";
+            "panel.indent_guide_active" = "#A6E22E7F";
             # "panel.overlay_background"= "#000000FC";
 
             "terminal.background" = "#00000000";
