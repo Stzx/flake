@@ -66,7 +66,7 @@
           # Orthography dimension
           #   CL: Classical orthography
           #   SC, TC, J, K, HC: Regional orthography, following Source Han Sans notations.
-          sarasa-gothic
+          sarasa-gothic-unhinted
 
           # noto-fonts-cjk-serif
           # noto-fonts-cjk-sans
