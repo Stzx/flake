@@ -73,6 +73,30 @@ final: prev: {
     );
   };
 
+  noto-fonts = prev.noto-fonts.overrideAttrs (
+    final': prev':
+    let
+      megamerge = "install -m444 -Dt $megamerge/share/fonts/truetype/ megamerge/*.ttf";
+    in
+    assert (final.lib.hasInfix megamerge prev'.installPhase);
+    {
+      src = final.fetchFromGitHub {
+        owner = "notofonts";
+        repo = "notofonts.github.io";
+        tag = "noto-monthly-release-${final'.version}";
+        hash = "sha256-uNaeazuvOW5yVblTNEyG/ccC/z2LwS/Ejp4h+PJ06Tk=";
+        sparseCheckout = builtins.map (variant: "fonts/${variant}/unhinted/variable-ttf") [
+          "NotoSansThai"
+          "NotoSerifThai"
+        ];
+      };
+
+      outputs = [ "out" ];
+
+      installPhase = builtins.replaceStrings [ megamerge ] [ "" ] prev'.installPhase;
+    }
+  );
+
   monaspace = prev.monaspace // {
     # static = prev.monaspace.static.overrideAttrs (
     #   _: _: {
