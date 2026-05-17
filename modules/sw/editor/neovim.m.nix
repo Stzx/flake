@@ -64,7 +64,7 @@
           # latex
           lua
           nasm
-          nix
+          # nix
           # perl
           # python
           # rust
@@ -90,7 +90,7 @@
           withNodeJs = false;
           withPython3 = false;
           withRuby = false;
-          extraPackages = with pkgs; [ nil ];
+          extraPackages = [ ];
           extraLuaPackages = _: [ ];
           initLua = ''
             local opt = vim.opt
@@ -174,10 +174,6 @@
                   enable = true,
                 },
               })
-            '')
-
-            (lpc nvim-lspconfig ''
-              vim.lsp.enable('nil_ls')
             '')
           ];
         };

@@ -128,8 +128,8 @@
           languages = {
             Nix = {
               language_servers = [
-                "nil"
-                "!nixd"
+                "nixd"
+                "!nil"
               ];
               format_on_save = "off"; # FIXME: https://github.com/numtide/treefmt/issues/596
             };

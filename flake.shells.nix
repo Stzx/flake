@@ -22,7 +22,7 @@ let
       nix-diff
       nix-tree
 
-      nil
+      nixd
       taplo
 
       qt6Packages.qtdeclarative

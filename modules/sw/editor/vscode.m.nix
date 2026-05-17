@@ -50,8 +50,7 @@
             "editor.rulers" = [ 80 ];
 
             "nix.enableLanguageServer" = true;
-            "nix.serverPath" = "nil";
-            # "nix.serverSettings.nil.formatting.command" = [ ];
+            "nix.serverPath" = "nixd";
 
             "dart.checkForSdkUpdates" = false;
           };
