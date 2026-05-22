@@ -36,8 +36,7 @@ in
     listenAddress = "127.0.0.1";
     stateDir = "prometheus-ram";
     globalConfig = {
-      scrape_interval = "15s";
-      evaluation_interval = "15s";
+      scrape_interval = "3s";
     };
     scrapeConfigs = singleton {
       job_name = "prometheus";
