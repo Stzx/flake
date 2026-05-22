@@ -19,8 +19,6 @@
     # FIXME, TRACK: https://github.com/NixOS/nixpkgs/pull/453196
     userArgs = [
       "--per-cpu-dsq"
-
-      "--no-wake-sync"
     ];
   };
 

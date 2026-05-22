@@ -14,16 +14,18 @@
 
       args = {
         scx_bpfland = [
-          "--local-pcpu"
+          # "--local-pcpu"
           # "--local-kthreads"
-          "--sticky-tasks"
+          # "--sticky-tasks"
+          "--cpufreq"
         ];
 
         scx_flash = [
-          "--local-pcpu"
+          # "--local-pcpu"
           # "--local-kthreads"
-          "--sticky-cpu"
+          # "--sticky-cpu"
           # "--direct-dispatch"
+          "--cpufreq"
         ];
 
         scx_lavd = [ ];
