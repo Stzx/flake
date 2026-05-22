@@ -35,7 +35,7 @@
           type = types.str;
           default = ''
             export CCACHE_DIR="${cfg.cacheDir}"
-            export CCACHE_MAXSIZE=8Gi
+            export CCACHE_MAXSIZE=12Gi
             export CCACHE_COMPRESS=1
             export CCACHE_UMASK=007
             export CCACHE_SLOPPINESS=random_seed
