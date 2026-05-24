@@ -85,7 +85,7 @@ final: prev: {
         repo = "notofonts.github.io";
         tag = "noto-monthly-release-${final'.version}";
         hash = "sha256-uNaeazuvOW5yVblTNEyG/ccC/z2LwS/Ejp4h+PJ06Tk=";
-        sparseCheckout = builtins.map (variant: "fonts/${variant}/unhinted/variable-ttf") [
+        sparseCheckout = map (variant: "fonts/${variant}/unhinted/variable-ttf") [
           "NotoSansThai"
           "NotoSerifThai"
         ];

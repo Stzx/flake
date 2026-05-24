@@ -32,7 +32,6 @@
       lib,
       config,
       sysCfg,
-      dots,
       ...
     }:
 

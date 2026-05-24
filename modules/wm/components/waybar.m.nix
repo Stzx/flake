@@ -22,13 +22,12 @@
       fontSize = 13;
 
       # only the font property can be used with px
-      nerd' =
-        symbol: "<span font=\"Symbols Nerd Font Mono ${builtins.toString iconSize}px\">${symbol}</span>";
+      nerd' = symbol: "<span font=\"Symbols Nerd Font Mono ${toString iconSize}px\">${symbol}</span>";
 
       # comma is important
       var' =
         text:
-        "<span font=\"Vector Mono, Oblique Medium ${builtins.toString fontSize}px\" rise=\"-1pt\">${text}</span>";
+        "<span font=\"Vector Mono, Oblique Medium ${toString fontSize}px\" rise=\"-1pt\">${text}</span>";
 
       nerd = symbol: var: "${nerd' symbol} ${var' var}";
     in
@@ -159,7 +158,7 @@
             "custom/quit" = {
               format = "󰩈"; # nf-md-exit_run
               tooltip = false;
-              on-click = if wmCfg.isNiri then "niri msg action quit" else builtins.abort;
+              on-click = if wmCfg.isNiri then "niri msg action quit" else abort;
             };
             "custom/shutdown" = {
               format = "󱄅"; # nf-md-nix
@@ -216,7 +215,7 @@
 
             #workspaces label, #power label {
               font-family: "Symbols Nerd Font Mono";
-              font-size: ${builtins.toString iconSize}px;
+              font-size: ${toString iconSize}px;
             }
 
             /* LEFT */

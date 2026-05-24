@@ -2,8 +2,6 @@
   sys =
     {
       pkgs,
-      lib,
-      config,
       ...
     }:
     {

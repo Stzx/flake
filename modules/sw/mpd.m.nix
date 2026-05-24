@@ -28,7 +28,7 @@
           ExecStart=
           ExecStart=${
             builtins.replaceStrings [ "--no-daemon" ] [ "--systemd" ] (
-              builtins.toString config.systemd.user.services.mpd.Service.ExecStart
+              toString config.systemd.user.services.mpd.Service.ExecStart
             )
           }
           LimitRTPRIO=40

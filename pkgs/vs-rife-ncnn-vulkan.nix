@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://github.com/styler00dollar/VapourSynth-RIFE-ncnn-Vulkan.git";
     tag = "${finalAttrs.version}";
     hash = "sha256-pEq46dy/gCQb9QJ8CRGPB7bP8a3zCaU0Cbn8GiGquXw=";
-    sparseCheckout = [ "RIFE" ] ++ (builtins.map (model: "models/${model}") models);
+    sparseCheckout = [ "RIFE" ] ++ (map (model: "models/${model}") models);
     fetchSubmodules = false;
   };
 

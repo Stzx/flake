@@ -68,7 +68,7 @@ in
       ];
 
       shellHook = ''
-        export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${builtins.toString (lib.makeLibraryPath buildInputs)}"
+        export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${toString (lib.makeLibraryPath buildInputs)}"
       '';
     }
     // mirror'

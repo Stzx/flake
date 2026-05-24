@@ -257,7 +257,7 @@
           programs.niri.cursor = ''
             cursor {
                 xcursor-theme "${cursor.name}"
-                xcursor-size ${builtins.toString cursor.size}
+                xcursor-size ${toString cursor.size}
             }
           '';
         })

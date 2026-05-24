@@ -1,7 +1,6 @@
 {
   home =
     {
-      pkgs,
       lib,
       config,
       sysCfg,
