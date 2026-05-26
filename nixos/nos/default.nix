@@ -1,4 +1,5 @@
 {
+  self,
   pkgs,
   lib,
   config,
@@ -19,6 +20,8 @@ in
     ./network.nix
 
     ./misc.nix
+
+    self.inputs.nix-index-database.nixosModules.default
   ];
 
   nix.settings.substituters = [

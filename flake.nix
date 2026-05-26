@@ -44,6 +44,11 @@
       url = "git+file:../flake-secrets";
       inputs.nixpkgs.follows = "unstable";
     };
+
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "unstable";
+    };
   };
 
   outputs =
