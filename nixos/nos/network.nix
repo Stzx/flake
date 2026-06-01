@@ -14,6 +14,7 @@
     "net.ipv4.tcp_collapse_max_bytes" = 6291456; # cloudflare kernel patch
     "net.ipv4.tcp_fastopen" = 3;
     "net.ipv4.tcp_mtu_probing" = 1;
+    "net.ipv4.ip_forward" = 1;
   };
 
   networking = {

@@ -98,6 +98,8 @@
             ];
           };
 
+          services.irqbalance.enable = mkDefault true;
+
           services.dbus = {
             enable = true;
             apparmor = if config.security.apparmor.enable then "enabled" else "disabled";
@@ -114,6 +116,7 @@
           systemd.tmpfiles.rules = [
             "w /sys/kernel/mm/transparent_hugepage/enabled - - - - madvise"
             "w /sys/kernel/mm/transparent_hugepage/shmem_enabled - - - - within_size"
+            "w /sys/kernel/mm/transparent_hugepage/defrag - - - - defer+madvise"
           ];
         })
 

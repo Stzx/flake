@@ -84,7 +84,7 @@ final: prev: {
         owner = "notofonts";
         repo = "notofonts.github.io";
         tag = "noto-monthly-release-${final'.version}";
-        hash = "sha256-uNaeazuvOW5yVblTNEyG/ccC/z2LwS/Ejp4h+PJ06Tk=";
+        hash = "sha256-XaXqbnclqf9v6NRD6vKxCq3LmTvkyXVpQHGrnIbgYnk=";
         sparseCheckout = map (variant: "fonts/${variant}/unhinted/variable-ttf") [
           "NotoSansThai"
           "NotoSerifThai"
@@ -179,7 +179,7 @@ final: prev: {
 
       # "audiofile" # wav or aiff
       # "faad"
-      "ffmpeg"
+      # "ffmpeg"
       "flac"
       # "mad" # mp3
       # "mpg123" # mp1 or mp2 or mp3

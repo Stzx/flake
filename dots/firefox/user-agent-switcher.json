@@ -2,9 +2,23 @@
   "blacklist": [],
   "custom": {},
   "json-forced": false,
-  "json-guid": "54d8f557-23d3-43f7-9f3a-02082ad7e957",
+  "json-guid": "78c093c9-b243-4f30-9941-b263c73f0e9d",
+  "last-update": 1777029942478,
   "mode": "blacklist",
   "parser": {},
+  "popular-browsers": [
+    "Internet Explorer",
+    "Safari",
+    "Chrome",
+    "Firefox",
+    "Edge"
+  ],
+  "popular-oss": [
+    "Windows",
+    "Mac OS",
+    "Linux",
+    "Android"
+  ],
   "popup-browser": "Firefox",
   "popup-os": "Windows",
   "protected": [
@@ -13,10 +27,12 @@
     "accounts.google.com",
     "accounts.youtube.com",
     "gitlab.com/users/sign_in",
-    "challenges.cloudflare.com"
+    "challenges.cloudflare.com",
+    "twitch.tv"
   ],
   "remote-address": "https://raw.githubusercontent.com/Stzx/flake/refs/heads/main/dots/firefox/user-agent-switcher.json",
-  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0",
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:150.0) Gecko/20100101 Firefox/150.0",
+  "user-styling": "",
   "userAgentData": true,
   "whitelist": []
 }

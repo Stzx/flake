@@ -6,7 +6,7 @@
 
     systems.url = "github:nix-systems/default-linux";
 
-    stable.url = "git+https://github.com/NixOS/nixpkgs.git?ref=nixos-25.11&shallow=1";
+    stable.url = "git+https://github.com/NixOS/nixpkgs.git?ref=nixos-26.05&shallow=1";
     unstable.url = "git+https://github.com/NixOS/nixpkgs.git?ref=nixos-unstable&shallow=1";
 
     # nix = {
