@@ -16,7 +16,7 @@
   vmOpts ? (
     lib.concatStringsSep " " (
       [
-        "-Xmx384m"
+        "-Xmx1024m"
         "-XX:+UseZGC"
         # "-Dsun.java2d.vulkan=true" # WAIT: wakefield release
         # "-Dawt.toolkit.name=WLToolkit" # WAIT: wakefield release
@@ -45,12 +45,12 @@ in
 stdenvNoCC.mkDerivation (finalAttrs: rec {
   pname = "global-quake-bin";
 
-  version = "1.1.0";
+  version = "1.1.1";
 
   src = requireFile rec {
     name = "GlobalQuake-${version}.zip";
     url = "https://files.globalquake.net/${name}";
-    hash = "sha256-PTWum0YC0KBhlPaBlLxKEjqTtp22higWCYjH+vtd/40="; # nix hash file
+    hash = "sha256-81pRaivDkF0a9T8H11a2I6+MNmUoJZPGdldQAbtPCiU="; # nix hash file
   };
 
   sourceRoot = "./";
