@@ -37,6 +37,8 @@
           tree_view_always_by_pid = true;
         };
       };
+
+      services.boinc.extraEnvPackages = [ pkgs.gmp ];
     };
 
   home =

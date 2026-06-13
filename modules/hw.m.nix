@@ -155,6 +155,11 @@
         (mkIf (cfg.gpu.isAMD && cfg.amd.rocm) (
           let
             rocmPkgs = pkgs.rocmPackages;
+
+            clr = [
+              rocmPkgs.clr
+              rocmPkgs.clr.icd
+            ];
           in
           {
             environment.systemPackages = [
@@ -162,12 +167,11 @@
               rocmPkgs.rocm-smi
             ];
 
-            hardware.graphics.extraPackages = [
-              rocmPkgs.clr
-              rocmPkgs.clr.icd
-            ];
+            hardware.graphics.extraPackages = clr;
 
             systemd.tmpfiles.rules = singleton "L+ /opt/rocm/hip - - - - ${rocmPkgs.clr}";
+
+            services.boinc.extraEnvPackages = clr;
           }
         ))
 

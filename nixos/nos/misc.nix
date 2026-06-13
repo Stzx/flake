@@ -70,6 +70,8 @@ in
 
   virtualisation.waydroid.enable = false;
 
+  services.boinc.enable = true;
+
   virtualisation.docker = {
     enable = false;
     enableOnBoot = false;

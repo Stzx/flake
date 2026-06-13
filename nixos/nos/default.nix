@@ -75,6 +75,7 @@ in
     ]
     ++ optional config.features.amd.rocm "render"
     ++ optional config.programs.wireshark.enable "wireshark"
+    ++ optional config.services.boinc.enable "boinc"
     ++ optional config.virtualisation.docker.enable "docker"
     ++ optional config.virtualisation.libvirtd.enable "libvirtd";
   };
