@@ -76,9 +76,7 @@
             DefaultLimitNOFILE = "4096:524288";
           };
 
-          systemd.user.extraConfig = ''
-            DefaultLimitNOFILE=8192:524288
-          '';
+          systemd.user.settings.Manager.DefaultLimitNOFILE = "8192:524288";
 
           users.mutableUsers = mkDefault false;
 
