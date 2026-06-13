@@ -68,7 +68,7 @@ in
 
   services.ollama.enable = false;
 
-  virtualisation.waydroid.enable = true;
+  virtualisation.waydroid.enable = false;
 
   virtualisation.docker = {
     enable = false;
