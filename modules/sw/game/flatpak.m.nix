@@ -127,6 +127,7 @@
             SDL_AUDIO_DRIVER=pipewire
             PROTON_USE_WAYLAND=1
             PROTON_NO_WM_DECORATION=1
+            VKD3D_CONFIG=nodxr,descriptor_heap
           ''
           + lib.optionalString (!sysCfg.features.gpu.isNVIDIA) ''
             PROTON_DISABLE_NVAPI=1
