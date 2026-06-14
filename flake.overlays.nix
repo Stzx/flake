@@ -73,7 +73,7 @@ final: prev: {
     );
   };
 
-  noto-fonts = prev.noto-fonts.overrideAttrs (
+  sparse-noto-fonts = prev.noto-fonts.overrideAttrs (
     final': prev':
     let
       megamerge = "install -m444 -Dt $megamerge/share/fonts/truetype/ megamerge/*.ttf";
