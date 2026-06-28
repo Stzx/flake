@@ -1,0 +1,97 @@
+[
+  {
+    "pname": "aianlinb.SystemExtensions",
+    "version": "1.8.0",
+    "hash": "sha256-G0CKcK527omwUZx0KFUeIzrz2nuELW7gD0TH30Tgr8Q="
+  },
+  {
+    "pname": "AtkSharp",
+    "version": "3.24.24.95",
+    "hash": "sha256-NgdWbXToBHhEVbvPrFcwXeit5iaqbBmNPQiC0jPKlnQ="
+  },
+  {
+    "pname": "CairoSharp",
+    "version": "3.24.24.95",
+    "hash": "sha256-ycdgmQyQ1uSshI/9uMaqn5OBxRF8RADf4Tn/TptE2BU="
+  },
+  {
+    "pname": "Eto.Forms",
+    "version": "2.11.0",
+    "hash": "sha256-VxNpNQEiO73A6IKvOk5AAr10PXNP7HZiunXGz3ze43A="
+  },
+  {
+    "pname": "Eto.Platform.Gtk",
+    "version": "2.11.0",
+    "hash": "sha256-9ST2LKb2h2mbsszeul1Cwl8H0ijlGQJ+C9OtZ8JwFIM="
+  },
+  {
+    "pname": "GdkSharp",
+    "version": "3.24.24.95",
+    "hash": "sha256-NYjADgZG9TUQDIZiSSXDAxj5PyX/B7oKRo9f8Oyb4vI="
+  },
+  {
+    "pname": "GioSharp",
+    "version": "3.24.24.95",
+    "hash": "sha256-5THx4af5PghPnQxXdnsC+wtVcoslh+0636WkB1FaPYg="
+  },
+  {
+    "pname": "GLibSharp",
+    "version": "3.24.24.95",
+    "hash": "sha256-1pDRkKoUI9fLJBcTA2DBlpVccJl2GyAdL+VKjsFbttA="
+  },
+  {
+    "pname": "GtkSharp",
+    "version": "3.24.24.95",
+    "hash": "sha256-sBvk5Ecf2i6c2fYVjMBVoXz0I6IlucOWeE2czZH9QHg="
+  },
+  {
+    "pname": "Microsoft.AspNetCore.App.Ref",
+    "version": "8.0.28",
+    "hash": "sha256-86ryT5EbF3Cvg1T6d/1/Z3oHIvwSHaxgsgGXBDtM1XY="
+  },
+  {
+    "pname": "Microsoft.Build.Tasks.Git",
+    "version": "10.0.300",
+    "hash": "sha256-cdvyK+XBEwx9906sUV6Rwd/VZuRSNpjOZbBVvMfzeVk="
+  },
+  {
+    "pname": "Microsoft.NET.ILLink.Tasks",
+    "version": "8.0.28",
+    "hash": "sha256-KotpIcqmPpkSoLV3gujo0vAxP6769pqOI0v4fTD7bv4="
+  },
+  {
+    "pname": "Microsoft.NETCore.App.Host.linux-x64",
+    "version": "8.0.28",
+    "hash": "sha256-/DR2FE8ZtUuj7qIai+MFO7NxIOD5/p6zzAAI/+NJ2gE="
+  },
+  {
+    "pname": "Microsoft.NETCore.App.Ref",
+    "version": "8.0.28",
+    "hash": "sha256-kQ6vnBAY9AWkK36uSR0yf9/gmoIYyWJ6kZ1r9HbFHgU="
+  },
+  {
+    "pname": "Microsoft.SourceLink.Common",
+    "version": "10.0.300",
+    "hash": "sha256-LGQ87vbHtPHngqOGhvhN5RBe2tTI622/NzkapkCWkfE="
+  },
+  {
+    "pname": "Microsoft.SourceLink.GitHub",
+    "version": "10.0.300",
+    "hash": "sha256-bqJJKa8igI0erZjUQSZJQ95LJHsc9XIMNxGZ3b20fF8="
+  },
+  {
+    "pname": "PangoSharp",
+    "version": "3.24.24.95",
+    "hash": "sha256-YhltIz1jisJqR2ZxvbYy0ybi4oGw6qR2SkjF/2aWiBQ="
+  },
+  {
+    "pname": "Pfim",
+    "version": "0.11.4",
+    "hash": "sha256-84mFvufgL1XS1fRTGBpR4zVB4E7/cj2pI9G0k+l7q7M="
+  },
+  {
+    "pname": "System.IO.Hashing",
+    "version": "10.0.8",
+    "hash": "sha256-nsDMvCvAeKCyp566iEyp3JOWfQnTPgDU3dIFMg0iUL0="
+  }
+]
