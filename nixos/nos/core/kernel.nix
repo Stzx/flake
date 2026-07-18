@@ -50,7 +50,7 @@ in
     };
     kernelParams = [
       "libahci.ignore_sss=1"
-      "amdgpu.ppfeaturemask=0xfff7ffff"
+      "amdgpu.ppfeaturemask=0xfff77fff"
       "amdgpu.freesync_video=1"
     ];
     kernelModules = mkForce (
