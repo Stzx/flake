@@ -2,8 +2,10 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
+  fetchPnpmDeps,
   nodejs,
   pnpm,
+  pnpmConfigHook,
   gradle_9,
   makeWrapper,
   temurin-bin-25,
@@ -25,20 +27,20 @@
 assert lib.versionAtLeast (lib.getVersion pbhJre) "25";
 
 let
-  jdk' = temurin-bin-25;
-  gradle' = gradle_9;
+  jdk = temurin-bin-25;
+  gradle = gradle_9;
 
   # 有些“可疑”的 repository URLs (应该没问题)
   # 我虽然打包了，但并没有使用该软件
   pname = "peer-ban-helper";
 
-  version = "9.1.5";
+  version = "9.4.3";
 
   src = fetchFromGitHub {
     owner = "PBH-BTN";
     repo = "PeerBanHelper";
     tag = "v${version}";
-    hash = "sha256-yFH2BEvz9G8qq7El+IN4CgnzjkdVcaeAUxXxjVOwE1k=";
+    hash = "sha256-2IEAC4RkVAswVD2lKPLLJqYan9mWzSV1WVZ4pIL6gfM=";
     leaveDotGit = true; # gen UI version
   };
 
@@ -47,25 +49,31 @@ let
 
     pname = "${pname}-webui";
 
+    __structuredAttrs = true;
+    strictDeps = true;
+
     sourceRoot = "${finalAttrs.src.name}/webui";
 
     nativeBuildInputs = [
       nodejs
-      pnpm.configHook
+      pnpm
+      pnpmConfigHook
     ];
 
     # pnpmRoot = "webui";
 
-    pnpmDeps = pnpm.fetchDeps {
+    # need sudo
+    pnpmDeps = fetchPnpmDeps {
       inherit (finalAttrs)
         pname
         version
         src
         sourceRoot
         ;
+      inherit pnpm;
 
-      fetcherVersion = 2;
-      hash = "sha256-CEqnFRjckEDguX16yJbYfdc47eW4q52I4g6MZ5SGprA=";
+      fetcherVersion = 4;
+      hash = "sha256-4xt0cHr/OROxuWMaOtyLbYnv7OVfraKyty6gWdtJ2Uo=";
     };
 
     buildPhase = ''
@@ -88,12 +96,15 @@ in
 stdenvNoCC.mkDerivation (finalAttrs: rec {
   inherit pname version src;
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [
-    gradle'
+    gradle
     makeWrapper
   ];
 
-  mitmCache = gradle'.fetchDeps {
+  mitmCache = gradle.fetchDeps {
     # inherit (finalAttrs) pname;
 
     pkg = finalAttrs.finalPackage;
@@ -107,7 +118,7 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
     "distTar"
     "-x"
     "distZip"
-    "-Dorg.gradle.java.home=${jdk'}"
+    "-Dorg.gradle.java.home=${jdk}"
   ];
 
   preBuild = ''
