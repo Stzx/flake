@@ -70,16 +70,7 @@ in
 
   virtualisation.waydroid.enable = false;
 
-  services.boinc.enable = true;
+  virtualisation.docker.enable = false;
 
-  virtualisation.docker = {
-    enable = false;
-    enableOnBoot = false;
-  };
-
-  virtualisation.libvirtd = {
-    enable = false;
-    onBoot = "ignore";
-    qemu.swtpm.enable = true;
-  };
+  virtualisation.libvirtd.enable = true;
 }
