@@ -67,6 +67,7 @@
             "scrollbar.track.background" = "#000000BF";
           };
 
+          base_keymap = "JetBrains";
           vim_mode = true;
           relative_line_numbers = "enabled";
 
@@ -74,7 +75,7 @@
           minimap.show = "auto";
 
           terminal = {
-            dock = "bottom";
+            dock = "right";
             font_size = 15;
             font_family = "Sarasa Term Slab SC";
             font_fallbacks = [
@@ -131,7 +132,27 @@
                 "nixd"
                 "!nil"
               ];
-              format_on_save = "off"; # FIXME: https://github.com/numtide/treefmt/issues/596
+              formatter.external = {
+                command = "treefmt";
+                arguments = [
+                  "--stdin"
+                  "{buffer_path}"
+                ];
+              };
+            };
+            Python = {
+              language_servers = [
+                "ty"
+                "ruff"
+                "!basedpyright"
+              ];
+            };
+          };
+
+          lsp = {
+            rust-analyzer.initialization_options = {
+              cargo.features = "all";
+              check.command = "clippy";
             };
           };
 
@@ -144,6 +165,7 @@
             dart = true;
             nix = true;
             latex = true;
+            sql = true;
 
             make = true;
             toml = true;
