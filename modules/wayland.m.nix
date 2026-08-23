@@ -136,6 +136,7 @@
       wmCfg = sysCfg.wm;
 
       cursor = {
+        enable = true;
         package = pkgs.capitaine-cursors; # bibata-cursors, material-cursors
         name = "capitaine-cursors-white"; # Bibata-Modern-Ice
         size = 24;
@@ -172,7 +173,7 @@
               package = pkgs.papirus-icon-theme;
               name = "Papirus-Dark";
             };
-            gtk2.extraConfig = "gtk-im-module = \"fcitx\"";
+            gtk2.enable = false;
             gtk3.extraConfig = {
               gtk-im-module = "fcitx";
             };

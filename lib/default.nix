@@ -40,4 +40,24 @@ in
     ;
 
   scanModules = modules;
+
+  mergeEnv =
+    flags: prev:
+    let
+      env' = prev.env or { };
+
+      merge =
+        env: name:
+        let
+          val' = env.${name} or null;
+          flags' = if val' != null then [ val' ] else [ ];
+          combined = flags' ++ flags.${name};
+        in
+        env // { ${name} = toString combined; };
+
+      env = builtins.foldl' merge env' (builtins.attrNames flags);
+    in
+    {
+      inherit env;
+    };
 }

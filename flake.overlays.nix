@@ -80,11 +80,13 @@ final: prev: {
     in
     assert (final.lib.hasInfix megamerge prev'.installPhase);
     {
+      pname = "sparse-noto-fonts";
+
       src = final.fetchFromGitHub {
         owner = "notofonts";
         repo = "notofonts.github.io";
         tag = "noto-monthly-release-${final'.version}";
-        hash = "sha256-FVhg+RL6Bh2+GQLs2gmp4MhEj+ZizQQVLOI5ZaYaR9o=";
+        hash = "sha256-RZqA8SFt9fxWwjXlc3uAmhWEvh28VKpMTftjKxFSylI=";
         sparseCheckout = map (variant: "fonts/${variant}/unhinted/variable-ttf") [
           "NotoSansThai"
           "NotoSerifThai"
@@ -122,21 +124,6 @@ final: prev: {
       }
     );
   };
-
-  papirus-icon-theme = prev.papirus-icon-theme.overrideAttrs (
-    _: prev':
-    assert prev'.version == "20250501"; # wait release
-    {
-      version = "git";
-
-      src = final.fetchFromGitHub {
-        owner = "PapirusDevelopmentTeam";
-        repo = "papirus-icon-theme";
-        rev = "3aa364b35784ccf5f38e52081f92839ce6ab67a1";
-        hash = "sha256-SsXrk5KSy4RU5KZioNAr3Z1mioSIMe2dOy9oN+1Akew=";
-      };
-    }
-  );
 
   _7zz = final.symlinkJoin {
     name = "7z";
@@ -213,10 +200,7 @@ final: prev: {
     };
 
   fluent-gtk-theme = prev.fluent-gtk-theme.override {
-    themeVariants = [
-      "purple"
-      "grey"
-    ];
+    themeVariants = [ "purple" ];
     sizeVariants = [ "standard" ];
     tweaks = [ "blur" ];
   };

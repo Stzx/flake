@@ -90,6 +90,7 @@
               alsa-firmware
               sof-firmware
             ];
+            # rasdaemon.enable = lib.mkDefault true;
           };
         }
 

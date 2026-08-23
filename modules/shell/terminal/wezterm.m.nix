@@ -48,8 +48,8 @@
             opt.tab_bar_at_bottom = true
             opt.enable_scroll_bar = true
 
-            opt.window_background_opacity = 0.90
-            opt.kde_window_background_blur = true
+            opt.window_background_opacity = 0.80
+            opt.wayland_window_background_blur = true
 
             -- opt.hyperlink_rules = wezterm.default_hyperlink_rules()
 

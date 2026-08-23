@@ -30,7 +30,7 @@ in
   ];
 
   nixpkgs.overlays = [
-    (import ./overlays.nix { inherit lib wmCfg; })
+    (import ./overlays.nix { inherit self lib wmCfg; })
   ];
 
   environment.systemPackages = with pkgs; [

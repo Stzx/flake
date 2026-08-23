@@ -16,6 +16,7 @@ in
     home.packages = with pkgs; [
       fuse-archive
       fuse-avfs # original name: avfs
+      # dwarfs
 
       bat
       numbat

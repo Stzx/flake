@@ -10,7 +10,7 @@
     qpwgraph
 
     calibre
-    librecad
+    # librecad
     libreoffice
 
     qbittorrent

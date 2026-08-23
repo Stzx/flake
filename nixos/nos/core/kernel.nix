@@ -13,6 +13,8 @@ let
   needIkconfig = scxScheduler == "scx_flash" || scxScheduler == "scx_lavd";
 in
 {
+  # environment.memoryAllocator.provider = "mimalloc";
+
   environment.systemPackages = [
     pkgs.sbctl # lanzaboote
   ];

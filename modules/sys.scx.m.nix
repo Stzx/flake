@@ -16,15 +16,10 @@
         scx_bpfland = [
           # "--local-pcpu"
           # "--local-kthreads"
-          # "--sticky-tasks"
           "--cpufreq"
         ];
 
         scx_flash = [
-          # "--local-pcpu"
-          # "--local-kthreads"
-          # "--sticky-cpu"
-          # "--direct-dispatch"
           "--cpufreq"
         ];
 

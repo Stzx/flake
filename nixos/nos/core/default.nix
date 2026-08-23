@@ -8,12 +8,14 @@
   imports = [ ./kernel.nix ];
 
   environment.sessionVariables = {
-    # RADV_PERFTEST = "cswave32,gewave32,pswave32,sam,nggc,dccmsaa,localbos,nircache,lowlatencydec,lowlatencyenc";
-    RADV_EXPERIMENTAL = "heap";
+    # RADV_PERFTEST = "lowlatencydec,lowlatencyenc";
+    # RADV_EXPERIMENTAL = "";
     # RADV_DEBUG = "startup,info";
   };
 
   zramSwap.enable = true;
+
+  # services.kmscon.enable = false;
 
   services.scx = {
     enable = true;

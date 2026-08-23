@@ -1,21 +1,18 @@
 {
-  lib,
+  self,
   wmCfg,
   ...
 }:
 
 let
-  rustFlags' = _: prev: {
-    env = (prev.env or { }) // {
-      NIX_RUSTFLAGS = builtins.toString (
-        (prev.env.NIX_RUSTFLAGS or [ ])
-        ++ [
-          "-C target-cpu=x86-64-v3"
-          "-C codegen-units=1"
-        ]
-      );
-    };
-  };
+  rustFlags' =
+    _: prev:
+    self.lib.mergeEnv {
+      RUSTFLAGS = [
+        "-C target-cpu=x86-64-v3"
+        "-C codegen-units=1"
+      ];
+    } prev;
 in
 (final: prev: {
   linuxManualConfig = prev.linuxManualConfig.override rec {
