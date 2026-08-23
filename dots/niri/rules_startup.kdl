@@ -4,12 +4,12 @@ window-rule {
     match app-id=r#"^(?-x:org|com)\.(?-x:wezfurlong|mitchellh)\.(?-x:wezterm|ghostty)$"# at-startup=true
 
     open-on-workspace "terminal"
-    open-maximized-to-edges true
+    open-maximized true
 }
 
 window-rule {
     match app-id="^firefox$" at-startup=true
 
     open-on-workspace "sea"
-    open-maximized-to-edges true
+    open-maximized true
 }

@@ -1,5 +1,21 @@
 // non-floating
 window-rule {
+    match app-id=r#"steam"#
+
+    exclude title="^notificationtoasts"
+
+    open-focused true
+    open-maximized true
+}
+
+window-rule {
+    match app-id=r#"^(?x:steam_app_2694490|pathofexilesteam.exe)$"#
+
+    open-focused true
+    open-fullscreen true
+}
+
+window-rule {
     match app-id="spotify"
     match app-id="^net-globalquake-client-main-Main$" title="^GlobalQuake"
 
@@ -21,7 +37,7 @@ window-rule {
 
 window-rule {
     match app-id=r#"^org\.(?-x:qbittorrent|prismlauncher)\.(?-x:qBittorrent|PrismLauncher)$"#
-    match app-id="^steam$"
+    match app-id=r#"steam"#
 
     exclude app-id=r#"^org\.qbittorrent\.qBittorrent$"# title="^(?-x:Preferences|Rename|Renaming)$"
 
@@ -48,6 +64,7 @@ window-rule {
 window-rule {
     match app-id=r#"^(?-x:org|com)\.(?-x:keepassxc|obsproject)\.(?-x:KeePassXC|Studio)$"#
     match app-id="^veracrypt$"
+    match app-id="boincmgr"
 
     block-out-from "screen-capture"
 
