@@ -73,10 +73,10 @@ let
     #   suffix = "SC-TTF.7z";
     #   desc = "TrueType";
     # };
-    # vf-otf = {
-    #   suffix = "SCVF.otf";
-    #   desc = "variable OpenType";
-    # };
+    vf-otf = {
+      suffix = "SCVF.otf";
+      desc = "variable OpenType";
+    };
     # vf-ttf = {
     #   suffix = "SCVF.ttf";
     #   desc = "variable TrueType";

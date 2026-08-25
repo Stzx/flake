@@ -1,5 +1,8 @@
 {
   "WenYuanRoundedSC-OTF.7z": "sha256-GJch4kf7Am55nTo/HSKmbUzskJJY8lSMEXuff3JFdOc=",
   "WenYuanSansSC-OTF.7z": "sha256-7zO1O1WH8GF9oEIBKwRU/5FuQX4aFfNtbWS9DOuCXfg=",
-  "WenYuanSerifSC-OTF.7z": "sha256-r3YvT2l3Pt+AHmmVJdeTU/tHafDGPRDULxOS/ptlkRc="
+  "WenYuanSerifSC-OTF.7z": "sha256-r3YvT2l3Pt+AHmmVJdeTU/tHafDGPRDULxOS/ptlkRc=",
+  "WenYuanRoundedSCVF.otf": "sha256-qaLAZvmYLbZJUZzh1Q5Z4ekwjz3S935avLWTovG+80A=",
+  "WenYuanSansSCVF.otf": "sha256-YHZMnYvDz7dHK9yk9i4susqe1w1R2HWMUNlsfIQLPIU=",
+  "WenYuanSerifSCVF.otf": "sha256-ZOZaAKZvVPjkGR55xN2xy+V0cfNOSNi0Uk3XD4NnsBw="
 }
