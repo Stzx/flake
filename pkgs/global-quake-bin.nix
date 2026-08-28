@@ -45,12 +45,12 @@ in
 stdenvNoCC.mkDerivation (finalAttrs: rec {
   pname = "global-quake-bin";
 
-  version = "1.1.1";
+  version = "1.1.2";
 
   src = requireFile rec {
     name = "GlobalQuake-${version}.zip";
     url = "https://files.globalquake.net/${name}";
-    hash = "sha256-81pRaivDkF0a9T8H11a2I6+MNmUoJZPGdldQAbtPCiU="; # nix hash file
+    hash = "sha256-e4EcEJ3DdBhb9lwHtheCQr7d0D536RrgicrDvR4qTiA="; # nix hash file
   };
 
   sourceRoot = "./";
