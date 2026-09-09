@@ -11,10 +11,10 @@
         programs.ghostty = {
           settings = {
             font-family = [
-              "Sarasa Term Slab SC"
-              "Sarasa Term Slab TC"
-              "Sarasa Term Slab J"
-              "Sarasa Term Slab K"
+              "Maple Mono CN"
+              "Maple Mono TC"
+              "Maple Mono JP"
+              "Maple Mono KR"
 
               "Symbols Nerd Font Mono"
             ];

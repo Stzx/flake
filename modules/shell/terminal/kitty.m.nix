@@ -15,7 +15,7 @@
         programs.kitty = {
           themeFile = "Monokai";
           extraConfig = ''
-            font_family Sarasa Term Slab SC
+            font_family Maple Mono CN
 
             background_opacity 0.8
             background_blur 128

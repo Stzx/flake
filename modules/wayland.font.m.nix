@@ -5,23 +5,18 @@
     let
       inherit (lib) mkDefault;
 
-      concatStrings = lib.concatMapStringsSep "\n";
-
       fontMatch =
         lang: family: fonts:
 
-        if (fonts != [ ]) then
-          ''
-            <match>
+        lib.optionalString (fonts != [ ]) ''
+          <match>
             <test name="lang"><string>${lang}</string></test>
             <test name="family"><string>${family}</string></test>
-              <edit name="family" mode="prepend" binding="same">
-            ${concatStrings (f: "<string>${f}</string>") fonts}
-              </edit>
-            </match>
-          ''
-        else
-          "";
+            <edit name="family" mode="prepend" binding="same">
+              ${lib.concatMapStrings (f: "<string>${f}</string>") fonts}
+            </edit>
+          </match>
+        '';
 
       matchesByLang =
         lang: sansSerif: serif: mono:
@@ -40,13 +35,22 @@
           # source-han-sans
           # source-han-mono
 
-          monaspace.variable
+          # monaspace.variable
           # comic-mono
-          # victor-mono
-          maple-mono.CN-unhinted
+          # # victor-mono
+          # iosevka
+
+          custom-release-maple-mono.CN-unhinted
+          custom-release-maple-mono.TC-unhinted
+          custom-release-maple-mono.JP-unhinted
+          custom-release-maple-mono.KR-unhinted
+
+          wen-yuan-fonts.rounded-otf
+          wen-yuan-fonts.serif-otf
 
           # lxgw-wenkai
           # lxgw-wenkai-tc
+          lxgw-wenkai-screen
 
           # Gothic, UI = Inter
           #   Quotes (“”) are full width —— Gothic
@@ -66,7 +70,7 @@
           # Orthography dimension
           #   CL: Classical orthography
           #   SC, TC, J, K, HC: Regional orthography, following Source Han Sans notations.
-          sarasa-gothic-unhinted
+          # sarasa-gothic-unhinted
 
           sparse-noto-fonts
           # noto-fonts-cjk-serif
@@ -80,20 +84,20 @@
           includeUserConf = mkDefault false;
           hinting.enable = mkDefault false;
           defaultFonts = lib.mkForce {
-            sansSerif = [ "Sarasa Gothic SC" ];
-            serif = [ "Sarasa Fixed Slab SC" ];
-            monospace = [ "Sarasa Mono SC" ];
+            sansSerif = [ "WenYuan Rounded SC" ];
+            serif = [ "WenYuan Serif SC" ];
+            monospace = [ "Maple Mono CN" ];
             emoji = [ "Noto Color Emoji" ];
           };
           localConf = ''
             <?xml version="1.0" encoding="UTF-8"?>
             <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
             <fontconfig>
-            ${matchesByLang "zh-hk" [ "Sarasa Gothic HC" ] [ "Sarasa Fixed Slab HC" ] [ "Sarasa Mono HC" ]}
-            ${matchesByLang "zh-tw" [ "Sarasa Gothic TC" ] [ "Sarasa Fixed Slab TC" ] [ "Sarasa Mono TC" ]}
+            ${matchesByLang "zh-hk" [ ] [ ] [ "Maple Mono TC" ]}
+            ${matchesByLang "zh-tw" [ ] [ ] [ "Maple Mono TC" ]}
 
-            ${matchesByLang "ja" [ "Sarasa Gothic J" ] [ "Sarasa Fixed Slab J" ] [ "Sarasa Mono J" ]}
-            ${matchesByLang "ko" [ "Sarasa Gothic K" ] [ "Sarasa Fixed Slab K" ] [ "Sarasa Mono K" ]}
+            ${matchesByLang "ja" [ ] [ ] [ "Maple Mono JP" ]}
+            ${matchesByLang "ko" [ ] [ ] [ "Maple Mono KR" ]}
             </fontconfig>
           '';
         };

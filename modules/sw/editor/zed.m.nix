@@ -9,15 +9,15 @@
       config = lib.mkIf cfg.enable {
         programs.zed-editor.userSettings = {
           ui_font_size = 16;
-          ui_font_family = "Monaspace Radon Var";
-          ui_font_fallbacks = [ "Symbols Nerd Font Mono" ];
+          ui_font_family = "LXGW WenKai Screen";
+          ui_font_fallbacks = [ "Symbols Nerd Font" ];
 
           buffer_font_size = 15;
-          buffer_font_family = "Sarasa Mono SC";
+          buffer_font_family = "Maple Mono CN";
           buffer_font_fallbacks = [
-            "Sarasa Mono TC"
-            "Sarasa Mono J"
-            "Sarasa Mono K"
+            "Maple Mono TC"
+            "Maple Mono JP"
+            "Maple Mono KR"
             "Symbols Nerd Font Mono"
           ];
 
@@ -77,11 +77,11 @@
           terminal = {
             dock = "right";
             font_size = 15;
-            font_family = "Sarasa Term Slab SC";
+            font_family = "Maple Mono CN";
             font_fallbacks = [
-              "Sarasa Term Slab TC"
-              "Sarasa Term Slab J"
-              "Sarasa Term Slab K"
+              "Maple Mono TC"
+              "Maple Mono JP"
+              "Maple Mono KR"
               "Symbols Nerd Font Mono"
             ];
             toolbar = {

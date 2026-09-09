@@ -21,7 +21,7 @@
       config = lib.mkIf cfg.enable {
         programs.fuzzel.settings = {
           main = {
-            font = "Monaspace Radon Var";
+            font = "LXGW WenKai Screen";
             icon-theme = config.gtk.iconTheme.name;
 
             hide-prompt = true;

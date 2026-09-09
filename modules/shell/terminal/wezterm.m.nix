@@ -34,10 +34,10 @@
 
             opt.font_size = 11
             opt.font = wezterm.font_with_fallback {
-                'Sarasa Term Slab SC',
-                'Sarasa Term Slab TC',
-                'Sarasa Term Slab J',
-                'Sarasa Term Slab K',
+                'Maple Mono CN',
+                'Maple Mono TC',
+                'Maple Mono JP',
+                'Maple Mono KR',
                 'Symbols Nerd Font Mono',
             }
 

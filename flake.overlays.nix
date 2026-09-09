@@ -86,7 +86,7 @@ final: prev: {
         owner = "notofonts";
         repo = "notofonts.github.io";
         tag = "noto-monthly-release-${final'.version}";
-        hash = "sha256-RZqA8SFt9fxWwjXlc3uAmhWEvh28VKpMTftjKxFSylI=";
+        hash = "sha256-W1Y7s5KN3NaN1kJwa+GfoinWzDmBmA/k9qa5nGJxMvg=";
         sparseCheckout = map (variant: "fonts/${variant}/unhinted/variable-ttf") [
           "NotoSansThai"
           "NotoSerifThai"
@@ -100,17 +100,17 @@ final: prev: {
   );
 
   monaspace = prev.monaspace // {
-    # static = prev.monaspace.static.overrideAttrs (
-    #   _: _: {
-    #     installPhase = ''
-    #       runHook preInstall
+    static = prev.monaspace.static.overrideAttrs (
+      _: _: {
+        installPhase = ''
+          runHook preInstall
 
-    #       install -Dm644 -t $out/share/fonts/opentype ./Monaspace\ {Neon,Radon}/*.otf
+          install -Dm644 -t $out/share/fonts/opentype ./Monaspace\ {Neon,Radon}/*.otf
 
-    #       runHook postInstall
-    #     '';
-    #   }
-    # );
+          runHook postInstall
+        '';
+      }
+    );
 
     variable = prev.monaspace.variable.overrideAttrs (
       _: _: {

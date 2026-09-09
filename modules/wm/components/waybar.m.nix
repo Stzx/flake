@@ -19,15 +19,12 @@
       wmCfg = sysCfg.wm;
 
       iconSize = 24;
-      fontSize = 13;
 
       # only the font property can be used with px
       nerd' = symbol: "<span font=\"Symbols Nerd Font Mono ${toString iconSize}px\">${symbol}</span>";
 
       # comma is important
-      var' =
-        text:
-        "<span font=\"Vector Mono, Oblique Medium ${toString fontSize}px\" rise=\"-1pt\">${text}</span>";
+      var' = text: "<span font_style=\"italic\" rise=\"-1pt\">${text}</span>";
 
       nerd = symbol: var: "${nerd' symbol} ${var' var}";
     in
@@ -187,13 +184,15 @@
             /* Tailwind */
             @define-color theme-color #4D179A;
 
+            /* https://docs.gtk.org/Pango/pango_markup.html */
             * {
               border: unset;
               border-radius: 0;
 
               margin: 0;
 
-              font-family: "Sarasa UI SC", "Sarasa UI TC", "Sarasa UI J", "Sarasa UI K", sans-serif;
+              font-family: "LXGW WenKai Screen", sans-serif;
+              font-weight: bold;
               font-size: 14px;
             }
 
