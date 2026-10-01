@@ -32,7 +32,7 @@
     ACTION=="add", KERNEL=="card0", SUBSYSTEM=="drm", RUN+="${lib.getExe pkgs.bash} -c 'echo 333000000 | tee %S%p/device/hwmon/hwmon*/power*_cap'"
   '';
 
-  services.journald.extraConfig = ''
-    MaxRetentionSec=1week
-  '';
+  services.journald.settings.Journal = {
+    MaxRetentionSec = "1week";
+  };
 }

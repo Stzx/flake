@@ -8,6 +8,7 @@
       environment.systemPackages = with pkgs; [
         lsb-release
 
+        witr
         lsof
         file
 

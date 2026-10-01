@@ -15,7 +15,6 @@
 
     qbittorrent
     telegram-desktop
-    spotify
 
     veracrypt
     keepassxc

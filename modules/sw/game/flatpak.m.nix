@@ -9,17 +9,20 @@
 
     # GAME
     # ? org.freedesktop.Platform.VulkanLayer.gamescope
-    # org.freedesktop.Platform.VulkanLayer.MangoHud
+    # ✓ org.freedesktop.Platform.VulkanLayer.MangoHud
     #
-    # com.valvesoftware.Steam
-    # com.valvesoftware.Steam.CompatibilityTool.Proton-GE
+    # ✔ com.valvesoftware.Steam
+    # ✔ com.valvesoftware.Steam.CompatibilityTool.Proton-GE
     #
-    # com.github.Matoking.protontricks
-    # com.vysp3r.ProtonPlus
+    # ✔ com.github.Matoking.protontricks
+    # ? com.vysp3r.ProtonPlus
     #
-    # org.prismlauncher.PrismLauncher
+    # ✔ org.prismlauncher.PrismLauncher
     #
-    # org.gnome.Mahjongg
+    # ? org.gnome.Mahjongg
+    #
+    # ✔ com.spotify.Client
+    # ✔ org.flameshot.Flameshot
     #
     # flatpak override --user \
     # --env=PRISMLAUNCHER_JAVA_PATHS=$JAVA_HOME/bin/java \
@@ -43,7 +46,7 @@
       # > MANGOHUD
       # Use `MANGOHUD_CONFIGFILE` to prevent infinite recursion
 
-      font' = "${pkgs.monaspace.variable}/share/fonts/truetype/Monaspace Radon Var.ttf";
+      font' = "${pkgs.custom-release-maple-mono.CN-unhinted}/share/fonts/truetype/MapleMono-CN-Italic.ttf";
 
       # MangoHud/MangoHud.conf
       mangohud' = pkgs.writeText "MangoHud.conf" ''
@@ -99,9 +102,9 @@
     in
     {
       config = lib.mkIf sysCfg.services.flatpak.enable {
-        home.sessionVariables = {
-          FLATPAK_GL_DRIVERS = "mesa-git";
-        };
+        # home.sessionVariables = {
+        #   FLATPAK_GL_DRIVERS = "mesa-git";
+        # };
 
         xdg.dataFile = {
           # flatpak override --user \

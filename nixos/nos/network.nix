@@ -29,7 +29,6 @@
     };
   };
 
-  environment.etc."systemd/networkd.conf".enable = lib.mkDefault false;
   systemd.network = {
     enable = true;
     networks = {

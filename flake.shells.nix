@@ -85,17 +85,27 @@ in
   wrt = mkShell (
     {
       packages = with pkgs; [
-        wget
+        bzip2
+        gnutar
+        gzip
         unzip
+
+        wget
+        rsync
+
+        git
+
         uftpd
         # minicom # prefer wezterm serial
 
         binwalk
         ubootTools
         mtk-uartboot
+      ];
 
-        git
-
+      nativeBuildInputs = with pkgs; [
+        perl
+        gnumake
         pkg-config
 
         (python3.withPackages (ps: [ ps.setuptools ]))
@@ -106,6 +116,10 @@ in
       buildInputs = [ pkgs.ncurses ];
 
       hardeningDisable = [ "all" ];
+
+      shellHook = ''
+        unset AS AR LD
+      '';
     }
     // mirror'
   );

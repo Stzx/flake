@@ -80,7 +80,7 @@
             };
 
             memory = {
-              format = nerd "󱅗" "{used} + {swapUsed} GiB / {total} + {swapTotal} GiB"; # nf-md-paper_roll, nf-fa-memory
+              format = nerd "󱅗" "{used:0.1f} + {swapUsed:0.1f} / {total:0.1f} + {swapTotal:0.1f} GiB"; # nf-md-paper_roll, nf-fa-memory
             };
 
             network = {

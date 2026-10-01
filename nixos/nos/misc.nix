@@ -72,5 +72,5 @@ in
 
   virtualisation.docker.enable = false;
 
-  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd.enable = false;
 }
