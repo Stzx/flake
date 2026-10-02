@@ -18,7 +18,7 @@ let
     }:
     stdenvNoCC.mkDerivation rec {
       inherit pname;
-      version = "1788611750"; # 8.0-beta.2
+      version = "1790864877"; # 8.0-beta.3
       src = fetchurl {
         url = "https://github.com/Stzx/Maple-font/releases/download/v${version}/${pname}.zip";
         inherit hash;
