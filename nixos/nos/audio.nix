@@ -86,7 +86,7 @@ in
             ];
             "default.clock.quantum" = 256;
             "default.clock.quantum-limit" = 1024;
-            "default.clock.min-quantum" = 128;
+            "default.clock.min-quantum" = 256;
             "default.clock.max-quantum" = 1024;
 
             "module.x11.bell" = false;
@@ -98,8 +98,8 @@ in
         "99-hw" = {
           "pulse.properties" = {
             "pulse.default.req" = "256/48000";
-            "pulse.min.req" = "128/48000";
-            "pulse.min.quantum" = "128/48000";
+            "pulse.min.req" = "256/48000";
+            "pulse.min.quantum" = "256/48000";
           };
         };
       };

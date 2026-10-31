@@ -75,7 +75,7 @@
           };
           profiles = {
             "unscaled" = {
-              profile-cond = "p['video-params/h'] <= 1080";
+              profile-cond = "p['video-params/h'] > 480 and p['video-params/h'] <= 1080";
               profile = "high-quality";
               video-unscaled = true;
             };

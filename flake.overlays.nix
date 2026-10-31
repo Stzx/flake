@@ -50,9 +50,7 @@ final: prev: {
 
   scx = prev.scx // {
     rustscheds = prev.scx.rustscheds.overrideAttrs (
-      _: prev':
-      assert prev'.postInstall == "rm $out/bin/{scx_arena_selftests,vmlinux_docify,xtask}\n";
-      {
+      _: prev': {
         postInstall = "";
 
         cargoBuildFlags = (prev'.cargoBuildFlags or [ ]) ++ [
@@ -86,7 +84,7 @@ final: prev: {
         owner = "notofonts";
         repo = "notofonts.github.io";
         tag = "noto-monthly-release-${final'.version}";
-        hash = "sha256-W1Y7s5KN3NaN1kJwa+GfoinWzDmBmA/k9qa5nGJxMvg=";
+        hash = "sha256-sfqiB46Mk09qL8E9Yh+Lbl/2sR+3ibTngUdAUCS9X7M=";
         sparseCheckout = map (variant: "fonts/${variant}/unhinted/variable-ttf") [
           "NotoSansThai"
           "NotoSerifThai"
@@ -125,11 +123,9 @@ final: prev: {
     );
   };
 
-  _7zz = final.symlinkJoin {
-    name = "7z";
-    paths = [ prev._7zz ];
-    postBuild = ''
-      ln -s ${prev._7zz}/bin/7zz $out/bin/7z
+  _7zz = (prev._7zz.override { enableUnfree = true; }).overrideAttrs {
+    postInstall = ''
+      ln -sf $out/bin/7zz $out/bin/7z
     '';
   };
 

@@ -17,13 +17,7 @@
 
   # services.kmscon.enable = false;
 
-  services.scx = {
-    enable = true;
-    # FIXME, TRACK: https://github.com/NixOS/nixpkgs/pull/453196
-    userArgs = [
-      "--per-cpu-dsq"
-    ];
-  };
+  services.scx-loader.enable = true;
 
   # ACTION=="add", KERNEL=="0000:08:00.0", SUBSYSTEM=="pci", ATTR{remove}="1"
   # KERNEL=="ttyUSB[0-9]", SUBSYSTEM=="tty", MODE="0666"

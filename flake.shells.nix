@@ -154,6 +154,7 @@ in
 
       exiftool
       mediainfo
+      cdrkit
     ];
   };
 

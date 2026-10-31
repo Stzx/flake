@@ -34,6 +34,8 @@ in
   # https://wiki.gentoo.org/wiki/AMDGPU#Firmware_blobs_for_a_known_card_model
   linux-firmware = prev.linux-firmware.overrideAttrs {
     postInstall = ''
+      find $out/lib/firmware/{nvidia,ath*k,qcom,mellanox,intel/iwlwifi} -type f -exec truncate -s 0 {} +
+
       find $out/lib/firmware/amdgpu -type f ! \( \
       -name 'sienna_cichlid_*.bin' \
       -o -name 'beige_goby_dmcub.bin' \

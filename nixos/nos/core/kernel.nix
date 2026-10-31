@@ -8,7 +8,7 @@
 let
   inherit (lib) mkForce;
 
-  scxScheduler = config.services.scx.scheduler;
+  scxScheduler = config.services.scx-loader.config.default_sched;
 
   needIkconfig = scxScheduler == "scx_flash" || scxScheduler == "scx_lavd";
 in

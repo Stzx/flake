@@ -1,44 +1,32 @@
 {
   sys =
     {
-      pkgs,
       lib,
       config,
       ...
     }:
 
     let
-      inherit (lib) mkDefault;
+      cfg = config.services.scx-loader;
 
-      cfg = config.services.scx;
-
-      args = {
-        scx_bpfland = [
-          # "--local-pcpu"
-          # "--local-kthreads"
-          "--cpufreq"
-        ];
-
-        scx_flash = [
-          "--cpufreq"
-        ];
-
-        scx_lavd = [ ];
+      scheds = {
+        scx_lavd = {
+          auto_mode = [ "--per-cpu-dsq" ];
+          gaming_mode = [
+            "--performance"
+            "--per-cpu-dsq"
+          ];
+        };
       };
     in
     {
-      options = {
-        services.scx.userArgs = lib.mkOption {
-          type = lib.types.listOf lib.types.singleLineStr;
-          default = [ ];
-        };
-      };
-
       config = lib.mkIf cfg.enable {
-        services.scx = {
-          package = mkDefault pkgs.scx.rustscheds;
-          scheduler = mkDefault "scx_lavd";
-          extraArgs = (args."${cfg.scheduler}" or [ ]) ++ cfg.userArgs;
+        # https://github.com/sched-ext/scx-loader/blob/main/crates/scx_loader/configuration.md
+        services.scx-loader.config = {
+          inherit scheds;
+
+          default_sched = "scx_lavd";
+          default_mode = "Auto";
         };
       };
     };
