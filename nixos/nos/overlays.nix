@@ -97,7 +97,11 @@ in
           }
         );
 
-      fcitx5-with-addons = ps.fcitx5-with-addons.override { inherit fcitx5-configtool; };
+      fcitx5-with-addons = ps.fcitx5-with-addons.override {
+        inherit fcitx5-configtool;
+
+        libsForQt5.fcitx5-qt = final.emptyDirectory;
+      };
     }
   );
 
