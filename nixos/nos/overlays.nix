@@ -139,8 +139,7 @@ in
   };
 
   keepassxc = prev.keepassxc.override {
-    withKeePassFDOSecrets = false;
-    withKeePassKeeShare = false;
+    withKeePassDocs = false;
     withKeePassNetworking = false;
     withKeePassX11 = false;
   };
